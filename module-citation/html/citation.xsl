@@ -8,6 +8,16 @@
    <xsl:text>] </xsl:text> 
 </xsl:template>
 
+<xsl:template match="citation" mode="blockquotecitation">
+  <tr>
+    <td width="15%"></td>
+    <td width="70%" class="blockquotecitation">
+      <xsl:apply-templates/>
+    </td>
+  <td width="15%"></td>
+  </tr>
+</xsl:template>
+
 <xsl:template match="citation/@label">
   <xsl:text>[</xsl:text>
   <xsl:value-of select="."/>

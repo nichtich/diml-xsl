@@ -28,7 +28,15 @@
     </tr>
   </xsl:template>
 
-
+    <xsl:template match="caption" mode="blockquotecaption">
+    <tr>
+      <td width="15%"></td>
+      <td width="70%" class="blockquotecaption">
+         <xsl:apply-templates/>
+      </td>
+    <td width="15%"></td>
+    </tr>
+  </xsl:template>
 
 </xsl:stylesheet>
 

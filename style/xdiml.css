@@ -22,21 +22,17 @@ body {
          margin-right: 0.5cm;
      }
      
-p {
+p,td {
          font-family: Helvetica, Arial;
          font-style: normal;   
          font-size: small;
          text-align: left;
-  }
+}
   
 span.pagenumber {
          color: red;
          font-size: xx-small;
   }
-  
-blockquote {
-         font-family: monospace;
-}
   
 sup.footnotelabel {
   color:green;
@@ -272,6 +268,46 @@ table.calstable {
          margin:0px;
          align:center;
          background-color:#F9F9F9;
+}
+
+table.blockquote {
+         border-spacing:0px;
+         padding:0px;
+         border:none;
+         margin:0px;
+         align:center;
+}
+
+td.blockquotebody {
+         padding:6px;
+         border:0px;
+         margin-top:6px;
+         margin-bottom:6px;
+         margin-left:6px;
+         margin-right:6px;
+         background-color:#F9F9F9;
+}
+
+td.blockquotecaption {
+         background-color:#E0E0E0;
+         padding:6px;
+         border:0px;
+         margin-top:6px;
+         margin-bottom:0px;
+         margin-left:0px;
+         margin-right:0px;
+         font-weight: bold;
+}
+
+td.blockquotecitation {
+         background-color:#E0E0E0;
+         padding:6px;
+         border:0px;
+         margin-top:0px;
+         margin-bottom:6px;
+         margin-left:0px;
+         margin-right:0px;
+         font-size: x-small;
 }
 
 p.dmathimath  {

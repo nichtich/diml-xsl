@@ -17,7 +17,7 @@
       <xsl:apply-templates select="head"/>
     </xsl:when>
     <xsl:otherwise>
-      <xsl:value-of select="$VOCABLES/declaration/@*[name()=$lang]" /><xsl:text>: </xsl:text>
+      <xsl:value-of select="$VOCABLES/declaration/@*[name()=$LANG]" /><xsl:text>: </xsl:text>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:template>

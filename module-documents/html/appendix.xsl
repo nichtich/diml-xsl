@@ -7,7 +7,7 @@
       <xsl:apply-templates select="head"/>
     </xsl:when>
     <xsl:otherwise>
-      <xsl:value-of select="$VOCABLES/appendix/@*[name()=$lang]" />
+      <xsl:value-of select="$VOCABLES/appendix/@*[name()=$LANG]" />
       <xsl:text>Anhang</xsl:text>
     </xsl:otherwise>
   </xsl:choose>

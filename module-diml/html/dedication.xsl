@@ -14,7 +14,7 @@
       <H3><xsl:apply-templates select="head"/></H3>
     </xsl:when>
     <xsl:otherwise>
-      <H3><xsl:value-of select="$VOCABLES/dedication/@*[name()=$lang]" /><xsl:text>: </xsl:text></H3>
+      <H3><xsl:value-of select="$VOCABLES/dedication/@*[name()=$LANG]" /><xsl:text>: </xsl:text></H3>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:template>

@@ -202,8 +202,8 @@ public class DiMLTransform extends XMLReading {
   public void action(String[] args) throws Exception {
     try {
     resultDir = new File(".");
-    resultDirHTML = new File("./html/");
-    resultDirHACKED = new File("./hacked/");
+    resultDirHTML = new File("html");
+    resultDirHACKED = new File("hacked");
 
     DIMLXSL = System.getProperty("DIMLXSL","..");
     configFile = new File(System.getProperty("DIMLXSLCONFIG","config.xml"));
@@ -222,15 +222,15 @@ public class DiMLTransform extends XMLReading {
       if (!resultDirHTML.exists()) resultDir.mkdirs();
       if (!resultDirHACKED.exists()) resultDir.mkdirs();
       if (!resultDir.isDirectory()) {
-        message("unable to create output directory: "+resultDir);
+        message("unable to create result output directory: " + resultDir);
         return;
       }  
       if (!resultDirHTML.isDirectory()) {
-        message("unable to create output directory: "+resultDirHTML);
+        message("unable to create HTML output directory: " + resultDirHTML);
         return;
       }  
       if (!resultDirHACKED.isDirectory()) {
-        message("unable to create output directory: "+resultDirHACKED);
+        message("unable to create HACKED output directory: " + resultDirHACKED);
         return;
       }  
 

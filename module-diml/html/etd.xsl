@@ -19,7 +19,7 @@
       <xsl:if test="$CSS-STYLESHEET">      
         <link rel="stylesheet" type="text/css" href="{$CSS-STYLESHEET}"/>
       </xsl:if>
-      <xsl:apply-templates mode="html-head"/>     
+      <xsl:apply-templates mode="html-head"/>
     </head>
     <body>
       <xsl:apply-templates/>

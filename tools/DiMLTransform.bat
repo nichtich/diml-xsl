@@ -1,11 +1,12 @@
 @echo off
+set JAVA_HOME=C:\Programme\j2sdk1.4.2_04
 rem Guess DIMLXSL if not defined
 if not "%DIMLXSL%" == "" goto checkHTMLDir
 echo DIMLXSL not set - using ..
 set DIMLXSL=..
 
 :checkHTMLDir
-if exist "html" goto delHTMLs
+if exist "html\nul" goto delHTMLs
 :makeHTMLDir
   echo Directory html does not exist, creating directory html
   mkdir html
@@ -18,20 +19,20 @@ if exist "html" goto delHTMLs
   goto checkHACKEDDir
 
 :checkHACKEDDir
-if exist "hacked" goto delHACKEDs
+if exist "hacked\nul" goto delHACKEDs
 :makeHACKEDDir
   echo Directory hacked does not exist, creating directory hacked
   mkdir hacked
-  goto checkHome
+  goto gotHome
 :delHACKEDs
   echo Directory hacked exists, removing .xml files
   cd hacked
   del *.xml
   cd ..
-  goto checkHome
-
+  goto gotHome
 
 :gotHome
+
 if exist "%DIMLXSL%\tools\DiMLTransform.bat" goto okHome
 echo The DIMLXSL environment variable is not defined correctly
 echo This environment variable is needed to run this program

@@ -1,5 +1,6 @@
 <!-- example from DocBook TDG -->
-<!--table frame='all'>
+
+<table frame='all'>
   <caption>Sample Table</caption>
   <legend>Legend for Table - #1</legend>
   <legend>Legend for Table - #2</legend>
@@ -48,10 +49,10 @@
 </tgroup>
   <legend>Legend for Table - #3</legend>
   <legend>Legend for Table - #4</legend>
-</table-->
+</table>
 
 
-<!--table>
+<table>
  <tgroup cols="5">
   <colspec colname="3" colnum="3"/>  
   <colspec colname="5" colnum="5"/>  
@@ -63,14 +64,16 @@
    </row>
    <row>
     <entry><p>1b</p></entry>
-    <entry><p>2b</p></entry>
+    <entry><p>2b<pagenumber numbering="arabic" label="452" start="452" id="p452"/></p></entry>
     <entry><p>3b</p></entry>
     <entry><p>4b</p></entry>
     <entry><p>5b</p></entry>
    </row>
   </tbody> 
  </tgroup>
-</table-->
+</table>
+
+
 <table orient="port" frame="all">
             <tgroup cols="5">
                <colspec colname="1" colwidth="1.3cm" colnum="1"/>
@@ -96,7 +99,7 @@
                   </row>
                   <row>
                      <entry valign="top">
-                        <p>A2</p>
+                        <p><pagenumber numbering="arabic" label="453" start="453" id="p453"/>A2</p>
                      </entry>
                      <entry valign="top">
                         <p>B2</p>
@@ -116,13 +119,13 @@
                         <p>A3</p>
                      </entry>
                      <entry valign="top">
-                        <p>B3</p>
+                        <p><pagenumber numbering="arabic" label="454" start="454" id="p454"/>B3</p>
                      </entry>
                      <entry valign="top">
                         <p>D3</p>
                      </entry>
                      <entry valign="top">
-                        <p>E3</p>
+                        <p><pagenumber numbering="arabic" label="455" start="455" id="p455"/>E3</p>
                      </entry>
                   </row>
                   <row>

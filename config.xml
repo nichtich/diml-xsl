@@ -21,8 +21,8 @@
   <pagenumber before="[page&#xA0;" before2="[pages&#xA0;" between="&#xA0;-&#xA0;" after="&#8595;]" lang="en"/>
   <pagenumber before="[Seite&#xA0;" before2="[Seiten&#xA0;" between="&#xA0;-&#xA0;" after="&#8595;]" lang="de"/>
   
-  <citenumber before="&#9660;&#xA0;" before2="&#9660;&#xA0;" between="&#xA0;-&#xA0;" after="&#xA0;" lang="en"/>
-  <citenumber before="&#9660;&#xA0;" before2="&#9660;&#xA0;" between="&#xA0;-&#xA0;" after="&#xA0;" lang="de"/>
+  <citenumber before="&#9660;&#xA0;" before2="&#9660;&#xA0;" between="&#xA0;-&#xA0;" after="&#xA0;" continued="(continued)" lang="en"/>
+  <citenumber before="&#9660;&#xA0;" before2="&#9660;&#xA0;" between="&#xA0;-&#xA0;" after="&#xA0;" continued="(fortgesetzt)" lang="de"/>
   
   <pagenumberInTableAdditionalMessage text="innerhalb Tabelle&#xA0;" lang="de"/>
   <pagenumberInTableAdditionalMessage text="inside table&#xA0;" lang="en"/>
@@ -77,9 +77,10 @@
 
   <vorgelegtvonText lang="de">vorgelegt von:</vorgelegtvonText>
   <vorgelegtvonText lang="en">vorgelegt von:</vorgelegtvonText>
-
+  
   <!--== Vocables (words in different languages ==-->
   <vocables>
+  
     <!-- table of contents -->
     <toc-tables de="Tabellen" en="Tables"/>
     <toc-examples de="Beispiele" en="Examples"/>
@@ -129,6 +130,9 @@
 
     <!-- TOC -->
     <_contents de="Inhaltsverzeichnis" en="contents"/>
+    
+    <!-- misc in front -->
+    <dean de="Dekan" en="Dean" />
 
   </vocables>
 

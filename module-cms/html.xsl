@@ -23,14 +23,53 @@
   <title><xsl:value-of select="."/></title>
 </xsl:template>
 
-<xsl:template match="cms:entry[@type='rel-next']" mode="html-head">
-  <link rel="next" href="{@part}"/> <!-- TODO: get part -->
+<xsl:template match="cms:entry[@type=':start']" mode="html-head">
+  <link rel="start" href="{@part}"/>
 </xsl:template>
 
-<xsl:template match="cms:entry[@type='rel-prev']" mode="html-head">
+<xsl:template match="cms:entry[@type=':contents']" mode="html-head">
+  <link rel="contents" href="{@part}"/>
+</xsl:template>
+
+<xsl:template match="cms:entry[@type=':first']" mode="html-head">
+  <link rel="first" href="{@part}"/>
+</xsl:template>
+
+<xsl:template match="cms:entry[@type=':prev']" mode="html-head">
   <link rel="prev" href="{@part}"/>
 </xsl:template>
 
+<xsl:template match="cms:entry[@type=':next']" mode="html-head">
+  <link rel="next" href="{@part}"/>
+</xsl:template>
+
+<xsl:template match="cms:entry[@type=':last']" mode="html-head">
+  <link rel="last" href="{@part}"/>
+</xsl:template>
+
+<xsl:template match="cms:entry[@type=':glossary']" mode="html-head">
+  <link rel="glossary" href="{@part}"/>
+</xsl:template>
+
+<xsl:template match="cms:entry[@type=':appendix']" mode="html-head">
+  <link rel="appendix" href="{@part}"/>
+</xsl:template>
+
+<xsl:template match="cms:entry[@type=':copyright']" mode="html-head">
+  <link rel="copyright" href="{@part}"/>
+</xsl:template>
+
+<xsl:template match="cms:entry[@type=':author']" mode="html-head">
+  <link rel="author" href="{@part}"/>
+</xsl:template>
+
+<xsl:template match="cms:entry[@type=':help']" mode="html-head">
+  <link rel="help" href="{@part}"/>
+</xsl:template>
+
+<xsl:template match="cms:entry[@type=':search']" mode="html-head">
+  <link rel="search" href="{@part}"/>
+</xsl:template>
 
 
 <xsl:template match="cms:entry" mode="html-head"/>

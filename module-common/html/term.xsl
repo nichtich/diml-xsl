@@ -2,7 +2,7 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
   <xsl:key name="term" match="term" use="@id"/>
   
-  <!--  terms koennen per @id und @ref verbunden werden   fuer <term ref="foo"/> wird der Inhalt von      <term id="foo">...</term> angezeigt. -->
+<!--  terms koennen per @id und @ref verbunden werden   fuer <term ref="foo"/> wird der Inhalt von      <term id="foo">...</term> angezeigt. -->
   <xsl:template match="term">
     <span class="term">
       <xsl:choose>
@@ -19,7 +19,6 @@
   </xsl:template>
 
   <xsl:template name="term-content">
-    <!--xsl:variable name="ref" select="//term[@ref=current()/@id]"/-->
     <xsl:variable name="ref" select="key('term',@ref)"/>
     <xsl:choose>
       <xsl:when test="$ref">

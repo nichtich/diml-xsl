@@ -42,9 +42,14 @@
 	</xsl:element>
 </xsl:template>
 
+<xsl:template match="citation">
+</xsl:template>
 
 <xsl:template match="*">
-	<xsl:copy>	
+	<xsl:copy>
+		
+		<!--xsl:call-template name="provide-id"/-->		
+		
 		<xsl:apply-templates select="@*|node()"/>
 	</xsl:copy>
 </xsl:template>
@@ -53,6 +58,19 @@
 	<xsl:copy-of select="."/>
 </xsl:template>
 
+<!--
+ Every element that may have a 'head' should have an id-attribute
+ and pagebreaks in the head are moved in front of it.
+-->
+<!--
+<xsl:template match="&head-parents;">
+  <xsl:element name="{name()}">
+    <xsl:attribute name="id">
+      <xsl:value-of select="generate-id()"/>
+    </xsl:attribute>
+  </xsl:element>
+</xsl:template>
+-->
 
 </xsl:stylesheet>
 

@@ -13,6 +13,7 @@ import org.apache.xpath.XPathAPI;
 public class DiMLTransform extends XMLReading {
 
 	Document dimlDocument = null;
+	String cssFile = null;
 	
 	TransformerFactory tFactory = TransformerFactory.newInstance(); 
 	
@@ -118,7 +119,7 @@ public class DiMLTransform extends XMLReading {
 	     Transformer t = diml2cms.newTransformer();
 	     Source in  = new DOMSource(dimlDocument);
 	     DOMResult output = new DOMResult();
-	     t.setParameter("SELECTID",id);
+	     t.setParameter("SELECTID",id);	     
 	     t.transform(in, output);
 	     Node cmsd = output.getNode();	 
 	 
@@ -180,6 +181,7 @@ public class DiMLTransform extends XMLReading {
 	 throws TransformerConfigurationException, TransformerException {
 	  message("transforming "+resultFile);      		
 	  Transformer transformer = templates.newTransformer();
+	  if(cssFile!=null) transformer.setParameter("CSS-STYLESHEET",cssFile);
 	  Source input  = new DOMSource(node);
 	  Result output = new StreamResult(resultFile);
 	  transformer.transform(input, output);
@@ -201,6 +203,10 @@ public class DiMLTransform extends XMLReading {
       message("unable to create output directory: "+resultDir);
       return;
     }  
+    
+    if(args.length>2) {
+       cssFile = args[2];
+    }
     
     // load DiMLFile
     String dimlFile = args[0];
@@ -224,7 +230,7 @@ public class DiMLTransform extends XMLReading {
     
     message("writing preprocessed file");
     DOMSource domSource = new DOMSource(dimlDocument);
-    StreamResult streamResult = new StreamResult(new FileWriter("preprocessed.xml"));
+    StreamResult streamResult = new StreamResult(new FileWriter(resultDir+"/-pre.xml"));
     //message("writing cms:container "+cmsContainerFile);
     Transformer serializer = tFactory.newTransformer();
     serializer.setOutputProperty(OutputKeys.ENCODING,"ISO-8859-1");

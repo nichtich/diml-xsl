@@ -4,6 +4,7 @@
 <xsl:param name="PAGENUMBER-LABEL"></xsl:param> <!-- 'Seite: ' -->
 
 <xsl:template match="head/pagenumber"/>
+<xsl:template match="p/pagenumber[count(preceding-sibling::*)=0][normalize-space(preceding-sibling::text())='']"/> 
 
 <xsl:template match="front/pagenumber|
 	footnote/pagenumber|endnote/pagenumber|
@@ -32,6 +33,7 @@
   </table>
 </xsl:template>
 
+<!--xsl:template match="pagenumber" name="pagenumber-content"-->
 <xsl:template match="pagenumber" name="pagenumber-content">
   <span class="pagenumber">[<xsl:value-of select="$PAGENUMBER-LABEL"/><xsl:value-of select="@system"/><xsl:value-of select="@start"/>]</span>
 </xsl:template>

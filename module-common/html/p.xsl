@@ -14,6 +14,8 @@
 
 <xsl:template match="p">
   <xsl:param name="cssTemplate"/>
+  <xsl:apply-templates
+  	select="pagenumber[1][count(preceding-sibling::*)=0][normalize-space(preceding-sibling::text())='']" mode="hline"/>
   <xsl:element name="p">
      <xsl:if test="$cssTemplate!=''">
         <xsl:attribute name="class">

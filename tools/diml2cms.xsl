@@ -22,6 +22,7 @@
            	<xsl:with-param name="selected-part" select="$selected-part"/>
            </xsl:call-template>
          </cms:meta>
+       <!-- Copy the selected part into cms:content -->         
 	  <cms:content>
 	    <xsl:copy-of select="$selected-part"/>
         </cms:content>
@@ -30,7 +31,8 @@
   </xsl:if>
 </xsl:template>
 
-<!-- traverse all nodes in mode cms and print a cms:entry -->
+<!-- traverse all nodes in mode cms and print a cms:entry for elements that have an @id -->
+<!-- TODO: what about list of images, tables, table-of-contents/chapter? -->
 <xsl:template match="*" mode="cms">
   <xsl:variable name="part" select="ancestor-or-self::*[@id=$parts/@id][1]/@id"/>
   <xsl:if test="$part=@id">
@@ -127,4 +129,3 @@
 </xsl:template>
 
 </xsl:stylesheet>
-

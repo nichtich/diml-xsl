@@ -8,8 +8,7 @@
 	<front>
 		<submission>Inaugural-Dissertation</submission>
 		<title>
-			Entwurf eines Doppel-Moppel<sup>2</sup>-Integrators zur Vernuppelung<br/>
-			flachbräsiger Hoppel-Dodos
+			Entwurf eines Doppel-Moppel<sup>2</sup>-Integrators zur Vernuppelung<br/>flachbräsiger Hoppel-Dodos
 		</title>
 		<author>
 			vorgelegt von 
@@ -218,7 +217,7 @@ There are no museum specimens of the dodo still extant today, but from artists' 
 			</section>
 			<section>
 				<head>Tables</head>
-				<p>&table1;</p>
+				<p><!--&table1;--></p>
 			</section>
 			<section>
 				<head>Images</head>
@@ -239,13 +238,19 @@ There are no museum specimens of the dodo still extant today, but from artists' 
 		</chapter>
 		<chapter id="chapter3">
 			<head>
-				<pagenumber numbering="arabic" label="18" start="18" id="p18"/>Third Chapter
-      </head>
+				<pagenumber numbering="arabic" label="18" start="18" id="p18"/>Third Chapter</head>
 			<p>Hier mal ein Beispiel:</p>
 			<example>
 				<head>Ein tolles Beispiel</head>
 				<p>So kann man's machen!</p>
 			</example>
+			<p>Nun ein Zitat:</p>
+<citation id="bqFT1997">
+<workauthor>Joachim Funke</workauthor>:
+<articletitle>Geld und Welt</articletitle>
+In: <worktitle>Kriminalgeschite I</worktitle>,
+<pubdate>2003</pubdate>,<number>24</number>,<pages>68-69</pages>
+</citation>
 			<p>Nun ein  Blockquote:</p>
 <p><blockquote><caption>Titel: oh-Schrei des Mauritius</caption><p>"oh morgenluft, wittere deine verwesung!</p><p>in meines herzens wehmut hängt erhebung!"</p>
 <citation id="bqFT1997">

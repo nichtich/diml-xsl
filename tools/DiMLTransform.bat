@@ -1,12 +1,12 @@
 @echo off
-set JAVA_HOME=C:\Programme\j2sdk1.4.2_04
 rem Guess DIMLXSL if not defined
 if not "%DIMLXSL%" == "" goto checkHTMLDir
 echo DIMLXSL not set - using ..
 set DIMLXSL=..
 
 :checkHTMLDir
-if exist "html\nul" goto delHTMLs
+if exist "html" goto delHTMLs
+rem for win9x: if exist "html\nul"
 :makeHTMLDir
   echo Directory html does not exist, creating directory html
   mkdir html
@@ -19,7 +19,8 @@ if exist "html\nul" goto delHTMLs
   goto checkHACKEDDir
 
 :checkHACKEDDir
-if exist "hacked\nul" goto delHACKEDs
+if exist "hacked" goto delHACKEDs
+rem for win9x: if exist "hacked\nul"
 :makeHACKEDDir
   echo Directory hacked does not exist, creating directory hacked
   mkdir hacked
@@ -46,6 +47,7 @@ echo This file is needed to run this program
 goto end
 
 :okSetclasspath
+set _RUNJAVA=java
 REM echo "%_RUNJAVA%"
 REM if exist "%_RUNJAVA%" goto okJava
 REM echo Please set JAVA_HOME to point to your installation of Java
@@ -69,10 +71,19 @@ set BASEDIR=%DIMLXSL%
 call "%DIMLXSL%\tools\setclasspath.bat"
 set CLASSPATH=%CLASSPATH%;%DIMLXSL%\lib\xml-apis.jar;%DIMLXSL%\xalan.jar;%DIMLXSL%\lib\xercesImpl.jar;%DIMLXSL%\tools
 
+:setProcessor
+set XLSTPROCESSOR=org.apache.xalan.processor.TransformerFactoryImpl
+REM set XLSTPROCESSOR=jd.xml.xslt.trax.TransformerFactoryImpl
+REM set XLSTPROCESSOR=net.sf.saxon.TransformerFactoryImpl
+REM set XLSTPROCESSOR=org.apache.xalan.xsltc.trax.TransformerFactoryImpl
+REM set XLSTPROCESSOR=oracle.xml.jaxp.JXSAXTransformerFactory
+
 :exec
 set MAINCLASS=DiMLTransform
 set ARGUMENTS=%*
 REM @echo on
-%_RUNJAVA% -DDIMLXSL=%DIMLXSL% -classpath "%CLASSPATH%" %MAINCLASS% %ARGUMENTS%
+%_RUNJAVA% -Xmx512M -Xms128M -Djavax.xml.transform.TransformerFactory=%XLSTPROCESSOR% -DDIMLXSL=%DIMLXSL% -classpath "%CLASSPATH%" %MAINCLASS% %ARGUMENTS%
+
+REM -DTOOLSDir=$TOOLSDir -DRESULTDir=$RESULTDir -classpath $CLASSPATH $MAINCLASS -P$PREPROCESSING $XMLFILE $ARGUMENTS
 
 :end

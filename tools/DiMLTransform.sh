@@ -29,4 +29,13 @@ CLASSPATH=$DIMLXSL/tools/:$DIMLXSL/lib/xml-apis.jar:$DIMLXSL/xalan.jar:$DIMLXSL/
 MAINCLASS=DiMLTransform
 ARGUMENTS=$*
 
-java -DDIMLXSL=$DIMLXSL -classpath "$CLASSPATH" $MAINCLASS $ARGUMENTS
+XLSTPROCESSOR=org.apache.xalan.processor.TransformerFactoryImpl
+#XLSTPROCESSOR=jd.xml.xslt.trax.TransformerFactoryImpl
+#XLSTPROCESSOR=net.sf.saxon.TransformerFactoryImpl
+#XLSTPROCESSOR=org.apache.xalan.xsltc.trax.TransformerFactoryImpl
+#XLSTPROCESSOR=oracle.xml.jaxp.JXSAXTransformerFactory
+
+java -Xmx512M -Xms128M -Djavax.xml.transform.TransformerFactory=$XLSTPROCESSOR -DDIMLXSL=$DIMLXSL -classpath "$CLASSPATH" $MAINCLASS $ARGUMENTS
+
+
+# -DTOOLSDir=$TOOLSDir -DRESULTDir=$RESULTDir -classpath $CLASSPATH $MAINCLASS -P$PREPROCESSING $XMLFILE $ARGUMENTS

@@ -26,7 +26,9 @@
 <!-- parts of the document that may be content of the container --> 
 <xsl:variable name="parts" select="/etd/front|/etd/body/*|/etd/back/*"/>
 
+<!--               -->
 <!-- ROOT template -->
+<!--               -->
 <xsl:template match="/">
   <xsl:variable name="selected-part" select="//*[@id=$SELECTID]"/>  
   <xsl:if test="not($selected-part)">
@@ -173,23 +175,28 @@
    
 </xsl:template>
 
+
 <!--===============================================================-->
+<!--===================== Create Front ============================-->
+<!--===============================================================-->
+
 <xsl:template name="createFront">
    <front>
       <xsl:copy-of select="/etd/front/@*"/>      
       <xsl:apply-templates select="/etd/front/*"/>
       <xsl:call-template name="TableOfContents"/>
       <xsl:if test="//table[caption]">
-      <xsl:call-template name="TableOfTables"/>
+        <xsl:call-template name="TableOfTables"/>
       </xsl:if>
       <xsl:if test="//im[caption] | //mm[caption]">
-         <xsl:call-template name="TableOfMedias"/>
+        <xsl:call-template name="TableOfMedias"/>
       </xsl:if>   
       <xsl:if test="//example[caption]">
-         <xsl:call-template name="TableOfExamples"/>
+        <xsl:call-template name="TableOfExamples"/>
       </xsl:if>   
        </front>             
 </xsl:template>
+
 
 <!--== Create Tables ==-->
 <!-- TODO: bibliography mit mehreren parts -->
@@ -321,13 +328,13 @@
 </xsl:template>
 
 <!-- Content of Head for Table of Contents       -->
-<!-- Do not print footnote or endnote in heading -->
+<!-- Do not print footnotes, endnotes or pagenumber in heading -->
 
 <xsl:template match="head | caption" mode="TableOfContents">
-<xsl:for-each select="node()[not(name()='footnote') and not(name()='endnote')]">
-  <xsl:value-of select="."/>
-</xsl:for-each>
-  
+  <xsl:for-each select="node()[not(name()='footnote') and not(name()='endnote') and not(name()='pagenumber')]">
+    <!--<xsl:value-of select="."/>-->
+    <xsl:apply-templates select="."/>
+  </xsl:for-each>
 
 </xsl:template>
 

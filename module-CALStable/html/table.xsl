@@ -11,7 +11,7 @@
 <xsl:include href="../common/table.xsl"/>
 
 <!-- ********************************************************************
-     $Id: table.xsl,v 1.1 2003-02-05 01:08:57 nichtich Exp $
+     $Id: table.xsl,v 1.2 2003-02-20 18:39:41 archibaldsmith Exp $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -150,6 +150,7 @@
   </xsl:variable>
 
   <table>
+ 
     <xsl:choose>
       <!-- If there's a textobject/phrase for the table summary, use it -->
       <xsl:when test="../textobject/phrase">
@@ -176,8 +177,8 @@
       <!-- Otherwise, forget the whole idea -->
       <xsl:otherwise><!-- nevermind --></xsl:otherwise>
     </xsl:choose>
-
-    <xsl:if test="$cellspacing != '' or $html.cellspacing != ''">
+    
+     <xsl:if test="$cellspacing != '' or $html.cellspacing != ''">
       <xsl:attribute name="cellspacing">
         <xsl:choose>
           <xsl:when test="$cellspacing != ''">
@@ -310,7 +311,7 @@
         <xsl:attribute name="border">1</xsl:attribute>
       </xsl:otherwise>
     </xsl:choose>
-
+    
     <xsl:variable name="colgroup">
       <colgroup>
         <xsl:call-template name="generate.colgroup">
@@ -371,6 +372,9 @@
       </xsl:attribute>
     </xsl:if>
 
+    <!-- Caption -->
+    <xsl:apply-templates select="../caption" mode="tablecaption"/>
+
     <xsl:choose>
       <xsl:when test="$use.extensions != 0
                       and $tablecolumns.extension != 0">
@@ -395,6 +399,7 @@
         <xsl:copy-of select="$colgroup"/>
       </xsl:otherwise>
     </xsl:choose>
+    
 
     <xsl:apply-templates select="thead"/>
     <xsl:apply-templates select="tfoot"/>
@@ -410,6 +415,11 @@
       </tbody>
     </xsl:if>
   </table>
+  
+  <!-- Legend -->
+  <xsl:apply-templates select="../legend" mode="tablelegend"/>
+
+  
 </xsl:template>
 
 <xsl:template match="tgroup/processing-instruction('dbhtml')">

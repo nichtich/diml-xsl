@@ -8,7 +8,7 @@
   <xsl:if test="tgroup/@cols &lt; 1">
     <xsl:message terminate="yes">tgroup/@cols &lt; 1!</xsl:message>
   </xsl:if>
-  <xsl:apply-templates/>
+  <xsl:apply-templates select="*[not(self::caption or self::legend)]" />  
 </xsl:template>
 
 
@@ -18,6 +18,10 @@
 <xsl:include href="html/xref.xsl"/>
 <xsl:include href="html/html.xsl"/>
 <xsl:include href="common/common.xsl"/>
+
+<!-- special DiML-Table -->
+<xsl:include href="html/caption.xsl"/>
+<xsl:include href="html/legend.xsl"/>
 
 <!-- defined templates in DocBook Stylesheets -->
 <xsl:template name='dbhtml-attribute'/>
@@ -37,5 +41,6 @@
 <xsl:template name="is.graphic.extension"/>
 <xsl:template name="xpointer.idref"/>
 <xsl:template name='substitute-markup'/>
+
 
 </xsl:stylesheet>

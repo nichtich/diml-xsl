@@ -205,3 +205,12 @@ span.worktitle { font-style: italic; }
 span.articletitle { font-style: italic; } 
 span.pages { font-weight: bold; }
 span.note { font-size: smaller; }
+
+
+<!-- Tabellen -->
+p.tablelegend {
+         }
+caption.tablecaption {
+         }
+
+         

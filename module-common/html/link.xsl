@@ -4,33 +4,49 @@
 <!-- Link: für einen internen Link                                   -->
 <!-- (innerhalb des Dokumentes, nicht unbedingt innerhalb der Datei) -->
 
-<!-- Duplicate entry: -->
+<!-- key defined in diml2html.xsl already -->
 <!-- <xsl:key name="id" match="*" use="@id"/> -->
 
 <!-- TODO: check for multiple ID and stupid link targets : warning! -->
+
+
+<!-- find out exact link target -->
+
 <xsl:template name="link.target">
   <xsl:param name="object" select="."/>	
+  
+  <!-- find out name of file stored in corresponding cms:entry -->
   <xsl:if test="name($object)='cms:entry'">    
     <xsl:value-of select="$object/@part"/>
     <xsl:value-of select="$EXT"/>
   </xsl:if>
-  <xsl:text>#</xsl:text>
-  <xsl:value-of select="$object/@id"/>
+  
+  <!-- find out exact name of id -->
+  <!-- if file is named like id do not add #id -->
+  
+  <xsl:if test="not($object/@part=$object/@id)">
+    <xsl:text>#</xsl:text>
+    <xsl:value-of select="$object/@id"/>
+  </xsl:if>  
+  
 </xsl:template>
       
 <xsl:template match="link" name="link">
   <xsl:param name="a.target"/>
 
-  <!--xsl:variable name="target" select="id(@ref)"/-->
   <a>
+  
+    <!-- if link has attribut id, use it for creating atribute name -->
     <xsl:if test="@id">
       <xsl:attribute name="name"><xsl:value-of select="@id"/></xsl:attribute>
     </xsl:if>
 
+    <!-- if link target comes with variable, use it as link target  -->
     <xsl:if test="$a.target">
       <xsl:attribute name="target"><xsl:value-of select="$a.target"/></xsl:attribute>
     </xsl:if>
 
+    <!-- if link has attribut ref, use it to determine link target  -->    
     <xsl:if test="@ref">
 
       <!-- Variablen -->
@@ -46,7 +62,6 @@
 
         <!-- dummy -->
         <xsl:when test="''!=''"></xsl:when>
-
 
         <!-- wenn jemand das Element Link falsch verwendet: -->
         <!-- Hyperlink mit http-Protokoll    -disabled-     -->
@@ -66,6 +81,8 @@
               <xsl:with-param name="object" select="$target"/>
             </xsl:call-template>
           </xsl:attribute>
+          
+          <!-- ??? -->
           <!-- FIXME: is there a better way to tell what elements have a title? -->
           <!-- or local-name($target) = 'bibliography' -->
           <xsl:if test="local-name($target) = 'book'
@@ -88,6 +105,8 @@
                                  mode="object.title.markup.textonly"/ -->
             </xsl:attribute>
           </xsl:if>
+          
+          
         </xsl:otherwise>
       </xsl:choose>
 
@@ -117,7 +136,6 @@
 </xsl:template>
 
 <!--xsl:template match="link"> 
-!!!!!!!!!!!!!!!!!
 	ref:<xsl:value-of select="@ref"/>
   <a href="#{@ref}" class="link">
     <xsl:choose>

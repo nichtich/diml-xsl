@@ -13,11 +13,9 @@
     </xsl:choose>
     <!-- wenn Seitenzahl als erstes in "li" oder enthaltenem "p",    -->
     <!-- dann schon am Ende des vorhergehenden "li"-Elements ausgeben -->
-<xsl:apply-templates
-  select="following-sibling::li[1]//pagenumber[count(preceding-sibling::*)=0][normalize-space(preceding-sibling::text())='']" mode="forceOutput" />
-
-
+    <xsl:apply-templates select="following-sibling::li[1]//pagenumber[count(preceding-sibling::*)=0][normalize-space(preceding-sibling::text())='']" mode="forceOutput" />
   </li>
 </xsl:template>
 
 </xsl:stylesheet>
+

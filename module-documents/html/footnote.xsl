@@ -10,11 +10,20 @@
 </xsl:template>
 
 <xsl:template match="footnote|endnote" mode="label">
-  <!-- TODO: label, numbering... -->
-  <!--xsl:choose>
-    <xsl:when test=""></xsl:when>
-  </xsl:choose-->
-  <sup class="footnotelabel"><xsl:value-of select="count(preceding::footnote | preceding::endnote)+1"/></sup>
+
+  <xsl:choose>
+    <xsl:when test="@label">
+      <sup class="footnotelabel"><xsl:value-of select="@start"/></sup>
+    </xsl:when>
+    <xsl:when test="@start">
+      <!-- add usage of @numbering here! -->
+      <sup class="footnotelabel"><xsl:value-of select="@start"/></sup>
+    </xsl:when>
+    <xsl:otherwise>
+      <sup class="footnotelabel"><xsl:value-of select="count(preceding::footnote | preceding::endnote)+1"/></sup>
+    </xsl:otherwise>
+  </xsl:choose>
+  
 </xsl:template>
 
 <xsl:template match="footnote|endnote" mode="foot">

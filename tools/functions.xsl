@@ -4,7 +4,6 @@
  	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	xmlns:cms="http://edoc.hu-berlin.de/diml/module/cms">
 
-	
 <xsl:template name="number">
 	<xsl:param name="number"/>
 	<xsl:param name="numbering"/>

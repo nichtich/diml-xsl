@@ -26,16 +26,33 @@
 </xsl:template>
 
 <xsl:template match="bibliography//citation">
-  <xsl:if test="descendant::pagenumber">
-    <xsl:call-template name="more-pagenumbers-inside">
-       <xsl:with-param name="additionalMessage">
-         <xsl:value-of select="$CONFIG/pagenumberInCitationAdditionalMessage[@lang=$LANG]/@text" />
-       </xsl:with-param>
-    </xsl:call-template>
-  </xsl:if>
-  <p>
-    <xsl:apply-templates select="." mode="labeled"/>
-  </p>  
+
+    <xsl:if test="descendant::pagenumber">
+      <xsl:call-template name="more-pagenumbers-inside">
+         <xsl:with-param name="additionalMessage">
+           <xsl:value-of select="$CONFIG/pagenumberInCitationAdditionalMessage[@lang=$LANG]/@text" />
+         </xsl:with-param>
+      </xsl:call-template>
+    </xsl:if>
+  
+  <xsl:choose>  
+  
+    <!-- do not add a paragraph if element has no siblings    -->
+    <!-- a paragraph already exists because of parent element -->
+    <!-- this in particular concerns citations inside lists   -->
+    <xsl:when test=".[count(../node())=1]">
+      <xsl:apply-templates select="." mode="labeled"/>
+    </xsl:when>
+    
+    <!-- do add a paragraph if there are siblings of citation -->
+    <xsl:otherwise>
+      <p>
+        <xsl:apply-templates select="." mode="labeled"/>
+      </p>  
+    </xsl:otherwise>
+    
+  </xsl:choose>
+      
 </xsl:template>
 
 <xsl:template match="citation" mode="labeled">
@@ -51,10 +68,5 @@
 	</xsl:choose>    
     <xsl:apply-templates/>
 </xsl:template>
-
-<!-- listed citations are not rendered inline -->
-<xsl:template match="citation[count(../node())=1]">
-  	<xsl:apply-templates select="." mode="labeled"/>
-</xsl:template>
-  	
+ 	
 </xsl:stylesheet>

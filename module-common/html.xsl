@@ -8,6 +8,7 @@
 <xsl:include href="html/url.xsl"/>
 <xsl:include href="html/link.xsl"/>
 <xsl:include href="html/head.xsl"/>
+<xsl:include href="html/freehead.xsl"/>
 <xsl:include href="html/caption.xsl"/>
 <xsl:include href="html/organization.xsl"/>
 

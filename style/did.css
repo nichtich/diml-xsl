@@ -204,8 +204,17 @@ p.declaration {
 /*-- Anhang --*/
 p.appendix {
          }
-         
-         
+
+/*-- Zwischentitel --*/
+p.freehead {
+         font-weight: bold;         
+}         
+
+/*-- Überschriften --/
+h3.abbreviation {}
+h3.preface {}
+h3.summary {}
+
 /*----------------------------------------------------------------------------*/
 /*----                                                                     ---*/
 /*---                                                                       --*/

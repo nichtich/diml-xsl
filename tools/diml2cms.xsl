@@ -23,7 +23,8 @@
 
 <!-- parts of the document that may be content of the container --> 
 <!-- change also in DiMLTransform.java when called from there   -->
-<!-- change also in xsl:template name="createFront" below       -->
+<!-- change also in xsl:template name="createFront" below if element from front is included -->
+
 <xsl:variable name="parts" select="/etd/front|/etd/front/dedication|/etd/body/*|/etd/back/*"/>
 
 <!--               -->
@@ -46,24 +47,28 @@
        </cms:meta>
      <!-- Copy the selected part into cms:content -->                
      <cms:content>
-          <xsl:choose>
-                 <xsl:when test="name($selected-part)='front'">
-                  <xsl:call-template name="createFront"/>
-       </xsl:when>
-          <xsl:otherwise>
+        <xsl:choose>
+           <xsl:when test="name($selected-part)='front'">
+              <xsl:call-template name="createFront"/>
+           </xsl:when>
+           <xsl:otherwise>
               <xsl:copy-of select="$selected-part"/>
-          </xsl:otherwise>
-          </xsl:choose>       
-      </cms:content>
+           </xsl:otherwise>
+        </xsl:choose>       
+     </cms:content>
     </cms:document> 
   </cms:container>
+  
 </xsl:template>
 
 <!-- traverse all nodes in mode cms and print a cms:entry for elements that have an @id -->
 <!-- TODO: what about list of images, tables, TableOfContents/chapter? -->
+
 <xsl:template match="*[@id]" mode="cms" priority="-1">
   <!-- -->
+  
   <xsl:variable name="part" select="ancestor-or-self::*[@id=$parts/@id][1]/@id"/>
+  
   <!--xsl:if test="$part=@id"-->
       <cms:entry type="{name(.)}" ref="{@id}">
       <xsl:call-template name="entry-id-attributes"/>
@@ -418,7 +423,7 @@
 <xsl:template match="link" mode="tochead"><xsl:value-of select="." /></xsl:template>
 
 <!-- helper for copying heads to toc: omit some elements -->
-<xsl:template match="footnote | endnote | pagenumber" />
+<xsl:template match="footnote | endnote | pagenumber" mode="tochead" />
 
 <xsl:template match="*" mode="TableOfContents"/>
 
@@ -426,9 +431,10 @@
 
 <!-- generate attribute id and attribute part for a cms:entry element -->
 <xsl:template name="entry-id-attributes">
-  <!-- this is a work around to calcualte $parts --> 
+  <!-- this is a work around to calculate $parts --> 
   <xsl:if test="count($parts)&lt;1"><xsl:message>This is stylesheet diml2cms.xsl speaking. Error: the document contains no parts</xsl:message></xsl:if>
   <xsl:variable name="part" select="ancestor-or-self::*[@id=$parts/@id][1]/@id"/>
+
   <xsl:if test="$SELECTID!=$part">
       <xsl:attribute name="id">
         <xsl:value-of select="@id"/>

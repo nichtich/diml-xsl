@@ -1,8 +1,4 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<!DOCTYPE xsl:stylesheet [
-  <!ENTITY Inclusion.body "abbreviation|preface|summary">
-  <!ENTITY Inclusion.appendixes "abbreviation|appendix|bibliography|glossary|resources">
-]>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
 <xsl:param name="CSS-STYLESHEET">

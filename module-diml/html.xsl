@@ -24,8 +24,6 @@
 <xsl:include href="html/keyword.xsl"/>
 <xsl:include href="html/acknowledgement.xsl"/>
 <xsl:include href="html/declaration.xsl"/>
-<xsl:include href="html/vita.xsl"/>
-<xsl:include href="html/preface.xsl"/>
-<xsl:include href="html/abbreviation.xsl"/>
+
 
 </xsl:stylesheet>

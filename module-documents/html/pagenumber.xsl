@@ -5,7 +5,21 @@
 
 <xsl:template match="head/pagenumber"/>
 
-<xsl:template match="pagenumber[not(preceding-sibling::node())]" mode="hline">
+<xsl:template match="front/pagenumber|
+	footnote/pagenumber|endnote/pagenumber|
+	entry/pagenumber|glossary/pagenumber|dedication/pagenumber">
+	<xsl:call-template name="pagenumber-hline"/>
+</xsl:template>
+
+<xsl:template match="chapter/pagenumber|section/pagenumber|subsection/pagenumber|subblock/pagenumber|block/pagenumber|part/pagenumber">
+  <xsl:call-template name="pagenumber-hline"/>
+</xsl:template>
+
+<xsl:template match="pagenumber[not(preceding-sibling::node())]" mode="hline">	
+	<xsl:call-template name="pagenumber-hline"/>
+</xsl:template>
+	
+<xsl:template name="pagenumber-hline">	
   <table width="100%" border="0">
     <tr>
       <td width="100%"><hr/></td>

@@ -5,6 +5,7 @@
 <!-- <!ELEMENT example (head? , (p | example | pagenumber)+)> -->
 
 <xsl:template match="example">
+  <xsl:apply-templates select="head/pagenumber" mode="hline"/>
   <xsl:if test="head">
     <p class="examplehead">
       <xsl:apply-templates select="head"/>

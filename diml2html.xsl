@@ -55,11 +55,11 @@
 	<xsl:param name="object" select="."/>
 	<xsl:attribute name="name">
 	  <xsl:choose>
-	    <xsl:when test="$object/@id"><xsl:value-of select="$object/@id"/></xsl:when>	  
+	    <xsl:when test="$object/@id"><xsl:value-of select="$object/@id"/></xsl:when>
 	    <xsl:otherwise>
 	      <xsl:value-of select="generate-id($object)"/>
 	    </xsl:otherwise>
-	  </xsl:choose>  
+	  </xsl:choose> 
 	</xsl:attribute>
 </xsl:template>
 

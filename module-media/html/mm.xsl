@@ -24,7 +24,19 @@
 
 <xsl:template match="mm" name="mm">
 <a>
- <xsl:call-template name="a-name-attribute"/>
+ <xsl:call-template name="a-name-attribute" />
+ <xsl:choose>
+    <xsl:when test="@caption or @legend">
+      <xsl:apply-templates select="." mode="mm_with_caption_or_legend" />
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:apply-templates select="." mode="mm_without_caption_and_legend" />
+    </xsl:otherwise>
+  </xsl:choose>
+</a>
+</xsl:template>
+
+<xsl:template match="mm" mode="mm_with_caption_or_legend">
  <table class="mm" width="100%" border="0" cellspacing="0" cellpadding="0">
     <xsl:apply-templates select="caption" mode="mmcaption"/>
  <tr>
@@ -32,38 +44,19 @@
  <td width="70%">
   <!-- Image of mm starts here -->
   <p class="mmimg">
-    <img>
-      <xsl:attribute name="src">
-        <xsl:choose>
-          <xsl:when test="@file">
-            <xsl:value-of select="@file" />
-          </xsl:when>          
-          <xsl:when test="@entity">
-            <xsl:call-template name="MEDIA-URL">        	
-              <xsl:with-param name="object" select="@entity|@file"/>
-            </xsl:call-template>
-          </xsl:when>
-          <xsl:otherwise>
-          </xsl:otherwise>
-        </xsl:choose>
-      </xsl:attribute>
-      <xsl:if test="alt">
-        <xsl:attribute name="alt">
-            <xsl:value-of select="alt[1]"/>
-        </xsl:attribute>
-        <xsl:attribute name="title">
-            <xsl:value-of select="caption[1]"/>
-        </xsl:attribute>
-      </xsl:if>
-    </img>
+    <xsl:call-template name="mm-inline" />
   </p>
  </td>
  <td width="15%"></td>
  </tr>
  <xsl:apply-templates select="legend" mode="mmlegend"/>
  </table>  
-</a>
 </xsl:template>
+
+<xsl:template match="mm" mode="mm_without_caption_and_legend">
+    <xsl:call-template name="mm-inline" />
+</xsl:template>
+
 
 <xsl:template match="mm" name="mm-inline" mode="inline">
     <img>
@@ -83,11 +76,17 @@
       </xsl:attribute>
       <xsl:if test="alt">
         <xsl:attribute name="alt">
-            <xsl:value-of select="alt"/>
+            <xsl:value-of select="alt[1]"/>
         </xsl:attribute>
       </xsl:if>
+      <xsl:if test="caption">
+          <xsl:attribute name="title">
+              <xsl:value-of select="caption[1]"/>
+          </xsl:attribute>
+     </xsl:if>
     </img>
 </xsl:template>
+
 
 </xsl:stylesheet>
 

@@ -5,6 +5,5 @@
    <xsl:call-template name="mm-inline" />
 </xsl:template>
 
-
 </xsl:stylesheet>
 

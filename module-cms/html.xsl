@@ -372,8 +372,10 @@
          </xsl:otherwise>
       </xsl:choose>
 
-      <!-- link to anchor only if link goes to TOC  -->
+      <!-- link to anchor only if link goes to TOC                  -->
       <!-- some old test: @ref=../cms:entry[@type=':current']/@part -->
+      <!-- the following test would link to anchor, if current part -->
+      <!-- <xsl:if test="@ref=':contents' or (not(@id=@part))">     -->
       
       <xsl:if test="@ref=':contents'">
          <xsl:text>#</xsl:text><xsl:value-of select="@ref"/>

@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
-<!-- citation in normal text -->
-<!-- square brackets will not be generated -->
+<!-- citation in normal text, square brackets will not be generated -->
+
 <xsl:template match="citation">
   <!--<xsl:text> [</xsl:text>-->
   <xsl:apply-templates/>
    <!--<xsl:text>] </xsl:text>-->
 </xsl:template>
+
 
 <xsl:template match="citation" mode="blockquotecitation">
   <tr>
@@ -37,12 +38,11 @@
   
   <xsl:choose>  
   
-    <!-- do not add a paragraph if element has no siblings    -->
+    <!-- do not add a paragraph if citation has no siblings   -->
     <!-- which are citations                                  -->
     <!-- a paragraph already exists because of parent element -->
     <!-- this in particular concerns citations inside lists   -->
     <!-- old: test="self::node()[count(../node())=1]"         -->
-    <!-- old: test="count(../citation)>=1"                    -->
 
     <xsl:when test="count(../citation)=1">
       <xsl:apply-templates select="." mode="labeled"/>

@@ -13,14 +13,14 @@
   <xsl:param name="object" select="."/>	
   
   <!-- find out name of file stored in corresponding cms:entry -->
-  <xsl:if test="name($object)='cms:entry'">    
+  <xsl:if test="name($object)='cms:entry'">
     <xsl:value-of select="$object/@part"/>
     <xsl:value-of select="$EXT"/>
   </xsl:if>
   
   <!-- find out exact name of id -->
   <!-- if file is named like id do not add #id -->
-  
+
   <xsl:if test="not($object/@part=$object/@id)">
     <xsl:text>#</xsl:text>
     <xsl:value-of select="$object/@id"/>
@@ -109,27 +109,24 @@
 
       <!-- Content (if @ref exists) -->
 
-    <xsl:choose>
-      <xsl:when test="count(child::node()) &gt; 0">
-        <!-- If it has content, use it -->
-        <xsl:apply-templates/>
-      </xsl:when>
-      <xsl:when test="$CONFIG/link[@to=$targetname]">
-        <xsl:value-of select="$CONFIG/link[@to=$targetname]/@before"/>
-        <xsl:apply-templates select="$target" mode="label"/>
-        <xsl:value-of select="$CONFIG/link[@to=$targetname]/@after"/>        
-      </xsl:when>
-      <xsl:otherwise>
-        <xsl:text>[LINK to </xsl:text>
-        <xsl:value-of select="name($target)"/>]
-      </xsl:otherwise>
-    </xsl:choose>
-
+      <xsl:choose>
+        <xsl:when test="count(child::node()) &gt; 0">
+          <!-- If it has content, use it -->
+          <xsl:apply-templates/>
+        </xsl:when>
+        <xsl:when test="$CONFIG/link[@to=$targetname]">
+          <xsl:value-of select="$CONFIG/link[@to=$targetname]/@before"/>
+          <xsl:apply-templates select="$target" mode="label"/>
+          <xsl:value-of select="$CONFIG/link[@to=$targetname]/@after"/>        
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:text>[LINK to </xsl:text>
+          <xsl:value-of select="name($target)"/>]
+        </xsl:otherwise>
+      </xsl:choose>
     </xsl:if> <!-- test="@ref" -->
-    
 
     <!-- Content (if @ref does not exists) -->
-    
     <xsl:if test="not(@ref)">
       <xsl:apply-templates/>
     </xsl:if>

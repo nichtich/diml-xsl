@@ -15,7 +15,7 @@
   </xsl:if>
   
   <xsl:apply-templates select="caption"/>
-  <table>
+  <table class="dl">
     <xsl:apply-templates select="def" mode="in-dl"/>
   </table>
 </xsl:template>
@@ -23,27 +23,27 @@
 <!--== Definition inside Definition List -->
 <xsl:template match="def" mode="in-dl">
   <tr>
-    <td colspan="2">
+    <td colspan="2" class="dlterm">
       <b><xsl:apply-templates select="*[1]"/>:</b>
     </td>
   </tr>
   <tr>
-    <td>&#xA0;&#xA0;</td>
-    <td>
+    <td class="dlspacer">&#xA0;&#xA0;</td>
+    <td class="dldefinition">
       <xsl:choose>
         <xsl:when test="count(*)>2">
-          <ol>
+          <ol class="dl">
             <xsl:for-each select="*[position()>1]">
-              <li>
+              <li class="dl">
                 <xsl:apply-templates mode="in-def"/>              
               </li>
             </xsl:for-each>
           </ol>
         </xsl:when>
         <xsl:otherwise>
-          <p>
+          <!--<p class="dl">-->
             <xsl:apply-templates select="*[2]" mode="in-def"/>
-          </p>
+          <!--</p>-->
         </xsl:otherwise>
       </xsl:choose>
     </td>

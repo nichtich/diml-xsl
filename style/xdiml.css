@@ -238,6 +238,28 @@ li {
 term {
 }
 
+/*-- Tabelle, die eine Definitionsliste darstellt --*/
+table.dl {
+}
+/*-- Tabellenzelle, die einen Term darstellt --*/
+td.dlterm {
+         padding-top:12pt;
+}
+/*-- Tabellenzelle, die die Einrückung eines Definitionstextes darstellt --*/
+td.dlspacer {
+}
+/*-- Tabellenzelle, die einen Definitionstext darstellt --*/
+td.dldefinition {
+}
+
+
+/*-- Innerhalb einer dldefinition --*/
+ol.dl {
+}
+li.dl {
+}
+p.dl {
+}
 
 
 

@@ -14,7 +14,7 @@
   lang IDREF #REQUIRED
 >
 ]>
-<!-- Sprachcodes und Sprachbezeichnungen -->
+<!-- Language codes and names -->
 <!--
   Die Codes richten sich nach ISO 639-1. Zusätzlich sind einige Sprachen
   aus ISO 639-2 aufgenommen. Die Sprachbezeichnungen sind größtenteils

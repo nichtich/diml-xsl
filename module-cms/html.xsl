@@ -57,7 +57,7 @@
 <xsl:template match="cms:entry[@type=':contents']" mode="html-head">
   <link rel="contents">
     <xsl:attribute name="href">
-      <xsl:if test="@part and name(key('id',@ref))='cms:entry'"><xsl:value-of select="@part"/><xsl:value-of select="$EXT"/></xsl:if>    
+      <xsl:if test="@part and name(key('id',@ref))='cms:entry'"><xsl:value-of select="@part"/><xsl:value-of select="$EXT"/></xsl:if>
       <xsl:text>#</xsl:text><xsl:value-of select="@ref"/>
     </xsl:attribute>
   </link>
@@ -134,8 +134,10 @@
              <xsl:when test="cms:entry[@type='frame']">
                <xsl:value-of select="$VOCABLES/frame/@*[name()=$LANG]" />
                <xsl:text>:&#xA0;</xsl:text>
+               <!-- choose a) frames and parts, which are a file -->
+               <!-- if part is current file, an extra condition is required -->
                <!-- cms:entry[@type='part'][not(@id)][not(@part)] -->
-               <xsl:for-each select="cms:entry[@type='frame'] | cms:entry[@type='part'][@id=@part]">
+               <xsl:for-each select="cms:entry[@type='frame'] | cms:entry[@type='part'][@id=@part] | cms:entry[@type='part'][@ref=../cms:entry[@type=':current']/@part]">
                        <xsl:apply-templates select="." mode="link">
                             <xsl:with-param name="before"/>
                             <xsl:with-param name="after"/>
@@ -150,7 +152,7 @@
                  <xsl:value-of select="$VOCABLES/chapter/@*[name()=$LANG]" />
                  <xsl:text>:&#xA0;</xsl:text>
                <!-- cms:entry[@type='part'][not(@id)][not(@part)] -->
-                 <xsl:for-each select="cms:entry[@type='chapter'] | cms:entry[@type='part'][@id=@part] | cms:entry[@type='part'][@id=@part]">
+                 <xsl:for-each select="cms:entry[@type='chapter'] | cms:entry[@type='part'][@id=@part] | cms:entry[@type='part'][@ref=../cms:entry[@type=':current']/@part]">
                          <xsl:apply-templates select="." mode="link">
                               <xsl:with-param name="before"/>
                               <xsl:with-param name="after"/>
@@ -205,14 +207,14 @@
          <xsl:choose>
            <!-- show frames instead of chapters if frames exist -->         
            <xsl:when test="cms:entry[@type='frame']">
-             <xsl:apply-templates select="cms:entry[@type='frame'] | cms:entry[@type='part'][@id=@part]" mode="link">
+             <xsl:apply-templates select="cms:entry[@type='frame'] | cms:entry[@type='part'][@id=@part] | cms:entry[@type='part'][@ref=../cms:entry[@type=':current']/@part]" mode="link">
              </xsl:apply-templates>
            </xsl:when>
            
            <!-- normal case: show chapters -->
            <xsl:otherwise>
              <xsl:if test="cms:entry[@type='chapter']">
-               <xsl:apply-templates select="cms:entry[@type='chapter'] | cms:entry[@type='part'][@id=@part] | cms:entry[@type='part'][@id=@part]" mode="link">
+               <xsl:apply-templates select="cms:entry[@type='chapter'] | cms:entry[@type='part'][@id=@part] | cms:entry[@type='part'][@ref=../cms:entry[@type=':current']/@part]" mode="link">
                </xsl:apply-templates>
              </xsl:if>
            </xsl:otherwise>

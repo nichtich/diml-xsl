@@ -295,21 +295,22 @@
 <!--== add bibliographie for endnotes if missing ==-->
 
 <xsl:template match="back">
-<xsl:element name="back">
-   <xsl:call-template name="provide-id" />
+  <xsl:element name="back">
+     <xsl:call-template name="provide-id" />
 
-<xsl:if test="$ENDNOTESBIB='true'">
-   <xsl:if test="/etd/body//endnote and not(bibliography[@id='endnotebibliography'])">
-      <bibliography id="endnotebibliography">
-        <head><xsl:value-of select="$VOCABLES/bibliography/@*[name()=$LANG]" /></head>
-        <xsl:apply-templates select="//endnote" mode="foot"/>
-      </bibliography>
-   </xsl:if>
-</xsl:if>
+     <xsl:if test="$ENDNOTESBIB='true'">
+        <xsl:if test="/etd/body//endnote and not(bibliography[@id='endnotebibliography'])">
+           <bibliography id="endnotebibliography">
+             <head><xsl:value-of select="$VOCABLES/bibliography/@*[name()=$LANG]" /></head>
+             <xsl:apply-templates select="//endnote" mode="foot"/>
+           </bibliography>
+        </xsl:if>
+     </xsl:if>
 
-   <!-- other elements in back -->
-   <xsl:apply-templates select="@*|node()"/>
-</xsl:element>
+     <!-- other elements in back -->
+     <xsl:apply-templates select="@*|node()"/>
+   
+  </xsl:element>
 </xsl:template>
 
 

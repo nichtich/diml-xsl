@@ -6,7 +6,7 @@
   <xsl:apply-templates select="head/pagenumber" mode="hline"/>
   <p class="abstracthead">
        <xsl:choose>
-         <xsl:when test="head">
+         <xsl:when test="head and not(normalize-space(head)='')">
               <xsl:apply-templates select="head"/>
          </xsl:when>
          <xsl:otherwise>

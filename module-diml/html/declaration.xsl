@@ -14,7 +14,7 @@
 
 <xsl:template match="declaration" mode="head">
   <xsl:choose>
-    <xsl:when test="head">
+    <xsl:when test="head and not(normalize-space(head)='')">
       <xsl:apply-templates select="head"/>
     </xsl:when>
     <xsl:otherwise>

@@ -10,7 +10,7 @@
   <tr>
   <td width="1%"></td>
   <td class="example" width="98%">
-     <xsl:if test="head">
+     <xsl:if test="head and not(normalize-space(head)='')">
        <p class="examplehead">
          <xsl:apply-templates select="head"/>
        </p>  

@@ -21,7 +21,7 @@
         <xsl:value-of select="name()"/>
       </xsl:attribute>
       <xsl:choose>
-        <xsl:when test="head"><xsl:apply-templates select="." mode="head"/></xsl:when>
+        <xsl:when test="head and not(normalize-space(head)='')"><xsl:apply-templates select="." mode="head"/></xsl:when>
         <xsl:otherwise><xsl:apply-templates select="default-head"/></xsl:otherwise>
       </xsl:choose>
     </xsl:element>

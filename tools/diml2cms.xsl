@@ -326,7 +326,7 @@
 
 <xsl:template name="toc-entry">
   <xsl:param name="subelements"/>
-  <xsl:variable name="name" select="name()"/>  
+  <xsl:variable name="name" select="name()"/>
   <xsl:variable name="subname" select="name($subelements[1])"/>
   <xsl:variable name="has-label" select="@label and not($CONFIG/toc/*[name()=$name and @hidelabel='yes'])"/>
   <li>

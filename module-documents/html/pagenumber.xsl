@@ -15,9 +15,13 @@
   <xsl:call-template name="pagenumber-hline"/>
 </xsl:template>
 
-<xsl:template match="pagenumber[not(preceding-sibling::node())]" mode="hline">	
-	<xsl:call-template name="pagenumber-hline"/>
+<xsl:template match="pagenumber" mode="hline">
+  <xsl:call-template name="pagenumber-hline"/>
 </xsl:template>
+
+<!--xsl:template match="pagenumber[count(preceding-sibling::text())=0]" mode="hline">	
+	xx<xsl:call-template name="pagenumber-hline"/>
+</xsl:template-->
 	
 <xsl:template name="pagenumber-hline">	
   <table width="100%" border="0">
@@ -28,9 +32,19 @@
   </table>
 </xsl:template>
 
-<!-- @start ist nur eine tempor„re ausgabe -->
-<xsl:template match="pagenumber" name="pagenumber-simple">
+<xsl:template match="pagenumber" name="pagenumber-content">
   <span class="pagenumber">[<xsl:value-of select="$PAGENUMBER-LABEL"/><xsl:value-of select="@system"/><xsl:value-of select="@start"/>]</span>
+</xsl:template>
+
+<xsl:template match="pagenumber" name="pagenumber-simple">
+  <xsl:choose>
+    <xsl:when test="@id">
+      <a name="{@id}"><xsl:call-template name="pagenumber-content"/></a>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:call-template name="pagenumber-content"/>
+    </xsl:otherwise>
+  </xsl:choose>
 </xsl:template>
 
 </xsl:stylesheet>

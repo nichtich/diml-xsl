@@ -1,0 +1,21 @@
+<!-- Container-DTD fuer ein Content-Management-System zur Verwaltung
+     mehrerer DiML-Dateien und einzelner Bestandteile von DiML-Dokumenten -->
+
+<!ENTITY % diml.dtd SYSTEM "../../dtd/xdiml.dtd">
+%diml.dtd;
+
+<!ELEMENT cms:container (cms:document)+>
+<!ATTLIST cms:container
+  xmlns:cms CDATA #FIXED "DiMLCMS"
+>  
+<!ELEMENT cms:document (cms:meta, cms:content)>
+<!ELEMENT cms:meta (cms:entry)+>
+<!ELEMENT cms:entry (#PCDATA | cms:entry)*>
+<!ATTLIST cms:entry 
+  type CDATA #REQUIRED
+  objid NMTOKEN #IMPLIED
+  linkid IDREF #IMPLIED 
+  id ID #IMPLIED 
+>  
+<!ELEMENT cms:content ANY>
+

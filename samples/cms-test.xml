@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE cms:container SYSTEM "cms.dtd" [
+  <!--ENTITY content SYSTEM "test.xml"-->
+]>
+<?xml-stylesheet type="text/xsl" href="../diml2html.xsl"?>
+<cms:container xmlns:cms="DiMLCMS">
+  <cms:document>
+    <cms:meta>
+      <cms:entry type="author">Fritz Fröhlich</cms:entry>
+      <cms:entry type="title">Meine kleine Dissertation</cms:entry>
+      <!-- Wenn Element in einem anderen teil ist, muss die ID mit Attribut id angegeben sein -->
+      <cms:entry type="front" objid="cms-front.xml" linkid="front" id="front">Titelseite</cms:entry>
+      <cms:entry type="page" objid="cms-front.xml" linkid="p1" id="p1">1</cms:entry>
+      <cms:entry type="page" objid="cms-test.xml" linkid="p2">2</cms:entry>
+      <cms:entry type="page" objid="cms-test.xml" linkid="p3">3</cms:entry>
+      <cms:entry type="page" objid="cms-test.xml" linkid="p4">4</cms:entry>
+      <cms:entry type="page" objid="cms-test.xml" linkid="p5">5</cms:entry>
+      <cms:entry type="page" objid="cms-test.xml" linkid="p6">6</cms:entry>
+    </cms:meta>
+    <cms:content>
+      <chapter>
+        <head>
+          <pagenumber start="2" id="p2"/>
+          Ein Kapitel
+        </head>
+        <p>
+          Dies ist ein Kapitel aus meiner kleinen Dissertation.
+          Es ist keine ganze Dissertation, sondern nur ein Kapitel.
+          Das Kapitel beginnt auf Seite 2 und endet auf Seite
+          <link ref="p5">5</link>.
+        </p>
+        <section>
+          <head>
+            <pagenumber start="3" id="p3"/>
+            Vergangenheit
+          </head>
+          <p>
+            Dies ist ein Unterkapitel aus meiner kleinen Dissertation.
+          </p>
+        </section>
+        <section>
+          <head>
+            <pagenumber start="4" id="p4"/>
+            Gegenwart  
+          </head>
+          <p>
+            Dies ist ein Unterkapitel aus meiner kleinen Dissertation.
+          </p>
+        </section>
+        <section>
+          <head>
+            <pagenumber start="5" id="p5"/>
+            Zukunft
+          </head>
+          <p>
+            Dies ist ein Unterkapitel aus meiner kleinen Dissertation.
+            Dieses Unterkapitel ist so groß, dass jetzt schon die
+            Seite zuende ist,
+            <pagenumber start="6" id="p6"/>
+            aber der Absatz geht noch weiter.
+          </p>
+        </section>
+      </chapter>
+    </cms:content>
+  </cms:document>
+</cms:container>

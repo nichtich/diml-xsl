@@ -7,7 +7,10 @@ sie alle möglichen Angaben zur Steuerung der Styles -->
   <generate of="section" numbering="arabic" after="-" elementBefore="chapter"/>
   <generate of="subsection" numbering="arabic" after="." elementBefore="section"/> 
   <generate numbering="lroman" of="block" before="" after=")" force="yes"/>
-		
+
+  <!-- before and after label if there is no content -->
+  <link to="citation" before="[" after="]"/>
+  		
   <copyright>&#169; Die inhaltliche Zusammenstellung und Aufmachung dieser Publikation sowie die elektronische 
      Verarbeitung sind urheberrechtlich geschützt. Jede Verwertung, die nicht ausdrücklich 
      vom Urheberrechtsgesetz zugelassen ist, bedarf der vorherigen Zustimmung. Das gilt insbesondere für 

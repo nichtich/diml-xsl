@@ -23,7 +23,7 @@
 <xsl:template match="citation" mode="labeled">
 	<xsl:choose>
 		<xsl:when test="@id">
-		   <a id="@id">
+		   <a name="{@id}">
 				<xsl:apply-templates select="@label"/>
 		   </a>
 		</xsl:when>

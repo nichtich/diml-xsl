@@ -11,6 +11,8 @@ Aufgaben von preprocess:
 *entities in files
 -->
 
+<!-- TODO: citation nummerieren (label vergeben) -->
+
 <xsl:param name="CONFIGFILE">config.xml</xsl:param>
 <xsl:variable name="CONFIG" select="document($CONFIGFILE)/config"/>
 
@@ -150,6 +152,20 @@ Aufgaben von preprocess:
   	</xsl:message>
   </xsl:if>
 </xsl:template>
+
+<xsl:template match="table|im|example|frame">
+	<xsl:copy>		
+		<xsl:if test="not(@label)">
+			<xsl:if test="cut">
+				<xsl:attribute name="label">
+					<xsl:value-of select="cut"/>
+				</xsl:attribute>
+			</xsl:if>
+		</xsl:if>
+		<xsl:apply-templates select="@*|node()"/>
+	</xsl:copy>
+</xsl:template>
+
 
 <!--===== copy the rest =====-->
 <xsl:template match="@*|node()">

@@ -16,7 +16,7 @@ body {
          font-family: HELVETICA, ARIAL;
          text-align: left;
          font-style: normal;
-         font-size: 12pt;
+         font-size: small;
          background-color: white;
          margin-left: 0.5cm;
          margin-right: 0.5cm;
@@ -25,12 +25,13 @@ body {
 p {
          font-family: Helvetica, Arial;
          font-style: normal;   
-         font-size: 12pt;
+         font-size: small;
          text-align: left;
   }
   
 span.pagenumber {
          color: red;
+         font-size: x-small;
   }
   
 blockquote {
@@ -39,7 +40,7 @@ blockquote {
   
 sup.footnotelabel {
   color:green;
-  font-size: 9pt;
+  font-size: x-small;
 }
 
   
@@ -56,17 +57,16 @@ sup.footnotelabel {
 p.title {
          font-family: Helvetica, Arial, Verdana;
          font-style: normal;
-         font-size: 18pt;
+         font-size: x-large;
          text-align: center;
          margin-top: 10;
-         text-align:center;
-         line-height: 22pt;
+         text-align:center;         
         } 
 
 /*-- Autor der Dissertation --*/
 p.author {
          text-align: center;
-         font-size:  14pt;
+         font-size:  large;
          font-weight: demi-bold;
          }
          
@@ -91,7 +91,7 @@ span.suffix {
 
 /*-- Institution von der ein akademischer Grad vergeben wurde  --*/
 p.school {
-         margin-top: 20pt;
+         margin-top: x-large;
          text-align: center;
          }
 
@@ -142,7 +142,7 @@ p.submission {
          font-family: Verdana, Lucida, Arial, Helvetica;
          margin-top: 60;
          font-weight: demi-bold;
-         font-size:  18pt;
+         font-size:  x-large;
          text-align: center;
          color: blue;
            }
@@ -254,7 +254,7 @@ td.legend  {
          margin-bottom:6px;
          margin-left:0px;
          margin-right:0px;
-         font-size: smaller;
+         font-size: x-small;
 }
 
 table.mm {
@@ -302,7 +302,7 @@ h3.footnoteheader {
 }
 
 p.combinedPagenumbersText {
-         font-size: 9pt;
+         font-size: xx-smaller;
          color: grey;
 }
 
@@ -322,7 +322,7 @@ span.worktitle, span.articletitle, span.serialtitle {
    font-style: italic; 
 }         
 span.pages { font-weight: bold; }
-span.note { font-size: smaller; }
+span.note { font-size: x-small; }
 span.law { }
 span.citcut { font-weight: bold; }
 span.court { font-weight: bold; }
@@ -351,7 +351,7 @@ p.tablecaption  {
 
 table.navigation {
   font-family: Verdana, Lucida, Arial, Helvetica;
-  font-size: 11pt;
+  font-size: x-small;
   margin-bottom: 1px;
   background-color:#E0E0E0;
   padding:6px;
@@ -361,39 +361,39 @@ table.navigation {
 
 td.nav-about {
   text-align: center;
-  font-size: 10pt;  
+  font-size: x-small;  
 }
             
 td.nav-parts {
   text-align: center;
-  font-size: 10pt;  
+  font-size: x-small;  
 }
 
 .nav-author { font-weight: bold; }
 .nav-author {  }
 
 p.navbottom {  
-              font-size: 10pt;
+              font-size: x-small;
 }
 
 /*-- Server Information --*/
 
 td.copyrightInfo {
-              font-size: 10pt;
+              font-size: x-small;
 }
 td.serverInfo {
     background-color: #E0E0E0;
-              font-size: 10pt;
+              font-size: x-small;
               text-align:center;
 }
 
 td.dtdInfo {
-              font-size: 10pt;
+              font-size: x-small;
               text-align:center;
 }
 
 td.generatedInfo {
-              font-size: 10pt;
+              font-size: x-small;
               text-align:center;
 }
 

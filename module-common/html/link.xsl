@@ -28,6 +28,12 @@
 
 	<xsl:if test="@ref">
 		<xsl:variable name="target" select="key('id',@ref)[1]"/>
+		<xsl:variable name="targetname">
+			<xsl:choose>
+				<xsl:when test="name($target)='cms:entry'"><xsl:value-of select="$target/@type"/></xsl:when>
+				<xsl:otherwise><xsl:value-of select="name($target)"/></xsl:otherwise>
+			</xsl:choose>
+		</xsl:variable>
 		
 	    <xsl:attribute name="href">
      	 <xsl:call-template name="link.target">
@@ -49,8 +55,6 @@
                   or local-name($target) = 'example'
                   or local-name($target) = 'equation'
                   or local-name($target) = 'table'
-                  or local-name($target) = 'figure'
-                  or local-name($target) = 'simplesect'
                   or starts-with(local-name($target),'sect')
                   or starts-with(local-name($target),'refsect')">
       <xsl:attribute name="title">
@@ -64,17 +68,15 @@
         <!-- If it has content, use it -->
         <xsl:apply-templates/>
       </xsl:when>
-      <xsl:when test="name($target)='citation'">
+      <xsl:when test="$CONFIG/link[@to=$targetname]">
+      	<xsl:value-of select="$CONFIG/link[@to=$targetname]/@before"/>
         <xsl:apply-templates select="$target" mode="label"/>
+      	<xsl:value-of select="$CONFIG/link[@to=$targetname]/@after"/>        
       </xsl:when>
-      <!--xsl:otherwise>
-            <xsl:message>
-              <xsl:text>Link element has no content and no Endterm. </xsl:text>
-              <xsl:text>Nothing to show in the link to </xsl:text>
-              <xsl:value-of select="$target"/>
-            </xsl:message>
-            <xsl:text>???</xsl:text>
-      </xsl:otherwise-->
+      <xsl:otherwise>
+      	<xsl:text>LINK</xsl:text>
+      	<xsl:value-of select="name($target)"/>
+      </xsl:otherwise>
     </xsl:choose>
         </xsl:if>
   </a>

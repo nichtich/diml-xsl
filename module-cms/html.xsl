@@ -93,6 +93,9 @@
   <link rel="search" href="{@part}"/>
 </xsl:template>
 
+<xsl:template match="cms:entry" mode="label">
+	<xsl:value-of select="."/>	
+</xsl:template>
 
 <xsl:template match="cms:entry" mode="html-head"/>
 

@@ -6,6 +6,7 @@
 <?css-stylesheet ../style/?>
 <etd lang="de">
 	<front>
+		<submission>Inaugural-Dissertation</submission>
 		<title>
 			Entwurf eines Doppel-Moppel<sup>2</sup>-Integrators zur Vernuppelung
 			flachbräsiger Hoppel-Dodos
@@ -32,7 +33,6 @@
 			<name>Prof. Dr. phil. Tobias Theoretikus</name>
 			<name>Prof. Dr. med. A. U. Anton</name>
 		</approvals>
-		<submission>Inaugural-Dissertation</submission>
 		<abstract lang="de">
 			<head>Zusammenfassung</head>
 			<p>
@@ -135,6 +135,12 @@ There are no museum specimens of the dodo still extant today, but from artists' 
 				</p>
 			</section>
 			<section>
+				<head>Citations</head>
+				<p>
+					Wie schon <link ref="B3"/> sagte oder auch <link ref="B2">der andere</link>!
+				</p>
+			</section>
+			<section>
 				<head>Lists</head>
 				<p>
                                    <dl>
@@ -173,7 +179,7 @@ There are no museum specimens of the dodo still extant today, but from artists' 
                                 <p>
                                    <ul>
                                       <li><p>Punkt eins</p></li>
-                                      <li><p>Punkt <pagenumber numbering="arabic" label="106" start="106" id="p106"/> zwei</p></li>
+                                      <li><p>Punkt <pagenumber numbering="arabic" label="106" start="106" id="p110"/> zwei</p></li>
                                       <li><p>Punkt drei</p></li>
                                    </ul>
                                 </p>
@@ -319,9 +325,21 @@ There are no museum specimens of the dodo still extant today, but from artists' 
     				</ul>
     				Jetzt mit labels:
     				<ul>
-    					<li><p><citation label="B1">Ein Buch</citation></p></li>
-    					<li><p><citation label="B2">Noch ein Buch</citation></p></li>    					
-    					<li><p><citation label="B3">Und noch ein Buch</citation></p></li>    					
+    					<li><p><citation label="B1" id="B1"><cut>A</cut>Ein Buch</citation></p></li>
+    					<li><p><citation label="B2" id="B2">Noch ein Buch</citation></p></li>    					
+    				</ul>
+    			</p>
+    			<p>.</p>
+  			<p>.</p>
+  			<p>.</p>
+  			<p>.</p>
+  			<p>.</p>
+  			<p>.</p>
+  			<p>.</p>
+  			<p>.</p>    			
+    			<p>
+    				<ul>
+     					<li><p><citation label="B3" id="B3">Und noch ein Buch</citation></p></li>    				
     				</ul>
     			</p>
     		</bibliography>

@@ -310,6 +310,10 @@
 
 <!-- generate attribute id and attribute part for a cms:entry element -->
 <xsl:template name="entry-id-attributes">
+  <!--xsl:message>entry-id-attributes</xsl:message-->
+	<!-- HIER UNTERSCHIEDE ZWISCHEN CITRIX3 und LOKAL -->
+	  <!--xsl:variable name="part" select="ancestor-or-self::*[@id=$parts/@id][1]/@id"/-->
+
   <xsl:variable name="part" select="ancestor-or-self::*[@id=$parts/@id][1]/@id"/>
   <xsl:if test="$SELECTID!=$part">
       <xsl:attribute name="id">

@@ -22,9 +22,10 @@ public class DiMLTransform extends XMLReading {
 	File diml2htmlFile = null;
 	File preprocessFile = null;
 
-  private int verboseLevel = 0;
-	private Templates templates;
-	private File resultDir;
+  String selectedId = "";
+  int verboseLevel = 0;
+	Templates templates;
+	File resultDir;
 
   boolean debugMode = false;
   
@@ -114,11 +115,12 @@ public class DiMLTransform extends XMLReading {
 		   		  
      // if you do not want do split, just use "/etd";    
      String xpath = "/etd/front|/etd/body/*|/etd/back/*";
-	   //if (requestId!="") xpath += "[.='"+requestId+"']";
+	   
+	   if (!selectedId.equals("")) xpath = "//*[@id='"+selectedId+"']";
 	   
 	   NodeList parts = selectParts(document,xpath);	
-	  
-	   message("document split into "+parts.getLength()+" parts");
+
+	   message("document split into "+parts.getLength()+" parts:");
 	   
 	   //CMSContainer cmsContainer = new CMSContainer();
   
@@ -133,20 +135,24 @@ public class DiMLTransform extends XMLReading {
 	  	 
 	  	 String id = node.getAttributes().getNamedItem("id").getNodeValue();	  	 	  	 
 	  	 
-	  	
+	  	 Node cmsd=null;
+	  	 
+       if (generateCMSFiles || generateHTMLFiles) {	  	
 	  	 //Document cmsd = cmsContainer.getDocument(node);    
 	 
-	     Transformer transformer = diml2cms.newTransformer();
-	     input  = new DOMSource(document);
-	     output = new DOMResult();
-	     transformer.setParameter("SELECTID",id);	     
-	     transformer.setParameter("VOCFILE",DIMLXSL+"/vocables.xml");
-	     transformer.transform(input, output);
-	     Node cmsd = output.getNode();	 
-
-       String cmsContainerFile = resultDir+"/"+id+".xml";
+	       Transformer transformer = diml2cms.newTransformer();
+	       input  = new DOMSource(document);
+	       output = new DOMResult();
+	       transformer.setParameter("SELECTID",id);	     
+	       transformer.setParameter("VOCFILE",DIMLXSL+"/vocables.xml");
+	       transformer.transform(input, output);
+	       cmsd = output.getNode();	 
+       } else {
+         message("-i "+id);
+       }              
        	 
 	     if(generateCMSFiles) { 
+	       String cmsContainerFile = resultDir+"/"+id+".xml";  
 	       
          DOMSource domSource = new DOMSource(cmsd);
          StreamResult streamResult = new StreamResult(new FileWriter(cmsContainerFile));
@@ -167,7 +173,7 @@ public class DiMLTransform extends XMLReading {
 	  	   message("transforming "+resultFile);      		
 	  	   //message("manually: 'diml2html.xsl SELECTID="+id+"'");
 	  	   
-	       transformer = templates.newTransformer();
+	       Transformer transformer = templates.newTransformer();
 	       transformer.setParameter("VOCFILE",DIMLXSL+"/vocables.xml");
 	       transformer.setParameter("CONVDATE",DateFormat.getDateInstance().format(new Date()));
 
@@ -319,7 +325,7 @@ public class DiMLTransform extends XMLReading {
           else if(c=='H') generateHTMLFiles = value.equals("0") ? false : true;
           else if(c=='C') generateCMSFiles = value.equals("0") ? false : true;          
           else if(c=='v') verboseLevel = atoi(value);
-            
+          else if(c=='i') selectedId = value;  
         }
         if(c=='d') debugMode = true;
         else if(c=='?' || c=='h') return false;
@@ -345,16 +351,21 @@ public class DiMLTransform extends XMLReading {
 		String s;
 
 		s  = "DiMLTransform - generate html output from DiML\n";
-		s += "Usage: java DiML2html [<dimlFile> [<resultDir> [<cssDir>]] [<options>]\n";
+		s += "Usage: java DiMLTransform [<dimlFile> [<resultDir> [<cssDir>]] [<options>]\n";
 		s += " -f dimlFile\n";
 		s += " -d : Debug Mode\n";
 		s += " -v : verbose Level\n";
 		s += " -c cssDirectory (location of xdiml.css)\n";
 		s += " -o resultDir\n";
 		s += " -p preprocessFile (preprocess.xsl)\n";
+		s += " -i select one id - only process this part of the document\n";
     s += " -P1 use preprocessor    / -C0 do not preprocess\n";		
-		s += " -C1 generate CMS files  / -C0 no generate CMS files\n";
-    s += " -H1 generate HTML files / -H0 no generate CMS files\n";		
+		s += " -C1 generate CMS files  / -C0 do not generate CMS files\n";
+    s += " -H1 generate HTML files / -H0 do not generate CMS files\n";		
+    s += "Examples:\n";
+    s += "DiMLTransform foo_xdiml.xml html/ ../style/\n";
+    s += "DiMLTransform -P0 -f _pre.xml -o html/ -c ../style/\n";
+    s += "DiMLTransform foo -i front -C0\n";
 
 		System.out.println(s);
 		System.exit(0);

@@ -20,10 +20,25 @@
       <xsl:attribute name="class">
         <xsl:value-of select="name()"/>
       </xsl:attribute>
-      <xsl:apply-templates select="." mode="head"/>
+      <xsl:choose>
+	 	<xsl:when test="head"><xsl:apply-templates select="." mode="head"/></xsl:when>
+	 	<xsl:otherwise><xsl:apply-templates select="default-head"/></xsl:otherwise>
+	 </xsl:choose>
     </xsl:element>
   </a>
   <xsl:apply-templates select="*[name()!='head']"/>
+</xsl:template>
+
+<xsl:template match="chapter|section|subsection|block|subblock|part|frame" mode="default-head">
+  <xsl:choose>
+      <xsl:when test="name()='frame'">Teil</xsl:when>
+      <xsl:when test="name()='chapter'">Kapitel</xsl:when>
+      <xsl:when test="name()='section'">Abschnitt</xsl:when>
+      <xsl:when test="name()='subsection'">Unterabschnitt</xsl:when>
+      <xsl:when test="name()='block'"></xsl:when>
+      <xsl:when test="name()='subblock'"></xsl:when>
+      <xsl:when test="name()='part'"></xsl:when>
+    </xsl:choose>	
 </xsl:template>
 
 <xsl:template match="frame" mode="table-of-contents">

@@ -15,7 +15,6 @@
 <xsl:template match="link" name="link">
   <xsl:param name="a.target"/>
 
-  <xsl:variable name="target" select="key('id',@ref)[1]"/>
   <!--xsl:variable name="target" select="id(@ref)"/-->
 
   <a>
@@ -27,12 +26,14 @@
       <xsl:attribute name="target"><xsl:value-of select="$a.target"/></xsl:attribute>
     </xsl:if>
 
-    <xsl:attribute name="href">
-      <xsl:call-template name="link.target">
-        <xsl:with-param name="object" select="$target"/>
-      </xsl:call-template>
-    </xsl:attribute>
-
+	<xsl:if test="@ref">
+		<xsl:variable name="target" select="key('id',@ref)[1]"/>
+		
+	    <xsl:attribute name="href">
+     	 <xsl:call-template name="link.target">
+	        <xsl:with-param name="object" select="$target"/>
+     	 </xsl:call-template>
+	    </xsl:attribute>
     <!-- FIXME: is there a better way to tell what elements have a title? -->
     <!-- or local-name($target) = 'bibliography' -->
     <xsl:if test="local-name($target) = 'book'
@@ -66,15 +67,16 @@
       <xsl:when test="name($target)='citation'">
         <xsl:apply-templates select="$target" mode="label"/>
       </xsl:when>
-      <xsl:otherwise>
+      <!--xsl:otherwise>
             <xsl:message>
               <xsl:text>Link element has no content and no Endterm. </xsl:text>
               <xsl:text>Nothing to show in the link to </xsl:text>
               <xsl:value-of select="$target"/>
             </xsl:message>
             <xsl:text>???</xsl:text>
-      </xsl:otherwise>
+      </xsl:otherwise-->
     </xsl:choose>
+        </xsl:if>
   </a>
 </xsl:template>
 

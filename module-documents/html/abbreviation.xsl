@@ -7,7 +7,7 @@
       <xsl:apply-templates select="head"/>
     </xsl:when>
     <xsl:otherwise>
-      <xsl:text>Abkuerzungsverzeichnis</xsl:text>
+      <xsl:text>Abkürzungsverzeichnis</xsl:text>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:template>

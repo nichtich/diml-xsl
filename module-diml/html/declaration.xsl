@@ -17,7 +17,7 @@
       <xsl:apply-templates select="head"/>
     </xsl:when>
     <xsl:otherwise>
-      <xsl:text>Eidesstattliche Erklärung </xsl:text>
+      <xsl:text>Eidesstattliche Erklärung</xsl:text>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:template>

@@ -12,7 +12,7 @@ import org.apache.xpath.XPathAPI;
 
 public class DiMLTransform extends XMLReading {
 
-	String cssFile = null;
+	String cssDirectory = null;
 	File diml2cmsFile  = null;
 	File diml2htmlFile = null;
 	File preprocessFile = null;
@@ -130,17 +130,20 @@ public class DiMLTransform extends XMLReading {
 	     t.setParameter("SELECTID",id);	     
 	     t.transform(input, output);
 	     Node cmsd = output.getNode();	 
-	 
+
+       String cmsContainerFile = resultDir+"/"+id+".xml";
+       	 
 	     if(makeCMSFiles) { 
-	       String cmsContainerFile = resultDir+"/"+id+".xml";
+	       
          DOMSource domSource = new DOMSource(cmsd);
          StreamResult streamResult = new StreamResult(new FileWriter(cmsContainerFile));
    
          message("writing cms:container "+cmsContainerFile);
+         message("manually: 'diml2cms.xsl SELECTID="+id+"'");
          
          Transformer serializer = tFactory.newTransformer();
          serializer.setOutputProperty(OutputKeys.ENCODING,"ISO-8859-1");
-         //serializer.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM,"users.dtd");
+         //serializer.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM,"cms.dtd");
          //serializer.setOutputProperty(OutputKeys.INDENT,"yes");
          serializer.transform(domSource, streamResult); 
        }
@@ -149,13 +152,16 @@ public class DiMLTransform extends XMLReading {
 	  	   String resultFile = resultDir+"/"+id+".html"; 
 	  	   
 	  	   message("transforming "+resultFile);      		
+	  	   message("manually: 'diml2html.xsl SELECTID="+id+"'");
 	       Transformer transformer = templates.newTransformer();
-	       if(cssFile!=null) transformer.setParameter("STYLEDIRECTORY",cssFile);
+	       
+	       if(cssDirectory!=null) transformer.setParameter("STYLEDIRECTORY",cssDirectory);
+	       
 	       input  = new DOMSource(cmsd);
 	       StreamResult out = new StreamResult(resultFile);
 	       transformer.transform(input, out);	       
 		   }
-		} // for
+		} // end for
 		} else {
     	message("document node is neither etd nor cms:container!");
       return;
@@ -190,23 +196,13 @@ public class DiMLTransform extends XMLReading {
 	 
 	private Templates templates;
 	private File resultDir;
-	 
-	private void transform(Node node, String resultFile) 
-	 throws TransformerConfigurationException, TransformerException {
-	  message("transforming "+resultFile);      		
-	  Transformer transformer = templates.newTransformer();
-	  if(cssFile!=null) transformer.setParameter("STYLEDIRECTORY",cssFile);
-	  Source input  = new DOMSource(node);
-	  Result output = new StreamResult(resultFile);
-	  transformer.transform(input, output);
-	}
-	
+	 	
   public void message(String msg) {
     System.out.println(msg);
 	}  	
 
 
-  public void action(String[] args)  throws Exception {
+  public void action(String[] args) throws Exception {
     
     // Provide Output Directory
     if( !provideOutputDir(args.length>1 ? args[1] : ".") ) {
@@ -215,7 +211,7 @@ public class DiMLTransform extends XMLReading {
     }  
     
     if(args.length>2) {
-       cssFile = args[2];
+       cssDirectory = args[2];
     }
 
     String DIMLXSL = System.getProperty("DIMLXSL","..");
@@ -267,8 +263,23 @@ public class DiMLTransform extends XMLReading {
 			printUsage();
 			System.exit(0);
 		}
-		DiMLTransform tr = new DiMLTransform();
-		tr.action(args);
+		try {
+		  DiMLTransform tr = new DiMLTransform();
+		  tr.action(args);
+		} catch(org.apache.xml.dtm.DTMException e) {
+		  System.err.println("DTDException! Propably there is not enough memory or an old version of Xalan\n" +
+		  "You may specify java to use more memory with -Xms and -Xmx\n"+
+		  "On some Linux JVMs there is a build in Jaxp xalan-implementatation."+
+		  "In this case you have to put xalan.jar into java/lib/endorsed/ to override it!\n"+
+		  e.getMessage()
+		  );
+		  //System.err.println("File not found!"+e.getMessage());
+		} catch(javax.xml.transform.TransformerException e) {
+		  System.out.println("Transformation failed: "+e.getMessage());
+		} /*catch(Exception e) {
+		  System.out.println("HEY!");
+		  System.out.println(e.getClass().getName());
+		} */ 	 		 
 	}
 	
 

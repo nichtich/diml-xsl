@@ -33,22 +33,22 @@
   </table>
 </xsl:template>
 
-<xsl:template match="pagenumber/@start">
+<xsl:template match="pagenumber" mode="number">
 	<xsl:choose>
-		<xsl:when test="@numerbing='arabic'">
-			<xsl:number value="." format="1"/>
+		<xsl:when test="@numbering='arabic'">
+			<xsl:number value="@start" format="1"/>
 		</xsl:when>
-		<xsl:when test="@numerbing='lalpha'">
-			<xsl:number value="." format="a"/>
+		<xsl:when test="@numbering='lalpha'">
+			<xsl:number value="@start" format="a"/>
 		</xsl:when>
-		<xsl:when test="@numerbing='ualpha'">
-			<xsl:number value="." format="A"/>
+		<xsl:when test="@numbering='ualpha'">
+			<xsl:number value="@start" format="A"/>
 		</xsl:when>
-		<xsl:when test="@numerbing='lroman'">
-			<xsl:number value="." format="i"/>
+		<xsl:when test="@numbering='lroman'">
+			<xsl:number value="@start" format="i"/>
 		</xsl:when>
-		<xsl:when test="@numerbing='uroman'">
-			<xsl:number value="." format="I"/>
+		<xsl:when test="@numbering='uroman'">
+			<xsl:number value="@start" format="I"/>
 		</xsl:when>
 		<xsl:otherwise>
 			<xsl:value-of select="."/>
@@ -68,7 +68,7 @@
 			<xsl:value-of select="@label"/>
 		</xsl:when>
 		<xsl:otherwise>
-		  	<xsl:apply-templates select="@start"/>
+		  	<xsl:apply-templates select="." mode="number"/>
 		</xsl:otherwise>
 	</xsl:choose>
   	<xsl:text>]</xsl:text>

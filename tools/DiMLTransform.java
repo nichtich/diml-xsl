@@ -258,7 +258,7 @@ public class DiMLTransform  {
      } 
       String configFileString="file:///"+configFile.getCanonicalPath();
       configFileString=configFileString.replace('\\','/');
-      message("Using configfile: " + configFileString);
+      message("Using configfile: " + configFileString + " (by DiMLtransform.java)");
 
       params.put("CONFIGFILE",configFileString);
 
@@ -368,8 +368,8 @@ public class DiMLTransform  {
     boolean returnvalue = false;
     
     //defaults
-    resultDirHACKEDString="hacked";
-    resultDirHTMLString="html";
+    resultDirHACKEDString="../hacked";
+    resultDirHTMLString="../html";
     
     for(int i=0; i<args.length; i++) {
       String arg = args[i];
@@ -386,7 +386,7 @@ public class DiMLTransform  {
              else if(c=='t') resultDirHTMLString = value;
              else if(c=='p') preprocessFile = new File(value);
              else if(c=='P') doPreprocessing = value.equals("0") ? false : true;
-             else if(c=='H') generateHTMLFiles = value.equals("0") ? false : true;
+             else if(c=='T') generateHTMLFiles = value.equals("0") ? false : true;
              else if(c=='C') generateCMSFiles = value.equals("0") ? false : true;          
              else if(c=='v') verboseLevel = atoi(value);
              else if(c=='c') configFile = new File(value);
@@ -425,14 +425,14 @@ public class DiMLTransform  {
      s += " -s cssDirectory (location of xdiml.css)\n";
      s += " -o resultDir (current directory if omitted)\n";
      s += " -x resultDir hacked XML (./hacked/ if omitted)\n";
-     s += " -h resultDir HTML (./html/ if omitted)\n";
+     s += " -t resultDir HTML (./html/ if omitted)\n";
      s += " -c configFile (default $DIMLXSLCONFIG or config.xml)\n";
      s += " -p preprocessFile (preprocess.xsl)\n";
      s += " -i select one id - only process this part of the document\n";
      s += " -b Convert endnotes to bibliography\n";
      s += " -P1 use preprocessor    / -P0 do not preprocess\n";		
      s += " -C1 generate CMS files  / -C0 do not generate CMS files\n";
-     s += " -H1 generate HTML files / -H0 do not generate CMS files\n";		
+     s += " -T1 generate HTML files / -H0 do not generate CMS files\n";		
      s += " PARAM=VALUE pairs are passed through to the XSLT scripts\n";
      s += "\nExamples:\n";
      s += "  DiMLTransform foo_xdiml.xml html/ ../style/\n";

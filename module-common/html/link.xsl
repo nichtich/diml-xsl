@@ -4,9 +4,6 @@
 <!-- Link: für einen internen Link                                   -->
 <!-- (innerhalb des Dokumentes, nicht unbedingt innerhalb der Datei) -->
 
-<!-- key defined in diml2html.xsl already -->
-<!-- <xsl:key name="id" match="*" use="@id"/> -->
-
 <!-- TODO: check for multiple ID and stupid link targets : warning! -->
 
 
@@ -32,10 +29,10 @@
 </xsl:template>
       
 <xsl:template match="link" name="link">
-  <xsl:param name="a.target"/>
 
+  <xsl:param name="a.target"/>
   <a>
-  
+
     <!-- if link has attribut id, use it for creating atribute name -->
     <xsl:if test="@id">
       <xsl:attribute name="name"><xsl:value-of select="@id"/></xsl:attribute>
@@ -110,28 +107,34 @@
         </xsl:otherwise>
       </xsl:choose>
 
-      <!--        -->
-      <!-- Inhalt -->
-      <!--        -->
+      <!-- Content (if @ref exists) -->
 
-          <xsl:choose>
-            <xsl:when test="count(child::node()) &gt; 0">
-              <!-- If it has content, use it -->
-              <xsl:apply-templates/>
-            </xsl:when>
-            
-            <xsl:when test="$CONFIG/link[@to=$targetname]">
-              <xsl:value-of select="$CONFIG/link[@to=$targetname]/@before"/>
-              <xsl:apply-templates select="$target" mode="label"/>
-              <xsl:value-of select="$CONFIG/link[@to=$targetname]/@after"/>        
-            </xsl:when>
-            <xsl:otherwise>
-              <xsl:text>LINK</xsl:text>
-              <xsl:value-of select="name($target)"/>
-            </xsl:otherwise>
-          </xsl:choose>
+    <xsl:choose>
+      <xsl:when test="count(child::node()) &gt; 0">
+        <!-- If it has content, use it -->
+        <xsl:apply-templates/>
+      </xsl:when>
+      <xsl:when test="$CONFIG/link[@to=$targetname]">
+        <xsl:value-of select="$CONFIG/link[@to=$targetname]/@before"/>
+        <xsl:apply-templates select="$target" mode="label"/>
+        <xsl:value-of select="$CONFIG/link[@to=$targetname]/@after"/>        
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:text>[LINK to </xsl:text>
+        <xsl:value-of select="name($target)"/>]
+      </xsl:otherwise>
+    </xsl:choose>
 
     </xsl:if> <!-- test="@ref" -->
+    
+
+    <!-- Content (if @ref does not exists) -->
+    
+    <xsl:if test="not(@ref)">
+      <xsl:apply-templates/>
+    </xsl:if>
+
+
   </a>
 </xsl:template>
 

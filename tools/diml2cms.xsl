@@ -138,11 +138,8 @@
 <!--===============================================================-->
 <xsl:template name="createFront">
 	<front>
-    		<xsl:copy-of select="@*"/>
-		<xsl:message>createFrotn</xsl:message>
-		
+    		<xsl:copy-of select="@*"/>		
 		<xsl:apply-templates select="/etd/front/*"/>
-    		
     		<xsl:call-template name="TableOfContents"/>
     		<xsl:if test="//table">
 			<xsl:call-template name="TableOfTables"/>

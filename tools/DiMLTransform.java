@@ -1,4 +1,5 @@
 import java.io.*;
+import java.text.DateFormat;
 import java.util.*;
 import org.w3c.dom.*;
 import javax.xml.parsers.*;
@@ -168,6 +169,8 @@ public class DiMLTransform extends XMLReading {
 	  	   
 	       transformer = templates.newTransformer();
 	       transformer.setParameter("VOCFILE",DIMLXSL+"/vocables.xml");
+	       transformer.setParameter("CONVDATE",DateFormat.getDateInstance().format(new Date()));
+
 	       if(cssDirectory!=null) transformer.setParameter("STYLEDIRECTORY",cssDirectory.toString()+File.separator);
 	       
 	       input  = new DOMSource(cmsd);

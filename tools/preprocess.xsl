@@ -94,6 +94,13 @@ exclude-result-prefixes="cms">
 	</xsl:element>
 </xsl:template>
 
+<xsl:template match="table|im|example|frame|chapter|section|subsection|block|subblock|part">
+	<xsl:copy>		
+		<xsl:call-template name="provide-id"/>		
+		<xsl:apply-templates select="@*|node()"/>
+	</xsl:copy>
+</xsl:template>
+
 <xsl:template match="*">
 	<xsl:copy>		
 		<!--xsl:call-template name="provide-id"/-->		

@@ -20,17 +20,6 @@
   </p>
 </xsl:template>
 
-<!-- Tabellenverzeichnis -->
-<xsl:template match="table" mode="table-of-tables">
-   <li>
-     <a>
-       <xsl:call-template name="a-href-attribute"/>
-       <xsl:apply-templates select="caption" mode="table-of-tables" />
-     </a>
-   </li>
-</xsl:template>
-
-
 <!-- no elements (TODO: clean up and [re]move) -->
 <xsl:include href="html/param.xsl"/>
 <xsl:include href="html/inline.xsl"/>
@@ -39,7 +28,6 @@
 <xsl:include href="common/common.xsl"/>
 
 <!-- special DiML-Table -->
-<xsl:include href="html/caption.xsl"/>
 <xsl:include href="html/legend.xsl"/>
 
 <!-- defined templates in DocBook Stylesheets -->

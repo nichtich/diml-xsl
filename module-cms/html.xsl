@@ -100,12 +100,11 @@
            <br/>
          </xsl:if>         
          <xsl:if test="cms:entry[@type='pagenumber']">
-           <xsl:text>Seite:</xsl:text>
       	 <xsl:call-template name="pagenumbers-nav"/>
          </xsl:if>         
          <!-- bibliography, declaration ... -->
-        <xsl:apply-templates select="cms:entry[@type!='pagenumber' and @type!='chapter' and @type!='front'][@ref]" mode="link"/>
-        <xsl:apply-templates select="cms:entry" mode="navbar"/>
+        <xsl:apply-templates select="cms:entry[@type!='pagenumber' and @type!='chapter' and @type!='front'][@ref]" mode="navbar"/>
+        <!--xsl:apply-templates select="cms:entry" mode="navbar"/-->
       </td>
     </tr>
   </table>
@@ -138,9 +137,6 @@
   <a href="{@part}">last</a>&#xA0;
 </xsl:template>
 
-
-<xsl:template match="cms:entry" mode="navbar"/>
-
 <!--==== Page navigation with Javascript =========================-->
 
 <xsl:template match="cms:entry[@type='pagenumber']" mode="nav-form">
@@ -158,12 +154,11 @@
 
 <!-- there is still a bug (some pages multiple/some missing) -->
 <xsl:template name="pagenumbers-nav">
-	<!--
-	Seiten: <xsl:apply-templates select="cms:entry[@type='pagenumber']" mode="link"/>
-     <br/>-->
+	<!--Seiten: <xsl:apply-templates select="cms:entry[@type='pagenumber']" mode="link"/>-->
 	<form method="get"
 	 action="javascript:self.location.href=document.pagenumForm.pagenumber.value;void(0);" name="pagenumForm">
 		<!--input type="submit" value="Gehe zu Seite:"/-->
+           <xsl:text>Seite:</xsl:text>
 		<select name="pagenumber" onChange="document.pagenumForm.submit();">
 			<xsl:apply-templates select="cms:entry[@type='pagenumber']" mode="nav-form"/>			
 		</select>
@@ -204,6 +199,7 @@ acknowledgement: Danksagung
   <span class="nav-author"><xsl:value-of select="."/>: </span>
 </xsl:template>
 
+<xsl:template match="cms:entry" mode="navbar"/> <!--ignore-->
 <xsl:template match="cms:entry"/>
 
 </xsl:stylesheet>

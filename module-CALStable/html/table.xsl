@@ -11,7 +11,7 @@
 <xsl:include href="../common/table.xsl"/>
 
 <!-- ********************************************************************
-     $Id: table.xsl,v 1.3 2003-03-12 09:34:28 archibaldsmith Exp $
+     $Id: table.xsl,v 1.4 2003-06-17 11:18:12 nichtich Exp $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -1021,6 +1021,11 @@
 
   -->
 </xsl:template>
+
+<!-- Prints a label for instance "Table 5" -->
+<!--xsl:template match="table" mode="NumberingLabel">
+	<xsl:text></xsl:text>
+</xsl:template-->
 
 </xsl:stylesheet>
 

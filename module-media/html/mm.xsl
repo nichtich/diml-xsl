@@ -78,15 +78,5 @@
     </img>
 </xsl:template>
 
-<xsl:template match="mm" mode="table-of-figures">
-  <li>
-    <a>
-      <xsl:call-template name="a-href-attribute"/>
-      <xsl:apply-templates select="caption" mode="table-of-figures" />
-    </a>
-  </li>
-</xsl:template>
-
-
 </xsl:stylesheet>
 

@@ -19,9 +19,6 @@
 <xsl:template match="etd">
   <xsl:apply-templates select="front" mode="headline"/>
   <xsl:apply-templates select="front"/>
-  <xsl:call-template name="table-of-contents"/>
-  <xsl:call-template name="table-of-figures"/>
-  <xsl:call-template name="table-of-tables"/>      
   <xsl:apply-templates select="body"/>
   <xsl:apply-templates select="back"/>      
 </xsl:template>

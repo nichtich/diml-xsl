@@ -5,12 +5,8 @@
   <xsl:apply-templates/>
 </xsl:template>
 
-<xsl:template match="caption" mode="table-of-figures">
+<xsl:template match="caption" mode="TableOfContents">
   <xsl:apply-templates/>
-</xsl:template>
-
-<xsl:template match="caption" mode="table-of-tables">
-   <xsl:apply-templates/>
 </xsl:template>
 
 </xsl:stylesheet>

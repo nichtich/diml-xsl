@@ -14,15 +14,15 @@
       <xsl:when test="name()='part'">h4</xsl:when>
     </xsl:choose>
   </xsl:variable>  
-  <xsl:element name="{$elementname}">
-    <xsl:attribute name="class">
-      <xsl:value-of select="name()"/>
-    </xsl:attribute>
-    <a>
-      <xsl:call-template name="a-name-attribute"/>
+  <a>
+    <xsl:call-template name="a-name-attribute"/>
+    <xsl:element name="{$elementname}">
+      <xsl:attribute name="class">
+        <xsl:value-of select="name()"/>
+      </xsl:attribute>
       <xsl:apply-templates select="." mode="head"/>
-    </a>      
-  </xsl:element>
+    </xsl:element>
+  </a>
   <xsl:apply-templates select="*[name()!='head']"/>
 </xsl:template>
 

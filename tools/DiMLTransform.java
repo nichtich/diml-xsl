@@ -215,7 +215,7 @@ public class DiMLTransform extends XMLReading {
 	  
     
     // Provide Output Directory
-    if( !provideOutputDir(args.length>1 ? args[1] : "") ) {
+    if( !provideOutputDir(args.length>1 ? args[1] : ".") ) {
       message("unable to create output directory: "+resultDir);
       return;
     }  

@@ -1,3 +1,19 @@
+@rem
+@rem Get current directory 
+@rem http://home7.inet.tele.dk/batfiles/main/tricktip.htm#46
+@rem 
+@SET cd=
+@SET promp$=%prompt%
+@PROMPT SET cd$Q$P
+@CALL>%temp%.\setdir.bat
+@
+% do not delete this line %
+@ECHO off
+PROMPT %promp$%
+FOR %%c IN (CALL DEL) DO %%c %temp%.\setdir.bat
+set currentdir=%cd%
+
+
 @echo off
 rem Guess DIMLXSL if not defined
 if not "%DIMLXSL%" == "" goto checkHTMLDir
@@ -15,7 +31,7 @@ rem for win9x: if exist "html\nul"
   echo Directory html exists, removing .html files
   cd html
   del *.html
-  cd ..
+  cd %currentdir%
   goto checkHACKEDDir
 
 :checkHACKEDDir
@@ -28,8 +44,8 @@ rem for win9x: if exist "hacked\nul"
 :delHACKEDs
   echo Directory hacked exists, removing .xml files
   cd hacked
-  del *.xml
-  cd ..
+  del *.xml >nul
+  cd %currentdir%
   goto gotHome
 
 :gotHome

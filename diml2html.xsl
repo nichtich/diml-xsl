@@ -31,6 +31,21 @@
 
 <xsl:output method="html" encoding="ISO-8859-1"/>
 
+<xsl:template name="a-name-attribute">
+	<xsl:param name="object" select="."/>
+	<xsl:attribute name="name">
+	  <xsl:choose>
+	    <xsl:when test="$object/@id"><xsl:value-of select="$object/@id"/></xsl:when>
+	    <xsl:otherwise>
+	      <xsl:value-of select="generate-id($object)"/>
+	    </xsl:otherwise>
+	  </xsl:choose> 
+	</xsl:attribute>
+</xsl:template>
+
+<!-- uses functions.xsl in directory tools (for footnotes, citations)-->
+<xsl:include href="tools/functions.xsl"/>
+
 <xsl:include href="module-diml/html.xsl"/>
 <xsl:include href="module-media/html.xsl"/>
 <xsl:include href="module-structure/html.xsl"/>
@@ -44,9 +59,6 @@
 <xsl:include href="module-cms/html.xsl"/>
 <xsl:include href="module-verse/html.xsl"/>
 
-<!-- uses functions.xsl in directory tools (for footnotes, citations)-->
-<xsl:include href="tools/functions.xsl"/>
-
 <xsl:key name="term" match="term" use="@id"/>
 <xsl:key name="id" match="*[@id]" use="@id"/>
 
@@ -54,19 +66,6 @@
 <xsl:template match="frame|chapter|section|subsection|block|subblock|part" mode="head">
   <xsl:apply-templates select="head"/>  
 </xsl:template>
-
-<xsl:template name="a-name-attribute">
-	<xsl:param name="object" select="."/>
-	<xsl:attribute name="name">
-	  <xsl:choose>
-	    <xsl:when test="$object/@id"><xsl:value-of select="$object/@id"/></xsl:when>
-	    <xsl:otherwise>
-	      <xsl:value-of select="generate-id($object)"/>
-	    </xsl:otherwise>
-	  </xsl:choose> 
-	</xsl:attribute>
-</xsl:template>
-
 
 <!-- <head> -->
 <xsl:template match="*" mode="html-head"/>

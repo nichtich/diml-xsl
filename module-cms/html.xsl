@@ -5,6 +5,14 @@
   exclude-result-prefixes="cms"
 >
 
+<!-- this variable reflects, whether frames are used in document -->
+<xsl:variable name="frameExists">
+  <xsl:choose>
+    <xsl:when test="/cms:container/cms:document/cms:meta/cms:entry[@type='frame']">true</xsl:when>
+    <xsl:otherwise>false</xsl:otherwise>
+  </xsl:choose>
+</xsl:variable>
+
 <xsl:template match="cms:container">
   <xsl:apply-templates select="cms:document[1]"/>
 </xsl:template>
@@ -115,6 +123,7 @@
 <!--==================================================================-->
 
 <xsl:template match="cms:meta" mode="navigation">
+
   <table width="100%" border="0" class="navigation">
     <tr>
       <td class="nav-about" valign="top">
@@ -132,7 +141,7 @@
            <xsl:choose>
          
              <!-- show frames instead of chapters if frames exist -->         
-             <xsl:when test="cms:entry[@type='frame']">
+             <xsl:when test="$frameExists='true'">
                <xsl:value-of select="$VOCABLES/frame/@*[name()=$LANG]" />
                <xsl:text>:&#xA0;</xsl:text>
                <!-- choose a) frames and parts, which are a file -->
@@ -341,30 +350,35 @@
  <a>
     <xsl:attribute name="href">
     
-      <!-- standard case: attribute "part" exists: links to another file -->
-      <!-- means name of part with extension (e.g. ".html") is printed   -->
-      <xsl:if test="@part and name(key('id',@ref))='cms:entry'">
-        <xsl:value-of select="@part"/>
-        <xsl:value-of select="$EXT"/>
-      </xsl:if>
-
       <xsl:choose>
-        <!-- jump to navigation bar instead to head of chapter           -->
-        <!-- except toc and toc-media. other exceptions may be necessary -->
-        <xsl:when test="@ref=':contents' or @ref=''">
-          <xsl:text>#</xsl:text><xsl:value-of select="@ref"/>
-        </xsl:when>
-        <xsl:otherwise>
-        
-          <!-- if not toc and toc-media (means no "#...") the name of    -->
-          <!-- the file ist printed to avoid empty attribute "href"      -->
-          <xsl:if test="(@ref and @type and not(@part) and not(@id)) ">
+      
+      <!-- standard case: attribute "part" exists: links to another file -->
+      <!-- if @part exists and @ref points to a xms:entry-element        -->
+      <!-- means name of part with extension (e.g. ".html") is printed   -->
+
+         <xsl:when test="@part and name(key('id',@ref))='cms:entry'">
+           <xsl:value-of select="@part"/>
+           <xsl:value-of select="$EXT"/>
+         </xsl:when>
+
+      <!-- this case means link to the same file.                        -->
+      <!-- name of courrent file will be used                            -->
+      <!-- in older versions the follwing test was used:                 -->
+      <!-- test="(@ref and @type and not(@part) and not(@id))"           -->
+      
+         <xsl:otherwise> 
             <xsl:value-of select="../cms:entry[@type=':current']/@part"/>
             <xsl:value-of select="$EXT"/>
-          </xsl:if>
-
-        </xsl:otherwise>
+         </xsl:otherwise>
       </xsl:choose>
+
+      <!-- link to anchor only if link goes to TOC  -->
+      <!-- some old test: @ref=../cms:entry[@type=':current']/@part -->
+      
+      <xsl:if test="@ref=':contents'">
+         <xsl:text>#</xsl:text><xsl:value-of select="@ref"/>
+      </xsl:if>
+
     </xsl:attribute>
     <xsl:value-of select="normalize-space($LABEL)"/>
   </a>

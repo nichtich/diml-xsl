@@ -152,6 +152,16 @@ There are no museum specimens of the dodo still extant today, but from artists' 
 				<head>Tables</head>
 				<p>&table1;</p>
 			</section>
+			<section>
+				<head>Images</head>
+				<p>
+					Ein Bild
+					<mm file="bild.gif">
+						<caption>Bildüberschrift</caption>
+						<legend>Die Erklärung zu Bild</legend>
+					</mm>
+				</p>
+			</section>
 		</chapter>
 		<chapter id="chapter3">
 			<head>

@@ -14,7 +14,7 @@
   <!--xsl:choose>
     <xsl:when test=""></xsl:when>
   </xsl:choose-->
-  <sup><xsl:value-of select="count(preceding::footnote | preceding::endnote)+1"/></sup>
+  <sup class="footnotelabel"><xsl:value-of select="count(preceding::footnote | preceding::endnote)+1"/></sup>
 </xsl:template>
 
 <!-- TODO: Endnote -->

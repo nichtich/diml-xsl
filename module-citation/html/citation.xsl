@@ -8,26 +8,36 @@
    <xsl:text>] </xsl:text> 
 </xsl:template>
 
-<xsl:template match="citation" mode="label">
-  <xsl:text>[</xsl:text>  
-  <xsl:value-of select="count(preceding-sibling::citation)+1"/>
-  <xsl:text>]</xsl:text>
+<xsl:template match="citation/@label">
+  <xsl:text>[</xsl:text>
+  <xsl:value-of select="."/>
+  <xsl:text>]&#xA0;</xsl:text>
 </xsl:template>
 
 <xsl:template match="bibliography/citation">
-  <p>
-    <a>
-      <xsl:if test="@id">
-        <xsl:attribute name="id">
-          <xsl:value-of select="@id"/>
-        </xsl:attribute>
-      </xsl:if>
-      <xsl:apply-templates select="." mode="label"/>
-    </a>
-    <xsl:text>&#xA0;</xsl:text>    
-    <xsl:apply-templates/>
+  <p>  
+  	<xsl:apply-templates select="." mode="labeled"/>
   </p>  
 </xsl:template>
 
+<xsl:template match="citation" mode="labeled">
+	<xsl:choose>
+		<xsl:when test="@id">
+		   <a id="@id">
+				<xsl:apply-templates select="@label"/>
+		   </a>
+		</xsl:when>
+		<xsl:otherwise>
+			<xsl:apply-templates select="@label"/>
+		</xsl:otherwise>
+	</xsl:choose>    
+    <xsl:apply-templates/>
+</xsl:template>
+
+<!-- listed citations are not rendered inline -->
+<xsl:template match="li/p/citation[count(../node())=1]">
+  	<xsl:apply-templates select="." mode="labeled"/>
+</xsl:template>
+  	
 </xsl:stylesheet>
 

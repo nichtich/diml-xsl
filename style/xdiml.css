@@ -37,9 +37,9 @@ blockquote {
          font-family: monospace;
 }
   
-sup       {
-color:green;
-         font-size: 9pt;
+sup.footnotelabel {
+  color:green;
+  font-size: 9pt;
 }
 
   

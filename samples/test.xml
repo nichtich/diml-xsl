@@ -265,6 +265,22 @@ There are no museum specimens of the dodo still extant today, but from artists' 
         </def>
       </dl>
     </glossary-->
+    		<bibliography>
+    			<head>Noch eine Bibliography</head>
+    			<p>
+    				<ul>
+    					<li><p><citation>Ein Buch</citation></p></li>
+    					<li><p><citation>Noch ein Buch</citation></p></li>    					
+    					<li><p><citation>Und noch ein Buch</citation></p></li>    					
+    				</ul>
+    				Jetzt mit labels:
+    				<ul>
+    					<li><p><citation label="B1">Ein Buch</citation></p></li>
+    					<li><p><citation label="B2">Noch ein Buch</citation></p></li>    					
+    					<li><p><citation label="B3">Und noch ein Buch</citation></p></li>    					
+    				</ul>
+    			</p>
+    		</bibliography>
 		<appendix id="app">
 			<p>Dies ist ein Anhang</p>
 		</appendix>

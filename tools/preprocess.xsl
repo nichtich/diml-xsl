@@ -175,6 +175,11 @@ exclude-result-prefixes="cms">
 <!--===== copy the rest =====-->
 <xsl:template match="@*|node()">
 	<xsl:copy>		
+		<xsl:if test="parent::back | parent::body">
+			<xsl:call-template name="provide-id">
+				<!--xsl:with-param name=""/>-->
+			</xsl:call-template>
+		</xsl:if>
 		<xsl:apply-templates select="@*|node()"/>
 	</xsl:copy>
 </xsl:template>

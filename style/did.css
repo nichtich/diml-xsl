@@ -28,6 +28,10 @@ span.pagenumber {
          color: red;
   }
   
+blockquote {
+         font-family: monospace;
+}
+  
   
 /*----------------------------------------------------------------------------*/
 /*----                                                                     ---*/
@@ -253,6 +257,10 @@ span.worktitle, span.articletitle, span.serialtitle {
 }         
 span.pages { font-weight: bold; }
 span.note { font-size: smaller; }
+span.law { }
+span.citcut { font-weight: bold; }
+span.court { font-weight: bold; }
+span.bible { font-weight: bold; }
 span.editor { }
 span.adress { }
 span.edition { }

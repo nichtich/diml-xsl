@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:cms="http://edoc.hu-berlin.de/diml/module/cms">
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:cms="http://edoc.hu-berlin.de/diml/module/cms"
+exclude-result-prefixes="cms">
 
 <xsl:param name="NUMBERING">1</xsl:param>
 
@@ -29,6 +30,30 @@
 	<pagenumber>
 		<xsl:call-template name="provide-id"/>
 		<xsl:apply-templates select="@*|node()"/>		
+		<xsl:if test="not(@label) and @start">
+			<xsl:attribute name="label">
+				<xsl:choose>
+					<xsl:when test="@numbering='arabic'">
+						<xsl:number value="@start" format="1"/>
+					</xsl:when>
+					<xsl:when test="@numbering='lalpha'">
+						<xsl:number value="@start" format="a"/>
+					</xsl:when>
+					<xsl:when test="@numbering='ualpha'">
+						<xsl:number value="@start" format="A"/>
+					</xsl:when>
+					<xsl:when test="@numbering='lroman'">
+						<xsl:number value="@start" format="i"/>
+					</xsl:when>
+					<xsl:when test="@numbering='uroman'">
+						<xsl:number value="@start" format="I"/>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:value-of select="."/>
+					</xsl:otherwise>
+				</xsl:choose>
+			</xsl:attribute>
+		</xsl:if>
 	</pagenumber>
 </xsl:template>
 

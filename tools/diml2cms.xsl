@@ -79,7 +79,6 @@
   <xsl:variable name="part" select="ancestor-or-self::*[@id=$parts/@id][1]/@id"/>
   <cms:entry type="pagenumber" ref="{@id}">
     <xsl:call-template name="entry-id-attributes"/>
-      <xsl:value-of select="@start"/>
   </cms:entry>
 </xsl:template>
 

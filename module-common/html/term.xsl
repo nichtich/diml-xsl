@@ -19,9 +19,13 @@
   </xsl:template>
 
   <xsl:template name="term-content">
-    <xsl:variable name="ref" select="key('term',@ref)"/>
+    <xsl:variable name="ref">
+    	<xsl:if test="@ref">
+	<xsl:value-of select="key('term',@ref)"/>
+	</xsl:if>
+    </xsl:variable>
     <xsl:choose>
-      <xsl:when test="$ref">
+      <xsl:when test="@ref">      
         <a>
           <xsl:call-template name="a-href-attribute">
             <xsl:with-param name="object" select="$ref"/>

@@ -4,10 +4,20 @@ exclude-result-prefixes="cms">
 
 <xsl:param name="NUMBERING">1</xsl:param>
 
+<xsl:key name="id" match="*" use="@id"/>
+
 <xsl:template name="provide-id">
+	<xsl:param name="suggest"/>
 	<xsl:if test="not(@id)">
 		<xsl:attribute name="id">
-			<xsl:value-of select="generate-id()"/>
+			<xsl:choose>
+				<xsl:when test="$suggest!='' and key('id',$suggest)">
+					<xsl:value-of select="generate-id()"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:value-of select="$suggest"/>
+				</xsl:otherwise>
+			</xsl:choose>
 		</xsl:attribute>	
 	</xsl:if>
 </xsl:template>
@@ -69,30 +79,47 @@ exclude-result-prefixes="cms">
 	</xsl:element>
 </xsl:template>
 
-<!--xsl:template match="citation">
-</xsl:template-->
-
 <!--TODO: numbering types -->
-<xsl:template match="chapter|section|subsection|block|subblock|part">
+<xsl:template name="numbering">
 	<xsl:variable name="name" select="name()"/>
+	<xsl:if test="not(@label)">
+		<xsl:attribute name="label">
+			<xsl:variable name="recent-start" select="preceding-sibling::*[name()=$name][@start][1]"/>
+			<xsl:choose>
+				<xsl:when test="$recent-start">
+					<xsl:value-of select="$recent-start/@start+
+					count(preceding-sibling::*[name()=$name])-count($recent-start/preceding-sibling::*[name()=$name])"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:value-of select="count(preceding-sibling::*[name()=$name])+1"/>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:attribute>
+	</xsl:if>
+</xsl:template>
+
+<xsl:template match="section|subsection|block|subblock|part">
 	<xsl:copy>
-		<xsl:if test="not(@label)">
-			<xsl:attribute name="label">
-				<xsl:variable name="recent-start" select="preceding-sibling::*[name()=$name][@start][1]"/>
-				<xsl:choose>
-					<xsl:when test="$recent-start">
-						<xsl:value-of select="$recent-start/@start+
-						count(preceding-sibling::*[name()=$name])-count($recent-start/preceding-sibling::*[name()=$name])"/>
-					</xsl:when>
-					<xsl:otherwise>
-						<xsl:value-of select="count(preceding-sibling::*[name()=$name])+1"/>
-					</xsl:otherwise>
-				</xsl:choose>
-			</xsl:attribute>
-		</xsl:if>
+		<xsl:call-template name="provide-id"/>
+		<xsl:call-template name="numbering"/>
 		<xsl:apply-templates select="@*|node()"/>
 	</xsl:copy>
 </xsl:template>
+
+<xsl:template match="chapter|frame">
+	<xsl:variable name="name" select="name()"/>
+	<xsl:copy>
+		<xsl:call-template name="provide-id">
+			<xsl:with-param name="suggest">
+				<xsl:value-of select="name()"/>
+				<xsl:value-of select="count(preceding-sibling::*[name()=$name]) + 1"/>
+			</xsl:with-param>
+		</xsl:call-template>
+		<xsl:call-template name="numbering"/>
+		<xsl:apply-templates select="@*|node()"/>
+	</xsl:copy>
+</xsl:template>
+
 
 <xsl:template match="table|im|example|frame">
 	<xsl:copy>		
@@ -101,9 +128,22 @@ exclude-result-prefixes="cms">
 	</xsl:copy>
 </xsl:template>
 
+<xsl:template match="front | body/* | back/*">
+	<xsl:copy>		
+		<xsl:variable name="name" select="name()"/>
+		<xsl:call-template name="provide-id">
+			<xsl:with-param name="suggest">
+				<xsl:value-of select="name()"/>
+				<xsl:value-of select="count(preceding-sibling::*[name()=$name]) + 1"/>
+			</xsl:with-param>
+		</xsl:call-template>
+		<xsl:apply-templates select="@*|node()"/>	
+	</xsl:copy>		
+</xsl:template>
+
+<!-- copy the rest -->
 <xsl:template match="*">
 	<xsl:copy>		
-		<!--xsl:call-template name="provide-id"/-->		
 		<xsl:apply-templates select="@*|node()"/>
 	</xsl:copy>
 </xsl:template>

@@ -11,22 +11,28 @@ import javax.xml.transform.stream.*;
 import org.apache.xpath.XPathAPI;
 
 public class DiMLTransform extends XMLReading {
-
-	String cssDirectory = null;
+	
 	String DIMLXSL;
+	
+	File dimlFile = null;
+	File cssDirectory = null;
+	
 	File diml2cmsFile  = null;
 	File diml2htmlFile = null;
 	File preprocessFile = null;
+
+  boolean debugMode = false;
+  
+	private boolean generateHTMLFiles = true;
+	private boolean generateCMSFiles  = true;
+  
+  Hashtable params = new Hashtable();
+	
 	
 	TransformerFactory tFactory = TransformerFactory.newInstance(); 
 	
 	public DiMLTransform() {}
   	  	  
-	public boolean provideOutputDir(String dir) {
-		resultDir = new File(dir);
- 		if (!resultDir.exists()) resultDir.mkdirs();
- 		return resultDir.isDirectory();	
-	}
 
   /**
    * Select Elements to split document into by an XPath expression
@@ -95,12 +101,7 @@ public class DiMLTransform extends XMLReading {
 		
 		message("transforming:");
     
-    /*if(e.getTagName() == "cms:container") {
-      
-      transform(dimlDocument,resultDir+"/output.html");
-      
-		} else*/ if(e.getTagName() == "etd") {				 
-		 
+    if(e.getTagName() == "etd") {				 		 
 		 		  
 		 // load diml2cms.xsl
 	   Templates diml2cms = loadXSL(diml2cmsFile);
@@ -135,7 +136,7 @@ public class DiMLTransform extends XMLReading {
 
        String cmsContainerFile = resultDir+"/"+id+".xml";
        	 
-	     if(makeCMSFiles) { 
+	     if(generateCMSFiles) { 
 	       
          DOMSource domSource = new DOMSource(cmsd);
          StreamResult streamResult = new StreamResult(new FileWriter(cmsContainerFile));
@@ -150,14 +151,15 @@ public class DiMLTransform extends XMLReading {
          serializer.transform(domSource, streamResult); 
        }
 
-       if(makeHTMLFiles) {    
+       if(generateHTMLFiles) {    
 	  	   String resultFile = resultDir+"/"+id+".html"; 
 	  	   
 	  	   message("transforming "+resultFile);      		
 	  	   message("manually: 'diml2html.xsl SELECTID="+id+"'");
+	  	   
 	       transformer = templates.newTransformer();
 	       transformer.setParameter("VOCFILE",DIMLXSL+"/vocables.xml");
-	       if(cssDirectory!=null) transformer.setParameter("STYLEDIRECTORY",cssDirectory);
+	       if(cssDirectory!=null) transformer.setParameter("STYLEDIRECTORY",cssDirectory.toString());
 	       
 	       input  = new DOMSource(cmsd);
 	       StreamResult out = new StreamResult(resultFile);
@@ -165,7 +167,7 @@ public class DiMLTransform extends XMLReading {
 		   }
 		} // end for
 		} else {
-    	message("document node is neither etd nor cms:container!");
+    	message("Document is no DiML-Document: "+dimlFile);
       return;
    	}      	
 		
@@ -175,8 +177,8 @@ public class DiMLTransform extends XMLReading {
   /**
    * Load DiML Document
    */
-  public Document parseDocument(String source) throws ParserConfigurationException, SAXException, IOException {  
-	  File dimlFile = new File(source);
+  /*public Document parseDocument(String source) throws ParserConfigurationException, SAXException, IOException {  
+	  //dimlFile = new File(source);
 	    
 		DocumentBuilder dBuilder = dFactory.newDocumentBuilder();
 		
@@ -190,12 +192,9 @@ public class DiMLTransform extends XMLReading {
 	  }
 	  	  
 	  return doc;    
-  }	
+  }	*/
 	
-	 
-	private boolean makeHTMLFiles = true;
-	private boolean makeCMSFiles  = true;
-	 
+	 	 
 	private Templates templates;
 	private File resultDir;
 	 	
@@ -206,31 +205,25 @@ public class DiMLTransform extends XMLReading {
 
   public void action(String[] args) throws Exception {
     
-    // Provide Output Directory
-    if( !provideOutputDir(args.length>1 ? args[1] : ".") ) {
-      message("unable to create output directory: "+resultDir);
-      return;
-    }  
-    
-    if(args.length>2) {
-       cssDirectory = args[2];
-    }
+    resultDir = new File(".");        
     
     DIMLXSL = System.getProperty("DIMLXSL","..");
     diml2cmsFile  = new File(DIMLXSL+"/tools/diml2cms.xsl");
 	  diml2htmlFile = new File(DIMLXSL+"/diml2html.xsl");
 	  preprocessFile = new File(DIMLXSL+"/tools/preprocess.xsl");    
-    
+        
     Source input;
     DOMResult output;
+        
+    if(!parseArgs(args))
+      printUsageAndExit();
     
-    // load DiMLFile
-    File dimlFile = new File(args[0]);
-    if(!dimlFile.exists()) dimlFile = new File(args[0]+".xml");
-    if(!dimlFile.exists()) dimlFile = new File(args[0]+"_xdiml.xml");
-    if(!dimlFile.exists()) {
-      message("xdiml file does not exist!");  
+ 		if (!resultDir.exists()) resultDir.mkdirs();
+ 		if (!resultDir.isDirectory()) {
+      message("unable to create output directory: "+resultDir);
+      return;
     }  
+
 	  
     // load preprocess.xsl
 		message("preprocessing");
@@ -242,7 +235,7 @@ public class DiMLTransform extends XMLReading {
 	  t.transform(input, output);
 	  message("\tdone.");
     
-    String preFile = resultDir+File.separator+"-pre.xml";
+    String preFile = resultDir+File.separator+"_pre.xml";
     message("preprocessing done (writing to "+preFile+")");
             
     DOMSource domSource = new DOMSource(output.getNode());
@@ -252,7 +245,7 @@ public class DiMLTransform extends XMLReading {
     serializer.transform(domSource, streamResult);     
 
     // load XSL
-    if(makeHTMLFiles)
+    if(generateHTMLFiles)
       templates = loadXSL(diml2htmlFile);
     
     // create output	
@@ -262,8 +255,7 @@ public class DiMLTransform extends XMLReading {
   
 	public static void main(String[] args) throws Exception {
 		if(args.length<1) {
-			printUsage();
-			System.exit(0);
+			printUsageAndExit();
 		}
 		try {
 		  DiMLTransform tr = new DiMLTransform();
@@ -277,22 +269,81 @@ public class DiMLTransform extends XMLReading {
 		  );
 		  //System.err.println("File not found!"+e.getMessage());
 		} catch(javax.xml.transform.TransformerException e) {
-		  System.out.println("Transformation failed: "+e.getMessage());
+		  System.out.println("TransformerException"+e.getLocationAsString()+": "+e.getMessage());
 		} /*catch(Exception e) {
 		  System.out.println("HEY!");
 		  System.out.println(e.getClass().getName());
 		} */ 	 		 
 	}
 	
+	private void setDiMLFile(String name) {
+	  dimlFile = new File(name);
+	  if(!dimlFile.exists()) dimlFile = new File(name+".xml");
+    if(!dimlFile.exists()) dimlFile = new File(name+"_xdiml.xml");
+    if(!dimlFile.exists()) {
+      message("xdiml file does not exist!");  
+      System.exit(0);
+    }  
+  }  
 
-	public static void printUsage() {
-		String usageMsg;
 
-		usageMsg  = "DiMLTransform - generate html output from DiML";
-		usageMsg += "Usage: java DiML2html [<options>] <file> [<dir>]\n";
-		usageMsg += "  file\tXDiML-file\n";
-		usageMsg += "  dir\tdestination-directory\n";
+  /**
+   * Parse command line arguments
+   * @returns true if there is no error
+   */
+  private boolean parseArgs(String [] args) {    
+    int n=0; // 0: dimlFile 1:resultDir 2:cssDirectory
+    for(int i=0; i<args.length; i++) {
+      String arg = args[i];
+      char c = (arg.length()>1) ? arg.charAt(1) : 0;
+      if(arg.charAt(0)=='-' && c!=0) { // flag (starting with '-')      
+        String value = "";
+        if(arg.length()>2) value = arg.substring(2);
+        else value = i<args.length-1 ? args[++i] : "";
+        
+        if(!value.equals("")) { // attributes that need a value
+               if(c=='f') setDiMLFile(value);
+          else if(c=='c') cssDirectory = new File(value);
+          else if(c=='o') resultDir = new File(value);
+          else if(c=='p') preprocessFile = new File(value);
+          else if(c=='H') generateHTMLFiles = value.equals("0") ? false : true;
+          else if(c=='C') generateCMSFiles = value.equals("0") ? false : true;          
+          // -v : verbose
+        }
+        if(c=='d') debugMode = true;
+        else if(c=='?' || c=='h') return false;
+      } else { //
+        int p = arg.indexOf("=");
+        if(p==-1) { // simple argument
+          if(n==0) setDiMLFile(arg);
+          else if(n==1) resultDir = new File(arg);
+          else if(n==2) cssDirectory = new File(arg);
+          n++;
+        } else { // key=value pair
+          String k = arg.substring(0,p);
+          String v = arg.substring(p+1);
+          if(!k.equals("")) params.put(k,v);
+        }
+      } 
+    }              
+    return true;
+  }  
+	
 
-		System.out.println(usageMsg);
+	public static void printUsageAndExit() {
+		String s;
+
+		s  = "DiMLTransform - generate html output from DiML\n";
+		s += "Usage: java DiML2html [<dimlFile> [<resultDir> [<cssDir>]] [<options>]\n";
+		s += " -f dimlFile\n";
+		s += " -d : Debug Mode\n";
+		s += " -v : verbose Level\n";
+		s += " -c cssDirectory (location of xdiml.css)\n";
+		s += " -o resultDir\n";
+		s += " -p preprocessFile (preprocess.xsl)\n";
+		s += " -H (0/1) generate HTML files\n";
+
+		System.out.println(s);
+		System.exit(0);
 	}
 }

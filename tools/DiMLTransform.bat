@@ -125,7 +125,7 @@ REM set XLSTPROCESSOR=oracle.xml.jaxp.JXSAXTransformerFactory
 :exec
 set MAINCLASS=DiMLTransform
 set ARGUMENTS=%*
-@echo on
+rem @echo on
 %_RUNJAVA% -Xmx512M -Xms128M -Djavax.xml.transform.TransformerFactory=%XLSTPROCESSOR% -DDIMLXSL="%DIMLXSL%" -classpath "%LOCALCLASSPATH%" %MAINCLASS% -c"%CONFIGFILE%" %ARGUMENTS%
 
 REM -DTOOLSDir=$TOOLSDir -DRESULTDir=$RESULTDir -classpath $CLASSPATH $MAINCLASS -P$PREPROCESSING $XMLFILE $ARGUMENTS

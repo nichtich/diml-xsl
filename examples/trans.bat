@@ -1,1 +1,0 @@
-C:\Programme\saxon\saxon.exe E:\projects\diml\01_2003\diml-xsl-0.1b\examples\test.xml E:\projects\diml\01_2003\diml-xsl-0.1b\diml2html.xsl >test.html

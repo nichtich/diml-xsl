@@ -4,11 +4,12 @@
 <xsl:template match="author">
   <p class="author"><span class="vorgelegtText">vorgelegt von</span>
   <xsl:text> </xsl:text>
-  <xsl:apply-templates select="given"/>
+  <!--xsl:apply-templates select="given"/>
   <xsl:text> </xsl:text>
   <xsl:apply-templates select="surname"/>
   <br />
-  <xsl:apply-templates select="suffix"/>
+  <xsl:apply-templates select="suffix"/-->
+  <xsl:apply-templates/>
   </p>
 </xsl:template>
 

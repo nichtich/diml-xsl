@@ -5,7 +5,7 @@
                 version='1.0'>
 
 <!-- ********************************************************************
-     $Id: xref.xsl,v 1.1 2003-02-05 01:09:00 nichtich Exp $
+     $Id: xref.xsl,v 1.2 2003-03-13 12:07:15 nichtich Exp $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -624,96 +624,6 @@
 </xsl:template>
 
 <!-- ==================================================================== -->
-
-<xsl:template match="link" name="link">
-  <xsl:param name="a.target"/>
-
-  <xsl:variable name="targets" select="key('id',@linkend)"/>
-  <xsl:variable name="target" select="$targets[1]"/>
-
-  <xsl:call-template name="check.id.unique">
-    <xsl:with-param name="linkend" select="@linkend"/>
-  </xsl:call-template>
-
-  <a>
-    <xsl:if test="@id">
-      <xsl:attribute name="name"><xsl:value-of select="@id"/></xsl:attribute>
-    </xsl:if>
-
-    <xsl:if test="$a.target">
-      <xsl:attribute name="target"><xsl:value-of select="$a.target"/></xsl:attribute>
-    </xsl:if>
-
-    <xsl:attribute name="href">
-      <xsl:call-template name="href.target">
-        <xsl:with-param name="object" select="$target"/>
-      </xsl:call-template>
-    </xsl:attribute>
-
-    <!-- FIXME: is there a better way to tell what elements have a title? -->
-    <xsl:if test="local-name($target) = 'book'
-                  or local-name($target) = 'set'
-                  or local-name($target) = 'chapter'
-                  or local-name($target) = 'preface'
-                  or local-name($target) = 'appendix'
-                  or local-name($target) = 'bibliography'
-                  or local-name($target) = 'glossary'
-                  or local-name($target) = 'index'
-                  or local-name($target) = 'part'
-                  or local-name($target) = 'refentry'
-                  or local-name($target) = 'reference'
-                  or local-name($target) = 'example'
-                  or local-name($target) = 'equation'
-                  or local-name($target) = 'table'
-                  or local-name($target) = 'figure'
-                  or local-name($target) = 'simplesect'
-                  or starts-with(local-name($target),'sect')
-                  or starts-with(local-name($target),'refsect')">
-      <xsl:attribute name="title">
-        <xsl:apply-templates select="$target"
-                             mode="object.title.markup.textonly"/>
-      </xsl:attribute>
-    </xsl:if>
-
-    <xsl:choose>
-      <xsl:when test="count(child::node()) &gt; 0">
-        <!-- If it has content, use it -->
-        <xsl:apply-templates/>
-      </xsl:when>
-      <xsl:otherwise>
-        <!-- else look for an endterm -->
-        <xsl:choose>
-          <xsl:when test="@endterm">
-            <xsl:variable name="etargets" select="key('id',@endterm)"/>
-            <xsl:variable name="etarget" select="$etargets[1]"/>
-            <xsl:choose>
-              <xsl:when test="count($etarget) = 0">
-                <xsl:message>
-                  <xsl:value-of select="count($etargets)"/>
-                  <xsl:text>Endterm points to nonexistent ID: </xsl:text>
-                  <xsl:value-of select="@endterm"/>
-                </xsl:message>
-                <xsl:text>???</xsl:text>
-              </xsl:when>
-              <xsl:otherwise>
-                  <xsl:apply-templates select="$etarget" mode="endterm"/>
-              </xsl:otherwise>
-            </xsl:choose>
-          </xsl:when>
-
-          <xsl:otherwise>
-            <xsl:message>
-              <xsl:text>Link element has no content and no Endterm. </xsl:text>
-              <xsl:text>Nothing to show in the link to </xsl:text>
-              <xsl:value-of select="$target"/>
-            </xsl:message>
-            <xsl:text>???</xsl:text>
-          </xsl:otherwise>
-        </xsl:choose>
-      </xsl:otherwise>
-    </xsl:choose>
-  </a>
-</xsl:template>
 
 <xsl:template match="ulink" name="ulink">
   <xsl:variable name="link">

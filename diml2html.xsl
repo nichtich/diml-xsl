@@ -10,7 +10,7 @@
     <xsl:when test="/processing-instruction('css-stylesheet')">
       <xsl:value-of select="/processing-instruction('css-stylesheet')"/>
     </xsl:when>
-    <xsl:otherwise>xdiml.css</xsl:otherwise>
+    <xsl:otherwise>../style/did.css</xsl:otherwise>
   </xsl:choose>
 </xsl:param>
 
@@ -31,6 +31,7 @@
 <xsl:include href="module-CALStable/html.xsl"/>
 <xsl:include href="module-lists/html.xsl"/>
 <xsl:include href="module-text/html.xsl"/>
+<xsl:include href="module-cms/html.xsl"/>
 
 <xsl:key name="term" match="term" use="@id"/>
 <xsl:key name="id" match="*[@id]" use="@id"/>

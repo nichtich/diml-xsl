@@ -2,10 +2,11 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
 <xsl:template match="bibliography" name="element-bibliography">
-  <h3>
+  <xsl:apply-templates select="head/pagenumber" mode="hline"/>
+  <h3 class="bibliography">
     <xsl:apply-templates select="." mode="head"/>
   </h3>
-  <xsl:for-each select="*[name()!='head']"> <!-- != head -->
+  <xsl:for-each select="*[name()!='head']">
     <xsl:choose>
       <xsl:when test="name(.)='citation'">
         <p><xsl:apply-templates select="."/></p>

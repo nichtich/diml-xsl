@@ -1,7 +1,7 @@
-README for DiML-styles version 0.1c
+README for DiML-styles version 0.1d
 
-These are XSL Stylesheets for the DiML XML DTD
-(or to be honest they are planned to be).
+These are XSL Stylesheets for the DiML XML DTD to
+generate HTML or other formats out of DiML-files.
 
 The DiML DTD is a modularized XML schema for scientific
 documents developed at the Humboldt University, Berlin.
@@ -14,6 +14,7 @@ Manifest
 
 README               this file
 TODO                 planned features not yet implemented
+doc/                 documentation files
 module-CALStable/    styles for elements of module CALStable
 module-citation/     styles for elements of module citation
 module-common/       styles for elements of module common

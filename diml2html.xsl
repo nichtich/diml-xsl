@@ -184,7 +184,7 @@
 
 <xsl:template match="body" mode="table-of-contents">
 
-  <xsl:apply-templates select="chapter|frame|&Inclusion.body;" mode="table-of-contents">
+  <xsl:apply-templates mode="table-of-contents">
 
     <xsl:with-param name="toc-depth" select="$TOC_DEPTH"/>
 
@@ -195,17 +195,14 @@
 
 
 <xsl:template match="back" mode="table-of-contents">
-
-  <xsl:apply-templates select="&Inclusion.appendixes;" mode="table-of-contents">
-
+  <xsl:apply-templates mode="table-of-contents">
     <xsl:with-param name="toc-depth" select="$TOC_DEPTH"/>
-
   </xsl:apply-templates>
-
 </xsl:template>
 
+<!-- TODO: bibliography mit mehreren parts -->
 
-<xsl:template match="glossary|bibliography" mode="table-of-contents">
+<xsl:template match="abbreviation|preface|summary|acknowledgement|declaration|glossary|bibliography|vita" mode="table-of-contents">
   <li>
     <a href="#{generate-id(.)}">
       <xsl:apply-templates select="." mode="head"/>
@@ -215,58 +212,40 @@
 
 
 
-<xsl:template match="chapter|section|subsection|block|subblock|part" mode="table-of-contents">
-
+<xsl:template match="resources" mode="table-of-contents">
   <xsl:param name="toc-depth">0</xsl:param>
+  <xsl:call-template name="toc-entry">
+    <xsl:with-param name="toc-depth" select="$toc-depth"/>
+    <xsl:with-param name="subelements" select="part"/>
+  </xsl:call-template>
+</xsl:template>
 
-  <xsl:variable name="subelement">
+<xsl:template match="appendix" mode="table-of-contents">
+  <xsl:param name="toc-depth">0</xsl:param>
+  <xsl:call-template name="toc-entry">
+    <xsl:with-param name="toc-depth" select="$toc-depth"/>
+    <xsl:with-param name="subelements" select="bibliography|resources|glossary|appendix|abbreviation|part"/>
+  </xsl:call-template>
+</xsl:template>
 
-    <xsl:choose>
 
-      <xsl:when test="name()='chapter'">section</xsl:when>
-
-      <xsl:when test="name()='section'">subsection</xsl:when>
-
-      <xsl:when test="name()='subsection'">block</xsl:when>
-
-      <xsl:when test="name()='block'">subblock</xsl:when>
-
-      <xsl:when test="name()='subblock'">part</xsl:when>
-
-      <xsl:when test="name()='part'">part</xsl:when>
-
-    </xsl:choose>
-
-  </xsl:variable>
-
+<xsl:template name="toc-entry">
+  <xsl:param name="toc-depth">0</xsl:param>
+  <xsl:param name="subelements"/>
   <li>
-
     <a href="#{generate-id(.)}">
-
       <xsl:apply-templates select="." mode="head"/>
-
     </a>
-
-    <xsl:if test="$toc-depth>0 and *[name()=$subelement][head]">
-
+    <xsl:if test="$toc-depth>0 and $subelements">
       <ul>        
-
-        <xsl:apply-templates select="*[name()=$subelement]" mode="table-of-contents">
-
+        <xsl:apply-templates select="$subelements" mode="table-of-contents">
           <xsl:with-param name="toc-depth">
-
             <xsl:value-of select="$toc-depth - 1"/>
-
           </xsl:with-param>
-
         </xsl:apply-templates>
-
       </ul>
-
     </xsl:if>
-
-  </li>
-
+  </li>  
 </xsl:template>
 
 

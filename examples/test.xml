@@ -12,8 +12,7 @@
       <surname>Padberg</surname>
       <suffix>aus M&uuml;nster</suffix>
     </author>
-    <school>Aus dem Virchow-Klinikum Medizinische Fakult&auml;t Charit&eacute;<br/>der Humboldt-Universit&auml;t zu Berlin<br/>II. Medizinische Klinik
-  <br/>Kommissarischer Leiter: Dr. med. E. Klein<br/>(Ehemaliger Leiter: Prof. Dr. med. H. D. Pohle)</school>
+    <school>Aus dem Virchow-Klinikum Medizinische Fakult&auml;t Charit&eacute;<br/>der Humboldt-Universit&auml;t zu Berlin<br/>II. Medizinische Klinik   <br/>Kommissarischer Leiter: Dr. med. E. Klein<br/>(Ehemaliger Leiter: Prof. Dr. med. H. D. Pohle)</school>
     <degree>Zur Erlangung der medizinischen Doktorw&uuml;rde am Virchow-Klinikum</degree>
     <date type="present">1. Mai 1997</date>
     <date type="defense">17. April 1998</date>
@@ -26,16 +25,16 @@
     </approvals>
     <submission>Inaugural-Dissertation</submission>
     <grant>
-      <p></p>
+      <p/>
     </grant>
     <dedication>
-      <p></p>
+      <p/>
     </dedication>
     <copyright>
-      <p></p>
+      <p/>
     </copyright>
     <motto>
-      <p></p>
+      <p/>
     </motto>
     <p/>
   </front>
@@ -46,6 +45,7 @@
       <p>Verz. - Verzeichnis</p>
     </abbreviation>
     <preface>
+      <head>Vorwort</head>
       <p>Ein kleines Vorwort gefällig?</p>
     </preface>
     <chapter>
@@ -72,9 +72,7 @@
       <head>Second Chapter: Examples</head>
       <section>
         <head>Tables</head>
-        <p>
-          &table1;
-        </p>
+        <p>           &table1;         </p>
       </section>
     </chapter>
     <chapter>
@@ -89,13 +87,7 @@
       <head>Bibliographie</head>
       <p>Viel zitiert - wenig gelesen!</p>
       <citation id="FT1997">
-        <workauthor>Joachim Funke und Thomas Krueger</workauthor>:
-        <articletitle>Psychologie im Internet.
-         Teil 10: Lernen im Netz: Hypertext und Hyperlernen</articletitle>
-        In: <worktitle>Psychologie heute</worktitle>,
-        <pubdate>1997</pubdate>,
-        <number>24 (8)</number>,
-        <pages>68-69</pages>
+        <workauthor>Joachim Funke und Thomas Krueger</workauthor>:         <articletitle>Psychologie im Internet.          Teil 10: Lernen im Netz: Hypertext und Hyperlernen</articletitle>         In: <worktitle>Psychologie heute</worktitle>,         <pubdate>1997</pubdate>,         <number>24 (8)</number>,         <pages>68-69</pages>
       </citation>
     </bibliography>
     <glossary>

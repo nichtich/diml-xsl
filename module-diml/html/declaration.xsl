@@ -3,7 +3,9 @@
 
 <xsl:template match="declaration">
   <h3>
-    <xsl:apply-templates select="." mode="head"/>
+    <a name="#{generate-id(.)}">
+      <xsl:apply-templates select="." mode="head"/>
+    </a>
   </h3>
   <xsl:apply-templates select="*[not(self::head)]" />
 </xsl:template>

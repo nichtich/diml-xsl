@@ -196,15 +196,23 @@ p.declaration {
 <!-- Anhang -->
 p.appendix {
          }
-         
-<!-- Bibliographie -->
 
-<!-- Beispielformatierung für Literaturhinweise -->
+/*----------------------------------------------------------------------------*/
+/* Bibliographie                                                              */
+/*----------------------------------------------------------------------------*/
+
 span.name { font-variant:small-caps; }
-span.worktitle { font-style: italic; }         
-span.articletitle { font-style: italic; } 
+span.worktitle, span.articletitle, span.serialtitle {
+   font-style: italic; 
+}         
 span.pages { font-weight: bold; }
 span.note { font-size: smaller; }
+span.editor { }
+span.edition { }
+span.volume { }
+span.version { }
+span.number { }
+span.pubdate { }
 
 
 <!-- Tabellen -->

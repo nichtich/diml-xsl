@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE etd PUBLIC "-//HUB//DTD Electronic Theses and Dissertations Version DiML 2.0//EN"
  "../../dtd/xdiml.dtd" [
   <!ENTITY Object1 SYSTEM "Siegmann_html_263be806.gif" NDATA GIF>
@@ -466,9 +466,6 @@ Polytrauma</keyword>
           </table>
         </p>
       </section>
-    </chapter>
-    <chapter>
-      <head/>
     </chapter>
     <chapter>
       <head>

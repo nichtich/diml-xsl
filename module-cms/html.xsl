@@ -122,18 +122,42 @@
 </xsl:template>
 
 <xsl:template match="cms:meta" mode="navbottom">
-<!--  <table width="100%" border="0" class="headline">-->
   <table width="100%" border="0" class="navigation">
     <tr>
-       <td>
-          <xsl:apply-templates select="cms:entry[@type='front']" mode="link"/>
-          <xsl:apply-templates select="cms:entry[@type=':prev']" mode="navbar"/>
-          <xsl:apply-templates select="cms:entry[@type=':next']" mode="navbar"/>
-          <xsl:apply-templates select="cms:entry[@type=':first']" mode="navbar"/>
-          <xsl:apply-templates select="cms:entry[@type=':last']" mode="navbar"/>
-       </td>
+      <td class="nav-parts" colspan="2">
+        <p class="navbottom">
+         <xsl:apply-templates select="cms:entry[@type='front']" mode="link"/>
+         <xsl:apply-templates select="cms:entry[@type='preface']" mode="link"/>
+         <xsl:if test="cms:entry[@type='chapter']">
+           <xsl:apply-templates select="cms:entry[@type='chapter']" mode="link"/>
+         </xsl:if>         
+         <xsl:apply-templates select="cms:entry[@type!='pagenumber' and @type!='chapter' and @type!='front' and @type!='preface'][@ref]" mode="navbar"/>
+        </p>
+      </td>
     </tr>
   </table>
+  <hr/>
+
+  <p class="copyrightbottom">
+     &amp;copy;  Die inhaltliche Zusammenstellung und Aufmachung dieser Publikation sowie die elektronische 
+     Verarbeitung sind urheberrechtlich geschützt. Jede Verwertung, die nicht ausdrücklich 
+     vom Urheberrechtsgesetz zugelassen ist, bedarf der vorherigen Zustimmung. Das gilt insbesondere für 
+     die Vervielfältigung, die Bearbeitung und Einspeicherung und Verarbeitung in elektronische Systeme.
+  </p>
+     <center>
+     <table valign="top" cellpadding="6">
+      <tr>
+        <td>Archiviert in DiML DTD<br/>a subset from ETD-ML Version 1.1<br/></td>
+        <td align="center" bgcolor="#96B6EB">
+           <a href="http://edoc.hu-berlin.de">Zertifizierter Dokumentenserver<br/> der Humboldt-Universität zu Berlin</a>
+        </td>
+        <td align="center">HTML - Version erstellt am:<br/>
+           <xsl:value-of select="$KONVDATE" />
+        </td>
+      </tr>
+     </table>
+     </center>
+
 </xsl:template>
 
 <!--navbar-->

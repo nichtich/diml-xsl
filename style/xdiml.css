@@ -375,3 +375,11 @@ td.nav-parts {
 
 .nav-author { font-weight: bold; }
 .nav-author {  }
+
+p.navbottom {  
+              font-size: 10pt;
+}
+
+p.copyrightbottom {
+              font-size: 10pt;
+}

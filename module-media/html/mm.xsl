@@ -8,6 +8,11 @@
 </xsl:template>
 
 <xsl:template match="mm" name="mm">
+ <p class="mmcaption">
+    <a name="{generate-id(.)}">
+    <xsl:apply-templates select="caption"/>
+    </a>
+  </p>  
   <p>
     <img>
       <xsl:attribute name="src">
@@ -19,4 +24,10 @@
   </p>
 </xsl:template>
 
+<xsl:template match="mm" mode="table-of-figures">
+  <li><a href="#{generate-id(.)}"><xsl:apply-templates select="caption" mode="table-of-figures" /></a></li>
+</xsl:template>
+
+
 </xsl:stylesheet>
+

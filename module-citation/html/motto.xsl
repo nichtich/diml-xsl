@@ -3,6 +3,8 @@
 
 <!--== quotation ==-->
 <xsl:template match="motto">
+  <!-- pagenumber is not allowed in "motto" anyway -->
+  <xsl:apply-templates select="pagenumber"/>
   <xsl:for-each select="p">
     <p><i>
       <xsl:apply-templates/>

@@ -6,5 +6,9 @@
   <u><xsl:apply-templates/></u>
 </xsl:template>
 
+<xsl:template match="caption" mode="table-of-figures">
+  <xsl:apply-templates/>
+</xsl:template>
+
 </xsl:stylesheet>
 

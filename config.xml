@@ -13,6 +13,9 @@ sie alle möglichen Angaben zur Steuerung der Styles -->
   <!-- before and after label if there is no content -->
   <link to="citation" before="[" after="]"/>
 
+  <pagenumber before="[" between=" - " after="&#8595;]" lang="en"/>
+  <pagenumber before="[" between=" - " after="&#8595;]" lang="de"/>  
+  
   <!--== css-file ==-->
   <!--css-stylesheet>xdiml.css</css-stylesheet-->
   		

@@ -4,25 +4,12 @@
 <xsl:include href="html/table.xsl"/>
 
 <xsl:template match="table">
-
+ 
   <!-- this will print pagenumbers included in a table or list etc.  -->
   <!-- in a combined way at the begin of this table, list etc.       -->
   <xsl:if test="descendant::pagenumber">
-     <table width="100%" border="0">
-       <tr>
-         <td width="100%"><hr/></td>
-         <xsl:choose>
-           <xsl:when test="count(descendant::pagenumber) = 1">
-              <td><span class="pagenumber"><nobr>[ <xsl:value-of select="$VOCABLES/page/@*[name()=$LANG]" />: <xsl:apply-templates select="descendant::pagenumber[1]" mode="pagenumber-combined" /> ]&#8595;</nobr></span></td>
-           </xsl:when>
-           <xsl:otherwise>
-              <td><span class="pagenumber"><nobr>[ <xsl:value-of select="$VOCABLES/pages/@*[name()=$LANG]" />: <xsl:apply-templates select="descendant::pagenumber[1]" mode="pagenumber-combined" /> - <xsl:apply-templates select="descendant::pagenumber[position()=last()]" mode="pagenumber-combined" /> ]&#8595;</nobr></span></td>
-           </xsl:otherwise>
-         </xsl:choose>
-       </tr>
-     </table>
+    <xsl:call-template name="more-pagenumbers-inside"/>
   </xsl:if>
-
 
  <div align="center">
  <table class="calstable" border="0" cellspacing="0" cellpadding="0">

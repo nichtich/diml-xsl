@@ -25,6 +25,9 @@
 </xsl:template>
 
 <xsl:template match="bibliography/citation">
+  <xsl:if test="descendant::pagenumber">
+    <xsl:call-template name="more-pagenumbers-inside"/>
+  </xsl:if>
   <p>  
   	<xsl:apply-templates select="." mode="labeled"/>
   </p>  
@@ -45,9 +48,8 @@
 </xsl:template>
 
 <!-- listed citations are not rendered inline -->
-<xsl:template match="li/p/citation[count(../node())=1]">
+<xsl:template match="citation[count(../node())=1]">
   	<xsl:apply-templates select="." mode="labeled"/>
 </xsl:template>
   	
 </xsl:stylesheet>
-

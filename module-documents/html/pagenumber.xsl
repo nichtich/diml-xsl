@@ -20,9 +20,41 @@
    <xsl:call-template name="pagenumber-hline"/>
 </xsl:template>
 
-<!--xsl:template match="pagenumber[count(preceding-sibling::text())=0]" mode="hline">	
-	xx<xsl:call-template name="pagenumber-hline"/>
-</xsl:template-->
+<!-- this will print pagenumbers included in a table or list etc.  -->
+<!-- in a combined way at the begin of this table, list etc.       -->
+<xsl:template name="more-pagenumbers-inside">
+     <table width="100%" border="0">
+       <tr>
+         <td width="100%"><hr/></td>
+         <xsl:choose>
+           <xsl:when test="count(descendant::pagenumber) = 1">
+              <td><span class="pagenumber">
+              	<nobr>
+              	 	<xsl:value-of select="$CONFIG/pagenumber[@lang=$LANG]/@before"/>
+ 				
+ 				<xsl:value-of select="$VOCABLES/page/@*[name()=$LANG]" />:
+ 				
+ 				<xsl:apply-templates select="descendant::pagenumber[1]" mode="pagenumber-combined" />
+			  	<xsl:value-of select="$CONFIG/pagenumber[@lang=$LANG]/@after"/>
+			</nobr></span></td>
+           </xsl:when>
+           <xsl:otherwise>
+              <td><span class="pagenumber"><nobr>
+              	<xsl:value-of select="$CONFIG/pagenumber[@lang=$LANG]/@before"/>
+
+              [ <xsl:value-of select="$VOCABLES/pages/@*[name()=$LANG]" />: 
+              
+              <xsl:apply-templates select="descendant::pagenumber[1]" mode="pagenumber-combined" />
+ 				<xsl:value-of select="$CONFIG/pagenumber[name()=$LANG]/@between"/> 
+ 				<xsl:apply-templates select="descendant::pagenumber[position()=last()]" mode="pagenumber-combined" />
+				<xsl:value-of select="$CONFIG/pagenumber[@lang=$LANG]/@after"/>
+			</nobr></span></td>
+           </xsl:otherwise>
+         </xsl:choose>
+       </tr>
+     </table>
+</xsl:template>
+
 	
 <xsl:template name="pagenumber-hline">
    <xsl:choose>
@@ -38,8 +70,6 @@
             <xsl:call-template name="pagenumber-simple"/>
      </xsl:otherwise>
    </xsl:choose>
-
-
 </xsl:template>
 
 <xsl:template match="pagenumber" name="number-formated" mode="number">
@@ -74,8 +104,7 @@
 	  <xsl:message>page: <xsl:value-of select="@label"/></xsl:message>
  	</xsl:if>
   <span class="pagenumber">
-  	<xsl:text>[</xsl:text>
-  	<!--xsl:value-of select="$PAGENUMBER-LABEL"/-->
+  	<xsl:value-of select="$CONFIG/pagenumber[@lang=$LANG]/@before"/>
   	<xsl:value-of select="@system"/>
   	<xsl:choose>
 		<xsl:when test="@label">
@@ -85,7 +114,7 @@
 		  	<xsl:apply-templates select="." mode="number"/>
 		</xsl:otherwise>
 	</xsl:choose>
-  	<xsl:text>]&#8595;</xsl:text> <!--&#xa0;-->
+  	<xsl:value-of select="$CONFIG/pagenumber[@lang=$LANG]/@after"/>
   </span>
 </xsl:template>
 

@@ -15,7 +15,7 @@
       <xsl:apply-templates select="head"/>
     </xsl:when>
     <xsl:otherwise>
-      <xsl:text>Literatur</xsl:text>
+       <xsl:value-of select="$VOCABLES/bibliography/@*[name()=$LANG]" />
     </xsl:otherwise>
   </xsl:choose>
 </xsl:template>

@@ -7,7 +7,21 @@ exclude-result-prefixes="cms">
 <!-- TODO: number citation if desired (set @label) -->
 
 <xsl:param name="CONFIGFILE">config.xml</xsl:param>
+<xsl:param name="ENDNOTESBIB">false</xsl:param>
 <xsl:variable name="CONFIG" select="document($CONFIGFILE)/config"/>
+<xsl:variable name="VOCABLES" select="document($CONFIGFILE)/config/vocables"/>
+
+<xsl:param name="LANG">
+  <xsl:choose>
+    <xsl:when test="string(/etd/@lang)!=''">
+      <xsl:value-of select="/etd/@lang"/>
+    </xsl:when>
+    <xsl:when test="/cms:container/cms:document/cms:meta/cms:entry[@type=':lang']">
+      <xsl:value-of select="/cms:container/cms:document/cms:meta/cms:entry[@type=':lang']"/>
+    </xsl:when>
+    <xsl:otherwise>en</xsl:otherwise>
+  </xsl:choose>
+</xsl:param>
 
 <xsl:key name="id" match="*" use="@id"/>
 
@@ -213,17 +227,47 @@ exclude-result-prefixes="cms">
 	<xsl:apply-templates/>
 </xsl:template>
 
-<!--== add appendix for endnotes if missing ==-->
+<!--== helper for add bibliographie for endnotes if missing ==-->
+
+<xsl:template match="endnote" mode="label">
+  <sup class="footnotelabel"><xsl:value-of select="count(preceding::endnote)+1"/></sup>
+</xsl:template>
+
+<!--== helper for add bibliographie for endnotes if missing ==-->
+
+<xsl:template match="endnote" mode="foot">
+  <p name="{generate-id()}">
+      <link ref="#{concat(generate-id(),'link')}">
+        <xsl:apply-templates select="." mode="label"/>
+      </link>  
+    <xsl:text>&#xA0;</xsl:text>    
+    <xsl:choose>
+      <xsl:when test="count(*)=1 and p">
+        <xsl:apply-templates select="p/*|p/text()"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:apply-templates/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </p>  
+</xsl:template>
+
+
+<!--== add bibliographie for endnotes if missing ==-->
 
 <xsl:template match="back">
 <xsl:element name="back">
-   <xsl:call-template name="provide-id" />
+<!--<xsl:value-of select="$ENDNOTESBIB"/>-->
 
-   <xsl:if test="/etd/body//endnote and not(appendix[@id='endnoteappendix'])">
-      <appendix id="endnoteappendix">
-         <head>Endnotes</head>
-      </appendix>
+   <xsl:call-template name="provide-id" />
+   <xsl:if test="/etd/body//endnote and not(bibliography[@id='endnotebibliography'])">
+      <bibliography id="endnotebibliography">
+        <head><xsl:value-of select="$VOCABLES/bibliography/@*[name()=$LANG]" /></head>
+        <xsl:apply-templates select="//endnote" mode="foot"/>
+      </bibliography>
    </xsl:if>
+
+   <!-- other elements in back -->
    <xsl:apply-templates select="@*|node()"/>
 </xsl:element>
 </xsl:template>

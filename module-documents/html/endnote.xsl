@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+
+<xsl:template match="endnote">
+  <a name="{concat(generate-id(),'link')}">
+    <a href="#{generate-id()}">
+      <xsl:apply-templates select="." mode="label"/>
+    </a>  
+  </a>  
+</xsl:template>
+
+<xsl:template match="endnote" mode="label">
+         <!-- TODO: label, numbering... -->
+         <!--xsl:choose>
+           <xsl:when test=""></xsl:when>
+         </xsl:choose-->
+         <sup class="footnotelabel"><xsl:value-of select="count(preceding::footnote | preceding::endnote)+1"/></sup>
+</xsl:template>
+
+<xsl:template match="endnote" mode="foot">
+
+   <xsl:choose>
+<!--/etd/back/bibliography[@id='endnotebibliography']-->
+<!--                  -->
+<!--   re think this  -->
+<!--                  -->
+      <xsl:when test="/">
+         <p>
+           <a name="{generate-id()}">
+             <a href="#{concat(generate-id(),'link')}">
+               <xsl:apply-templates select="." mode="label"/>
+             </a>  
+           </a>
+           <xsl:text>&#xA0;</xsl:text>    
+           <xsl:choose>
+             <xsl:when test="count(*)=1 and p">
+               <xsl:apply-templates select="p/*|p/text()"/>
+             </xsl:when>
+             <xsl:otherwise>
+               <xsl:apply-templates/>
+             </xsl:otherwise>
+           </xsl:choose>
+         </p>  
+      </xsl:when>
+      <xsl:otherwise>
+      </xsl:otherwise>
+   </xsl:choose>
+
+</xsl:template>
+
+</xsl:stylesheet>

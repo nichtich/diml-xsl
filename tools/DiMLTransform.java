@@ -35,6 +35,8 @@ public class DiMLTransform extends XMLReading {
 	private boolean generateHTMLFiles = true;
 	private boolean generateCMSFiles  = true;
 	private boolean doPreprocessing   = true;
+        
+        private String endnotesbib = "false";
   
   Hashtable params = new Hashtable();	
 	
@@ -250,6 +252,7 @@ public class DiMLTransform extends XMLReading {
       Templates preprocess = loadXSL(preprocessFile);
       Transformer transformer = preprocess.newTransformer();
       setParameters(transformer);            
+      transformer.setParameter("ENDNOTESBIB", endnotesbib);
       input = new StreamSource(dimlFile);
       output = new DOMResult();
       message("\ttransforming "+dimlFile);
@@ -346,22 +349,22 @@ public class DiMLTransform extends XMLReading {
         String value = "";
         if(arg.length()>2) value = arg.substring(2);
         else value = i<args.length-1 ? args[++i] : "";
-        
         if(!value.equals("")) { // attributes that need a value
-               if(c=='f') setDiMLFile(value);
-          else if(c=='s') cssDirectory = new File(value);
-          else if(c=='o') resultDir = new File(value);
-          else if(c=='x') resultDirHACKED = new File(value);
-          else if(c=='h') resultDirHTML = new File(value);
-          else if(c=='p') preprocessFile = new File(value);
-          else if(c=='P') doPreprocessing = value.equals("0") ? false : true;
-          else if(c=='H') generateHTMLFiles = value.equals("0") ? false : true;
-          else if(c=='C') generateCMSFiles = value.equals("0") ? false : true;          
-          else if(c=='v') verboseLevel = atoi(value);
-          else if(c=='c') configFile = new File(value);
-          else if(c=='i') selectedId = value;  
-        }
+          if(c=='f') setDiMLFile(value);
+             else if(c=='s') cssDirectory = new File(value);
+             else if(c=='o') resultDir = new File(value);
+             else if(c=='x') resultDirHACKED = new File(value);
+             else if(c=='h') resultDirHTML = new File(value);
+             else if(c=='p') preprocessFile = new File(value);
+             else if(c=='P') doPreprocessing = value.equals("0") ? false : true;
+             else if(c=='H') generateHTMLFiles = value.equals("0") ? false : true;
+             else if(c=='C') generateCMSFiles = value.equals("0") ? false : true;          
+             else if(c=='v') verboseLevel = atoi(value);
+             else if(c=='c') configFile = new File(value);
+             else if(c=='i') selectedId = value;
+         }
         if(c=='d') debugMode = true;
+        else if(c=='b') endnotesbib = "true";
         else if(c=='?' || c=='h') return false;
       } else { //
         int p = arg.indexOf("=");
@@ -397,6 +400,7 @@ public class DiMLTransform extends XMLReading {
 		s += " -c configFile (default $DIMLXSLCONFIG or config.xml)\n";
 		s += " -p preprocessFile (preprocess.xsl)\n";
 		s += " -i select one id - only process this part of the document\n";
+		s += " -b Convert endnotes to bibliography\n";
     s += " -P1 use preprocessor    / -P0 do not preprocess\n";		
 		s += " -C1 generate CMS files  / -C0 do not generate CMS files\n";
     s += " -H1 generate HTML files / -H0 do not generate CMS files\n";		

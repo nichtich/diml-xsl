@@ -40,5 +40,4 @@ XLSTPROCESSOR=org.apache.xalan.processor.TransformerFactoryImpl
 
 java -Xmx512M -Xms128M -Djavax.xml.transform.TransformerFactory=$XLSTPROCESSOR -DDIMLXSL=$DIMLXSL -classpath "$CLASSPATH" $MAINCLASS $ARGUMENTS
 
-
 # -DTOOLSDir=$TOOLSDir -DRESULTDir=$RESULTDir -classpath $CLASSPATH $MAINCLASS -P$PREPROCESSING $XMLFILE $ARGUMENTS

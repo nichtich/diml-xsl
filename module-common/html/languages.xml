@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <!DOCTYPE languages [
   <!ELEMENT languages (language+)>
-  <!ELEMENT language (abbrev+, long+)>
+  <!ELEMENT language (abbrev | long)*>
   <!ATTLIST language
   id ID #REQUIRED
 >
@@ -14,37 +14,470 @@
   lang IDREF #REQUIRED
 >
 ]>
+<!-- Sprachcodes und Sprachbezeichnungen -->
+<!--
+  Die Codes richten sich nach ISO 639-1. Zusätzlich sind einige Sprachen
+  aus ISO 639-2 aufgenommen. Die Sprachbezeichnungen sind größtenteils
+  nur Englisch vorhanden und auch nicht überall als Abkürzungen, da
+  ich noch keine Copyrightfreie Quelle gefunden habe.
+  
+  (Ansonsten siehe:
+    
+    * http://www.indigo.ie/egt/standards/iso639/iso639-1-fr.html
+    *
+  )
+-->
 <languages>
+  <!-- ISO 639-1 -->
+  <language id="aa">
+    <long lang="en">afar</long>
+  </language>
+  <language id="ab">
+    <long lang="en">abkhazian</long>
+  </language>
+  <language id="af">
+    <long lang="en">afrikaans</long>
+  </language>
+  <language id="am">
+    <long lang="en">amharic</long>
+  </language>
+  <language id="ar">
+    <long lang="en">arabic</long>
+  </language>
+  <language id="as">
+    <long lang="en">assamese</long>
+  </language>
+  <language id="ay">
+    <long lang="en">aymara</long>
+  </language>
+  <language id="az">
+    <long lang="en">azerbaijani</long>
+  </language>
+  <language id="ba">
+    <long lang="en">bashkir</long>
+  </language>
+  <language id="be">
+    <long lang="en">byelorussian</long>
+  </language>
+  <language id="bg">
+    <long lang="en">bulgarian</long>
+  </language>
+  <language id="bh">
+    <long lang="en">bihari</long>
+  </language>
+  <language id="bi">
+    <long lang="en">bislama</long>
+  </language>
+  <language id="bn">
+    <long lang="en">bengali</long>
+  </language>
+  <language id="bo">
+    <long lang="en">tibetan</long>
+  </language>
+  <language id="br">
+    <long lang="en">breton</long>
+  </language>
+  <language id="ca">
+    <long lang="en">catalan</long>
+  </language>
+  <language id="co">
+    <long lang="en">corsican</long>
+  </language>
+  <language id="cs">
+    <long lang="en">czech</long>
+  </language>
+  <language id="cy">
+    <long lang="en">welsh</long>
+  </language>
+  <language id="da">
+    <long lang="en">danish</long>
+  </language>
   <language id="de">
-    <abbrev lang="de">dt.</abbrev>
-    <long lang="de">deutsch</long>
+    <long lang="en">german</long>
+    <abbrev lang="en">ger</abbrev>        
+    <abbrev lang="de">dt</abbrev>
+    <long lang="de">deutsch</long>    
+  </language>
+  <language id="dz">
+    <long lang="en">bhutani</long>
+  </language>
+  <language id="el">
+    <long lang="en">greek</long>
+    <abbrev lang="en">grk</abbrev>
+    <abbrev lang="de">griech</abbrev>
+    <long lang="de">griechisch</long>    
   </language>
   <language id="en">
-    <abbrev lang="de">engl.</abbrev>
-    <long lang="de">englisch</long>
+    <long lang="en">english</long>
+    <abbrev lang="en">en</abbrev>    
+    <abbrev lang="de">engl</abbrev>
+    <long lang="de">englisch</long>    
   </language>
-  <language id="fr">
-    <abbrev lang="de">fr.</abbrev>
-    <long lang="de">französisch</long>
+  <language id="eo">
+    <long lang="en">esperanto</long>
   </language>
   <language id="es">
-    <abbrev lang="de">span.</abbrev>
-    <long lang="de">spanisch</long>
+    <long lang="en">spanish</long>
+    <abbrev lang="en">sp</abbrev>
+    <abbrev lang="de">span</abbrev>
+    <long lang="de">spanisch</long>    
   </language>
-  <language id="grc">
-    <abbrev lang="de">griech.</abbrev>
-    <long lang="de">griechisch</long>
+  <language id="et">
+    <long lang="en">estonian</long>
   </language>
-  <language id="lat">
-    <abbrev lang="de">lat.</abbrev>
+  <language id="eu">
+    <long lang="en">basque</long>
+  </language>
+  <language id="fa">
+    <long lang="en">persian</long>
+  </language>
+  <language id="fi">
+    <long lang="en">finnish</long>
+  </language>
+  <language id="fj">
+    <long lang="en">fiji</long>
+  </language>
+  <language id="fo">
+    <long lang="en">faeroese</long>
+  </language>
+  <language id="fr">
+    <long lang="en">french</long>
+    <abbrev lang="en">fr</abbrev>    
+    <long lang="de">französisch</long>    
+    <abbrev lang="de">fr</abbrev>    
+  </language>
+  <language id="fy">
+    <long lang="en">frisian</long>
+  </language>
+  <language id="ga">
+    <long lang="en">irish</long>
+  </language>
+  <language id="gd">
+    <long lang="en">scots, Gaelic</long>
+  </language>
+  <language id="gl">
+    <long lang="en">galician</long>
+  </language>
+  <language id="gn">
+    <long lang="en">guarani</long>
+  </language>
+  <language id="gu">
+    <long lang="en">gujarati</long>
+  </language>
+  <language id="he">
+    <long lang="en">hebrew</long>
+  </language>
+  <language id="ha">
+    <long lang="en">hausa</long>
+  </language>
+  <language id="hi">
+    <long lang="en">hindi</long>
+  </language>
+  <language id="hr">
+    <long lang="en">croatian</long>
+  </language>
+  <language id="hu">
+    <long lang="en">hungarian</long>
+  </language>
+  <language id="hy">
+    <long lang="en">armenian</long>
+  </language>
+  <language id="ia">
+    <long lang="en">interlingua</long>
+  </language>
+  <language id="id">
+    <long lang="en">indonesian</long>
+  </language>
+  <language id="ie">
+    <long lang="en">interlingue</long>
+  </language>
+  <language id="ik">
+    <long lang="en">inupiak</long>
+  </language>
+  <language id="in">
+    <long lang="en">indonesian</long>
+  </language>
+  <language id="is">
+    <long lang="en">icelandic</long>
+  </language>
+  <language id="it">
+    <long lang="en">italian</long>
+  </language>
+  <language id="iu">
+    <long lang="en">inuktitut</long>
+  </language>
+  <language id="ja">
+    <long lang="en">japanese</long>
+  </language>
+  <language id="jw">
+    <long lang="en">javanese</long>
+  </language>
+  <language id="ka">
+    <long lang="en">georgian</long>
+  </language>
+  <language id="kk">
+    <long lang="en">kazakh</long>
+  </language>
+  <language id="kl">
+    <long lang="en">greenlandic</long>
+  </language>
+  <language id="km">
+    <long lang="en">cambodian</long>
+  </language>
+  <language id="kn">
+    <long lang="en">kannada</long>
+  </language>
+  <language id="ko">
+    <long lang="en">korean</long>
+  </language>
+  <language id="ks">
+    <long lang="en">kashmiri</long>
+  </language>
+  <language id="ku">
+    <long lang="en">kurdish</long>
+  </language>
+  <language id="ky">
+    <long lang="en">kirghiz</long>
+  </language>
+  <language id="la">
+    <long lang="en">latin</long>
+    <abbrev lang="en">lat</abbrev>
     <long lang="de">latein</long>
+    <abbrev lang="de">lat</abbrev>    
   </language>
-  <language id="mhd">
-    <abbrev lang="de">mhd.</abbrev>
-    <long lang="de">mittelhochdeutsch</long>
+  <language id="ln">
+    <long lang="en">lingala</long>
   </language>
-  <language id="ahd">
-    <abbrev lang="de">ahd.</abbrev>
-    <long lang="de">althochdeutsch</long>
+  <language id="lo">
+    <long lang="en">laothian</long>
+  </language>
+  <language id="lt">
+    <long lang="en">lithuanian</long>
+  </language>
+  <language id="lv">
+    <long lang="en">lettish</long>
+  </language>
+  <language id="mg">
+    <long lang="en">malagasy</long>
+  </language>
+  <language id="mi">
+    <long lang="en">maori</long>
+  </language>
+  <language id="mk">
+    <long lang="en">macedonian</long>
+  </language>
+  <language id="ml">
+    <long lang="en">malayalam</long>
+  </language>
+  <language id="mn">
+    <long lang="en">mongolian</long>
+  </language>
+  <language id="mo">
+    <long lang="en">moldavian</long>
+  </language>
+  <language id="mr">
+    <long lang="en">marathi</long>
+  </language>
+  <language id="ms">
+    <long lang="en">malay</long>
+  </language>
+  <language id="mt">
+    <long lang="en">maltese</long>
+  </language>
+  <language id="my">
+    <long lang="en">burmese</long>
+  </language>
+  <language id="na">
+    <long lang="en">nauru</long>
+  </language>
+  <language id="ne">
+    <long lang="en">nepali</long>
+  </language>
+  <language id="nl">
+    <long lang="en">dutch</long>
+  </language>
+  <language id="no">
+    <long lang="en">norwegian</long>
+  </language>
+  <language id="oc">
+    <long lang="en">occitan</long>
+  </language>
+  <language id="om">
+    <long lang="en">oromo</long>
+  </language>
+  <language id="or">
+    <long lang="en">oriya</long>
+  </language>
+  <language id="pa">
+    <long lang="en">punjabi</long>
+  </language>
+  <language id="pl">
+    <long lang="en">polish</long>
+  </language>
+  <language id="ps">
+    <long lang="en">pushto</long>
+  </language>
+  <language id="pt">
+    <long lang="en">portuguese</long>
+  </language>
+  <language id="qu">
+    <long lang="en">quechua</long>
+  </language>
+  <language id="rm">
+    <long lang="en">rhaeto-romance</long>
+  </language>
+  <language id="rn">
+    <long lang="en">kirundi</long>
+  </language>
+  <language id="ro">
+    <long lang="en">romanian</long>
+  </language>
+  <language id="ru">
+    <long lang="en">russian</long>
+  </language>
+  <language id="rw">
+    <long lang="en">kinyarwanda</long>
+  </language>
+  <language id="sa">
+    <long lang="en">sanskrit</long>
+  </language>
+  <language id="sd">
+    <long lang="en">sindhi</long>
+  </language>
+  <language id="sg">
+    <long lang="en">sangro</long>
+  </language>
+  <language id="sh">
+    <long lang="en">serbo-croatian</long>
+  </language>
+  <language id="si">
+    <long lang="en">singhalese</long>
+  </language>
+  <language id="sk">
+    <long lang="en">slovak</long>
+  </language>
+  <language id="sl">
+    <long lang="en">slovenian</long>
+  </language>
+  <language id="sm">
+    <long lang="en">samoan</long>
+  </language>
+  <language id="sn">
+    <long lang="en">shona</long>
+  </language>
+  <language id="so">
+    <long lang="en">somali</long>
+  </language>
+  <language id="sq">
+    <long lang="en">albanian</long>
+  </language>
+  <language id="sr">
+    <long lang="en">serbian</long>
+  </language>
+  <language id="ss">
+    <long lang="en">siswati</long>
+  </language>
+  <language id="st">
+    <long lang="en">sesotho</long>
+  </language>
+  <language id="su">
+    <long lang="en">sundanese</long>
+  </language>
+  <language id="sv">
+    <long lang="en">swedish</long>
+  </language>
+  <language id="sw">
+    <long lang="en">swahili</long>
+  </language>
+  <language id="ta">
+    <long lang="en">tamil</long>
+  </language>
+  <language id="te">
+    <long lang="en">tegulu</long>
+  </language>
+  <language id="tg">
+    <long lang="en">tajik</long>
+  </language>
+  <language id="th">
+    <long lang="en">thai</long>
+  </language>
+  <language id="ti">
+    <long lang="en">tigrinya</long>
+  </language>
+  <language id="tk">
+    <long lang="en">turkmen</long>
+  </language>
+  <language id="tl">
+    <long lang="en">tagalog</long>
+  </language>
+  <language id="tn">
+    <long lang="en">setswana</long>
+  </language>
+  <language id="to">
+    <long lang="en">tonga</long>
+  </language>
+  <language id="tr">
+    <long lang="en">turkish</long>
+  </language>
+  <language id="ts">
+    <long lang="en">tsonga</long>
+  </language>
+  <language id="tt">
+    <long lang="en">tatar</long>
+  </language>
+  <language id="tw">
+    <long lang="en">twi</long>
+  </language>
+  <language id="ug">
+    <long lang="en">uigur</long>
+  </language>
+  <language id="uk">
+    <long lang="en">ukrainian</long>
+  </language>
+  <language id="ur">
+    <long lang="en">urdu</long>
+  </language>
+  <language id="uz">
+    <long lang="en">uzbek</long>
+  </language>
+  <language id="vi">
+    <long lang="en">vietnamese</long>
+  </language>
+  <language id="vo">
+    <long lang="en">volapuk</long>
+  </language>
+  <language id="wo">
+    <long lang="en">wolof</long>
+  </language>
+  <language id="xh">
+    <long lang="en">xhosa</long>
+  </language>
+  <language id="y">
+    <long lang="en">yiddish</long>
+  </language>
+  <language id="yo">
+    <long lang="en">yoruba</long>
+  </language>
+  <language id="za">
+    <long lang="en">zuang</long>
+  </language>
+  <language id="zh">
+    <long lang="en">chinese</long>
+  </language>
+  <language id="zu">
+    <long lang="en">zulu</long>
   </language>  
+  <!--=============  ISO 639-2 (parts) ===============-->
+  <language id="gmh">
+    <abbrev lang="de">mhd</abbrev>
+    <long lang="de">mittelhochdeutsch</long>
+    <abbrev lang="en">MHG</abbrev>
+    <long lang="en">middle high german</long>    
+  </language>
+  <language id="goh">
+    <abbrev lang="de">ahd</abbrev>
+    <long lang="de">althochdeutsch</long>
+    <abbrev lang="en">OHG</abbrev>
+    <long lang="en">old high german</long>
+  </language>
 </languages>

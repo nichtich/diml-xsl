@@ -44,7 +44,10 @@
 <!--==== Tags in the HTML HEAD element ===============================-->
 
 <xsl:template match="cms:entry[@type='title']" mode="html-head">
-  <title><xsl:value-of select="."/></title>
+  <title>
+    <xsl:value-of select="../cms:entry[@type='author']"/>:
+    <xsl:value-of select="."/>
+  </title>
 </xsl:template>
 
 <xsl:template match="cms:entry[@type=':start']" mode="html-head">

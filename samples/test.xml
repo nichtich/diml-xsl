@@ -126,6 +126,29 @@ There are no museum specimens of the dodo still extant today, but from artists' 
 		<chapter>
 			<head>Second Chapter: Examples</head>
 			<section>
+				<head>Lists</head>
+				<p>
+					<dl>
+						<caption>Eine Definitionsliste</caption>
+						<def>
+							<term>Dodo</term>
+							<dd><p>So ein Vogel</p></dd>
+						</def>
+						<def>
+							<term>Didi</term>
+							<term>Dada</term>
+							<dd><p>Beide keine Vögel</p></dd>
+						</def>
+						<def>
+							<foreign>bird</foreign>
+							<dd><p>Auch ein Vogel</p>
+							<pagenumber label="25"/>
+							<p></p></dd>
+						</def>
+					</dl>
+				</p>
+			</section>
+			<section>
 				<head>Tables</head>
 				<p>&table1;</p>
 			</section>

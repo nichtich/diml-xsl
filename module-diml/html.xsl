@@ -15,7 +15,6 @@
 <xsl:include href="html/dedication.xsl"/>
 <xsl:include href="html/degree.xsl"/>
 <xsl:include href="html/etd.xsl"/>
-<xsl:include href="html/frame.xsl"/>
 <xsl:include href="html/front.xsl"/>
 <xsl:include href="html/grant.xsl"/>
 <xsl:include href="html/keyword.xsl"/>
@@ -24,6 +23,9 @@
 <xsl:include href="html/school.xsl"/>
 <xsl:include href="html/submission.xsl"/>
 <xsl:include href="html/title.xsl"/>
+
+<!-- frame wird im Module "structure" bearbeitet -->
+<!--<xsl:include href="html/frame.xsl"/>-->
 
 
 </xsl:stylesheet>

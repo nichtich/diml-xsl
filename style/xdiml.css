@@ -13,7 +13,7 @@
 
 
 body {  
-         font-family: HELVETICA, ARIAL;
+         font-family: Helvetica, Arial;
          text-align: left;
          font-style: normal;
          font-size: small;
@@ -23,10 +23,6 @@ body {
      }
      
 p,td {
-         font-family: Helvetica, Arial;
-         font-style: normal;   
-         font-size: small;
-         text-align: left;
 }
   
 .pagenumber {
@@ -38,6 +34,21 @@ sup.footnotelabel {
   color:green;
   font-size: x-small;
 }
+
+em { font-style: italic; }
+em.roman { font-style: normal; }
+em.small-caps { font-variant: small-caps; font-style: normal; }
+em.ismall-caps { font-variant: small-caps; font-style: italic; }
+
+
+/*-- Beispiel --*/
+
+p.example {
+  }
+         
+p.examplehead {
+         font-weight: bold;
+  }
 
   
 /*----------------------------------------------------------------------------*/
@@ -120,8 +131,6 @@ p.dean {
 span.deanText {
          font-weight: bold;
               }
-     
-     
 
 /*-- Gutachter --*/     
 p.approvals {
@@ -132,7 +141,6 @@ p.approvals {
 span.gutachterText {
          font-weight: bold;
                    }
-
 
 /*-- Dokumenttyp, z.B. Dissertation, Magisterarbeit, Diplomarbeit --*/
 p.submission {
@@ -210,27 +218,44 @@ h3.summary {}
 /*----                                                                     ---*/
 /*----------------------------------------------------------------------------*/
 
-em { font-style: italic; }
-em.roman { font-style: normal; }
-em.small-caps { font-variant: small-caps; font-style: normal; }
-em.ismall-caps { font-variant: small-caps; font-style: italic; }
+/*------------------------------------------------------------------*/
+/*--                              Listen                          --*/
+/*------------------------------------------------------------------*/
 
-/*-- Beispiel --*/
 
-p.example {
-  }
-         
-p.examplehead {
-         font-weight: bold;
-  }
-
-p.mmimg  {
-         background-color:#F9F9F9;
-         padding:6px;
-         border:none;
-         margin:0px;
-         text-align: center;
+ul {
 }
+
+ol {
+}
+
+dl {
+}
+
+li {
+}
+
+term {
+}
+
+
+
+
+
+/*------------------------------------------------------------------*/
+/*--  diverse Tabellen, auch Hilfstabellen für Abbildungen usw.   --*/
+/*------------------------------------------------------------------*/
+
+p.tablelegend {
+         }
+
+p.tablecaption  {
+  }
+  
+td.tablecontent {
+  text-align:center;
+}  
+
 
 td.caption  {
          background-color:#E0E0E0;
@@ -345,12 +370,25 @@ td.example {
          border-style:solid;
          border-color:#E0E0E0;
 }
-  
+
+
+/*------------------------------------------------------------------*/
+/*--                        Sonstiges                             --*/
+/*------------------------------------------------------------------*/
+
+p.mmimg  {
+         background-color:#F9F9F9;
+         padding:6px;
+         border:none;
+         margin:0px;
+         text-align: center;
+}
 
 h3.footnoteheader {
 
 }
 
+  
 
 /*----------------------------------------------------------------------------*/
 /*----                                                                     ---*/
@@ -381,20 +419,13 @@ span.number { }
 span.pubdate { }
 
 
-/*-- Tabellen --*/
-p.tablelegend {
-         }
-
-p.tablecaption  {
-  }
-  
-td.tablecontent {
-  text-align:center;
-}  
-
 
 /*----------------------------------------------------------------------------*/
-/*-                              Navigation                                  -*/
+/*----                                                                     ---*/
+/*---                                                                       --*/
+/*--                            Navigation                                   -*/
+/*---                                                                       --*/
+/*----                                                                     ---*/
 /*----------------------------------------------------------------------------*/
 
 

@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
+<!-- Link: für einen internen Link                                   -->
+<!-- (innerhalb des Dokumentes, nicht unbedingt innerhalb der Datei) -->
+
 <!-- Duplicate entry: -->
 <!-- <xsl:key name="id" match="*" use="@id"/> -->
 
@@ -40,14 +43,22 @@
       </xsl:variable>
 
       <xsl:choose>
-        <!-- Hyperlink mit http-Protokoll -->
-        <xsl:when test="substring(@ref,1,7)='http://'">
-          <xsl:attribute name="href"><xsl:value-of select="@ref"/></xsl:attribute>
-        </xsl:when>
-        <!-- Hyperlink mit ftp-Protokoll -->
-        <xsl:when test="substring(@ref,1,6)='ftp://'">
-          <xsl:attribute name="href"><xsl:value-of select="@ref"/></xsl:attribute>
-        </xsl:when>
+
+        <!-- dummy -->
+        <xsl:when test="''!=''"></xsl:when>
+
+
+        <!-- wenn jemand das Element Link falsch verwendet: -->
+        <!-- Hyperlink mit http-Protokoll    -disabled-     -->
+        <!-- <xsl:when test="substring(@ref,1,7)='http://'"> -->
+        <!--   <xsl:attribute name="href"><xsl:value-of select="@ref"/></xsl:attribute> -->
+        <!-- </xsl:when> -->
+        <!-- wenn jemand das Element Link falsch verwendet: -->
+        <!-- Hyperlink mit ftp-Protokoll     -disabled-     -->
+        <!-- <xsl:when test="substring(@ref,1,6)='ftp://'"> -->
+        <!--  <xsl:attribute name="href"><xsl:value-of select="@ref"/></xsl:attribute> -->
+        <!-- </xsl:when> -->
+
         <!-- Link Dokumentintern (nicht unbedingt Dateiintern) -->
         <xsl:otherwise>
           <xsl:attribute name="href">

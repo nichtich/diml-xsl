@@ -62,8 +62,8 @@ sie alle möglichen Angaben zur Steuerung der Styles -->
   <!--searchURL href=""/-->
   <!--copyrightLink lang="en" href="">Copyright</copyrightLink-->
 
-  <vorgelegtbeiText lang="de">vorgelegt bei:</vorgelegtbeiText>
-  <vorgelegtbeiText lang="en">vorgelegt bei:</vorgelegtbeiText>
+  <vorgelegtvonText lang="de">vorgelegt von:</vorgelegtvonText>
+  <vorgelegtvonText lang="en">vorgelegt von:</vorgelegtvonText>
 
   <!--== Vocables (words in different languages ==-->
   <vocables>

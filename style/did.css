@@ -15,6 +15,11 @@ p {
          text-align: left;
   }
   
+p.pagenumber {
+         text-align: right;
+  }
+  
+  
 <!----------------------------------------------------------------------------->
 <!----                                                                     ---->
 <!---                                                                       --->
@@ -87,6 +92,12 @@ span.suffix {
 
 <!-- Institution von der ein akademischer Grad vergeben wurde  -->
 p.school {
+         margin-top: 20pt;
+         text-align: center;
+         line-height: 15.5pt;
+         text-indent: 0pt;
+         }
+div.school {
          margin-top: 20pt;
          text-align: center;
          line-height: 15.5pt;
@@ -165,7 +176,19 @@ p.motto {
 p.keywords {
          }
 
+span.keywordsText {
+         font-weight: bold;
+         }
+
+<!-- eigene Schlagworte -->
+p.keyword {
+         }
+         
 <!-- Abstract -->
+p.abstracthead {
+         font-weight: bold;
+         }
+
 p.abstract {
          }
 

@@ -213,6 +213,9 @@ h3.summary {}
 /*----                                                                     ---*/
 /*----------------------------------------------------------------------------*/
 
+em { font-style: italic; }
+em.small-caps { font-variant: small-caps; font-style: normal; }
+
 /*-- Beispiel --*/
 
 p.example {

@@ -90,9 +90,11 @@ Aufgaben von preprocess:
 <xsl:template name="numbering">
 	<xsl:variable name="name" select="name()"/>
 	<xsl:variable name="generate" select="$CONFIG/generate[@of=$name][@numbering][1]"/>
-	<xsl:if test="not(@label) and $generate">
+	<xsl:if test="$generate and (not(@label) or $generate/@force='yes')">
 		<xsl:attribute name="label">
+			<xsl:value-of select="$generate/@beforeLabel"/>
 			<xsl:apply-templates select="." mode="numberingLabel"/>
+			<xsl:value-of select="$generate/@afterLabel"/>			
 		</xsl:attribute>
 	</xsl:if>	
 </xsl:template>
@@ -136,6 +138,17 @@ Aufgaben von preprocess:
 		<xsl:call-template name="provide-id"/>		
 		<xsl:apply-templates select="@*|node()"/>
 	</xsl:copy>
+</xsl:template>
+
+<xsl:template match="em/@color">
+  <xsl:copy/>
+  <xsl:if test="translate(.,'0123456789ABCDEabcdef','FFFFFFFFFFFFFFFFFFFFF')!='#FFFFFF'">
+  	<xsl:message>
+  		<xsl:text>Attribute @color (</xsl:text>
+  		<xsl:value-of select="."/>
+  		<xsl:text>) of element em must match "#FFFFFF"</xsl:text>
+  	</xsl:message>
+  </xsl:if>
 </xsl:template>
 
 <!--===== copy the rest =====-->

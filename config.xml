@@ -3,13 +3,11 @@
 Angaben zur Steuerung der Styles -->
 <config>
 
-	<!-- generate numbering of chapter, sections... (during preprocessing) -->
-	<generate numbering="uroman" of="frame" before="" after=""/>
-	<generate numbering="uroman" of="chapter" before="" after="."/>
-	<generate numbering="arabic" elementBefore="chapter" of="section" before="" after="."/>
-	<generate numbering="ualpha" elementBefore="section" of="subsection" before="" after="."/>
-	<generate numbering="lroman" of="block" before="" after=")"/>
-	
+	<generate of="chapter" numbering="ualpha" after="."/>
+	<generate of="section" numbering="arabic" after="-" elementBefore="chapter"/>
+	<generate of="subsection" numbering="arabic" after="." elementBefore="section"/> 
+	<generate numbering="lroman" of="block" before="" after=")" force="yes"/>
+		
 	<copyright>&#169; Die inhaltliche Zusammenstellung und Aufmachung dieser Publikation sowie die elektronische 
      Verarbeitung sind urheberrechtlich geschützt. Jede Verwertung, die nicht ausdrücklich 
      vom Urheberrechtsgesetz zugelassen ist, bedarf der vorherigen Zustimmung. Das gilt insbesondere für 

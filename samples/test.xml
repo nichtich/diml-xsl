@@ -126,6 +126,15 @@ There are no museum specimens of the dodo still extant today, but from artists' 
 		<chapter>
 			<head>Second Chapter: Examples</head>
 			<section>
+				<head>Inline Markup</head>
+				<p>
+					Mit <em>em</em> und <strong>strong</strong> auszeichnen!
+					em: <em slant="ksmall-caps">ksmall-caps</em>,
+					<em slant="roman">roman</em>, <em slant="small-caps">small-caps</em>,
+					em.color: <em color="#FF00FF">FF00FF</em>
+				</p>
+			</section>
+			<section>
 				<head>Lists</head>
 				<p>
                                    <dl>
@@ -150,27 +159,27 @@ There are no museum specimens of the dodo still extant today, but from artists' 
                                 <p>Eine UL-Liste:</p>
                                 <p>
                                    <ul>
-                                      <li>Punkt eins</li>
-                                      <li>Punkt <pagenumber numbering="lroman" label="106" start="106" id="p106"/> zwei</li>
-                                      <li>Punkt drei</li>
-                                      <li>Punkt <pagenumber numbering="lroman" label="107" start="107" id="p107"/>vier</li>
-                                      <li>Punkt <pagenumber numbering="lroman" label="108" start="108" id="p108"/>fünf</li>
-                                      <li>Punkt <pagenumber numbering="lroman" label="109" start="109" id="p109"/>sechs</li>
-                                      <li>Punkt sieben</li>
-                                      <li>Punkt acht</li>
+                                      <li><p>Punkt eins</p></li>
+                                      <li><p>Punkt <pagenumber numbering="lroman" label="106" start="106" id="p106"/> zwei</p></li>
+                                      <li><p>Punkt drei</p></li>
+                                      <li><p>Punkt <pagenumber numbering="lroman" label="107" start="107" id="p107"/>vier</p></li>
+                                      <li><p>Punkt <pagenumber numbering="lroman" label="108" start="108" id="p108"/>fünf</p></li>
+                                      <li><p>Punkt <pagenumber numbering="lroman" label="109" start="109" id="p109"/>sechs</p></li>
+                                      <li><p>Punkt sieben</p></li>
+                                      <li><p>Punkt acht</p></li>
                                    </ul>
                                 </p>
                                 <p>Eine OL-Liste:</p>
                                 <p>
                                    <ol>
-                                      <li>Punkt eins</li>
-                                      <li>Punkt <pagenumber numbering="lroman" label="206" start="206" id="p206"/> zwei</li>
-                                      <li>Punkt drei</li>
-                                      <li>Punkt <pagenumber numbering="lroman" label="207" start="207" id="p207"/>vier</li>
-                                      <li>Punkt <pagenumber numbering="lroman" label="208" start="208" id="p208"/>fünf</li>
-                                      <li>Punkt <pagenumber numbering="lroman" label="209" start="209" id="p209"/>sechs</li>
-                                      <li>Punkt sieben</li>
-                                      <li>Punkt acht</li>
+                                      <li><p>Punkt eins</p></li>
+                                      <li><p>Punkt <pagenumber numbering="lroman" label="206" start="206" id="p206"/> zwei</p></li>
+                                      <li><p>Punkt drei</p></li>
+                                      <li><p>Punkt <pagenumber numbering="lroman" label="207" start="207" id="p207"/>vier</p></li>
+                                      <li><p>Punkt <pagenumber numbering="lroman" label="208" start="208" id="p208"/>fünf</p></li>
+                                      <li><p>Punkt <pagenumber numbering="lroman" label="209" start="209" id="p209"/>sechs</p></li>
+                                      <li><p>Punkt sieben</p></li>
+                                      <li><p>Punkt acht</p></li>
                                    </ol>
                                 </p>
 

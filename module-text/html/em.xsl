@@ -1,16 +1,1 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-
-<xsl:param name="em-style" select="italic"/>
-<xsl:param name="em-color" select="''"/>
-
-<xsl:template match="em" name="element-em">
-  <em>
-    <xsl:if test="@color">
-      <!-- ... -->
-    </xsl:if>
-    <xsl:apply-templates/>
-  </em>
-</xsl:template>
-
-</xsl:stylesheet>
+<?xml version="1.0" encoding="ISO-8859-1"?><xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"><xsl:template match="em" name="element-em">  <em>    <xsl:if test="@color">    	<xsl:attribute name="style">    		<xsl:text>color:</xsl:text>    		<xsl:value-of select="@color"/>    	</xsl:attribute>    </xsl:if>    <xsl:if test="@slant">    	<xsl:attribute name="class">    		<xsl:value-of select="@slant"/>    	</xsl:attribute>    </xsl:if>        <xsl:apply-templates/>  </em></xsl:template></xsl:stylesheet>

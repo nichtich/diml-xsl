@@ -244,29 +244,28 @@ table.dl {
 /*-- Tabellenzelle, die einen Term darstellt --*/
 td.dlterm {
          padding-top:12pt;
+         padding-bottom:3pt;
 }
 /*-- Tabellenzelle, die die Einrückung eines Definitionstextes darstellt --*/
 td.dlspacer {
 }
 /*-- Tabellenzelle, die einen Definitionstext darstellt --*/
 td.dldefinition {
+         padding-top:3pt;
 }
-
 
 /*-- Innerhalb einer dldefinition --*/
 ol.dl {
 }
 li.dl {
 }
-p.dl {
-}
-
-
 
 
 /*------------------------------------------------------------------*/
 /*--  diverse Tabellen, auch Hilfstabellen für Abbildungen usw.   --*/
 /*------------------------------------------------------------------*/
+
+/*-- Hilfstabellen für Listen bei Listen --*/
 
 p.tablelegend {
          }
@@ -281,39 +280,39 @@ td.tablecontent {
 
 td.caption  {
          background-color:#E0E0E0;
-         padding:6px;
-         border:0px;
-         margin-top:6px;
-         margin-bottom:0px;
-         margin-left:0px;
-         margin-right:0px;
+         padding:6pt;
+         border:0pt;
+         margin-top:6pt;
+         margin-bottom:0pt;
+         margin-left:0pt;
+         margin-right:0pt;
          font-weight: bold;
 }
 
 td.legend  {
          background-color:#E0E0E0;
-         padding:6px;
-         border:0px;
-         margin-top:0px;
-         margin-bottom:6px;
-         margin-left:0px;
-         margin-right:0px;
+         padding:6pt;
+         border:0pt;
+         margin-top:0pt;
+         margin-bottom:6pt;
+         margin-left:0pt;
+         margin-right:0pt;
          font-size: x-small;
 }
 
 table.mm {
-         border-spacing:0px;
-         padding:0px;
+         border-spacing:0pt;
+         padding:0pt;
          border:none;
-         margin:0px;
+         margin:0pt;
          align:middle;
 }
 
 table.calstable {
-         border-spacing:0px;
-         padding:0px;
+         border-spacing:0pt;
+         padding:0pt;
          border:none;
-         margin:0px;         
+         margin:0pt;         
          background-color:#F9F9F9;
 }
 
@@ -322,73 +321,73 @@ div.table {
 }
 
 table.blockquote {
-         border-spacing:0px;
-         padding:0px;
+         border-spacing:0pt;
+         padding:0pt;
          border:none;
-         margin:0px;
+         margin:0pt;
          text-align:center;
 }
 
 td.blockquotebody {
-         padding:6px;
-         border:0px;
-         margin-top:6px;
-         margin-bottom:6px;
-         margin-left:6px;
-         margin-right:6px;
+         padding:6pt;
+         border:0pt;
+         margin-top:6pt;
+         margin-bottom:6pt;
+         margin-left:6pt;
+         margin-right:6pt;
          background-color:#F9F9F9;
 }
 
 td.blockquotecaption {
          background-color:#E0E0E0;
-         padding:6px;
-         border:0px;
-         margin-top:6px;
-         margin-bottom:0px;
-         margin-left:0px;
-         margin-right:0px;
+         padding:6pt;
+         border:0pt;
+         margin-top:6pt;
+         margin-bottom:0pt;
+         margin-left:0pt;
+         margin-right:0pt;
          font-weight: bold;
 }
 
 td.blockquotecitation {
          background-color:#E0E0E0;
-         padding:6px;
-         border:0px;
-         margin-top:0px;
-         margin-bottom:6px;
-         margin-left:0px;
-         margin-right:0px;
+         padding:6pt;
+         border:0pt;
+         margin-top:0pt;
+         margin-bottom:6pt;
+         margin-left:0pt;
+         margin-right:0pt;
          font-size: x-small;
 }
 
 p.dmathimath  {
          background-color:#F9F9F9;
-         padding:6px;
+         padding:6pt;
          border:none;
-         margin:0px;
+         margin:0pt;
          text-align: center;
 }
 
 table.dmath {
-         border-spacing:0px;
-         padding:0px;
+         border-spacing:0pt;
+         padding:0pt;
          border:none;
-         margin:0px;
+         margin:0pt;
 }
   
 table.example {
-         border-spacing:0px;
-         padding:0px;
-         margin:0px;
-         border-width:0px;
+         border-spacing:0pt;
+         padding:0pt;
+         margin:0pt;
+         border-width:0pt;
          border-style:solid;
          border-color:#FFFFFF;
 }
 td.example {
-         border-spacing:0px;
-         padding:3px;
-         margin:0px;
-         border-width:1px;
+         border-spacing:0pt;
+         padding:3pt;
+         margin:0pt;
+         border-width:1pt;
          border-style:solid;
          border-color:#E0E0E0;
 }
@@ -400,9 +399,9 @@ td.example {
 
 p.mmimg  {
          background-color:#F9F9F9;
-         padding:6px;
+         padding:6pt;
          border:none;
-         margin:0px;
+         margin:0pt;
          text-align: center;
 }
 
@@ -454,10 +453,10 @@ span.pubdate { }
 table.navigation {
   font-family: Verdana, Lucida, Arial, Helvetica;
   font-size: x-small;
-  margin-bottom: 1px;
+  margin-bottom: 1pt;
   background-color:#E0E0E0;
-  padding:6px;
-  margin:0px; 
+  padding:6pt;
+  margin:0pt; 
   border:none;
 }         
 

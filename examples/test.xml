@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE etd SYSTEM "../../dtd/xdiml.dtd" [
+  <!ENTITY table1 SYSTEM "table1.xml">
+]>
+<?xml-stylesheet type="text/xsl" href="../diml2html.xsl"?>
+<!--<?css-stylesheet ../css/xdiml.css?>-->
+<?css-stylesheet ../style/did.css?>
+<etd>
+  <front>
+    <title>Simultane Bestimmung von Dapson<sub>2</sub>, Monoacetyldapson und Pyrimethamin mittels Hochdruckfl&uuml;ssigkeitschromatographie (HPLC) im Blutplasma HIV-seropositiver Patienten</title>
+    <author>von <given>Jan</given>
+      <surname>Padberg</surname>
+      <suffix>aus M&uuml;nster</suffix>
+    </author>
+    <school>Aus dem Virchow-Klinikum Medizinische Fakult&auml;t Charit&eacute;<br/>der Humboldt-Universit&auml;t zu Berlin<br/>II. Medizinische Klinik
+  <br/>Kommissarischer Leiter: Dr. med. E. Klein<br/>(Ehemaliger Leiter: Prof. Dr. med. H. D. Pohle)</school>
+    <degree>Zur Erlangung der medizinischen Doktorw&uuml;rde am Virchow-Klinikum</degree>
+    <date type="present">1. Mai 1997</date>
+    <date type="defense">17. April 1998</date>
+    <major>Medizinische Fakult&auml;t der Humboldt-Universit&auml;t zu Berlin</major>
+    <dean>Dean Martinson</dean>
+    <approvals>
+      <name>Prof. Dr. med. Bernhard Ruf</name>
+      <name>Prof. Dr. med. Power Lesch</name>
+      <name>Prof. Dr. med. Susanne Atomgau</name>
+    </approvals>
+    <submission>Inaugural-Dissertation</submission>
+    <grant>
+      <p></p>
+    </grant>
+    <dedication>
+      <p></p>
+    </dedication>
+    <copyright>
+      <p></p>
+    </copyright>
+    <motto>
+      <p></p>
+    </motto>
+    <p/>
+  </front>
+  <body>
+    <abbreviation>
+      <head>Abkürzungsverzeichnis</head>
+      <p>Abk. - Abkürzung</p>
+      <p>Verz. - Verzeichnis</p>
+    </abbreviation>
+    <preface>
+      <p>Ein kleines Vorwort gefällig?</p>
+    </preface>
+    <chapter>
+      <head>First Chapter</head>
+      <p>Im ersten Kapitel geht es um Frösche.</p>
+      <p>Es besteht auch nur aus zwei Absätzen.</p>
+      <section>
+        <head>First Section</head>
+        <subsection>
+          <head>First Subsection</head>
+          <block>
+            <head>First Block</head>
+            <subblock>
+              <head>First Subblock</head>
+              <part>
+                <head>First Part</head>
+              </part>
+            </subblock>
+          </block>
+        </subsection>
+      </section>
+    </chapter>
+    <chapter>
+      <head>Second Chapter: Examples</head>
+      <section>
+        <head>Tables</head>
+        <p>
+          &table1;
+        </p>
+      </section>
+    </chapter>
+    <chapter>
+      <head>Third Chapter</head>
+    </chapter>
+    <chapter>
+      <head>Fourth Chapter</head>
+    </chapter>
+  </body>
+  <back>
+    <bibliography>
+      <head>Bibliographie</head>
+      <p>Viel zitiert - wenig gelesen!</p>
+      <citation id="FT1997">
+        <workauthor>Joachim Funke und Thomas Krueger</workauthor>:
+        <articletitle>Psychologie im Internet.
+         Teil 10: Lernen im Netz: Hypertext und Hyperlernen</articletitle>
+        In: <worktitle>Psychologie heute</worktitle>,
+        <pubdate>1997</pubdate>,
+        <number>24 (8)</number>,
+        <pages>68-69</pages>
+      </citation>
+    </bibliography>
+    <glossary>
+      <dl>
+        <def>
+          <term>African Swallow</term>
+          <term ref="swallow"/>
+        </def>
+        <def>
+          <term>European Swallow</term>
+          <term ref="swallow"/>
+        </def>
+        <def>
+          <term id="swallow">Swallow</term>
+          <dd>
+            <p> a bird, supposed to carry coconuts. </p>
+            <p> In order to maintain air-speed velocity, a swallow needs to beat its wings forty-three times every second. </p>
+          </dd>
+          <dd>
+            <p>to gulp</p>
+          </dd>
+        </def>
+      </dl>
+    </glossary>
+    <vita>
+      <head>Lebenslauf</head>
+      <p>Geboren - noch nicht gestorben - was für ein Glück!</p>
+    </vita>
+    <acknowledgement>
+      <head>Danksagung</head>
+      <p>Danke und auf Wiedersehen!</p>
+    </acknowledgement>
+  </back>
+</etd>

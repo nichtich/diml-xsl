@@ -1,0 +1,71 @@
+/********************* DiML *******************/
+
+.name { font-variant:small-caps; }
+.worktitle { font-style: italic; }
+.date { }
+.note { font-size: smaller; }
+
+h1,h2,h3,h4 {
+  font-family: sans-serif;
+  font-weight: bold;
+  font-size: xx-large;
+}  
+
+h1.chapter {
+  font-size: xx-large;
+}
+
+h2.section {
+  font-size: x-large;
+}
+
+h3.subsection {
+  font-size: large;
+}
+
+h4.block {
+  font-size: middle;
+}
+
+h4.subblock {
+  font-size: middle;
+  font-style: italic;
+}
+
+h4.part {
+  font-size: smaller;
+  font-style: italic; 
+}
+
+a {
+  text-decoration: none;
+}
+  
+/* Title of the document */
+front title {
+  display: block;
+  text-align: center;  
+  font-size: x-large;
+  font-weight: bold;
+  font-style:  
+}
+@charset "ISO-8859-1"; 
+
+head {
+  display: block;
+  font-family: sans-serif;
+}
+  
+
+p {
+  display: block;
+}  
+
+/* inline elements */
+em {
+  font: italic;
+}
+
+em[color] {
+ color: blue;
+}

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE languages [
+  <!ELEMENT languages (language+)>
+  <!ELEMENT language (abbrev+, long+)>
+  <!ATTLIST language
+  id ID #REQUIRED
+>
+  <!ELEMENT abbrev (#PCDATA)>
+  <!ATTLIST abbrev
+  lang IDREF #REQUIRED
+>
+  <!ELEMENT long (#PCDATA)>
+  <!ATTLIST long
+  lang IDREF #REQUIRED
+>
+]>
+<languages>
+  <language id="de">
+    <abbrev lang="de">dt.</abbrev>
+    <long lang="de">deutsch</long>
+  </language>
+  <language id="en">
+    <abbrev lang="de">engl.</abbrev>
+    <long lang="de">englisch</long>
+  </language>
+  <language id="fr">
+    <abbrev lang="de">fr.</abbrev>
+    <long lang="de">französisch</long>
+  </language>
+  <language id="es">
+    <abbrev lang="de">span.</abbrev>
+    <long lang="de">spanisch</long>
+  </language>
+  <language id="grc">
+    <abbrev lang="de">griech.</abbrev>
+    <long lang="de">griechisch</long>
+  </language>
+  <language id="lat">
+    <abbrev lang="de">lat.</abbrev>
+    <long lang="de">latein</long>
+  </language>
+  <language id="mhd">
+    <abbrev lang="de">mhd.</abbrev>
+    <long lang="de">mittelhochdeutsch</long>
+  </language>
+  <language id="ahd">
+    <abbrev lang="de">ahd.</abbrev>
+    <long lang="de">althochdeutsch</long>
+  </language>  
+</languages>

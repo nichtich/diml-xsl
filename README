@@ -1,0 +1,95 @@
+README for DiML-styles version 0.1c
+
+These are XSL Stylesheets for the DiML XML DTD
+(or to be honest they are planned to be).
+
+The DiML DTD is a modularized XML schema for scientific
+documents developed at the Humboldt University, Berlin.
+For more information on DiML, see http://edoc.hu-berlin.de/diml/
+
+For more information on DiML-styles, see http://thema.sourceforge.net/
+
+Manifest
+--------
+
+README             this file
+TODO               planned features not yet implemented
+module-text/       styles for elements of module text
+module-common/     styles for elements of module common
+module-lists/      styles for elements of module lists
+module-citation/   styles for elements of module citation
+module-documents/  styles for elements of module documents
+diml2html.xsl      style file to produce HTML
+
+Changes
+-------
+
+We just started using CVS
+
+Installation
+------------
+
+Unpack the distribution somewhere. Open the file
+  examples/test.xml
+in Mozilla, Internet Explorer or another Browser with an XSLT engine.
+
+
+Use
+---
+
+Use your favorite XSLT processor to process DiML documents with
+the stylesheet diml2html.xsl.
+
+You can directly view the output in a XSLT-capable browser if you put
+
+  <?xml-stylesheet type="text/xsl" href="diml-xsl/diml2html.xsl"?>
+
+in your DiML-Document (change path to where you put the DiML-styles).
+  
+Some configuration settings may be set to german language by default.
+
+Copyright
+---------
+
+Copyright (C) 2002 Jakob Voﬂ
+
+Permission is hereby granted, free of charge, to any person
+obtaining a copy of this software and associated documentation
+files (the ``Software''), to deal in the Software without
+restriction, including without limitation the rights to use,
+copy, modify, merge, publish, distribute, sublicense, and/or
+sell copies of the Software, and to permit persons to whom the
+Software is furnished to do so, subject to the following
+conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+Except as contained in this notice, the names of individuals
+credited with contribution to this software shall not be used in
+advertising or otherwise to promote the sale, use or other
+dealings in this Software without prior written authorization
+from the individuals in question.
+
+Any stylesheet derived from this Software that is publically
+distributed will be identified with a different name and the
+version strings in any derived Software will be changed so that
+no possibility of confusion between the derived package and this
+Software will exist.
+
+Warranty
+--------
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT.  IN NO EVENT SHALL NORMAN WALSH OR ANY OTHER
+CONTRIBUTOR BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+OTHER DEALINGS IN THE SOFTWARE.
+
+Contacting the Author
+---------------------
+
+These stylesheets are maintained by Jakob Voﬂ, <diml-xsl@nichtich.de>.

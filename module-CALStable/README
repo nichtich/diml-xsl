@@ -1,0 +1,15 @@
+Since DocBook and DiML both use the CALS table model we can reuse
+the XSL DocBook Stylesheet. The files still need some cleanup,
+handling of element 'caption' and 'legend' ...
+
+The main differences between tables in DocBook and DiML
+
+- no mixed content 'entry' elements in DiML
+- element 'table' in DocBook:
+   table ::= ((blockinfo?,
+              (title,titleabbrev?), (indexterm)*, textobject*,
+              (graphic+|mediaobject+|tgroup+)))
+- element 'table' in DiML:
+    table ::= (caption ? , legend * , tgroup + , legend *)
+  [there will also be a way to use media objects in tables]
+

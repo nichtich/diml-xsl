@@ -1,0 +1,191 @@
+body {  
+         font-family: HELVETICA, ARIAL;
+         text-align: left;
+         font-style: normal;
+         font-size: 12pt;
+         background-color: white;
+         margin-left: 0.5cm;
+         margin-right: 0.5cm;
+     }
+     
+p {
+         font-family: Helvetica, Arial;
+         font-style: normal;   
+         font-size: 12pt;
+         text-align: left;
+  }
+  
+<!----------------------------------------------------------------------------->
+<!----                                                                     ---->
+<!---                                                                       --->
+<!--                         Front of Document                               -->
+<!---                                                                       --->
+<!----                                                                     ---->
+<!----------------------------------------------------------------------------->
+
+<!-- Headline -->
+table.headline {
+         font-family: Times;
+         font-size: 11pt;
+         margin-bottom: 1px;
+         background-color:#E0E0E0;
+         padding:6px;
+         margin:0px; 
+         border:none;
+           }
+td.headline1 {
+         text-align: left;
+            }
+            
+td.headline2 {
+         text-align: center;
+            }
+
+span.headline-author {
+         font-weight: bold;
+                     }
+
+span.headline-title {
+                    }
+
+<!-- Titel der Dissertation -->
+p.title {
+         font-family: Helvetica, Arial;
+         font-style: normal;
+         font-size: 18pt;
+         text-align: center;
+         margin-top: 10;
+         text-align:center;
+         line-height: 22pt;
+        } 
+
+<!-- Autor der Dissertation -->
+p.author {
+         text-align: center;
+         font-size:  14pt;
+         font-weight: demi-bold;
+         }
+         
+<!-- Text "vorgelegt von:" -->
+span.vorgelegtText {
+                   }
+
+<!-- Vorname innerhalb des Autors der Dissertation -->
+<!-- (Selbständigkeitserlärung)                    -->
+span.given {
+           }
+           
+<!-- Nachname innerhalb des Autors der Dissertation -->
+<!-- (Selbständigkeitserlärung)                     -->
+span.surname {
+             }
+
+<!-- Zusatz innerhalb des Autors der Dissertation -->
+<!-- (Selbständigkeitserlärung)                   -->
+span.suffix {
+            }
+
+<!-- Institution von der ein akademischer Grad vergeben wurde  -->
+p.school {
+         margin-top: 20pt;
+         text-align: center;
+         line-height: 15.5pt;
+         text-indent: 0pt;
+         }
+
+<!-- akademischer Grad -->
+p.degree {
+         text-align: center;
+         }
+
+<!-- Erstellungsdatum des Objektes der Dissertation                 -->
+<!-- type="1" = Abgabe und type="2" = Verteidigung der Dissertation -->
+
+p.date {
+     }
+
+<!-- Text "Datum:" -->     
+span.dateText {
+              }
+     
+
+<!-- Fakultät -->
+p.major {
+         text-align: center;
+      }
+
+<!-- Dekan -->
+p.dean {
+         text-align: left;
+     }
+span.deanText {
+         font-weight: bold;
+              }
+     
+     
+
+<!-- Gutachter -->     
+p.approvals {
+         text-align: left;
+          }
+          
+<!-- Text "Gutachter:" -->
+span.gutachterText {
+         font-weight: bold;
+                   }
+
+
+<!-- Dokumenttyp, z.B. Dissertation, Magisterarbeit, Diplomarbeit -->
+p.submission {
+         font-family: Verdana, Lucida, Arial;
+         margin-top: 60;
+         font-weight: demi-bold;
+         font-size:  18pt;
+         text-align: center;
+         color: blue;
+           }
+
+<!-- gefördert durch eine Stiftung -->
+p.grant {
+      }
+
+<!-- Widmung -->
+p.dedication {
+           }
+
+<!-- Urheberrechtsvermerk -->
+p.copyright {
+          }
+
+<!-- Motto -->
+p.motto {
+      }
+
+<!-- eigene Schlagworte -->
+p.keywords {
+         }
+
+<!-- Abstract -->
+p.abstract {
+         }
+
+<!-- Danksagung -->
+p.acknowledgments {
+                }
+
+<!-- Selbständigkeitserklärung -->
+p.declaration {
+            }
+
+<!-- Anhang -->
+p.appendix {
+         }
+         
+<!-- Bibliographie -->
+
+<!-- Beispielformatierung für Literaturhinweise -->
+span.name { font-variant:small-caps; }
+span.worktitle { font-style: italic; }         
+span.articletitle { font-style: italic; } 
+span.pages { font-weight: bold; }
+span.note { font-size: smaller; }

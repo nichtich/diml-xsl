@@ -5,6 +5,30 @@
 
 <!-- TODO: handle 'caption' and 'legend' -->
 <xsl:template match="table">
+
+<!-- this will print pagenumbers included in a table or list etc.  -->
+<!-- in a combined way at the begin of this table, list etc.       -->
+
+  <xsl:if test="descendant::pagenumber">
+     <table width="100%" border="0">
+       <tr>
+         <td width="100%"><hr/></td>
+         <xsl:choose>
+           <xsl:when test="count(descendant::pagenumber) = 1">
+              <td><p class="combinedPagenumbersText"><nobr>Eine Seite in der Tabelle enthalten: Seite <xsl:apply-templates select="descendant::pagenumber[1]" mode="pagenumber-combined" /></nobr></p></td>
+           </xsl:when>
+           <xsl:when test="count(descendant::pagenumber) = 2">
+              <td><p class="combinedPagenumbersText"><nobr>Zwei Seiten in der Tabelle enthalten: Seite <xsl:apply-templates select="descendant::pagenumber[1]" mode="pagenumber-combined" /> und <xsl:apply-templates select="descendant::pagenumber[position()=last()]" mode="pagenumber-combined" /></nobr></p></td>
+           </xsl:when>
+           <xsl:otherwise>
+              <td><p class="combinedPagenumbersText"><nobr><xsl:value-of select="count(descendant::pagenumber)"/> Seiten in der Tabelle enthalten: Seite <xsl:apply-templates select="descendant::pagenumber[1]" mode="pagenumber-combined" /> bis <xsl:apply-templates select="descendant::pagenumber[position()=last()]" mode="pagenumber-combined" /></nobr></p></td>
+           </xsl:otherwise>
+         </xsl:choose>
+       </tr>
+     </table>
+  </xsl:if>
+
+
   <p class="tablecaption">
      <a> 
         <xsl:call-template name="a-name-attribute"/>    

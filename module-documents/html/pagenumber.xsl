@@ -10,28 +10,37 @@
 <xsl:template match="front/pagenumber|
 	footnote/pagenumber|endnote/pagenumber|
 	entry/pagenumber|glossary/pagenumber|dedication/pagenumber">
-	<xsl:call-template name="pagenumber-hline"/>
+   <xsl:call-template name="pagenumber-hline"/>
 </xsl:template>
 
 <xsl:template match="chapter/pagenumber|section/pagenumber|subsection/pagenumber|subblock/pagenumber|block/pagenumber|part/pagenumber">
-  <xsl:call-template name="pagenumber-hline"/>
+   <xsl:call-template name="pagenumber-hline"/>
 </xsl:template>
 
 <xsl:template match="pagenumber" mode="hline">
-  <xsl:call-template name="pagenumber-hline"/>
+   <xsl:call-template name="pagenumber-hline"/>
 </xsl:template>
 
 <!--xsl:template match="pagenumber[count(preceding-sibling::text())=0]" mode="hline">	
 	xx<xsl:call-template name="pagenumber-hline"/>
 </xsl:template-->
 	
-<xsl:template name="pagenumber-hline">	
-  <table width="100%" border="0">
-    <tr>
-      <td width="100%"><hr/></td>
-      <td><xsl:call-template name="pagenumber-simple"/></td>
-    </tr>  
-  </table>
+<xsl:template name="pagenumber-hline">
+   <xsl:choose>
+     <xsl:when test="not(ancestor::table or ancestor::li or ancestor::ol or ancestor::ul or ancestor::dl)">
+         <table width="100%" border="0">
+          <tr>
+            <td width="100%"><hr/></td>
+            <td><xsl:call-template name="pagenumber-simple"/></td>
+          </tr>  
+        </table>
+     </xsl:when>
+     <xsl:otherwise>
+            <xsl:call-template name="pagenumber-simple"/>
+     </xsl:otherwise>
+   </xsl:choose>
+
+
 </xsl:template>
 
 <xsl:template match="pagenumber" name="number-formated" mode="number">
@@ -83,6 +92,9 @@
 
 <xsl:template match="pagenumber" name="pagenumber-simple">
   <xsl:choose>
+    <xsl:when test="ancestor::table or ancestor::li or ancestor::ol or ancestor::ul or ancestor::dl">
+      <a name="{@id}"></a>
+    </xsl:when>
     <xsl:when test="@id">
       <a name="{@id}"><xsl:call-template name="pagenumber-content"/></a>
     </xsl:when>
@@ -92,5 +104,8 @@
   </xsl:choose>
 </xsl:template>
 
-</xsl:stylesheet>
+<xsl:template match="pagenumber" mode="pagenumber-combined">
+   <xsl:call-template name="pagenumber-content"/>
+</xsl:template>
 
+</xsl:stylesheet>

@@ -25,7 +25,7 @@
 </tfoot>
 <tbody>
 <row>
-  <entry><p>b1</p></entry>
+  <entry><p><pagenumber numbering="lroman" label="41" start="41" id="p41"/>b1</p></entry>
   <entry><p>b2</p></entry>
   <entry><p>b3</p></entry>
   <entry><p>b4</p></entry>
@@ -39,7 +39,7 @@
 </row>
 <row>
   <entry><p>d1</p></entry>
-  <entry><p>d4</p></entry>
+  <entry><p><pagenumber numbering="lroman" label="42" start="42" id="p42"/>d4</p></entry>
   <entry><p>d5</p></entry>
 </row>
 </tbody>

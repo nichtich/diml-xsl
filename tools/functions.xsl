@@ -37,7 +37,7 @@
 	
 	<xsl:if test="not(@label) and $generate">			
 		<xsl:if test="$generate/@elementBefore">
-			<xsl:apply-templates select="parent::*[name()=$generate/@elementBefore][1]" mode="numberingLabel"/>
+			<xsl:apply-templates select="parent::*[name()=$CONFIG/generate[@of=$name][@numbering]/@elementBefore]" mode="numberingLabel"/>
 		</xsl:if>
 		<xsl:variable name="recent-start" select="preceding-sibling::*[name()=$name][@start][1]"/>		
 		<xsl:value-of select="$generate/@before"/>

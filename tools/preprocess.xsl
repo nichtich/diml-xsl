@@ -4,13 +4,6 @@ exclude-result-prefixes="cms">
 
 <xsl:include href="functions.xsl"/>
 
-<!--
-Aufgaben von preprocess: 
-*Seitennummerierung, Kapitelnummern vergeben
-*id-Attribute vergeben, wo notwendig
-*entities in files
--->
-
 <!-- TODO: citation nummerieren (label vergeben) -->
 
 <xsl:param name="CONFIGFILE">config.xml</xsl:param>

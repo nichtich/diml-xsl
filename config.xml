@@ -3,11 +3,13 @@
 sie alle möglichen Angaben zur Steuerung der Styles -->
 <config>
 
+  <!--== numbering ==-->
   <generate of="chapter" numbering="ualpha" after="."/>
   <generate of="section" numbering="arabic" after="-" elementBefore="chapter"/>
   <generate of="subsection" numbering="arabic" after="." elementBefore="section"/> 
   <generate numbering="lroman" of="block" before="" after=")" force="yes"/>
 
+  <!--== Layout of links ==-->
   <!-- before and after label if there is no content -->
   <link to="citation" before="[" after="]"/>
 
@@ -40,6 +42,8 @@ sie alle möglichen Angaben zur Steuerung der Styles -->
   <infoLeft lang="de"><![CDATA[<a href="http://edoc.hu-berlin.de/diml/">DiML DTD</a> Version 3.0]]></infoLeft>
   <infoLeft lang="en"><![CDATA[<a href="http://edoc.hu-berlin.de/diml/">DiML DTD</a> Version 3.0]]></infoLeft>
 
+
+  <!--== Vocables (words in different languages ==-->
   <vocables>
     <!-- Navigation in module-cms -->
     <chapter de="Kapitel" en="Chapter" />

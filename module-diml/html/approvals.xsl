@@ -7,5 +7,5 @@
   <xsl:apply-templates select="name" mode="namensListe" /></p>
 </xsl:template>
 
-
 </xsl:stylesheet>
+

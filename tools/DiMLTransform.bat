@@ -117,20 +117,6 @@ rem for win9x: if exist "%hackeddir%hacked\nul"
   goto okHome
 
 :okHome
-rem Get standard Java environment variables
-if exist "%DIMLXSL%\tools\setclasspath.bat" goto okSetclasspath
-echo Cannot find %DIMLXSL%\tools\setclasspath.bat
-echo This file is needed to run this program
-goto end
-
-:okSetclasspath
-set _RUNJAVA=java
-REM echo "%_RUNJAVA%"
-REM if exist "%_RUNJAVA%" goto okJava
-REM echo Please set JAVA_HOME to point to your installation of Java
-REM goto end
-
-:okJava
 rem Do you have Xalan?
 if not exist "%DIMLXSL%\lib\xml-apis.jar" goto noXalan
 if not exist "%DIMLXSL%\lib\xalan.jar" goto noXalan
@@ -144,8 +130,29 @@ echo into the directory %DIMLXSL%\lib
 goto end
 
 :okXalan
-call "%DIMLXSL%\tools\setclasspath.bat"
+REM *Set Classpath*
+
 set LOCALCLASSPATH=%CLASSPATH%;%DIMLXSL%\lib\xml-apis.jar;%DIMLXSL%\xalan.jar;%DIMLXSL%\lib\xercesImpl.jar;%DIMLXSL%\tools
+
+rem Variable JAVA_HOME not set: use just "java" as executable
+if not "%JAVA_HOME%" == "" goto gotJavaHome
+echo Warning: The JAVA_HOME environment variable is not defined
+echo Try setting this variable if DiMLTranform fails
+set _RUNJAVA=java
+goto setProcessor
+
+:gotJavaHome
+rem Variable JAVA_HOME is set: use location or if not exist, again just "java"
+if not exist "%JAVA_HOME%\bin\java.exe" goto noJavaHome
+rem everything o.k. with java
+set _RUNJAVA="%JAVA_HOME%\bin\java"
+echo Using %JAVA_HOME%\bin\java.exe
+set LOCALCLASSPATH = %LOCALCLASSPATH%;%JAVA_HOME%\lib\tools.jar
+goto setProcessor
+:noJavaHome
+echo Warning: The JAVA_HOME environment variable is not defined correctly,
+echo "%JAVA_HOME%\bin\java.exe" not found
+set _RUNJAVA=java
 
 :setProcessor
 set XLSTPROCESSOR=org.apache.xalan.processor.TransformerFactoryImpl

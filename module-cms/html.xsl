@@ -138,7 +138,8 @@
            <xsl:when test="cms:entry[@type='frame']">
              <xsl:value-of select="$VOCABLES/frame/@*[name()=$LANG]" />
              <xsl:text>:&#xA0;</xsl:text>
-             <xsl:for-each select="cms:entry[@type='frame']">
+             <!-- cms:entry[@type='part'][not(@id)][not(@part)] -->
+             <xsl:for-each select="cms:entry[@type='frame'] | cms:entry[@type='part'][@id=@part]">
                      <xsl:apply-templates select="." mode="link">
                           <xsl:with-param name="before"/>
                           <xsl:with-param name="after"/>
@@ -152,7 +153,8 @@
              <xsl:if test="cms:entry[@type='chapter']">
                <xsl:value-of select="$VOCABLES/chapter/@*[name()=$LANG]" />
                <xsl:text>:&#xA0;</xsl:text>
-               <xsl:for-each select="cms:entry[@type='chapter']">
+             <!-- cms:entry[@type='part'][not(@id)][not(@part)] -->
+               <xsl:for-each select="cms:entry[@type='chapter'] | cms:entry[@type='part'][@id=@part] | cms:entry[@type='part'][@id=@part]">
                        <xsl:apply-templates select="." mode="link">
                             <xsl:with-param name="before"/>
                             <xsl:with-param name="after"/>
@@ -329,7 +331,9 @@ The name of the link will be the content of cms:entry or an @type called element
 </xsl:template>
 
 <xsl:template match="cms:entry[@type='title']">
-  <span class="nav-title"><xsl:value-of select="."/></span>
+  <!-- !!! try to test if formatting in navbar title can be visualised -->
+  <!--<span class="nav-title"><xsl:value-of select="."/></span>-->
+  <span class="nav-title"><xsl:apply-templates select="node()" /></span>
 </xsl:template>
 
 <xsl:template match="cms:entry[@type=':contents']" mode="navbar">

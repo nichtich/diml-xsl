@@ -116,9 +116,9 @@
     <chapter de="Kapitel" en="Chapter" />
     <section de="Abschnitt" en="Section" />
     <subsection de="Unterabschnitt" en="Subsection" />
-    <block de="" en="" />
-    <subblock de="" en="" />
-    <part de="" en="" />
+    <block de="Block" en="Block" />
+    <subblock de="Subblock" en="Subblock" />
+    <part de="Part" en="Part" />
 
     <!-- TOC -->
     <_contents de="Inhaltsverzeichnis" en="contents"/>

@@ -38,11 +38,13 @@
   <xsl:choose>  
   
     <!-- do not add a paragraph if element has no siblings    -->
+    <!-- which are citations                                  -->
     <!-- a paragraph already exists because of parent element -->
     <!-- this in particular concerns citations inside lists   -->
     <!-- old: test="self::node()[count(../node())=1]"         -->
-    
-    <xsl:when test="count(../citation)>=1">
+    <!-- old: test="count(../citation)>=1"                    -->
+
+    <xsl:when test="count(../citation)=1">
       <xsl:apply-templates select="." mode="labeled"/>
     </xsl:when>
     

@@ -7,9 +7,6 @@
 
 <xsl:param name="CONFIGFILE">config.xml</xsl:param>
 <xsl:param name="ENDNOTESBIB">false</xsl:param>
-<xsl:variable name="CONFIG" select="document($CONFIGFILE)/config"/>
-<xsl:variable name="VOCABLES" select="document($CONFIGFILE)/config/vocables"/>
-
 <xsl:param name="LANG">
   <xsl:choose>
     <xsl:when test="string(/etd/@lang)!=''">
@@ -21,6 +18,10 @@
     <xsl:otherwise>en</xsl:otherwise>
   </xsl:choose>
 </xsl:param>
+
+<xsl:variable name="CONFIG" select="document($CONFIGFILE)/config"/>
+<xsl:variable name="VOCABLES" select="document($CONFIGFILE)/config/vocables"/>
+<xsl:variable name="filterPagenumbers" ><xsl:if test="//citenumber">true</xsl:if></xsl:variable>
 
 <xsl:key name="id" match="*" use="@id"/>
 
@@ -60,6 +61,7 @@
 
 <!--== add missing pagenumber labels ==-->
 <xsl:template match="pagenumber">
+  <xsl:if test="not($filterPagenumbers='true')">
 	<pagenumber>
 		<xsl:call-template name="provide-id"/>
 		<xsl:attribute name="label">
@@ -89,21 +91,30 @@
                         <xsl:with-param name="number" select="preceding::pagenumber[@start][position()=1]/@start + count(preceding::pagenumber) - count(preceding::pagenumber[@start][position()=1]/preceding::pagenumber)"/>
                         <xsl:with-param name="numbering" select="@numbering"/>
                       </xsl:call-template>
-                      <xsl:message>preprocess.xsl says: Warning! Pagenumber has no attribute start and label. Count from previous pagenumber with attribute start.</xsl:message>
-
+                      <xsl:message>This is stylesheet preprocess.xsl speaking. Warning: Pagenumber has no attribute start and label. Count from previous pagenumber with attribute start.</xsl:message>
                   </xsl:when>
 
                   <!-- otherwise: use consecutive number of pagenumber -->
                   <xsl:otherwise>
                     <xsl:value-of select="count(preceding::pagenumber)+1" />
-                    <xsl:message>preprocess.xsl says: Warning! Pagenumber has no attribute start and label. Count total number of pagenumbers.</xsl:message>
+                    <xsl:message>This is stylesheet preprocess.xsl speaking. Warning: Pagenumber has no attribute start and label. Count total number of pagenumbers.</xsl:message>
                   </xsl:otherwise>
 
 		</xsl:choose>
 		</xsl:attribute>
 		<xsl:apply-templates select="@*|node()"/>					
 	</pagenumber>
+  </xsl:if>
 </xsl:template>
+
+<!-- add citenumber id's -->
+<xsl:template match="citenumber">
+  <xsl:copy>
+    <xsl:call-template name="provide-id"/>
+    <xsl:apply-templates select="@*|node()"/>
+  </xsl:copy>
+</xsl:template>
+
 
 <xsl:template match="im|mm">
 	<xsl:element name="{name()}">
@@ -136,7 +147,7 @@
 		<xsl:call-template name="provide-id">
 			<xsl:with-param name="suggest">front</xsl:with-param>
 		</xsl:call-template>
-		<xsl:apply-templates select="@*|node()"/>	
+		<xsl:apply-templates select="@*|node()"/>
 		<!-- TODO: if there are no chapters etc. this will result in an error (empty list)! -->
 		<!--xsl:if test="$CONFIG/toc[@generate='yes']">
 		  <p>
@@ -201,6 +212,7 @@
 
 </xsl:template>
 
+
     <chapter hidelabel="no" indent="yes"/>
     <section hidelabel="no" indent="yes"/>
 
@@ -218,10 +230,10 @@
 
 <!--== Test color names ==-->
 <xsl:template match="em/@color">
-  <xsl:copy/>
+  <xsl:copy />
   <xsl:if test="translate(.,'0123456789ABCDEabcdef','FFFFFFFFFFFFFFFFFFFFF')!='#FFFFFF'">
   	<xsl:message>
-  		<xsl:text>Attribute @color (</xsl:text>
+  		<xsl:text>This is stylesheet preprocess.xsl speaking. Warnung: Attribute @color (</xsl:text>
   		<xsl:value-of select="." />
   		<xsl:text>) of element em must match "#FFFFFF"</xsl:text>
   	</xsl:message>
@@ -243,11 +255,11 @@
 
 <!-- no p around single citations in bibliography -->
 <xsl:template match="bibliography/p[citation and count(*)=1 and normalize-space(text())='']">
-	<xsl:apply-templates/>
+  <xsl:apply-templates/>
 </xsl:template>
 
 
-<!--== helper for add bibliographie for endnotes if missing ==-->
+<!--== helper for add bibliography for endnotes if missing ==-->
 
 <xsl:template match="endnote">
 <xsl:choose>
@@ -266,13 +278,13 @@
 </xsl:choose>
 </xsl:template>
 
-<!--== helper for add bibliographie for endnotes if missing ==-->
+<!--== helper for add bibliography for endnotes if missing ==-->
 
 <xsl:template match="endnote" mode="label">
   <sup class="footnotelabel"><xsl:value-of select="count(preceding::endnote)+1" /></sup>
 </xsl:template>
 
-<!--== helper for add bibliographie for endnotes if missing ==-->
+<!--== helper for add bibliography for endnotes if missing ==-->
 
 <xsl:template match="endnote" mode="foot">
   <p>
@@ -292,19 +304,33 @@
   </p>  
 </xsl:template>
 
-<!--== add bibliographie for endnotes if missing ==-->
+<!--== add bibliography for endnotes if missing ==-->
 
 <xsl:template match="back">
   <xsl:element name="back">
      <xsl:call-template name="provide-id" />
 
+     <!-- parameter (e.g. from DiMLTransform.java) whether --> 
+     <!-- bibliography for endnotes should be created      -->
      <xsl:if test="$ENDNOTESBIB='true'">
-        <xsl:if test="/etd/body//endnote and not(bibliography[@id='endnotebibliography'])">
-           <bibliography id="endnotebibliography">
-             <head><xsl:value-of select="$VOCABLES/bibliography/@*[name()=$LANG]" /></head>
-             <xsl:apply-templates select="//endnote" mode="foot"/>
-           </bibliography>
-        </xsl:if>
+
+       <!-- add bibliography for endnotes only, if no other bibliography -->
+       <!-- exists and endnotes are available throughout the document    -->
+       <xsl:if test="not(//bibliography) and /etd/body//endnote">
+
+          <!-- check if id already exists, error if exists -->
+          <xsl:choose>
+            <xsl:when test="not(key('id','endnotebibliography'))">
+               <bibliography id="endnotebibliography">
+                 <head><xsl:value-of select="$VOCABLES/bibliography/@*[name()=$LANG]" /></head>
+                 <xsl:apply-templates select="//endnote" mode="foot"/>
+               </bibliography>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:message terminate="yes">This is stylesheet preprocess.xsl speaking. Error: id with value "endnotebibliography" already exists, wanted to use that id for creating new bibliography from endnotes</xsl:message>
+            </xsl:otherwise>
+          </xsl:choose>
+       </xsl:if>
      </xsl:if>
 
      <!-- other elements in back -->
@@ -313,6 +339,27 @@
   </xsl:element>
 </xsl:template>
 
+<xsl:template match="bibliography">
+  <xsl:element name="bibliography">
+     <xsl:call-template name="provide-id" />
+     
+     <!-- parameter (e.g. from DiMLTransform.java) whether --> 
+     <!-- bibliography for endnotes should be created      -->
+     <!-- and bibliography is first of all bibliographies  -->
+     <xsl:choose>
+       <xsl:when test="$ENDNOTESBIB='true' and not(preceding::bibliography) and /etd/body//endnote">
+         <!-- add bibliography for endnotes to this bibliography -->
+         <xsl:apply-templates select="@*|node()"/>
+         <xsl:apply-templates select="//endnote" mode="foot"/>
+       </xsl:when>
+       <xsl:otherwise>
+         <!-- do not create a bibliography of endnotes: copy all elements -->
+         <xsl:apply-templates select="@*|node()"/>
+       </xsl:otherwise>
+     </xsl:choose>
+
+  </xsl:element>
+</xsl:template>
 
 <!--==Strip additional labels==-->
 <!-- don't strip additional labels anymore -->
@@ -330,6 +377,28 @@
 </xsl:template>
 -->
 
+<!-- do citenumber adding after chapter/frame begins -->
+<!-- match first paragraph in frame or chapter -->
+
+<xsl:template match="p[generate-id(.)=generate-id(ancestor::chapter/descendant::p[1]) or generate-id(.)=generate-id(ancestor::frame/descendant::p[1])]">
+  <xsl:copy>
+    <xsl:apply-templates select="@*"/>
+    <xsl:if test="preceding::p[citenumber][1]/citenumber/@start + 1 != following::p[citenumber][1]/citenumber/@start">
+      <xsl:message>This is stylesheet preprocess.xsl speaking. Warning: Citenumber <xsl:value-of select="preceding::p[citenumber][1]/citenumber/@start"/> is not predecessor of <xsl:value-of select="following::p[citenumber][1]/citenumber/@start"/>.</xsl:message>
+    </xsl:if>
+
+    <xsl:if test="not(citenumber)">
+      <xsl:element name="citenumber">
+        <xsl:call-template name="provide-id"/>
+        <xsl:attribute name="start"><xsl:value-of select="preceding::p[citenumber][1]/citenumber/@start" /></xsl:attribute>
+      </xsl:element>
+    </xsl:if>
+    
+    <xsl:apply-templates select="node()"/>
+  </xsl:copy>
+</xsl:template>
+
+
 <!--===== copy the rest =====-->
 <xsl:template match="@*|node()">
 	<xsl:copy>		
@@ -344,7 +413,7 @@
 
 <!-- element in "front" that need an id and is not otherwise handled -->
 <xsl:template match="dedication">
-	<xsl:copy>		
+	<xsl:copy>
 		<xsl:call-template name="provide-id"/>
 		<xsl:apply-templates select="@*|node()"/>
 	</xsl:copy>
@@ -352,7 +421,7 @@
 
 <!-- the following elements in "front" don't need an id, because there  -->
 <!-- is no link to them. and because creating a "head" in the           -->
-<!-- html-version is not mandatory bringing an id to html would be      -->
+<!-- html-version is not mandatory. bringing an id to html would be     -->
 <!-- difficult anyway:                                                  -->
 
 <!-- copyright, grant, abstract                                         -->

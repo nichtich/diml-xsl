@@ -3,6 +3,11 @@
 
 <xsl:template match="sub">
   <sub>
+     <xsl:if test="@class">
+        <xsl:attribute name="class">
+           <xsl:value-of select="@class"/>
+        </xsl:attribute>
+     </xsl:if>
     <xsl:apply-templates/>
   </sub>
 </xsl:template>

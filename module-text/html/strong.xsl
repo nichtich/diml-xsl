@@ -5,7 +5,10 @@
 <xsl:template match="strong">
   <b>
     <xsl:if test="@color">
-      <!-- ... -->
+    	<xsl:attribute name="style">
+    		<xsl:text>color:</xsl:text>
+    		<xsl:value-of select="@color"/>
+    	</xsl:attribute>
     </xsl:if>
     <xsl:apply-templates/>
   </b>

@@ -227,6 +227,16 @@ exclude-result-prefixes="cms">
 	<xsl:apply-templates/>
 </xsl:template>
 
+
+<!--== helper for add bibliographie for endnotes if missing ==-->
+
+<xsl:template match="endnote">
+  <link id="{concat(generate-id(),'link')}"></link>
+    <link ref="{generate-id()}">
+      <xsl:apply-templates select="." mode="label"/>
+    </link>  
+</xsl:template>
+
 <!--== helper for add bibliographie for endnotes if missing ==-->
 
 <xsl:template match="endnote" mode="label">
@@ -236,8 +246,9 @@ exclude-result-prefixes="cms">
 <!--== helper for add bibliographie for endnotes if missing ==-->
 
 <xsl:template match="endnote" mode="foot">
-  <p name="{generate-id()}">
-      <link ref="#{concat(generate-id(),'link')}">
+  <p>
+      <link id="{generate-id()}"></link>
+      <link ref="{concat(generate-id(),'link')}">
         <xsl:apply-templates select="." mode="label"/>
       </link>  
     <xsl:text>&#xA0;</xsl:text>    

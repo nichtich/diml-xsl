@@ -6,6 +6,7 @@
 <xsl:param name="CONFIGFILE">config.xml</xsl:param>
 <xsl:variable name="CONFIG" select="document($CONFIGFILE)/config"/>
 <xsl:variable name="VOCABLES" select="document($CONFIGFILE)/config/vocables"/>
+<xsl:variable name="selected-part" select="//*[@id=$SELECTID]"/>
 
 <xsl:output method="xml" indent="yes"/>
 <xsl:key name="id" match="*" use="@id"/>
@@ -28,8 +29,8 @@
 <!--               -->
 <!-- ROOT template -->
 <!--               -->
+
 <xsl:template match="/">
-  <xsl:variable name="selected-part" select="//*[@id=$SELECTID]"/>  
   <xsl:if test="not($selected-part)">
     <xsl:message terminate="yes">This is stylesheet diml2cms.xsl speaking. Error: No SELECTID or element of SELECTID=<xsl:value-of select="$SELECTID"/> not found!</xsl:message>
   </xsl:if>
@@ -41,9 +42,7 @@
     <cms:document>
       <cms:meta>
          <xsl:apply-templates select="*" mode="cms"/>
-         <xsl:call-template name="navigation">
-            <xsl:with-param name="selected-part" select="$selected-part"/>
-         </xsl:call-template>
+         <xsl:call-template name="navigation" />
        </cms:meta>
      <!-- Copy the selected part into cms:content -->                
      <cms:content>
@@ -62,7 +61,7 @@
 
 <!-- traverse all nodes in mode cms and print a cms:entry for elements that have an @id -->
 <!-- TODO: what about list of images, tables, TableOfContents/chapter? -->
-<xsl:template match="*[@id]" mode="cms">
+<xsl:template match="*[@id]" mode="cms" priority="-1">
   <!-- -->
   <xsl:variable name="part" select="ancestor-or-self::*[@id=$parts/@id][1]/@id"/>
   <!--xsl:if test="$part=@id"-->
@@ -131,7 +130,18 @@
 
 <xsl:template match="citenumber" mode="cms">
   <xsl:variable name="part" select="ancestor-or-self::*[@id=$parts/@id][1]/@id"/>
-  <cms:entry type="citenumber" ref="{@id}">
+  
+  <!-- give citenumbers which are helpers another type                 -->
+  <!-- so that they won't appear later in the navigation dropdown list -->
+
+  <xsl:variable name="citenumberType">
+    <xsl:choose>
+      <xsl:when test="@helper='true'">helpercitenumber</xsl:when>
+      <xsl:otherwise>citenumber</xsl:otherwise>
+    </xsl:choose>
+  </xsl:variable>
+    
+  <cms:entry type="{$citenumberType}" ref="{@id}">
     <xsl:call-template name="entry-id-attributes"/>
     <xsl:choose>
        <xsl:when test="@label"><xsl:value-of select="@label"/></xsl:when>
@@ -150,7 +160,11 @@
 
 <!-- Diese Angaben können zur Navigation ausgewertet werden (siehe HTML-Element link) -->
 <xsl:template name="navigation">
-   <xsl:param name="selected-part"/>
+
+   <!-- store name of current part in metadata, do not delete this -->
+   <cms:entry type=":current" part="{$selected-part/@id}">
+   </cms:entry>
+   
    <!-- NUR TEST! NICHT ENDGÜLTIG! -->
    <!--xsl:if test="$selected-part/preceding-sibling::*[1]/@id">
       <cms:entry type=":prev" part="{$selected-part/preceding-sibling::*[1]/@id}.html"/>

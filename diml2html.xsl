@@ -18,7 +18,7 @@
 
 <xsl:param name="NAME_OF_FILE"><xsl:value-of select="/etd/front/author/surname"/></xsl:param>
 
-<!--<xsl:output method="html" encoding="UTF-8"/>-->
+<!--<xsl:output method="html" encoding="ISO-8859-1"/>-->
 
 <xsl:include href="module-diml/html.xsl"/>
 <xsl:include href="module-media/html.xsl"/>

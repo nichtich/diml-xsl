@@ -126,6 +126,7 @@
       <td class="nav-parts" colspan="2">
          <form action="" name="navForm">
            <xsl:apply-templates select="cms:entry[@type='front']" mode="link"/>
+           <xsl:apply-templates select="cms:entry[@type='dedication']" mode="navbar"/>
            <xsl:apply-templates select="cms:entry[@type='preface']" mode="link"/>
 
            <xsl:choose>
@@ -163,15 +164,11 @@
              </xsl:otherwise>
            
            </xsl:choose>
-         
-           <!-- Used before -->
-           <!--<xsl:if test="cms:entry[@type='frame']">
-                 <xsl:value-of select="$VOCABLES/frame/@*[name()=$LANG]" />: <xsl:apply-templates select="cms:entry[@type='frame']" mode="link"/>
-               </xsl:if>-->
-             
            <xsl:text>&#xA0;</xsl:text>
+           
           <!-- bibliography, declaration ... -->
-          <xsl:apply-templates select="cms:entry[@type!='pagenumber' and @type!='chapter' and @type!='frame' and @type!='front' and @type!='preface' and substring(@type,1,1)!=':'][@ref]" mode="navbar"/>
+          <xsl:apply-templates select="cms:entry[@type!='pagenumber' and @type!='chapter' and @type!='frame' and @type!='front' and @type!='preface' and @type!='dedication' and substring(@type,1,1)!=':'][@ref]" mode="navbar"/>
+          
           <!--xsl:apply-templates select="cms:entry" mode="navbar"/-->
           <br/>
           
@@ -362,7 +359,7 @@
           <!-- if not toc and toc-media (means no "#...") the name of    -->
           <!-- the file ist printed to avoid empty attribute "href"      -->
           <xsl:if test="(@ref and @type and not(@part) and not(@id)) ">
-            <xsl:value-of select="@ref"/>
+            <xsl:value-of select="../cms:entry[@type=':current']/@part"/>
             <xsl:value-of select="$EXT"/>
           </xsl:if>
 
@@ -391,6 +388,7 @@
     <xsl:with-param name="type" select="_contents"/>
   </xsl:apply-templates>  
 </xsl:template>
+
 
 <!-- Create a link in the navigation bar for each of this cms:entry elements -->
 <xsl:template match="cms:entry[@type='acknowledgement' or @type='vita' or @type='bibliography' or @type='preface' or @type='submission' or @type='grant' or @type='dedication' or @type='copyright' or @type='motto' or @type='declaration' or @type='resources' or @type='glossary' or @type='appendix' or @type='abbreviation'  or @type='abbreviation' or @type='summary']" mode="navbar">

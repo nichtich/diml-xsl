@@ -4,12 +4,11 @@
 
 <xsl:template match="school">
 
-  <xsl:apply-templates select="*[(self::p)]">
-     <xsl:with-param name="cssTemplate" select="'school'" />
-  </xsl:apply-templates>
-  <xsl:apply-templates select="*[not(self::p)]"/>
-
+  <p class="school"><xsl:apply-templates/></p>
+  
 </xsl:template>
+
+
 
 
 

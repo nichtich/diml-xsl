@@ -3,5 +3,6 @@
 
 <xsl:include href="html/glossary.xsl"/>
 <xsl:include href="html/footnote.xsl"/>
+<xsl:include href="html/pagenumber.xsl"/>
 
 </xsl:stylesheet>

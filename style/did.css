@@ -15,8 +15,9 @@ p {
          text-align: left;
   }
   
-p.pagenumber {
+span.pagenumber {
          text-align: right;
+         color: red;
   }
   
   
@@ -94,14 +95,6 @@ span.suffix {
 p.school {
          margin-top: 20pt;
          text-align: center;
-         line-height: 15.5pt;
-         text-indent: 0pt;
-         }
-div.school {
-         margin-top: 20pt;
-         text-align: center;
-         line-height: 15.5pt;
-         text-indent: 0pt;
          }
 
 <!-- akademischer Grad -->

@@ -422,6 +422,9 @@
 <!-- helper for copying heads to toc: convert "link" to content of link -->
 <xsl:template match="link" mode="tochead"><xsl:value-of select="." /></xsl:template>
 
+<!-- helper for copying heads to toc: convert "url" to content of link -->
+<xsl:template match="url" mode="tochead"><xsl:value-of select="." /></xsl:template>
+
 <!-- helper for copying heads to toc: omit some elements -->
 <xsl:template match="footnote | endnote | pagenumber" mode="tochead" />
 

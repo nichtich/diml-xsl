@@ -12,16 +12,50 @@
 <xsl:template match="footnote|endnote" mode="label">
 
   <xsl:choose>
-    <xsl:when test="@label">
-      <sup class="footnotelabel"><xsl:value-of select="@start"/></sup>
-    </xsl:when>
+
+    <!-- 1st: use @start, with @numbering -->
     <xsl:when test="@start">
-      <!-- add usage of @numbering here! -->
-      <sup class="footnotelabel"><xsl:value-of select="@start"/></sup>
+      <sup class="footnotelabel">
+      
+        <!-- use template "number" in tools/functions.xsl -->
+        <xsl:call-template name="number">
+          <xsl:with-param name="number" select="@start"/>
+          <xsl:with-param name="numbering" select="@numbering"/>
+        </xsl:call-template>
+
+      </sup>	
+	
     </xsl:when>
+
+    <!-- 2nd: use @label, as is -->
+    <xsl:when test="@label">
+      <sup class="footnotelabel"><xsl:value-of select="@label"/></sup>
+    </xsl:when>
+
+    <!-- 3rd: count from previous footnote/endnote with @start, use @numbering -->
+    <xsl:when test="preceding::footnote[@start]">
+    
+      <sup class="footnotelabel">
+        <!-- use template "number" in tools/functions.xsl -->
+        <xsl:call-template name="number">
+        
+          <!-- count only footnotes with @start -->
+          <!--<xsl:with-param name="number" select="preceding::footnote[@start][position()=1]/@start + count(preceding::footnote) - count(preceding::footnote[@start][position()=1]/preceding::footnote)"/>-->
+
+          <!-- count footnotes and endnotes with @start -->
+          <xsl:with-param name="number" select="(preceding::footnote[@start] | preceding::endnote[@start])[position()=last()]/@start + count(preceding::footnote | preceding::endnote) - count((preceding::footnote[@start] | preceding::endnote[@start])[position()=last()]/(preceding::footnote | preceding::endnote))"/>
+
+          <xsl:with-param name="numbering" select="@numbering"/>
+        </xsl:call-template>
+      </sup>
+    
+    </xsl:when>
+
+    <!-- otherwise: use consecutive number of footnote/endnote -->
     <xsl:otherwise>
       <sup class="footnotelabel"><xsl:value-of select="count(preceding::footnote | preceding::endnote)+1"/></sup>
     </xsl:otherwise>
+    
   </xsl:choose>
   
 </xsl:template>

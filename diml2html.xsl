@@ -44,6 +44,9 @@
 <xsl:include href="module-cms/html.xsl"/>
 <xsl:include href="module-verse/html.xsl"/>
 
+<!-- uses function.xsl in directory tools (for footnotes, citations)-->
+<xsl:include href="tools/functions.xsl"/>
+
 <xsl:key name="term" match="term" use="@id"/>
 <xsl:key name="id" match="*[@id]" use="@id"/>
 

@@ -39,40 +39,25 @@
   <span class="pagenumber">
     <xsl:value-of select="$CONFIG/pagenumber[@lang=$LANG]/@before"/>
     <xsl:value-of select="@system"/>
-    <xsl:call-template name="number" />
+    <xsl:call-template name="pnumber" />
     <xsl:value-of select="$CONFIG/pagenumber[@lang=$LANG]/@after"/>
   </span>
 </xsl:template>
 
 <!-- create the number of a pagenumber                            -->
 <!-- first use label, otherwise use number created out of "start" -->
-<xsl:template match="pagenumber" mode="number" name="number">
+<xsl:template match="pagenumber" mode="number" name="pnumber">
   <xsl:choose>
 
       <!-- 1. create number out of @start formatted with @numbering -->
       <xsl:when test="@start">
-        <xsl:variable name="numbering" select="@numbering"/>
-        <xsl:variable name="value" select="@start"/>
-	<xsl:choose>
-		<xsl:when test="$numbering='arabic'">
-			<xsl:number value="$value" format="1"/>
-		</xsl:when>
-		<xsl:when test="$numbering='lalpha'">
-			<xsl:number value="$value" format="a"/>
-		</xsl:when>
-		<xsl:when test="$numbering='ualpha'">
-			<xsl:number value="$value" format="A"/>
-		</xsl:when>
-		<xsl:when test="$numbering='lroman'">
-			<xsl:number value="$value" format="i"/>
-		</xsl:when>
-		<xsl:when test="$numbering='uroman'">
-			<xsl:number value="$value" format="I"/>
-		</xsl:when>
-		<xsl:otherwise>
-			<xsl:value-of select="$value"/>
-		</xsl:otherwise>
-	</xsl:choose>
+      
+        <!-- use template "number" in tools/functions.xsl -->
+        <xsl:call-template name="number">
+          <xsl:with-param name="number" select="@start"/>
+          <xsl:with-param name="numbering" select="@numbering"/>
+        </xsl:call-template>
+        
       </xsl:when>
 
       <!-- 2. create simply out of @label -->
@@ -80,8 +65,20 @@
         <xsl:value-of select="@label"/>
       </xsl:when>
 
-      <!-- 3. neither @start nor @label: print nothing (any idea?) -->
+      <!-- 3rd: count from previous pagenumber with @start, use @numbering -->
+      <xsl:when test="preceding::pagenumber[@start]">
+    
+          <!-- use template "number" in tools/functions.xsl -->
+          <xsl:call-template name="number">
+            <xsl:with-param name="number" select="preceding::pagenumber[@start][position()=1]/@start + count(preceding::pagenumber) - count(preceding::pagenumber[@start][position()=1]/preceding::pagenumber)"/>
+            <xsl:with-param name="numbering" select="@numbering"/>
+          </xsl:call-template>
+    
+      </xsl:when>
+
+      <!-- otherwise: use consecutive number of pagenumber -->
       <xsl:otherwise>
+        <xsl:value-of select="count(preceding::pagenumber)+1"/>
       </xsl:otherwise>
 
     </xsl:choose>

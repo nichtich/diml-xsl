@@ -29,9 +29,13 @@ public class DiMLTransform  {
   String selectedId = "";
   int verboseLevel = 0;
   Templates templates;
+  
   File resultDir;
   File resultDirHTML;
   File resultDirHACKED;
+  String resultDirHTMLString;
+  String resultDirHACKEDString;
+
 
   boolean debugMode = false;
   
@@ -211,9 +215,8 @@ public class DiMLTransform  {
 
   public void action(String[] args) throws Exception {
     try {
-    resultDir = new File(".");
-    resultDirHTML = new File("html");
-    resultDirHACKED = new File("hacked");
+    //resultDir = new File(".");
+    resultDir = new File(System.getProperty("user.dir")+System.getProperty("file.separator"));
 
     DIMLXSL = System.getProperty("DIMLXSL","..");
     
@@ -229,9 +232,12 @@ public class DiMLTransform  {
     if(!parseArgs(args))
       printUsageAndExit();
 
-      if (!resultDir.exists()) resultDir.mkdirs();
-      if (!resultDirHTML.exists()) resultDir.mkdirs();
-      if (!resultDirHACKED.exists()) resultDir.mkdirs();
+    resultDirHTML = new File(resultDirHTMLString);
+    resultDirHACKED = new File(resultDirHACKEDString);
+
+     if (!resultDir.exists()) resultDir.mkdirs();
+      if (!resultDirHTML.exists()) new File(resultDirHTMLString).mkdirs();
+      if (!resultDirHACKED.exists()) new File(resultDirHACKEDString).mkdirs();
       if (!resultDir.isDirectory()) {
         message("unable to create result output directory: " + resultDir);
         return;
@@ -359,6 +365,11 @@ public class DiMLTransform  {
    */
   private boolean parseArgs(String [] args) {    
     int n=0; // 0: dimlFile 1:resultDir 2:cssDirectory
+    
+    //defaults
+    resultDirHACKEDString="hacked";
+    resultDirHTMLString="html";
+    
     for(int i=0; i<args.length; i++) {
       String arg = args[i];
       char c = (arg.length()>1) ? arg.charAt(1) : 0;
@@ -370,8 +381,8 @@ public class DiMLTransform  {
           if(c=='f') setDiMLFile(value);
              else if(c=='s') cssDirectory = new File(value);
              else if(c=='o') resultDir = new File(value);
-             else if(c=='x') resultDirHACKED = new File(value);
-             else if(c=='h') resultDirHTML = new File(value);
+             else if(c=='x') resultDirHACKEDString = value;
+             else if(c=='t') resultDirHTMLString = value;
              else if(c=='p') preprocessFile = new File(value);
              else if(c=='P') doPreprocessing = value.equals("0") ? false : true;
              else if(c=='H') generateHTMLFiles = value.equals("0") ? false : true;

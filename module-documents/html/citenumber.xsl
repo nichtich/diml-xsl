@@ -59,6 +59,9 @@
     <xsl:value-of select="@system"/>
     <xsl:call-template name="cnumber" />
     <xsl:value-of select="$CONFIG/citenumber[@lang=$LANG]/@after"/>
+    <xsl:if test="@helper='true'">
+      <xsl:value-of select="$CONFIG/citenumber[@lang=$LANG]/@continued"/>
+    </xsl:if>
   </span>
 </xsl:template>
 

@@ -14,8 +14,9 @@
   </table>
 </xsl:template>
 
+<!-- @start ist nur eine tempor„re ausgabe -->
 <xsl:template match="pagenumber" name="pagenumber-simple">
-  <span class="pagenumber">[<xsl:value-of select="$PAGENUMBER-LABEL"/><xsl:value-of select="@system"/>]</span>
+  <span class="pagenumber">[<xsl:value-of select="$PAGENUMBER-LABEL"/><xsl:value-of select="@system"/><xsl:value-of select="@start"/>]</span>
 </xsl:template>
 
 </xsl:stylesheet>

@@ -46,7 +46,7 @@
 
 <!-- create the number of a pagenumber                            -->
 <!-- first use label, otherwise use number created out of "start" -->
-<xsl:template name="pnumber">
+<xsl:template match="pagenumber" name="pnumber" mode="pnumber">
   <xsl:choose>
 
       <!-- 1. create simply out of @label (should be provided by preprocess.xsl)-->
@@ -183,12 +183,12 @@
               
           <xsl:choose>
             <xsl:when test="$isRange">              	 	
-              <xsl:apply-templates select="descendant::pagenumber[1]" mode="number" />
+              <xsl:apply-templates select="descendant::pagenumber[1]" mode="pnumber" />
                 <xsl:value-of select="$myConfig/@between"/> 
-                <xsl:apply-templates select="descendant::pagenumber[position()=last()]" mode="number" />
+                <xsl:apply-templates select="descendant::pagenumber[position()=last()]" mode="pnumber" />
             </xsl:when>
             <xsl:otherwise>
-                <xsl:apply-templates select="descendant::pagenumber[1]" mode="number" />
+                <xsl:apply-templates select="descendant::pagenumber[1]" mode="pnumber" />
             </xsl:otherwise>
           </xsl:choose> 				
             <xsl:value-of select="$myConfig/@after"/>

@@ -153,31 +153,31 @@
     </xsl:otherwise>
     </xsl:choose>
 
-	<xsl:copy>		
-		<xsl:variable name="name" select="name()"/>
-		<xsl:call-template name="provide-id">
-			<xsl:with-param name="suggest">front</xsl:with-param>
-		</xsl:call-template>
-		<xsl:apply-templates select="@*|node()"/>
+    <xsl:copy>		
+       <xsl:variable name="name" select="name()"/>
+       <xsl:call-template name="provide-id">
+               <xsl:with-param name="suggest">front</xsl:with-param>
+       </xsl:call-template>
+       <xsl:apply-templates select="@*|node()"/>
 		
-		<!-- TODO: if there are no chapters etc. this will result in an error (empty list)! -->
-		<!--xsl:if test="$CONFIG/toc[@generate='yes']">
-		  <p>
-		    <freehead id=":contents"><xsl:value-of select="$CONFIG/toc/title[@lang=$LANG]" /></freehead>
-		    <ul>		    	 
-		      <xsl:apply-templates select="/*" mode="toc"/>
-		    </ul> 
-		  </p>
-		</xsl:if-->
-	</xsl:copy>		
+       <!-- TODO: if there are no chapters etc. this will result in an error (empty list)! -->
+       <!--xsl:if test="$CONFIG/toc[@generate='yes']">
+         <p>
+           <freehead id=":contents"><xsl:value-of select="$CONFIG/toc/title[@lang=$LANG]" /></freehead>
+           <ul>		    	 
+             <xsl:apply-templates select="/*" mode="toc"/>
+           </ul> 
+         </p>
+       </xsl:if-->
+    </xsl:copy>		
 </xsl:template>
 
 <xsl:template match="section | subsection | block | subblock | part">
-	<xsl:copy>
-		<xsl:call-template name="provide-id"/>
-		<xsl:call-template name="numbering"/>
-		<xsl:apply-templates select="@*|node()"/>
-	</xsl:copy>
+   <xsl:copy>
+      <xsl:call-template name="provide-id"/>
+      <xsl:call-template name="numbering"/>
+      <xsl:apply-templates select="@*|node()"/>
+   </xsl:copy>
 </xsl:template>
 
 <xsl:template match="chapter | frame">

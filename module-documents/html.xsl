@@ -20,7 +20,8 @@
 <xsl:template match="abbreviation|preface|summary|vita|appendix">
   <xsl:apply-templates select="head/pagenumber" mode="hline"/>
   <h3 class="{name()}">
-    <a name="#{generate-id(.)}">
+    <a>
+      <xsl:call-template name="a-name-attribute"/>
       <xsl:apply-templates select="." mode="head"/>
     </a>
   </h3>

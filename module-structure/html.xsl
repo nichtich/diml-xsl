@@ -18,7 +18,8 @@
     <xsl:attribute name="class">
       <xsl:value-of select="name()"/>
     </xsl:attribute>
-    <a name="#{generate-id(.)}">
+    <a>
+      <xsl:call-template name="a-name-attribute"/>
       <xsl:apply-templates select="." mode="head"/>
     </a>      
   </xsl:element>

@@ -7,7 +7,8 @@
 <!-- Vorraussetzung: jeder term hat 'ne id -->
 <xsl:template match="glossary">
   <h2>
-    <a name="#{generate-id(.)}">
+    <a>
+      <xsl:call-template name="a-name-attribute"/>
       <xsl:apply-templates select="." mode="head"/>
     </a>  
   </h2>

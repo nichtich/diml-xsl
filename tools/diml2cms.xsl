@@ -3,10 +3,13 @@
  	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	xmlns:cms="http://edoc.hu-berlin.de/diml/module/cms">
 
+<!-- id of the element we want to see -->
 <xsl:param name="SELECTID"/>
+
+<!-- parts of the document that may be content of the container --> 
 <xsl:variable name="parts" select="/etd/front|/etd/body/*|/etd/back/*"/>
 
-<xsl:output indent="yes"/>
+<xsl:output method="xml" indent="yes"/>
 
 <xsl:template match="/">
   <xsl:variable name="selected-part" select="//*[@id=$SELECTID]"/>
@@ -24,19 +27,23 @@
   </xsl:if>
 </xsl:template>
 
-<!-- traverse all nodes in mode cms -->
+<!-- traverse all nodes in mode cms and print a cms:entry -->
 <xsl:template match="*" mode="cms">
   <xsl:variable name="part" select="ancestor-or-self::*[@id=$parts/@id][1]/@id"/>
   <xsl:if test="$part=@id">
     <cms:entry type="{name(.)}" ref="{@id}">
       <xsl:call-template name="entry-id-attributes"/>
+      <!-- does the element have a name or something like this? -->
       <xsl:if test="head">
+        <!-- QUESTION: why not copy-of? -->
         <xsl:value-of select="head"/>
       </xsl:if>
     </cms:entry> 
   </xsl:if>
   <xsl:apply-templates mode="cms"/>
 </xsl:template>
+
+<!-- do not output text on places we do not want to -->
 <xsl:template match="text()" mode="cms"/>
 
 <!-- Metadaten, die einfach nur angezeigt werden sollen -->
@@ -79,9 +86,9 @@
 </xsl:template>
 
 
-<!--======================================-->
+<!--== templates that are functions/tools ==-->
 
-<!-- named templates to create cms:entries -->
+<!-- generate attribute id and attribute part for a cms:entry element -->
 <xsl:template name="entry-id-attributes">
   <xsl:variable name="part" select="ancestor-or-self::*[@id=$parts/@id][1]/@id"/>
   <xsl:if test="$SELECTID!=$part">
@@ -89,6 +96,7 @@
         <xsl:value-of select="@id"/>
       </xsl:attribute>
       <xsl:attribute name="part">
+      	  <!-- FIXME: this will only work if we want to create html-files! -->
         <xsl:value-of select="concat($part,'.html')"/>
       </xsl:attribute>                  
   </xsl:if>

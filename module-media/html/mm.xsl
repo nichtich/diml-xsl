@@ -9,8 +9,9 @@
 
 <xsl:template match="mm" name="mm">
  <p class="mmcaption">
-    <a name="{generate-id(.)}">
-    <xsl:apply-templates select="caption"/>
+    <a>
+      <xsl:call-template name="a-name-attribute"/>
+      <xsl:apply-templates select="caption"/>
     </a>
   </p>  
   <p>
@@ -25,7 +26,12 @@
 </xsl:template>
 
 <xsl:template match="mm" mode="table-of-figures">
-  <li><a href="#{generate-id(.)}"><xsl:apply-templates select="caption" mode="table-of-figures" /></a></li>
+  <li>
+    <a>
+      <xsl:call-template name="a-href-attribute"/>
+      <xsl:apply-templates select="caption" mode="table-of-figures" />
+    </a>
+  </li>
 </xsl:template>
 
 

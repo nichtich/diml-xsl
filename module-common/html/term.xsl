@@ -23,7 +23,10 @@
     <xsl:variable name="ref" select="key('term',@ref)"/>
     <xsl:choose>
       <xsl:when test="$ref">
-        <a href="#{generate-id($ref)}">
+        <a>
+          <xsl:call-template name="a-href-attribute">
+            <xsl:with-param name="object" select="$ref"/>
+          </xsl:call-template>
           <xsl:choose>
             <xsl:when test="node()">
               <xsl:apply-templates/>

@@ -53,8 +53,8 @@
                   or starts-with(local-name($target),'sect')
                   or starts-with(local-name($target),'refsect')">
       <xsl:attribute name="title">
-        <xsl:apply-templates select="$target"
-                             mode="object.title.markup.textonly"/>
+        <!--xsl:apply-templates select="$target"
+                             mode="object.title.markup.textonly"/-->
       </xsl:attribute>
     </xsl:if>
 

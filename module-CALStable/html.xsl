@@ -6,7 +6,8 @@
 <!-- TODO: handle 'caption' and 'legend' -->
 <xsl:template match="table">
   <p class="tablecaption">
-     <a name="{generate-id(.)}">     
+     <a> 
+        <xsl:call-template name="a-name-attribute"/>    
         <xsl:apply-templates select="caption" />
      </a>
   </p>
@@ -21,7 +22,12 @@
 
 <!-- Tabellenverzeichnis -->
 <xsl:template match="table" mode="table-of-tables">
-   <li><a href="#{generate-id(.)}"><xsl:apply-templates select="caption" mode="table-of-tables" /></a></li>
+   <li>
+     <a>
+       <xsl:call-template name="a-href-attribute"/>
+       <xsl:apply-templates select="caption" mode="table-of-tables" />
+     </a>
+   </li>
 </xsl:template>
 
 

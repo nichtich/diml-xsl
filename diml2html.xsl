@@ -46,6 +46,26 @@
   <xsl:apply-templates select="head"/>
 </xsl:template>
 
+
+<xsl:template name="a-name-attribute">
+	<xsl:param name="object" select="."/>
+	<xsl:attribute name="name">
+		<xsl:call-template name="object.id">
+			<xsl:with-param name="object" select="$object"/>
+		</xsl:call-template>
+	</xsl:attribute>
+</xsl:template>
+
+<xsl:template name="a-href-attribute">
+	<xsl:param name="object" select="."/>
+	<xsl:attribute name="href">
+		<xsl:text>#</xsl:text>
+		<xsl:call-template name="object.id">
+			<xsl:with-param name="object" select="$object"/>
+		</xsl:call-template>
+	</xsl:attribute>
+</xsl:template>
+
 <!-- Taucht genauso bei module-common\html\head.xsl auf -->
 <!--
 <xsl:template match="head">
@@ -130,13 +150,13 @@
 <xsl:variable name="TOT_HEAD">Tabellenverzeichnis</xsl:variable>
 
 <xsl:template name="table-of-tables">
-    <h1>
+    <!--h1>
       <xsl:value-of select="$TOT_HEAD"/>
     </h1>
     <ul>
       <xsl:apply-templates select="body" mode="table-of-tables"/>
       <xsl:apply-templates select="back" mode="table-of-tables"/>
-    </ul>
+    </ul-->
 </xsl:template>
 
 <xsl:template match="body" mode="table-of-tables">
@@ -153,7 +173,8 @@
 
 <xsl:template match="abbreviation|preface|summary|acknowledgement|declaration|glossary|bibliography|vita" mode="table-of-contents">
   <li>
-    <a href="#{generate-id(.)}">
+    <a>
+      <xsl:call-template name="a-href-attribute"/>
       <xsl:apply-templates select="." mode="head"/>
     </a>
   </li>  
@@ -179,7 +200,8 @@
   <xsl:param name="toc-depth">0</xsl:param>
   <xsl:param name="subelements"/>
   <li>
-    <a href="#{generate-id(.)}">
+    <a>
+      <xsl:call-template name="a-href-attribute"/>    
       <xsl:apply-templates select="." mode="head"/>
     </a>
     <xsl:if test="$toc-depth>0 and $subelements">

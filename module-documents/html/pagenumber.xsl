@@ -46,7 +46,7 @@
 
 <!-- create the number of a pagenumber                            -->
 <!-- first use label, otherwise use number created out of "start" -->
-<xsl:template match="pagenumber" mode="number" name="pnumber">
+<xsl:template name="pnumber">
   <xsl:choose>
 
       <!-- 1. create simply out of @label (should be provided by preprocess.xsl)-->
@@ -87,7 +87,8 @@
 
 <!-- will be called for creating a seperation line                 -->
 <!-- though, a seperation line is never created in a table or list -->
-<xsl:template name="pagenumber-hline">
+<!-- this one is called e.g. from "p" to create first pagenumber -->
+<xsl:template match="pagenumber" mode="hline" name="pagenumber-hline">
    <xsl:choose>
      <xsl:when test="not(ancestor::table or ancestor::li or ancestor::ol or ancestor::ul or ancestor::dl)">
          <table width="100%" border="0">
@@ -152,11 +153,6 @@
    <xsl:call-template name="pagenumber-hline"/>
 </xsl:template>
 
-<!-- this one is called e.g. from "p" to create first pagenumber -->
-<!-- without preceeding text with a seperation line              -->
-<xsl:template match="pagenumber" mode="hline">
-   <xsl:call-template name="pagenumber-hline"/>
-</xsl:template>
 
 <!-- this will print pagenumbers included in a table or list etc.  -->
 <!-- in a combined way at the begin of this table, list etc.       -->

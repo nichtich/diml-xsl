@@ -8,11 +8,11 @@
 <xsl:choose>
   <xsl:when test="/etd/@lang and /etd/@lang != ''">
      <xsl:value-of select="/etd/@lang" />
+ </xsl:when>
+ <xsl:when test="/cms:container/cms:document/cms:meta/cms:entry/@type='lang'">
+     <xsl:value-of select="/cms:container/cms:document/cms:meta/cms:entry" />
   </xsl:when>
-  <xsl:when test="/cms:container/cms:document/cms:meta/cms:entry/@type and /cms:container/cms:document/cms:meta/cms:entry/@type!=''">
-     <xsl:value-of select="/etd/@lang" />
-  </xsl:when>
-  <xsl:otherwise>de</xsl:otherwise>
+  <xsl:otherwise>en</xsl:otherwise>
 </xsl:choose>
 </xsl:param>
 

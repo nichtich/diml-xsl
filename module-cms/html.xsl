@@ -96,7 +96,7 @@
       <td class="nav-parts" colspan="2">
          <xsl:apply-templates select="cms:entry[@type='front']" mode="link"/>
          <xsl:if test="cms:entry[@type='chapter']">
-           Kapitel: <xsl:apply-templates select="cms:entry[@type='chapter']" mode="link"/>
+           <xsl:value-of select="$VOCABLES/chapter/@*[name()=$lang]" />: <xsl:apply-templates select="cms:entry[@type='chapter']" mode="link"/>
            <br/>
          </xsl:if>         
          <xsl:if test="cms:entry[@type='pagenumber']">
@@ -158,7 +158,7 @@
 	<form method="get"
 	 action="javascript:self.location.href=document.pagenumForm.pagenumber.value;void(0);" name="pagenumForm">
 		<!--input type="submit" value="Gehe zu Seite:"/-->
-           <xsl:text>Seite:</xsl:text>
+           <xsl:value-of select="$VOCABLES/page/@*[name()=$lang]" /><xsl:text>:</xsl:text>
 		<select name="pagenumber" onChange="document.pagenumForm.submit();">
 			<xsl:apply-templates select="cms:entry[@type='pagenumber']" mode="nav-form"/>			
 		</select>
@@ -185,7 +185,7 @@ acknowledgement: Danksagung
     </xsl:attribute>
     <xsl:choose>
       <xsl:when test="@type='front'">
-      <xsl:value-of select="$VOCABLES/front/@*[name()='de']" />
+        <xsl:value-of select="$VOCABLES/front/@*[name()=$lang]" />
       </xsl:when>
       <xsl:otherwise><xsl:value-of select="."/></xsl:otherwise>
     </xsl:choose>

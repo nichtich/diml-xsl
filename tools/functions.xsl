@@ -31,33 +31,53 @@
 
 <!-- Numbering Label of chapter, frame, section... -->
 <xsl:template match="*" mode="numberingLabel">
-	<xsl:variable name="name" select="name()"/>
-	<xsl:variable name="generate" select="$CONFIG/generate[@of=$name][@numbering][1]"/>
+  <xsl:variable name="name" select="name()"/>
+  <xsl:variable name="generate" select="$CONFIG/generate[@of=$name][@numbering][1]"/>
+
+  <xsl:if test="not(@label) and $generate and (not($name='part') or ancestor::subsection)">
 	
-	<xsl:if test="not(@label) and $generate">			
-		<xsl:if test="$generate/@elementBefore">
-			<xsl:apply-templates select="parent::*[name()=$CONFIG/generate[@of=$name][@numbering]/@elementBefore]" mode="numberingLabel"/>
-		</xsl:if>
-		<xsl:variable name="recent-start" select="preceding-sibling::*[name()=$name][@start][1]"/>		
-		<xsl:value-of select="$generate/@before"/>
-		<xsl:call-template name="number">
-			<xsl:with-param name="number">
-				<xsl:choose>
-					<xsl:when test="$recent-start">
-						<xsl:value-of select="$recent-start/@start +
-						count(preceding-sibling::*[name()=$name]) - count($recent-start/preceding-sibling::*[name()=$name])"/>
-					</xsl:when>
-					<xsl:otherwise>
-						<xsl:value-of select="count(preceding-sibling::*[name()=$name])+1"/>
-					</xsl:otherwise>
-				</xsl:choose>			
-			</xsl:with-param>
-			<xsl:with-param name="numbering">
-				<xsl:value-of select="$generate/@numbering"/>
-			</xsl:with-param>
-		</xsl:call-template>
-		<xsl:value-of select="$generate/@after"/>
-	</xsl:if>
+    <xsl:variable name="elementBefore">
+      <xsl:choose>
+        <!-- element part is a special problem -->
+        <xsl:when test="$name='part'">
+          <xsl:choose>
+            <xsl:when test="ancestor::subsection">
+              <xsl:value-of select="name(parent::node()[1])" />
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:value-of />
+            </xsl:otherwise>
+          </xsl:choose>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="$generate/@elementBefore" />
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+
+    <xsl:if test="$elementBefore">
+      <xsl:apply-templates select="parent::*[name()=$elementBefore]" mode="numberingLabel"/> 
+    </xsl:if>
+    <xsl:variable name="recent-start" select="preceding-sibling::*[name()=$name][@start][1]"/>
+    <xsl:value-of select="$generate/@before"/>
+    <xsl:call-template name="number">
+      <xsl:with-param name="number">
+        <xsl:choose>
+          <xsl:when test="$recent-start">
+            <xsl:value-of select="$recent-start/@start +
+            count(preceding-sibling::*[name()=$name]) - count($recent-start/preceding-sibling::*[name()=$name])"/>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:value-of select="count(preceding-sibling::*[name()=$name])+1"/>
+          </xsl:otherwise>
+        </xsl:choose>			
+      </xsl:with-param>
+      <xsl:with-param name="numbering">
+        <xsl:value-of select="$generate/@numbering"/>
+      </xsl:with-param>
+    </xsl:call-template>
+    <xsl:value-of select="$generate/@after"/>
+  </xsl:if>
 </xsl:template>
 
 </xsl:stylesheet>

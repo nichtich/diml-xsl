@@ -198,7 +198,10 @@
 </xsl:template>
 
 
-<!--== Create Tables ==-->
+<!--===============================================================-->
+<!--===================== Create Tables ===========================-->
+<!--===============================================================-->
+
 <!-- TODO: bibliography mit mehreren parts -->
   
 <xsl:template name="TableOfContents">
@@ -230,10 +233,23 @@
    </ul>
 </xsl:template>
 
+<!--                                                           -->
+<!--         Elements of TOC                                   -->
+<!--                                                           -->
+
 <xsl:template match="abbreviation|preface|summary|acknowledgement|declaration|glossary|bibliography|vita" mode="TableOfContents">
   <li>
     <link ref="{@id}">
-      <xsl:apply-templates select="head" mode="TableOfContents"/>
+          <!-- if no head, write out terms for element in config.xml -->
+          <xsl:choose>
+            <xsl:when test="head and not(head='')">
+              <xsl:apply-templates select="head" mode="TableOfContents"/>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:variable name="name" select="name()"/>
+              <xsl:value-of select="$VOCABLES/node()[name()=$name]/@*[name()=$LANG]"/>
+            </xsl:otherwise>
+          </xsl:choose>
     </link>
   </li>  
 </xsl:template>
@@ -274,15 +290,22 @@
   </xsl:call-template>
 </xsl:template>
 
-<xsl:template match="subblock|part|resources" mode="TableOfContents">
+<xsl:template match="subblock|resources" mode="TableOfContents">
   <xsl:call-template name="toc-entry">
     <xsl:with-param name="subelements" select="part"/>
   </xsl:call-template>
 </xsl:template>
 
+<xsl:template match="part" mode="TableOfContents">
+  <xsl:if test="ancestor::subsection or (head and not(head=''))">
+    <xsl:call-template name="toc-entry">
+      <xsl:with-param name="subelements" select="part"/>
+    </xsl:call-template>
+  </xsl:if>
+</xsl:template>
+
 <xsl:template name="toc-entry">
   <xsl:param name="subelements"/>
-  
   <xsl:variable name="name" select="name()"/>  
   <xsl:variable name="subname" select="name($subelements[1])"/>
   <xsl:variable name="has-label" select="@label and not($CONFIG/toc/*[name()=$name and @hidelabel='yes'])"/>
@@ -295,19 +318,28 @@
           <xsl:value-of select="@label"/>
         </link>
         <xsl:text>&#xA0;</xsl:text>
-        <xsl:apply-templates select="head" mode="TableOfContents"/>
+            <xsl:apply-templates select="head" mode="TableOfContents"/>
       </xsl:when>
       <xsl:otherwise>
-            <link ref="{@id}">
-          <xsl:apply-templates select="head" mode="TableOfContents"/>
-            </link>
+        <link ref="{@id}">
+          <!-- if no head, write out terms for element in config.xml -->
+          <xsl:choose>
+            <xsl:when test="head and not(head='')">
+              <xsl:apply-templates select="head" mode="TableOfContents"/>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:variable name="name" select="name()"/>
+              <xsl:value-of select="$VOCABLES/node()[name()=$name]/@*[name()=$LANG]"/>
+            </xsl:otherwise>
+          </xsl:choose>
+        </link>
       </xsl:otherwise>
       </xsl:choose>     
-    <xsl:if test="$subelements and not($CONFIG/toc/*[name()=$subname and @indent='no'])">
-       <ul>
-        <xsl:apply-templates select="$subelements" mode="TableOfContents"/>
-      </ul>
-    </xsl:if>
+        <xsl:if test="$subelements and not($CONFIG/toc/*[name()=$subname and @indent='no'])">
+          <ul>
+            <xsl:apply-templates select="$subelements" mode="TableOfContents"/>
+         </ul>
+        </xsl:if>
     </p>
   </li>  
     <xsl:if test="$subelements and $CONFIG/toc/*[name()=$subname and @indent='no']">
@@ -328,10 +360,10 @@
 </xsl:template>
 
 <!-- Content of Head for Table of Contents       -->
-<!-- Do not print footnotes, endnotes or pagenumber in heading -->
+<!-- Do not print footnotes, endnotes, pagenumbers or brs in heading -->
 
 <xsl:template match="head | caption" mode="TableOfContents">
-  <xsl:for-each select="node()[not(name()='footnote') and not(name()='endnote') and not(name()='pagenumber')]">
+  <xsl:for-each select="node()[not(name()='footnote') and not(name()='endnote') and not(name()='pagenumber') and not(name()='br')]">
     <!--<xsl:value-of select="."/>-->
     <xsl:apply-templates select="."/>
   </xsl:for-each>

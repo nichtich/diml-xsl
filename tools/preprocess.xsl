@@ -44,6 +44,7 @@ exclude-result-prefixes="cms">
 </xsl:template>
 
 <!--== convert entity references in <mm> into file references ==-->
+
 <xsl:template name="entity-to-filename">
 	<xsl:param name="file" select="unparsed-entity-uri(@entity)"/>
 	<xsl:choose>
@@ -64,22 +65,41 @@ exclude-result-prefixes="cms">
 		<xsl:call-template name="provide-id"/>
 		<xsl:attribute name="label">
 		<xsl:choose>
-			<xsl:when test="@label"><xsl:copy-of select="@label"/></xsl:when> <!-- ok -->
-			<xsl:when test="not(@label) and @start">
-				<xsl:call-template name="number">
-					<xsl:with-param name="number" select="@start"/>
-					<xsl:with-param name="numbering" select="@numbering"/>
-				</xsl:call-template>
-			</xsl:when>
-			<xsl:otherwise>
-				<xsl:message>
-					pagenumber without label/start!
-				</xsl:message>
-				<!--xsl:call-template name="number">
-					<xsl:with-param name="number" select="count(preceding@start"/>
-					<xsl:with-param name="numbering" select="@numbering"/>
-				</xsl:call-template-->				
-			</xsl:otherwise>
+
+                  <!-- 1. if exists @label, use it -->
+                  <xsl:when test="@label">
+                    <xsl:copy-of select="@label"/>
+                  </xsl:when>
+
+                  <!-- 2. create number out of @start formatted with @numbering -->
+                  <xsl:when test="@start">
+      
+                    <!-- use template "number" in tools/functions.xsl -->
+                    <xsl:call-template name="number">
+                      <xsl:with-param name="number" select="@start"/>
+                      <xsl:with-param name="numbering" select="@numbering"/>
+                    </xsl:call-template>
+        
+                  </xsl:when>
+
+                  <!-- 3rd: count from previous pagenumber with @start, use @numbering -->
+                  <xsl:when test="preceding::pagenumber[@start]">
+    
+                      <!-- use template "number" in tools/functions.xsl -->
+                      <xsl:call-template name="number">
+                        <xsl:with-param name="number" select="preceding::pagenumber[@start][position()=1]/@start + count(preceding::pagenumber) - count(preceding::pagenumber[@start][position()=1]/preceding::pagenumber)"/>
+                        <xsl:with-param name="numbering" select="@numbering"/>
+                      </xsl:call-template>
+                      <xsl:message>preprocess.xsl says: Warning! Pagenumber has no attribute start and label. Count from previous pagenumber with attribute start.</xsl:message>
+
+                  </xsl:when>
+
+                  <!-- otherwise: use consecutive number of pagenumber -->
+                  <xsl:otherwise>
+                    <xsl:value-of select="count(preceding::pagenumber)+1"/>
+                    <xsl:message>preprocess.xsl says: Warning! Pagenumber has no attribute start and label. Count total number of pagenumbers.</xsl:message>
+                  </xsl:otherwise>
+
 		</xsl:choose>
 		</xsl:attribute>
 		<xsl:apply-templates select="@*|node()"/>					
@@ -273,7 +293,6 @@ exclude-result-prefixes="cms">
   </p>  
 </xsl:template>
 
-
 <!--== add bibliographie for endnotes if missing ==-->
 
 <xsl:template match="back">
@@ -331,9 +350,11 @@ exclude-result-prefixes="cms">
 	</xsl:copy>
 </xsl:template>
 
-<!-- these elements in "front" don't need an id, because there is no   -->
-<!-- link to them. and because creating a "head" in the html-version   -->
-<!-- is not mandatory bringing an id to html would be difficult anyway -->
-<!-- copyright, grant, abstract                                        -->
+<!-- the following elements in "front" don't need an id, because there  -->
+<!-- is no link to them. and because creating a "head" in the           -->
+<!-- html-version is not mandatory bringing an id to html would be      -->
+<!-- difficult anyway:                                                  -->
+
+<!-- copyright, grant, abstract                                         -->
 
 </xsl:stylesheet>

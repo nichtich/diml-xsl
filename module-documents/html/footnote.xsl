@@ -38,12 +38,15 @@
       <sup class="footnotelabel">
         <!-- use template "number" in tools/functions.xsl -->
         <xsl:call-template name="number">
-        
+
           <!-- count only footnotes with @start -->
           <!--<xsl:with-param name="number" select="preceding::footnote[@start][position()=1]/@start + count(preceding::footnote) - count(preceding::footnote[@start][position()=1]/preceding::footnote)"/>-->
 
-          <!-- count footnotes and endnotes with @start -->
-          <xsl:with-param name="number" select="(preceding::footnote[@start] | preceding::endnote[@start])[position()=last()]/@start + count(preceding::footnote | preceding::endnote) - count((preceding::footnote[@start] | preceding::endnote[@start])[position()=last()]/(preceding::footnote | preceding::endnote))"/>
+          <!-- count footnotes and endnotes with @start (XPath 2.0) -->
+          <!--<xsl:with-param name="number" select="(preceding::footnote[@start] | preceding::endnote[@start])[position()=last()]/@start + count(preceding::footnote | preceding::endnote) - count((preceding::footnote[@start] | preceding::endnote[@start])[position()=last()]/(preceding::footnote | preceding::endnote))" />-->
+
+          <!-- count footnotes and endnotes with @start (XPath 1.0) -->
+          <xsl:with-param name="number" select="(preceding::footnote[@start] | preceding::endnote[@start])[position()=last()]/@start + count(preceding::footnote | preceding::endnote) - count((preceding::footnote[@start] | preceding::endnote[@start])[position()=last()]/preceding::footnote) - count((preceding::footnote[@start] | preceding::endnote[@start])[position()=last()]/preceding::endnote)" />
 
           <xsl:with-param name="numbering" select="@numbering"/>
         </xsl:call-template>

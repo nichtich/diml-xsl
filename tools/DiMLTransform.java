@@ -13,6 +13,7 @@ import org.apache.xpath.XPathAPI;
 public class DiMLTransform extends XMLReading {
 
 	String cssDirectory = null;
+	String DIMLXSL;
 	File diml2cmsFile  = null;
 	File diml2htmlFile = null;
 	File preprocessFile = null;
@@ -124,11 +125,12 @@ public class DiMLTransform extends XMLReading {
 	  	
 	  	 //Document cmsd = cmsContainer.getDocument(node);    
 	 
-	     Transformer t = diml2cms.newTransformer();
+	     Transformer transformer = diml2cms.newTransformer();
 	     input  = new DOMSource(document);
 	     output = new DOMResult();
-	     t.setParameter("SELECTID",id);	     
-	     t.transform(input, output);
+	     transformer.setParameter("SELECTID",id);	     
+	     transformer.setParameter("VOCFILE",DIMLXSL+"/vocables.xml");
+	     transformer.transform(input, output);
 	     Node cmsd = output.getNode();	 
 
        String cmsContainerFile = resultDir+"/"+id+".xml";
@@ -153,8 +155,8 @@ public class DiMLTransform extends XMLReading {
 	  	   
 	  	   message("transforming "+resultFile);      		
 	  	   message("manually: 'diml2html.xsl SELECTID="+id+"'");
-	       Transformer transformer = templates.newTransformer();
-	       
+	       transformer = templates.newTransformer();
+	       transformer.setParameter("VOCFILE",DIMLXSL+"/vocables.xml");
 	       if(cssDirectory!=null) transformer.setParameter("STYLEDIRECTORY",cssDirectory);
 	       
 	       input  = new DOMSource(cmsd);
@@ -213,8 +215,8 @@ public class DiMLTransform extends XMLReading {
     if(args.length>2) {
        cssDirectory = args[2];
     }
-
-    String DIMLXSL = System.getProperty("DIMLXSL","..");
+    
+    DIMLXSL = System.getProperty("DIMLXSL","..");
     diml2cmsFile  = new File(DIMLXSL+"/tools/diml2cms.xsl");
 	  diml2htmlFile = new File(DIMLXSL+"/diml2html.xsl");
 	  preprocessFile = new File(DIMLXSL+"/tools/preprocess.xsl");    

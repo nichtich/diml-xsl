@@ -94,17 +94,19 @@
     </tr>
     <tr>
       <td class="nav-parts" colspan="2">
+         <form action="" name="navForm">
          <xsl:apply-templates select="cms:entry[@type='front']" mode="link"/>
+         <xsl:apply-templates select="cms:entry[@type='preface']" mode="link"/>
          <xsl:if test="cms:entry[@type='chapter']">
-           <xsl:value-of select="$VOCABLES/chapter/@*[name()=$lang]" />: <xsl:apply-templates select="cms:entry[@type='chapter']" mode="link"/>
-           <br/>
+           <xsl:value-of select="$VOCABLES/chapter/@*[name()=$LANG]" />: <xsl:apply-templates select="cms:entry[@type='chapter']" mode="link"/>
          </xsl:if>         
          <xsl:if test="cms:entry[@type='pagenumber']">
       	 <xsl:call-template name="pagenumbers-nav"/>
          </xsl:if>         
          <!-- bibliography, declaration ... -->
-        <xsl:apply-templates select="cms:entry[@type!='pagenumber' and @type!='chapter' and @type!='front'][@ref]" mode="navbar"/>
+        <xsl:apply-templates select="cms:entry[@type!='pagenumber' and @type!='chapter' and @type!='front' and @type!='preface'][@ref]" mode="navbar"/>
         <!--xsl:apply-templates select="cms:entry" mode="navbar"/-->
+         </form>
       </td>
     </tr>
   </table>
@@ -122,19 +124,19 @@
 
 <!--navbar-->
 <xsl:template match="cms:entry[@type=':next']" mode="navbar">
-  <a href="{@part}"><xsl:value-of select="$VOCABLES/next/@*[name()=$lang]" /></a>&#xA0;
+  <a href="{@part}">next</a>&#xA0;
 </xsl:template>
 
 <xsl:template match="cms:entry[@type=':prev']" mode="navbar">
-  <a href="{@part}"><xsl:value-of select="$VOCABLES/prev/@*[name()=$lang]" /></a>&#xA0;
+  <a href="{@part}">prev</a>&#xA0;
 </xsl:template>
 
 <xsl:template match="cms:entry[@type=':first']" mode="navbar">
-  <a href="{@part}"><xsl:value-of select="$VOCABLES/first/@*[name()=$lang]" /></a>&#xA0;
+  <a href="{@part}">first</a>&#xA0;
 </xsl:template>
 
 <xsl:template match="cms:entry[@type=':last']" mode="navbar">
-  <a href="{@part}"><xsl:value-of select="$VOCABLES/last/@*[name()=$lang]" /></a>&#xA0;
+  <a href="{@part}">last</a>&#xA0;
 </xsl:template>
 
 <!--==== Page navigation with Javascript =========================-->
@@ -155,25 +157,32 @@
 <!-- there is still a bug (some pages multiple/some missing) -->
 <xsl:template name="pagenumbers-nav">
 	<!--Seiten: <xsl:apply-templates select="cms:entry[@type='pagenumber']" mode="link"/>-->
-	<form method="get"
-	 action="javascript:self.location.href=document.pagenumForm.pagenumber.value;void(0);" name="pagenumForm">
+	<!--form method="get"
+	 action="javascript:self.location.href=document.pagenumForm.pagenumber.value;void(0);" name="pagenumForm"-->
 		<!--input type="submit" value="Gehe zu Seite:"/-->
-           <xsl:value-of select="$VOCABLES/page/@*[name()=$lang]" /><xsl:text>:</xsl:text>
-		<select name="pagenumber" onChange="document.pagenumForm.submit();">
+           <xsl:value-of select="$VOCABLES/page/@*[name()=$LANG]" /><xsl:text>:</xsl:text>
+		<select name="pagenumber" onchange="self.location.href=document.navForm.pagenumber.value;void(0);">
+		<!-- 		
+		onChange="document.pagenumForm.submit();">
+-->
 			<xsl:apply-templates select="cms:entry[@type='pagenumber']" mode="nav-form"/>			
 		</select>
-	</form>
+	<!--/form-->
 </xsl:template>
 
-<!--
-front: titelseite
-preface: Vorwort
-chapter: ....nummerierern...
-bibliography: Literaturverzeichnis
-vita: Lebenslauf
-acknowledgement: Danksagung
--->
+<!-- create a link for a cms:entry element.
+The name of the link will be the content of cms:entry or an @type called element in $VOCABLES -->
 <xsl:template match="cms:entry" mode="link">
+  <xsl:param name="LABEL">
+    <xsl:choose>
+      <xsl:when test="string(.)!=''">
+        <xsl:value-of select="."/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="$VOCABLES/*[name()=current()/@type]/@*[name()=$LANG]" />
+      </xsl:otherwise>
+    </xsl:choose>    
+  </xsl:param>
  <xsl:text> [</xsl:text>
   <a>
     <xsl:attribute name="href">
@@ -183,12 +192,7 @@ acknowledgement: Danksagung
       <xsl:text>#</xsl:text>
       <xsl:value-of select="@ref"/>
     </xsl:attribute>
-    <xsl:choose>
-      <xsl:when test="@type='front'">
-        <xsl:value-of select="$VOCABLES/front/@*[name()=$lang]" />
-      </xsl:when>
-      <xsl:otherwise><xsl:value-of select="."/></xsl:otherwise>
-    </xsl:choose>
+	<xsl:value-of select="$LABEL"/>
   </a>
  <xsl:text>] </xsl:text>
 </xsl:template>
@@ -201,7 +205,13 @@ acknowledgement: Danksagung
   <span class="nav-author"><xsl:value-of select="."/>: </span>
 </xsl:template>
 
-<xsl:template match="cms:entry" mode="navbar"/> <!--ignore-->
-<xsl:template match="cms:entry"/>
+<!-- Create a link in the navigation bar for each of this cms:entry elements -->
+<xsl:template match="cms:entry[@type='acknowledgement' or @type='vita' or @type='bibliography' or @type='preface']" mode="navbar">
+  <xsl:apply-templates select="." mode="link"/>
+</xsl:template>
+
+<!-- ignore everything else -->
+<xsl:template match="cms:entry" mode="navbar"/>
+<xsl:template match="cms:entry"/> 
 
 </xsl:stylesheet>

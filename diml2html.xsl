@@ -2,18 +2,19 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
  xmlns:cms="http://edoc.hu-berlin.de/diml/module/cms">
 
-<xsl:param name="VOCABLES" select="document('vocables.xml',.)/vocables" />
+<xsl:param name="VOCFILE">vocables.xml</xsl:param>
+<xsl:variable name="VOCABLES" select="document($VOCFILE)/vocables"/>
 
-<xsl:param name="lang">
-<xsl:choose>
-  <xsl:when test="/etd/@lang and /etd/@lang != ''">
-     <xsl:value-of select="/etd/@lang" />
- </xsl:when>
- <xsl:when test="/cms:container/cms:document/cms:meta/cms:entry/@type='lang'">
-     <xsl:value-of select="/cms:container/cms:document/cms:meta/cms:entry" />
-  </xsl:when>
-  <xsl:otherwise>en</xsl:otherwise>
-</xsl:choose>
+<xsl:param name="LANG">
+  <xsl:choose>
+    <xsl:when test="string(/etd/@lang)!=''">
+      <xsl:value-of select="/etd/@lang"/>
+    </xsl:when>
+    <xsl:when test="/cms:container/cms:document/cms:meta/cms:entry[@type=':lang']">
+      <xsl:value-of select="/cms:container/cms:document/cms:meta/cms:entry[@type=':lang']"/>
+    </xsl:when>
+    <xsl:otherwise>en</xsl:otherwise>
+  </xsl:choose>
 </xsl:param>
 
 <xsl:param name="STYLEDIRECTORY">
@@ -24,8 +25,6 @@
     <xsl:otherwise>/dissertationen/style/</xsl:otherwise>
   </xsl:choose>
 </xsl:param>
-
-<xsl:param name="LANGUAGE" select="de"/>
 
 <xsl:param name="vorgelegtbeiText" select="'vorgelegt von'" />
 

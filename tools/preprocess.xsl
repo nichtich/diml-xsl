@@ -72,12 +72,12 @@ exclude-result-prefixes="cms">
 <!--xsl:template match="citation">
 </xsl:template-->
 
-<!--TODO: numbering -->
+<!--TODO: numbering types -->
 <xsl:template match="chapter|section|subsection|block|subblock|part">
 	<xsl:variable name="name" select="name()"/>
-	<xsl:element name="{$name}">
-		<xsl:if test="not(@label) and not(@start)">
-			<xsl:attribute name="start">
+	<xsl:copy>
+		<xsl:if test="not(@label)">
+			<xsl:attribute name="label">
 				<xsl:variable name="recent-start" select="preceding-sibling::*[name()=$name][@start][1]"/>
 				<xsl:choose>
 					<xsl:when test="$recent-start">
@@ -91,10 +91,10 @@ exclude-result-prefixes="cms">
 			</xsl:attribute>
 		</xsl:if>
 		<xsl:apply-templates select="@*|node()"/>
-	</xsl:element>
+	</xsl:copy>
 </xsl:template>
 
-<xsl:template match="table|im|example|frame|chapter|section|subsection|block|subblock|part">
+<xsl:template match="table|im|example|frame">
 	<xsl:copy>		
 		<xsl:call-template name="provide-id"/>		
 		<xsl:apply-templates select="@*|node()"/>

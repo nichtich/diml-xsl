@@ -6,6 +6,15 @@
 <!-- id of the element we want to see -->
 <xsl:param name="SELECTID"/>
 
+<xsl:param name="LANG">
+	<xsl:choose>
+		<xsl:when test="/etd/@lang"><xsl:value-of select="/etd/@lang"/></xsl:when>
+		<xsl:otherwise>de</xsl:otherwise>
+	</xsl:choose>
+</xsl:param>
+<xsl:param name="VOCFILE">vocables.xml</xsl:param>
+<xsl:variable name="VOCABLES" select="document($VOCFILE)/vocables"/>
+
 <!-- parts of the document that may be content of the container --> 
 <xsl:variable name="parts" select="/etd/front|/etd/body/*|/etd/back/*"/>
 
@@ -130,15 +139,16 @@
 	<xsl:if test="//back">
 		<cms:entry type=":appendix" part="{//back/@id}.html"/>
 	</xsl:if>
+	<cms:entry type=":lang"><xsl:value-of select="$LANG"/></cms:entry>
 </xsl:template>
 
 <!--== Create Tables ==-->
 <xsl:variable name="TOC_DEPTH">99</xsl:variable>
 
 <!-- TODO: bibliography mit mehreren parts -->
-
+  
 <xsl:template name="TableOfContents">
-	<freehead>Inhaltsverzeichnis</freehead>
+	<freehead><xsl:value-of select="$VOCABLES/toc/@*[name()=$LANG]"/></freehead>
     	<ul>
      	<xsl:apply-templates select="/etd/body/*" mode="TableOfContents">
     			<xsl:with-param name="toc-depth" select="$TOC_DEPTH"/>

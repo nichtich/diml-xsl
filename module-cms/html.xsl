@@ -23,6 +23,16 @@
   <title><xsl:value-of select="."/></title>
 </xsl:template>
 
+<xsl:template match="cms:entry[@type='rel-next']" mode="html-head">
+  <link rel="next" href="{@part}"/> <!-- TODO: get part -->
+</xsl:template>
+
+<xsl:template match="cms:entry[@type='rel-prev']" mode="html-head">
+  <link rel="prev" href="{@part}"/>
+</xsl:template>
+
+
+
 <xsl:template match="cms:entry" mode="html-head"/>
 
 <!--==== Navigation Bar ==============================================-->

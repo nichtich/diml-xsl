@@ -14,6 +14,8 @@ public class DiMLTransform extends XMLReading {
 
 	Document dimlDocument = null;
 	
+	TransformerFactory tFactory = TransformerFactory.newInstance(); 
+	
 	public DiMLTransform() {}
   	  	  
 	public boolean provideOutputDir(String dir) {
@@ -68,16 +70,16 @@ public class DiMLTransform extends XMLReading {
    */
   public Templates loadXSL(String dimlxsl) throws TransformerConfigurationException {
 		File dimlxslFile = new File(dimlxsl);		
-		message("parsing "+dimlxslFile);				
-		TransformerFactory tFactory = TransformerFactory.newInstance(); 
+		message("\tparsing "+dimlxslFile);						
 		Templates t = tFactory.newTemplates(new StreamSource(dimlxslFile));
-		message("parsing done.");
+		message("\tparsing done.");
 		return t;
   }
     
 	
 	public void run() throws ParserConfigurationException, TransformerException, IOException {
 		Source input;    
+		
 		input = new DOMSource(dimlDocument);
 		
 		Element e = dimlDocument.getDocumentElement();
@@ -88,12 +90,12 @@ public class DiMLTransform extends XMLReading {
       
       transform(dimlDocument,resultDir+"/output.html");
       
-		} else if(e.getTagName() == "etd") {
-		  
+		} else if(e.getTagName() == "etd") {				 
+		 
+		 		  
 		 // load diml2cms.xsl
 	   Templates diml2cms = loadXSL("diml2cms.xsl");
-		   
-		  
+		   		  
      // if you do not want do split, just use "/etd";    
      String xpath = "/etd/front|/etd/body/*|/etd/back/*";
 	   //if (requestId!="") xpath += "[.='"+requestId+"']";
@@ -118,8 +120,7 @@ public class DiMLTransform extends XMLReading {
 	     DOMResult output = new DOMResult();
 	     t.setParameter("SELECTID",id);
 	     t.transform(in, output);
-	     Node cmsd = output.getNode();
-	 
+	     Node cmsd = output.getNode();	 
 	 
 	     if(makeCMSFiles) { 
 	       String cmsContainerFile = resultDir+"/"+id+".xml";
@@ -127,8 +128,8 @@ public class DiMLTransform extends XMLReading {
          StreamResult streamResult = new StreamResult(new FileWriter(cmsContainerFile));
    
          message("writing cms:container "+cmsContainerFile);
-         TransformerFactory tf = TransformerFactory.newInstance();
-         Transformer serializer = tf.newTransformer();
+         
+         Transformer serializer = tFactory.newTransformer();
          serializer.setOutputProperty(OutputKeys.ENCODING,"ISO-8859-1");
          //serializer.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM,"users.dtd");
          //serializer.setOutputProperty(OutputKeys.INDENT,"yes");
@@ -164,7 +165,7 @@ public class DiMLTransform extends XMLReading {
 	  if(!handler.errors.isEmpty()) {
 	  	throw new SAXException(handler.getErrorMessages());
 	  }
-	  
+	  	  
 	  return doc;    
   }	
 	
@@ -206,6 +207,35 @@ public class DiMLTransform extends XMLReading {
 	  message("parsing "+dimlFile);
     dimlDocument = parseDocument(dimlFile);
     message("parsing done.");
+    
+    // load preprocess.xsl
+		message("preprocessing");
+		Templates preprocess = loadXSL("preprocess.xsl");
+    Transformer t = preprocess.newTransformer();
+	  Source in  = new DOMSource(dimlDocument);
+	  
+	  DocumentFragment df = dimlDocument.createDocumentFragment();
+	  DOMResult output = new DOMResult(df);
+	  t.transform(in, output);
+    //dimlDocumentNode = output.getNode();
+    message("preprocessing done.");
+    
+    dimlDocument.replaceChild(df,dimlDocument.getDocumentElement());
+    
+    message("writing preprocessed file");
+    DOMSource domSource = new DOMSource(dimlDocument);
+    StreamResult streamResult = new StreamResult(new FileWriter("preprocessed.xml"));
+    //message("writing cms:container "+cmsContainerFile);
+    Transformer serializer = tFactory.newTransformer();
+    serializer.setOutputProperty(OutputKeys.ENCODING,"ISO-8859-1");
+    serializer.transform(domSource, streamResult); 
+    
+
+    /*
+    TransformerFactory tFactory = TransformerFactory.newInstance(); 
+		templates = tFactory.newTemplates();		
+    transform(dimlDocument.getNode(),"preproc.xml");
+*/
 
     // load XSL
     if(makeHTMLFiles)

@@ -54,7 +54,7 @@
   </p>
 </xsl:template>
 
-<xsl:template match="mm" mode="inline">
+<xsl:template match="mm" name="mm-inline" mode="inline">
     <img>
       <xsl:attribute name="src">
         <xsl:choose>

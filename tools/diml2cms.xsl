@@ -18,6 +18,9 @@
       <cms:document>
         <cms:meta>
            <xsl:apply-templates select="*" mode="cms"/>
+           <xsl:call-template name="navigation">
+           	<xsl:with-param name="selected-part" select="$selected-part"/>
+           </xsl:call-template>
          </cms:meta>
 	  <cms:content>
 	    <xsl:copy-of select="$selected-part"/>
@@ -85,6 +88,17 @@
   <xsl:apply-templates mode="cms"/>
 </xsl:template>
 
+<!-- Diese Angaben können zur Navigation ausgewertet werden (siehe HTML-Element link) -->
+<xsl:template name="navigation">
+	<xsl:param name="selected-part"/>
+	<!-- NUR TEST! NICHT ENDGÜLTIG! -->
+	<xsl:if test="$selected-part/preceding-sibling::*[1]/@id">
+		<cms:entry type="rel-prev" part="{$selected-part/preceding-sibling::*[1]/@id}.html"/>
+	</xsl:if>	
+	<xsl:if test="$selected-part/following-sibling::*[1]/@id">
+		<cms:entry type="rel-next" part="{$selected-part/following-sibling::*[1]/@id}.html"/>
+	</xsl:if>		
+</xsl:template>
 
 <!--== templates that are functions/tools ==-->
 

@@ -4,13 +4,12 @@
 
 - configuration
 
+- roman numbering (for instance pagenumbers)
+- thumbnails for images
+- endnotes, footnotes
 
 Questions:
 -pagenumber in table entries and lists?
 
 
-Aufgaben
---------
-diml-numbering.xsl : Automatische Nummerierung der Kapitel vergeben
-                     (falls nicht schon vorhanden)
                                       

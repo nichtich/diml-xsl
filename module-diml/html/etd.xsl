@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
-      <!--xsl:apply-templates select="front" mode="html-head"/-->
-
 <xsl:template match="/">
  <html>
     <head>
@@ -22,10 +20,10 @@
   <xsl:apply-templates select="front" mode="headline"/>
   <xsl:apply-templates select="front"/>
   <xsl:call-template name="table-of-contents"/>
-      <xsl:call-template name="table-of-figures"/>
-      <xsl:call-template name="table-of-tables"/>      
-      <xsl:apply-templates select="body"/>
-      <xsl:apply-templates select="back"/>      
+  <xsl:call-template name="table-of-figures"/>
+  <xsl:call-template name="table-of-tables"/>      
+  <xsl:apply-templates select="body"/>
+  <xsl:apply-templates select="back"/>      
 </xsl:template>
 
 <xsl:template match="etd" mode="html-head"/>

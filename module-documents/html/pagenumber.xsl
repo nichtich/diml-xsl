@@ -33,9 +33,18 @@
   </table>
 </xsl:template>
 
+<xsl:template match="pagenumber/@start">
+  <!--xsl:choose>
+	<xsl:when test=""></xsl:when>
+  </xsl:choose>-->
+  <xsl:value-of select="."/>
+  <!-- TODO: test numbering=lroman etc.!!! -->
+</xsl:template>
+
 <!--xsl:template match="pagenumber" name="pagenumber-content"-->
 <xsl:template match="pagenumber" name="pagenumber-content">
-  <span class="pagenumber">[<xsl:value-of select="$PAGENUMBER-LABEL"/><xsl:value-of select="@system"/><xsl:value-of select="@start"/>]</span>
+  <span class="pagenumber">[<xsl:value-of select="$PAGENUMBER-LABEL"/><xsl:value-of select="@system"/> 
+  <xsl:apply-templates select="@start"/>]</span>
 </xsl:template>
 
 <xsl:template match="pagenumber" name="pagenumber-simple">

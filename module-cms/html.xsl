@@ -12,6 +12,12 @@
 <xsl:template match="cms:document">
   <xsl:apply-templates select="cms:meta" mode="navigation"/>
   <xsl:apply-templates select="cms:content/*"/>
+  <!-- Alles was am Ende des inhalts steht -->
+  
+  <xsl:apply-templates select="cms:content//footnote" mode="foot"/>
+  <xsl:apply-templates select="cms:content//endnote" mode="foot"/>
+  
+  <!-- Navigationsleiste -->
   <xsl:apply-templates select="cms:meta" mode="navbottom"/>
 </xsl:template>
 
@@ -89,8 +95,7 @@
     <tr>
       <td class="headline2" colspan="2">
       <xsl:if test="cms:entry[@type='pagenumber']">
-           Seiten: <xsl:apply-templates select="cms:entry[@type='pagenumber']" mode="link"/>
-           <br/>
+      	<xsl:call-template name="pagenumbers-nav"/>
          </xsl:if>
          <xsl:apply-templates select="cms:entry[@type='front']" mode="link"/>
          <xsl:if test="cms:entry[@type='chapter']">
@@ -135,16 +140,34 @@
 
 <xsl:template match="cms:entry" mode="navbar"/>
 
+<!--==== Page navigation with Javascript =========================-->
 
-<!--xsl:template name="pages">
-	<script type="JavaScript">
-	</script>
-	<form action="">
-		<option>
-			<select>x</select>
-		</option>
+<xsl:template match="cms:entry[@type='pagenumber']" mode="nav-form">
+	<option>
+		<xsl:attribute name="value">
+			<xsl:if test="@part and name(key('id',@ref))='cms:entry'">        
+				<xsl:value-of select="@part"/>
+		     </xsl:if>    
+		      <xsl:text>#</xsl:text>
+	      <xsl:value-of select="@ref"/>
+		</xsl:attribute>
+		<xsl:value-of select="."/>		
+	</option>
+</xsl:template>
+
+<!-- there is still a bug (some pages multiple/some missing) -->
+<xsl:template name="pagenumbers-nav">
+	<!--
+	Seiten: <xsl:apply-templates select="cms:entry[@type='pagenumber']" mode="link"/>
+     <br/>-->
+	<form method="get"
+	 action="javascript:self.location.href=document.pagenumForm.pagenumber.value;void(0);" name="pagenumForm">
+		<input type="submit" value="Gehe zu Seite:"/>
+		<select name="pagenumber" onChange="document.pagenumForm.submit();">
+			<xsl:apply-templates select="cms:entry[@type='pagenumber']" mode="nav-form"/>			
+		</select>
 	</form>
-</xsl:template-->
+</xsl:template>
 
 <!--
 front: titelseite

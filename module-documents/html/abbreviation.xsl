@@ -2,6 +2,7 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
 <xsl:template match="abbreviation" mode="head">
+  <xsl:apply-templates select="head/pagenumber" mode="hline"/>
   <xsl:choose>
     <xsl:when test="head">
       <xsl:apply-templates select="head"/>

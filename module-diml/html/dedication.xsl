@@ -2,6 +2,7 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 	
 <xsl:template match="dedication">
+  <xsl:apply-templates select="head/pagenumber" mode="hline"/>
   <xsl:apply-templates select="." mode="head"/>
   <!--<p class="dedication">-->
   <xsl:apply-templates select="*[not(self::head)]" />

@@ -3,7 +3,7 @@
 
 
 <xsl:template match="abstract">
-
+  <xsl:apply-templates select="head/pagenumber" mode="hline"/>
   <p class="abstracthead">
        <xsl:choose>
          <xsl:when test="head">

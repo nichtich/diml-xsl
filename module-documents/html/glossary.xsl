@@ -3,6 +3,7 @@
 
 <!-- Vorraussetzung: jeder term hat 'ne id -->
 <xsl:template match="glossary">
+  <xsl:apply-templates select="head/pagenumber" mode="hline"/>
   <h2>
     <a>
       <xsl:call-template name="a-name-attribute"/>

@@ -96,7 +96,8 @@
    </xsl:choose>
 </xsl:template>
 
-<!-- ignore pagenumbers in "head" (is called from "module-structure") -->
+<!-- ignore pagenumbers in "head" (is called from "module-structure"
+     respectivly from all elements that may contain element "head") -->
 <xsl:template match="head/pagenumber"/>
 
 <!-- first pagenumber without preceeding text will be called from "p" -->
@@ -159,6 +160,9 @@
       <td width="100%"><hr/></td>
       <td class="pagenumber">
         <nobr>
+          <xsl:for-each select="descendant::pagenumber">
+            <a name="{@id}"></a>
+          </xsl:for-each>
           <xsl:choose>
             <xsl:when test="$isRange and $myConfig/@before2">
               <xsl:value-of select="$myConfig/@before2"/>

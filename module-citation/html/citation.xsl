@@ -28,19 +28,20 @@
   <xsl:if test="descendant::pagenumber">
     <xsl:call-template name="more-pagenumbers-inside"/>
   </xsl:if>
-  <p>  
+  <p>
     <xsl:apply-templates select="." mode="labeled"/>
   </p>  
 </xsl:template>
 
+<!-- will be handled in preceding element -->
 <xsl:template match="bibliography/citation//pagenumber"/>
 
 <xsl:template match="citation" mode="labeled">
 	<xsl:choose>
 		<xsl:when test="@id">
 		   <a name="{@id}">
-				<xsl:apply-templates select="@label"/>
-		   </a>
+		     <xsl:apply-templates select="@label"/>
+                   </a>
 		</xsl:when>
 		<xsl:otherwise>
 			<xsl:apply-templates select="@label"/>

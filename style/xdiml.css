@@ -30,14 +30,18 @@ p {
   }
   
 span.pagenumber {
-  color: red;
-  font-size: 10pt;
-}
+         color: red;
+  }
   
 blockquote {
          font-family: monospace;
 }
   
+sup       {
+color:green;
+         font-size: 9pt;
+}
+
   
 /*----------------------------------------------------------------------------*/
 /*----                                                                     ---*/
@@ -197,8 +201,6 @@ p.freehead {
 }         
 
 /*-- Überschriften --/
-h1.chapter { }
-h2.section {  }
 h3.abbreviation {}
 h3.preface {}
 h3.summary {}

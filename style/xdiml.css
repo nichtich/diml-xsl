@@ -289,7 +289,27 @@ table.dmath {
          margin:0px;
 }
   
+table.example {
+         border-spacing:0px;
+         padding:0px;
+         margin:0px;
+         border-width:0px;
+         border-style:solid;
+         border-color:#FFFFFF;
+}
+td.example {
+         border-spacing:0px;
+         padding:3px;
+         margin:0px;
+         border-width:1px;
+         border-style:solid;
+         border-color:#E0E0E0;
+}
   
+
+h3.footnoteheader {
+
+}
 
 /*----------------------------------------------------------------------------*/
 /*----                                                                     ---*/

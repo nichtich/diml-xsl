@@ -13,9 +13,18 @@
   <xsl:apply-templates select="cms:meta" mode="navigation"/>
   <xsl:apply-templates select="cms:content/*"/>
   <!-- Alles was am Ende des inhalts steht -->
-  
+
+  <xsl:if test="cms:content//footnote or cms:content//endnote">
+    <hr/>
+    <h3 class="footnoteheader"><xsl:value-of select="$VOCABLES/footnotesandendnotes/@*[name()=$LANG]" /></h3>
+  </xsl:if>
+
   <xsl:apply-templates select="cms:content//footnote" mode="foot"/>
   <xsl:apply-templates select="cms:content//endnote" mode="foot"/>
+
+  <xsl:if test="cms:content//footnote or cms:content//endnote">
+    <hr/>
+  </xsl:if>
   
   <!-- Navigationsleiste -->
   <xsl:apply-templates select="cms:meta" mode="navbottom"/>
@@ -113,30 +122,35 @@
 </xsl:template>
 
 <xsl:template match="cms:meta" mode="navbottom">
-  <table width="100%" border="0" class="headline">
+<!--  <table width="100%" border="0" class="headline">-->
+  <table width="100%" border="0" class="navigation">
     <tr>
-    	 <td>
-    	 	<xsl:apply-templates select="cms:entry" mode="navbar"/>
-    	 </td>
+       <td>
+          <xsl:apply-templates select="cms:entry[@type='front']" mode="link"/>
+          <xsl:apply-templates select="cms:entry[@type=':prev']" mode="navbar"/>
+          <xsl:apply-templates select="cms:entry[@type=':next']" mode="navbar"/>
+          <xsl:apply-templates select="cms:entry[@type=':first']" mode="navbar"/>
+          <xsl:apply-templates select="cms:entry[@type=':last']" mode="navbar"/>
+       </td>
     </tr>
   </table>
 </xsl:template>
 
 <!--navbar-->
 <xsl:template match="cms:entry[@type=':next']" mode="navbar">
-  <a href="{@part}">next</a>&#xA0;
+<xsl:text>[</xsl:text><a href="{@part}"><xsl:value-of select="$VOCABLES/next/@*[name()=$LANG]" /></a>&#xA0;
 </xsl:template>
 
 <xsl:template match="cms:entry[@type=':prev']" mode="navbar">
-  <a href="{@part}">prev</a>&#xA0;
+<xsl:text>[</xsl:text><a href="{@part}"><xsl:value-of select="$VOCABLES/prev/@*[name()=$LANG]" /></a>&#xA0;<xsl:text>]</xsl:text>
 </xsl:template>
 
 <xsl:template match="cms:entry[@type=':first']" mode="navbar">
-  <a href="{@part}">first</a>&#xA0;
+<xsl:text>[</xsl:text><a href="{@part}"><xsl:value-of select="$VOCABLES/first/@*[name()=$LANG]" /></a>&#xA0;<xsl:text>]</xsl:text>
 </xsl:template>
 
 <xsl:template match="cms:entry[@type=':last']" mode="navbar">
-  <a href="{@part}">last</a>&#xA0;
+<xsl:text>[</xsl:text><a href="{@part}"><xsl:value-of select="$VOCABLES/last/@*[name()=$LANG]" /></a>&#xA0;<xsl:text>]</xsl:text>
 </xsl:template>
 
 <!--==== Page navigation with Javascript =========================-->
@@ -206,7 +220,7 @@ The name of the link will be the content of cms:entry or an @type called element
 </xsl:template>
 
 <!-- Create a link in the navigation bar for each of this cms:entry elements -->
-<xsl:template match="cms:entry[@type='acknowledgement' or @type='vita' or @type='bibliography' or @type='preface']" mode="navbar">
+<xsl:template match="cms:entry[@type='acknowledgement' or @type='vita' or @type='bibliography' or @type='preface' or @type='submission' or @type='grant' or @type='dedication' or @type='copyright' or @type='motto' or @type='declaration' or @type='resources' or @type='glossary' or @type='appendix' or @type='abbreviation'  or @type='abbreviation' or @type='summary']" mode="navbar">
   <xsl:apply-templates select="." mode="link"/>
 </xsl:template>
 

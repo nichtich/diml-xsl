@@ -5,7 +5,7 @@
   <!--xsl:apply-templates select="head"/-->
   <xsl:if test="//footnote">
     <hr/>
-    <h3><xsl:value-of select="$VOCABLES/footnotes/@*[name()=$LANG]" /></h3>
+    <h3 class="footnoteheader"><xsl:value-of select="$VOCABLES/footnotesandendnotes/@*[name()=$LANG]" /></h3>
     <xsl:apply-templates select="//footnote|//endnote" mode="foot"/>
   </xsl:if>
   <hr/>

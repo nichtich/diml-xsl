@@ -20,6 +20,8 @@
 <summary de="Zusammenfassung" en="Summary" />
 <vita de="Lebenslauf" en="Vita" />
 <footnotes de="Fußnoten" en="Footnotes" />
+<endnotes de="Endnoten" en="Endnotes" />
+<footnotesandendnotes de="Fußnoten und Endnoten" en="Footnotes and Endnotes" />
 <frame de="Teil" en="Frame" />
 <chapter de="Kapitel" en="Chapter" />
 <section de="Abschnitt" en="Section" />
@@ -29,9 +31,9 @@
 <part de="" en="" />
 
 <!-- Navigation in module-cms -->
-<next de="Nächster" en="Next" />
-<prev de="Vorheriger" en="Previous" />
-<first de="Erster" en="First" />
-<last de="Letzter" en="Last" />
+<next de="Nächster Teil" en="Next" />
+<prev de="Vorheriger Teil" en="Previous" />
+<first de="Erster Teil" en="First" />
+<last de="Letzter Teil" en="Last" />
 
 </vocables>

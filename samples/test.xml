@@ -65,7 +65,7 @@ There are no museum specimens of the dodo still extant today, but from artists' 
 			<keyword>National Geographic</keyword>
 			<keyword>Mauritius</keyword>
 		</keywords>
-		<pagenumber start="1" id="p1"/>
+		<pagenumber numbering="lroman" label="1" start="1" id="p1"/>
 		<grant>
 			<p/>
 		</grant>
@@ -93,7 +93,7 @@ There are no museum specimens of the dodo still extant today, but from artists' 
 		</preface>
 		<chapter id="ch1">
 			<head>
-				<pagenumber start="17" id="p17"/>First Chapter</head>
+				<pagenumber numbering="lroman" label="17" start="17" id="p17"/>First Chapter</head>
 			<motto>
 				<p>Ein Motto stell ich hier voran - weil ich sowas eben kann!</p>
 			</motto>
@@ -142,7 +142,7 @@ There are no museum specimens of the dodo still extant today, but from artists' 
 						<def>
 							<foreign>bird</foreign>
 							<dd><p>Auch ein Vogel</p>
-							<pagenumber label="25"/>
+							<pagenumber numbering="lroman" label="25"/>
 							<p></p></dd>
 						</def>
 					</dl>
@@ -165,9 +165,9 @@ There are no museum specimens of the dodo still extant today, but from artists' 
 		</chapter>
 		<chapter id="chapter3">
 			<head>
-				<pagenumber start="18" id="p18"/>Third Chapter
+				<pagenumber numbering="lroman" label="18" start="18" id="p18"/>Third Chapter
       </head>
-			<p>Hier mal ein Beispiel</p>
+			<p>Hier mal ein Beispiel:</p>
 			<example>
 				<head>Ein tolles Beispiel</head>
 				<p>So kann man's machen!</p>
@@ -175,7 +175,7 @@ There are no museum specimens of the dodo still extant today, but from artists' 
 		</chapter>
 		<chapter>
 			<head>
-				<pagenumber start="19" id="p19"/>Kapitel mit Endnoten
+				<pagenumber numbering="lroman" label="19" start="19" id="p19"/>Kapitel mit Endnoten
       </head>
 			<p>
         Diese Kapitel enthält Endnoten
@@ -187,11 +187,11 @@ There are no museum specimens of the dodo still extant today, but from artists' 
         <endnote><p>oder des gesamten Textes (3. Endnote)</p></endnote>
 
 			</p>
-			<pagenumber start="20" id="p20"/>
+			<pagenumber numbering="lroman" label="20" start="20" id="p20"/>
 		</chapter>
 
 		<chapter>
-			<head>Kapitel mit Ku-Bildern</head>
+			<head>Kapitel mit Kuh-Bildern</head>
 
                   <p><mm file="bilder/doener.jpg"><caption>Abbildung 1: Kuh, die Doener isst Er lebte von Früchten und nistete auf dem Boden. Der zutrauliche und flugunfähige Vogel war zwar nicht sehr wohlschmeckend, aber als Frischfleisch für lange Seefahrten dennoch beliebt. Ebenso wie der Vogel selbst wurden seine Eier von Seeleuten in Massen gegessen. Der letzte Dodo wurde 1681 getötet.</caption><legend>Legend in your Spare Time! Er lebte von Früchten und nistete auf dem Boden. Der zutrauliche und flugunfähige Vogel war zwar nicht sehr wohlschmeckend, aber als Frischfleisch für lange Seefahrten dennoch beliebt. Ebenso wie der Vogel selbst wurden seine Eier von Seeleuten in Massen gegessen. Der letzte Dodo wurde 1681 getötet.</legend></mm></p>
                   <p><mm file="bilder/verwandte1.jpg"><caption>Abbildung 2: Kuh bei den Verwandten</caption><legend>Links: Kuh, Rechts: Verwandte</legend></mm></p>
@@ -200,11 +200,15 @@ There are no museum specimens of the dodo still extant today, but from artists' 
                   <p>Nochmal eine Formel dmath mitten <dmath><imath><alt>a=a</alt></imath></dmath> im Text.</p>
                   <p>Nochmal eine Formel imath mitten <imath><alt>a=a</alt></imath> im Text.</p>
                   <p>Folgende Formel imath nicht ausgeben <imath><alt notation="LaTeX">a=a</alt></imath> !. Aber diese <imath><alt notation="plaintext">a=a</alt><alt notation="LaTeX">a=a</alt></imath></p>
+                  <p></p>
+                  <p></p>
+                  <example><head>Ein Beispiel</head><p>Ein Beispiel ist ein Beispiel ist ein Beispiel...</p></example>
+
 		</chapter>
 
 		<chapter>
 			<head>
-				<pagenumber start="21" id="p21"/>Letztes Kapitel</head>
+				<pagenumber numbering="lroman" label="21" start="21" id="p21"/>Letztes Kapitel</head>
 <p>Hier steht nicht mehr viel.</p>
 <p>Ein interner Link mit "link" auf die <link ref="p21">Seite 21</link>.</p>
 <p>Ein externer Link mit "url" auf die offizielle <url href="http://www.dodo.de">Dodo-Homepage</url>.</p>
@@ -225,7 +229,7 @@ There are no museum specimens of the dodo still extant today, but from artists' 
 	<back>
 		<bibliography id="bibliography1">
 			<head>
-				<pagenumber start="100" id="p100"/>Bibliographie</head>
+				<pagenumber numbering="lroman" label="100" start="100" id="p100"/>Bibliographie</head>
 			<p>Viel zitiert - wenig gelesen!</p>
 			<freehead>Fremde Werke</freehead>
 			<citation id="FT1997">
@@ -262,7 +266,7 @@ There are no museum specimens of the dodo still extant today, but from artists' 
       </dl>
     </glossary-->
 		<appendix id="app">
-			<p>Dies ist ein Angang</p>
+			<p>Dies ist ein Anhang</p>
 		</appendix>
 		<vita>
 			<head>Lebenslauf</head>

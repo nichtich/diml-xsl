@@ -6,15 +6,20 @@
 
 <xsl:template match="example">
   <xsl:apply-templates select="head/pagenumber" mode="hline"/>
-  <xsl:if test="head">
-    <p class="examplehead">
-      <xsl:apply-templates select="head"/>
-    </p>  
-  </xsl:if>  
-  
-  <xsl:apply-templates select="*[name()!='head']">
-    <xsl:with-param name="cssTemplate" select="example" />
-  </xsl:apply-templates>  
+  <table class="example" width="100%">
+  <tr>
+  <td width="1%"></td>
+  <td class="example" width="98%">
+     <xsl:if test="head">
+       <p class="examplehead">
+         <xsl:apply-templates select="head"/>
+       </p>  
+     </xsl:if>  
+     <xsl:apply-templates select="*[name()!='head']" />
+  </td>
+  <td width="1%"></td>
+  </tr>
+  </table>
   
 </xsl:template>
 

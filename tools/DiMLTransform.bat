@@ -1,4 +1,17 @@
 @echo off
+
+REM --- Please set the following two environment variables according ---
+REM --- to your system                                               ---
+REM --- First:  directory where your Java is                         ---
+REM --- (e.g. c:\Programme\Java\j2re1.4.2 )                          ---
+REM --- Second: directory where your diml-xsl is                     ---
+REM --- (e.g. c:\thema\diml-xsl )                                    ---
+
+rem set JAVA_HOME=
+rem set DIMLXSL=
+
+REM ---                                                              ---
+
 set currentdir=%cd%
 set batfiledir=%~dp0
 
@@ -112,8 +125,8 @@ REM set XLSTPROCESSOR=oracle.xml.jaxp.JXSAXTransformerFactory
 :exec
 set MAINCLASS=DiMLTransform
 set ARGUMENTS=%*
-rem @echo on
-%_RUNJAVA% -Xmx512M -Xms128M -Djavax.xml.transform.TransformerFactory=%XLSTPROCESSOR% -DDIMLXSL=%DIMLXSL% -classpath "%LOCALCLASSPATH%" %MAINCLASS% -c"%CONFIGFILE%" %ARGUMENTS%
+@echo on
+%_RUNJAVA% -Xmx512M -Xms128M -Djavax.xml.transform.TransformerFactory=%XLSTPROCESSOR% -DDIMLXSL="%DIMLXSL%" -classpath "%LOCALCLASSPATH%" %MAINCLASS% -c"%CONFIGFILE%" %ARGUMENTS%
 
 REM -DTOOLSDir=$TOOLSDir -DRESULTDir=$RESULTDir -classpath $CLASSPATH $MAINCLASS -P$PREPROCESSING $XMLFILE $ARGUMENTS
 

@@ -2,7 +2,7 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
 <xsl:template match="chapter|section|subsection|block|subblock|part">
-  <xsl:apply-templates select="*[1][name()='pagenumber']"/>
+  <xsl:apply-templates select="head/pagenumber" mode="hline"/>
   <xsl:variable name="elementname">
     <xsl:choose>
       <xsl:when test="name()='chapter'">h1</xsl:when>
@@ -21,7 +21,7 @@
       <xsl:apply-templates select="." mode="head"/>
     </a>      
   </xsl:element>
-  <xsl:apply-templates select="*[name()!='head'][not(position()=1 and name()='pagenumber')]"/>
+  <xsl:apply-templates select="*[name()!='head']"/>
 </xsl:template>
 
 </xsl:stylesheet>

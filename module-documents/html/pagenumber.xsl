@@ -3,7 +3,9 @@
 
 <xsl:param name="PAGENUMBER-LABEL"></xsl:param> <!-- 'Seite: ' -->
 
-<xsl:template match="pagenumber[not(preceding-sibling::node())]">
+<xsl:template match="head/pagenumber"/>
+
+<xsl:template match="pagenumber[not(preceding-sibling::node())]" mode="hline">
   <table width="100%" border="0">
     <tr>
       <td width="100%"><hr/></td>

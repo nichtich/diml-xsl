@@ -40,7 +40,9 @@
     <!-- do not add a paragraph if element has no siblings    -->
     <!-- a paragraph already exists because of parent element -->
     <!-- this in particular concerns citations inside lists   -->
-    <xsl:when test="self::node()[count(../node())=1]">
+    <!-- old: test="self::node()[count(../node())=1]"         -->
+    
+    <xsl:when test="count(../citation)>=1">
       <xsl:apply-templates select="." mode="labeled"/>
     </xsl:when>
     
@@ -48,7 +50,7 @@
     <xsl:otherwise>
       <p>
         <xsl:apply-templates select="." mode="labeled"/>
-      </p>  
+      </p>
     </xsl:otherwise>
     
   </xsl:choose>

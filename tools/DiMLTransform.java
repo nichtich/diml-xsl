@@ -174,7 +174,7 @@ public class DiMLTransform extends XMLReading {
 	  	   //message("manually: 'diml2html.xsl SELECTID="+id+"'");
 	  	   
 	       Transformer transformer = templates.newTransformer();
-	       transformer.setParameter("VOCFILE",DIMLXSL+"/vocables.xml");
+	       transformer.setParameter("VOCFILE",DIMLXSL+"/config.xml");
 	       transformer.setParameter("CONVDATE",DateFormat.getDateInstance().format(new Date()));
 	       transformer.setParameter("CONFIGFILE",configFile.getAbsolutePath());
 
@@ -210,7 +210,7 @@ public class DiMLTransform extends XMLReading {
     diml2cmsFile  = new File(DIMLXSL+"/tools/diml2cms.xsl");
 	  diml2htmlFile = new File(DIMLXSL+"/diml2html.xsl");
 	  preprocessFile = new File(DIMLXSL+"/tools/preprocess.xsl");    
-    configFile = new File("vocables.xml");
+    configFile = new File("config.xml");
         
     Source input;
     DOMResult output;
@@ -224,7 +224,7 @@ public class DiMLTransform extends XMLReading {
       return;
     }  
     if (!configFile.exists()) {
-      configFile = new File(DIMLXSL+File.separator+"vocables.xml");
+      configFile = new File(DIMLXSL+File.separator+"config.xml");
       if (!configFile.exists())
         errorMsg("Config file "+configFile+" does not exist!");
     }  

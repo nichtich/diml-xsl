@@ -2,7 +2,7 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
  xmlns:cms="http://edoc.hu-berlin.de/diml/module/cms">
 
-<xsl:param name="CONFIGFILE">vocables.xml</xsl:param>
+<xsl:param name="CONFIGFILE">config.xml</xsl:param>
 <xsl:param name="CONVDATE"></xsl:param>
 <xsl:variable name="CONFIG" select="document($CONFIGFILE)/config"/>
 <xsl:variable name="VOCABLES" select="document($CONFIGFILE)/config/vocables"/>

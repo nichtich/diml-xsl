@@ -5,7 +5,7 @@
 
 <xsl:include href="functions.xsl"/>
 
-<xsl:param name="CONFIGFILE">vocables.xml</xsl:param>
+<xsl:param name="CONFIGFILE">config.xml</xsl:param>
 <xsl:variable name="CONFIG" select="document($CONFIGFILE)/config"/>
 <xsl:variable name="VOCABLES" select="document($CONFIGFILE)/config/vocables"/>
 

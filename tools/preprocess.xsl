@@ -11,7 +11,7 @@ Aufgaben von preprocess:
 *entities in files
 -->
 
-<xsl:param name="CONFIGFILE">vocables.xml</xsl:param>
+<xsl:param name="CONFIGFILE">config.xml</xsl:param>
 <xsl:variable name="CONFIG" select="document($CONFIGFILE)/config"/>
 
 <xsl:key name="id" match="*" use="@id"/>

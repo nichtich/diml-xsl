@@ -36,34 +36,55 @@ exclude-result-prefixes="cms">
 	</xsl:choose>
 </xsl:template>
 
+<xsl:template name="number">
+	<xsl:param name="number"/>
+	<xsl:param name="numbering"/>
+	<xsl:choose>
+		<xsl:when test="$numbering='arabic'">
+			<xsl:number value="$number" format="1"/>
+		</xsl:when>
+		<xsl:when test="$numbering='lalpha'">
+			<xsl:number value="$number" format="a"/>
+		</xsl:when>
+		<xsl:when test="$numbering='ualpha'">
+			<xsl:number value="$number" format="A"/>
+		</xsl:when>
+		<xsl:when test="$numbering='lroman'">
+			<xsl:number value="$number" format="i"/>
+		</xsl:when>
+		<xsl:when test="$numbering='uroman'">
+			<xsl:number value="$number" format="I"/>
+		</xsl:when>
+		<xsl:otherwise>
+			<xsl:value-of select="$number"/>
+		</xsl:otherwise>	
+	</xsl:choose>	
+</xsl:template>
+
 <xsl:template match="pagenumber">
 	<pagenumber>
 		<xsl:call-template name="provide-id"/>
-		<xsl:if test="not(@label) and @start">
-			<xsl:attribute name="label">
-				<xsl:choose>
-					<xsl:when test="@numbering='arabic'">
-						<xsl:number value="@start" format="1"/>
-					</xsl:when>
-					<xsl:when test="@numbering='lalpha'">
-						<xsl:number value="@start" format="a"/>
-					</xsl:when>
-					<xsl:when test="@numbering='ualpha'">
-						<xsl:number value="@start" format="A"/>
-					</xsl:when>
-					<xsl:when test="@numbering='lroman'">
-						<xsl:number value="@start" format="i"/>
-					</xsl:when>
-					<xsl:when test="@numbering='uroman'">
-						<xsl:number value="@start" format="I"/>
-					</xsl:when>
-					<xsl:otherwise>
-						<xsl:value-of select="."/>
-					</xsl:otherwise>
-				</xsl:choose>
-			</xsl:attribute>
-			<xsl:apply-templates select="@*|node()"/>					
-		</xsl:if>
+		<xsl:attribute name="label">
+		<xsl:choose>
+			<xsl:when test="@label"><xsl:copy-of select="@label"/></xsl:when> <!-- ok -->
+			<xsl:when test="not(@label) and @start">
+				<xsl:call-template name="number">
+					<xsl:with-param name="number" select="@start"/>
+					<xsl:with-param name="numbering" select="@numbering"/>
+				</xsl:call-template>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:message>
+					pagenumber without label/start!
+				</xsl:message>
+				<!--xsl:call-template name="number">
+					<xsl:with-param name="number" select="count(preceding@start"/>
+					<xsl:with-param name="numbering" select="@numbering"/>
+				</xsl:call-template-->				
+			</xsl:otherwise>
+		</xsl:choose>
+		</xsl:attribute>
+		<xsl:apply-templates select="@*|node()"/>					
 	</pagenumber>
 </xsl:template>
 

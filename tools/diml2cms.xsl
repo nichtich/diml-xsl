@@ -3,6 +3,8 @@
  	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	xmlns:cms="http://edoc.hu-berlin.de/diml/module/cms">
 
+<xsl:output method="xml" indent="yes"/>
+
 <!-- id of the element we want to see -->
 <xsl:param name="SELECTID"/>
 
@@ -18,46 +20,36 @@
 <!-- parts of the document that may be content of the container --> 
 <xsl:variable name="parts" select="/etd/front|/etd/body/*|/etd/back/*"/>
 
-<xsl:output method="xml" indent="yes"/>
-
+<!-- ROOT template -->
 <xsl:template match="/">
-  <xsl:variable name="selected-part" select="//*[@id=$SELECTID]"/>
-  <xsl:if test="$selected-part">
-    <cms:container xmlns:cms="http://edoc.hu-berlin.de/diml/module/cms">
-      <cms:document>
-        <cms:meta>
-           <xsl:apply-templates select="*" mode="cms"/>
-           <xsl:call-template name="navigation">
-           	<xsl:with-param name="selected-part" select="$selected-part"/>
-           </xsl:call-template>
-         </cms:meta>
-       <!-- Copy the selected part into cms:content -->                
-	  <cms:content>
-	    <xsl:choose>
-	    	    <xsl:when test="name($selected-part)='front'">
-	    		<front>
-	    			<xsl:copy-of select="@*"/>
-	    			<xsl:copy-of select="$selected-part/*"/>
-	    			<xsl:call-template name="TableOfContents"/>
-	    			<xsl:if test="//table">
-		    			<xsl:call-template name="TableOfTables"/>
-		    		</xsl:if>
-		    		<xsl:if test="//im|//mm">
-		    			<xsl:call-template name="TableOfMedias"/>
-		    		</xsl:if>	
-		    		<xsl:if test="//example">
-		    			<xsl:call-template name="TableOfExamples"/>
-		    		</xsl:if>	
-	    		</front>	    		
-	    </xsl:when>
-	    	<xsl:otherwise>
-	    		    <xsl:copy-of select="$selected-part"/>
-	    	</xsl:otherwise>
-	    </xsl:choose>	    
-        </cms:content>
-      </cms:document> 
-    </cms:container>
+  <xsl:variable name="selected-part" select="//*[@id=$SELECTID]"/>  
+  <xsl:if test="not($selected-part)">
+    <xsl:message terminate="yes">
+    	No SELECTID or element of SELECTID=<xsl:value-of select="$SELECTID"/> not found!
+    </xsl:message>
   </xsl:if>
+    
+  <cms:container xmlns:cms="http://edoc.hu-berlin.de/diml/module/cms">
+    <cms:document>
+      <cms:meta>
+         <xsl:apply-templates select="*" mode="cms"/>
+         <xsl:call-template name="navigation">
+         	<xsl:with-param name="selected-part" select="$selected-part"/>
+         </xsl:call-template>
+       </cms:meta>
+     <!-- Copy the selected part into cms:content -->                
+	  <cms:content>
+    		<xsl:choose>
+    	    		<xsl:when test="name($selected-part)='front'">
+		  	    	<xsl:call-template name="createFront"/>
+	    </xsl:when>
+    		<xsl:otherwise>
+    		    <xsl:copy-of select="$selected-part"/>
+	    	</xsl:otherwise>
+    		</xsl:choose>	    
+      </cms:content>
+    </cms:document> 
+  </cms:container>
 </xsl:template>
 
 <!-- traverse all nodes in mode cms and print a cms:entry for elements that have an @id -->
@@ -128,7 +120,7 @@
 <xsl:template name="navigation">
 	<xsl:param name="selected-part"/>
 	<!-- NUR TEST! NICHT ENDGÜLTIG! -->
-	<xsl:if test="$selected-part/preceding-sibling::*[1]/@id">
+	<!--xsl:if test="$selected-part/preceding-sibling::*[1]/@id">
 		<cms:entry type=":prev" part="{$selected-part/preceding-sibling::*[1]/@id}.html"/>
 	</xsl:if>	
 	<xsl:if test="$selected-part/following-sibling::*[1]/@id">
@@ -136,10 +128,28 @@
 	</xsl:if>
 	<cms:entry type=":first" part="{$selected-part/../*[1]/@id}.html"/>
 	<cms:entry type=":last" part="{$selected-part/../*[last()]/@id}.html"/>
-	<xsl:if test="//back">
+	<xsl:if test="//back/@id">
 		<cms:entry type=":appendix" part="{//back/@id}.html"/>
 	</xsl:if>
-	<cms:entry type=":lang"><xsl:value-of select="$LANG"/></cms:entry>
+	<cms:entry type=":lang"><xsl:value-of select="$LANG"/></cms:entry-->
+</xsl:template>
+
+<!--===============================================================-->
+<xsl:template name="createFront">
+	<front>
+    		<xsl:copy-of select="@*"/>
+    		<xsl:copy-of select="front/*"/>
+    		<xsl:call-template name="TableOfContents"/>
+    		<xsl:if test="//table">
+			<xsl:call-template name="TableOfTables"/>
+		</xsl:if>
+		<xsl:if test="//im | //mm">
+			<xsl:call-template name="TableOfMedias"/>
+		</xsl:if>	
+		<xsl:if test="//example">
+			<xsl:call-template name="TableOfExamples"/>
+		</xsl:if>	
+    	</front>	    		
 </xsl:template>
 
 <!--== Create Tables ==-->

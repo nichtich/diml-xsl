@@ -21,10 +21,15 @@ public class DiMLTransform extends XMLReading {
 	File diml2htmlFile = null;
 	File preprocessFile = null;
 
+  private int verboseLevel = 0;
+	private Templates templates;
+	private File resultDir;
+
   boolean debugMode = false;
   
 	private boolean generateHTMLFiles = true;
 	private boolean generateCMSFiles  = true;
+	private boolean doPreprocessing   = true;
   
   Hashtable params = new Hashtable();
 	
@@ -116,13 +121,17 @@ public class DiMLTransform extends XMLReading {
 	   
 	   //CMSContainer cmsContainer = new CMSContainer();
   
-	   // TODO: if there are no parts...
-	  
-	  
+	   // TODO: if there are no parts...	  	  
 	   for(int s=0; s<parts.getLength(); s++) {
   	   Node node = parts.item(s);  	  
-	  	
-	  	 String id = node.getAttributes().getNamedItem("id").getNodeValue();
+	  		  	 
+	  	 if(node.getAttributes().getNamedItem("id")==null) {
+	  	   message("@id of element missing");
+	  	   System.exit(0);
+	  	 } 
+	  	 
+	  	 String id = node.getAttributes().getNamedItem("id").getNodeValue();	  	 	  	 
+	  	 
 	  	
 	  	 //Document cmsd = cmsContainer.getDocument(node);    
 	 
@@ -142,7 +151,7 @@ public class DiMLTransform extends XMLReading {
          StreamResult streamResult = new StreamResult(new FileWriter(cmsContainerFile));
    
          message("writing cms:container "+cmsContainerFile);
-         message("manually: 'diml2cms.xsl SELECTID="+id+"'");
+         //message("manually: 'diml2cms.xsl SELECTID="+id+"'");
          
          Transformer serializer = tFactory.newTransformer();
          serializer.setOutputProperty(OutputKeys.ENCODING,"ISO-8859-1");
@@ -155,11 +164,11 @@ public class DiMLTransform extends XMLReading {
 	  	   String resultFile = resultDir+"/"+id+".html"; 
 	  	   
 	  	   message("transforming "+resultFile);      		
-	  	   message("manually: 'diml2html.xsl SELECTID="+id+"'");
+	  	   //message("manually: 'diml2html.xsl SELECTID="+id+"'");
 	  	   
 	       transformer = templates.newTransformer();
 	       transformer.setParameter("VOCFILE",DIMLXSL+"/vocables.xml");
-	       if(cssDirectory!=null) transformer.setParameter("STYLEDIRECTORY",cssDirectory.toString());
+	       if(cssDirectory!=null) transformer.setParameter("STYLEDIRECTORY",cssDirectory.toString()+File.separator);
 	       
 	       input  = new DOMSource(cmsd);
 	       StreamResult out = new StreamResult(resultFile);
@@ -173,38 +182,15 @@ public class DiMLTransform extends XMLReading {
 		
 		message("everything done.");
 	}
-
-  /**
-   * Load DiML Document
-   */
-  /*public Document parseDocument(String source) throws ParserConfigurationException, SAXException, IOException {  
-	  //dimlFile = new File(source);
-	    
-		DocumentBuilder dBuilder = dFactory.newDocumentBuilder();
-		
-	  ErrorHandlerImpl handler = new ErrorHandlerImpl();
-	  dBuilder.setErrorHandler(handler);
-		
-	  Document doc = dBuilder.parse(dimlFile);
-		    
-	  if(!handler.errors.isEmpty()) {
-	  	throw new SAXException(handler.getErrorMessages());
-	  }
-	  	  
-	  return doc;    
-  }	*/
 	
-	 	 
-	private Templates templates;
-	private File resultDir;
-	 	
+	 	 	 	
   public void message(String msg) {
     System.out.println(msg);
 	}  	
 
 
   public void action(String[] args) throws Exception {
-    
+    try {
     resultDir = new File(".");        
     
     DIMLXSL = System.getProperty("DIMLXSL","..");
@@ -224,32 +210,46 @@ public class DiMLTransform extends XMLReading {
       return;
     }  
 
+	  Node doc=null;
 	  
-    // load preprocess.xsl
-		message("preprocessing");
-		Templates preprocess = loadXSL(preprocessFile);
-    Transformer t = preprocess.newTransformer();
-    input = new StreamSource(dimlFile);
- 	  output = new DOMResult();
- 	  message("\ttransforming "+dimlFile);
-	  t.transform(input, output);
-	  message("\tdone.");
+	  if(doPreprocessing) {
+      // load preprocess.xsl
+		  message("preprocessing");
+		  Templates preprocess = loadXSL(preprocessFile);
+      Transformer t = preprocess.newTransformer();
+      input = new StreamSource(dimlFile);
+ 	    output = new DOMResult();
+ 	    message("\ttransforming "+dimlFile);
+	    t.transform(input, output);
+	    message("\tdone.");
     
-    String preFile = resultDir+File.separator+"_pre.xml";
-    message("preprocessing done (writing to "+preFile+")");
+      String preFile = resultDir+File.separator+"_pre.xml";
+      message("preprocessing done (writing to "+preFile+")");
             
-    DOMSource domSource = new DOMSource(output.getNode());
-    StreamResult streamResult = new StreamResult(new FileWriter(preFile));
-    Transformer serializer = tFactory.newTransformer();
-    serializer.setOutputProperty(OutputKeys.ENCODING,"ISO-8859-1");
-    serializer.transform(domSource, streamResult);     
+      DOMSource domSource = new DOMSource(output.getNode());
+      StreamResult streamResult = new StreamResult(new FileWriter(preFile));
+      Transformer serializer = tFactory.newTransformer();
+      serializer.setOutputProperty(OutputKeys.ENCODING,"ISO-8859-1");
+      serializer.transform(domSource, streamResult);     
+      doc = output.getNode();
+    } else {
+      message("using "+dimlFile+" without preprocessing");
+      DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+      DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+      doc = dBuilder.parse(dimlFile);
+    }  
 
     // load XSL
     if(generateHTMLFiles)
       templates = loadXSL(diml2htmlFile);
     
     // create output	
-    run(output.getNode()); 
+    run(doc); 
+    } catch(javax.xml.transform.TransformerException e) {
+		  if(verboseLevel < 2)
+		    System.err.println("TransformerException"+e.getLocationAsString()+": "+e.getMessage());
+		  else throw e;
+		}
   }
 
   
@@ -257,8 +257,9 @@ public class DiMLTransform extends XMLReading {
 		if(args.length<1) {
 			printUsageAndExit();
 		}
+		
 		try {
-		  DiMLTransform tr = new DiMLTransform();
+		  DiMLTransform tr = new DiMLTransform();  
 		  tr.action(args);
 		} catch(org.apache.xml.dtm.DTMException e) {
 		  System.err.println("DTDException! Propably there is not enough memory or an old version of Xalan\n" +
@@ -268,9 +269,7 @@ public class DiMLTransform extends XMLReading {
 		  e.getMessage()
 		  );
 		  //System.err.println("File not found!"+e.getMessage());
-		} catch(javax.xml.transform.TransformerException e) {
-		  System.out.println("TransformerException"+e.getLocationAsString()+": "+e.getMessage());
-		} /*catch(Exception e) {
+		}  /*catch(Exception e) {
 		  System.out.println("HEY!");
 		  System.out.println(e.getClass().getName());
 		} */ 	 		 
@@ -286,6 +285,13 @@ public class DiMLTransform extends XMLReading {
     }  
   }  
 
+  public int atoi(String s) {
+    try {
+      return (new Integer(s)).intValue(); 
+    } catch(NumberFormatException nfe) {
+      return 0;
+    }  
+  }  
 
   /**
    * Parse command line arguments
@@ -306,9 +312,11 @@ public class DiMLTransform extends XMLReading {
           else if(c=='c') cssDirectory = new File(value);
           else if(c=='o') resultDir = new File(value);
           else if(c=='p') preprocessFile = new File(value);
+          else if(c=='P') doPreprocessing = value.equals("0") ? false : true;
           else if(c=='H') generateHTMLFiles = value.equals("0") ? false : true;
           else if(c=='C') generateCMSFiles = value.equals("0") ? false : true;          
-          // -v : verbose
+          else if(c=='v') verboseLevel = atoi(value);
+            
         }
         if(c=='d') debugMode = true;
         else if(c=='?' || c=='h') return false;
@@ -341,7 +349,9 @@ public class DiMLTransform extends XMLReading {
 		s += " -c cssDirectory (location of xdiml.css)\n";
 		s += " -o resultDir\n";
 		s += " -p preprocessFile (preprocess.xsl)\n";
-		s += " -H (0/1) generate HTML files\n";
+    s += " -P1 use preprocessor    / -C0 do not preprocess\n";		
+		s += " -C1 generate CMS files  / -C0 no generate CMS files\n";
+    s += " -H1 generate HTML files / -H0 no generate CMS files\n";		
 
 		System.out.println(s);
 		System.exit(0);

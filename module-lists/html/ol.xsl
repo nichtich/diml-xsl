@@ -23,6 +23,9 @@
         <xsl:otherwise><xsl:value-of select="$OL_NUMBERING_STYLE"/></xsl:otherwise>        
       </xsl:choose>        
     </xsl:attribute>       
+    <xsl:if test="@start">
+      <xsl:attribute name="start" select="@start" />
+    </xsl:if>
     <xsl:apply-templates select="li"/>
   </ol>
 </xsl:template>

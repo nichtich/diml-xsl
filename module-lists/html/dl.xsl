@@ -10,8 +10,9 @@
 
 <xsl:template match="dl">
 
+  <!-- Am Anfang von Listen wird momentan keine Zusammenfassung ausgegeben -->
   <xsl:if test="descendant::pagenumber">
-    <xsl:call-template name="more-pagenumbers-inside"/>
+    <!--<xsl:call-template name="more-pagenumbers-inside"/>-->
   </xsl:if>
   
   <xsl:apply-templates select="caption"/>

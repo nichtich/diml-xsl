@@ -22,6 +22,9 @@
 
 <!-- this will print pagenumbers included in a table or list etc.  -->
 <!-- in a combined way at the begin of this table, list etc.       -->
+
+<!-- Achtung: Am Anfang von Listen wird momentan keine Zusammenfassung ausgegeben -->
+
 <xsl:template name="more-pagenumbers-inside">
   <xsl:variable name="isRange" select="count(descendant::pagenumber) &gt; 1"/>
   <xsl:variable name="myConfig" select="$CONFIG/pagenumber[@lang=$LANG]"/>
@@ -100,6 +103,7 @@
 
 <!--xsl:template match="pagenumber" name="pagenumber-content"-->
 <!-- Use the start attribute or the label attribute! -->
+
 <xsl:template match="pagenumber" name="pagenumber-content">
 	<xsl:if test="$PAGENUMBER-INFO">
 	  <xsl:message>page: <xsl:value-of select="@label"/></xsl:message>

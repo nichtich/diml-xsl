@@ -17,7 +17,6 @@
 </xsl:template>
 
 <xsl:template match="etd">
-  <xsl:apply-templates select="front" mode="headline"/>
   <xsl:apply-templates select="front"/>
   <xsl:apply-templates select="body"/>
   <xsl:apply-templates select="back"/>      

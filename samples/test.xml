@@ -3,9 +3,9 @@
 	<!ENTITY table1 SYSTEM "table1.xml">
 ]>
 <?xml-stylesheet type="text/xsl" href="../diml2html.xsl"?>
-<?css-stylesheet ../style/did.css?>
+<?css-stylesheet ../style/?>
 <etd>
-	<front id="front">
+	<front>
 		<title>
 			Entwurf eines Doppel-Moppel<sup>2</sup>-Integrators zur Vernuppelung
 			flachbräsiger Hoppel-Dodos

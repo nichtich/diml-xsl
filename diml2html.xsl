@@ -25,7 +25,7 @@
 
 <xsl:param name="vorgelegtbeiText" select="'vorgelegt von'" />
 
-<!--<xsl:output method="html" encoding="ISO-8859-1"/>-->
+<xsl:output method="html" encoding="ISO-8859-1"/>
 
 <xsl:include href="module-diml/html.xsl"/>
 <xsl:include href="module-media/html.xsl"/>
@@ -43,16 +43,10 @@
 <xsl:key name="term" match="term" use="@id"/>
 <xsl:key name="id" match="*[@id]" use="@id"/>
 
-<!-- debugging -->
-<!--xsl:template match="/">
-  <xsl:value-of select="$CSS-STYLESHEET"/>
-</xsl:template-->
-
 <!-- Ueberschrift eines Kapitels/Unterkapitels/... -->
 <xsl:template match="frame|chapter|section|subsection|block|subblock|part" mode="head">
   <xsl:apply-templates select="head"/>
 </xsl:template>
-
 
 <xsl:template name="a-name-attribute">
 	<xsl:param name="object" select="."/>
@@ -74,35 +68,6 @@
 </xsl:template>
 
 <!-- Taucht genauso bei module-common\html\head.xsl auf -->
-<!--
-<xsl:template match="head">
-  <xsl:apply-templates/>
-</xsl:template>
--->
-
-<!--xsl:template match="caption">
-  <p align="center"><b>
-    <xsl:apply-templates/>
-  </b></p>
-</xsl:template-->
-
-<!--== Elemente mit ggf. Inhaltsergaenzung ==-->
-<!-- glossflag -->
-<xsl:template match="glossflag">
-  <a href="#{@ref}">
-    <xsl:choose>
-      <xsl:when test="not(*|text())">
-        <xsl:apply-templates select="/etd/back/glossary/dl/def/term[@id=current()/@ref]"/>
-      </xsl:when>
-      <xsl:otherwise>
-        <xsl:apply-templates/>        
-      </xsl:otherwise>
-    </xsl:choose>
-  </a>
-</xsl:template>
-
-
-<!-- TODO: bibliography mit mehreren parts -->
 
 <!-- <head> -->
 <xsl:template match="*" mode="html-head"/>
@@ -119,7 +84,6 @@
     <xsl:text>&gt;</xsl:text>    
   </font>
 </xsl:template>
-
 
 </xsl:stylesheet>
 

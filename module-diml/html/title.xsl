@@ -10,10 +10,4 @@
   <title><xsl:value-of select="text()"/></title>
 </xsl:template>
 
-<!-- Kopfzeile -->
-<xsl:template match="title" mode="headline">
-  <span class="headline-title"><xsl:apply-templates/></span>
-</xsl:template>
-
-
 </xsl:stylesheet>

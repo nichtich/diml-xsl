@@ -135,6 +135,8 @@
 <!--== Create Tables ==-->
 <xsl:variable name="TOC_DEPTH">99</xsl:variable>
 
+<!-- TODO: bibliography mit mehreren parts -->
+
 <xsl:template name="TableOfContents">
 	<freehead>Inhaltsverzeichnis</freehead>
     	<ul>

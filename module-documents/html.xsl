@@ -8,6 +8,7 @@
 
 <xsl:include href="html/example.xsl"/>
 <xsl:include href="html/pagenumber.xsl"/>
+<xsl:include href="html/citenumber.xsl"/>
 
 <xsl:include href="html/abbreviation.xsl"/>
 <xsl:include href="html/preface.xsl"/>

@@ -31,14 +31,10 @@
 <xsl:template match="/">
   <xsl:variable name="selected-part" select="//*[@id=$SELECTID]"/>  
   <xsl:if test="not($selected-part)">
-    <xsl:message terminate="yes">
-       No SELECTID or element of SELECTID=<xsl:value-of select="$SELECTID"/> not found!
-    </xsl:message>
+    <xsl:message terminate="yes">This is stylesheet diml2cms.xsl speaking. Error: No SELECTID or element of SELECTID=<xsl:value-of select="$SELECTID"/> not found!</xsl:message>
   </xsl:if>
   <xsl:if test="key('id',':toc') or key('id',':toc-media') or key('id',':toc-tables') or key('id',':toc-examples')">
-     <xsl:message terminate="yes">
-      id value :toc, :toc-media, :toc-tables or :toc-examples already set!
-     </xsl:message>
+     <xsl:message terminate="yes">This is stylesheet diml2cms.xsl speaking. Error: id value :toc, :toc-media, :toc-tables or :toc-examples already set!</xsl:message>
   </xsl:if>  
     
   <cms:container xmlns:cms="http://edoc.hu-berlin.de/diml/module/cms">
@@ -77,7 +73,7 @@
       <xsl:when test="@label"><xsl:value-of select="@label"/></xsl:when>
       <xsl:when test="@start"><xsl:value-of select="@start"/></xsl:when>
         <!-- TODO: remove footnotes etc. in head -->
-      <xsl:when test="head"><xsl:value-of select="head"/></xsl:when>
+      <xsl:when test="head and not(normalize-space(head)='')"><xsl:value-of select="head"/></xsl:when>
     </xsl:choose>
     </cms:entry> 
   <!--/xsl:if-->
@@ -125,6 +121,17 @@
 <xsl:template match="pagenumber" mode="cms">
   <xsl:variable name="part" select="ancestor-or-self::*[@id=$parts/@id][1]/@id"/>
   <cms:entry type="pagenumber" ref="{@id}">
+    <xsl:call-template name="entry-id-attributes"/>
+    <xsl:choose>
+       <xsl:when test="@label"><xsl:value-of select="@label"/></xsl:when>
+       <xsl:otherwise><xsl:value-of select="@start"/></xsl:otherwise>
+    </xsl:choose>
+  </cms:entry>
+</xsl:template>
+
+<xsl:template match="citenumber" mode="cms">
+  <xsl:variable name="part" select="ancestor-or-self::*[@id=$parts/@id][1]/@id"/>
+  <cms:entry type="citenumber" ref="{@id}">
     <xsl:call-template name="entry-id-attributes"/>
     <xsl:choose>
        <xsl:when test="@label"><xsl:value-of select="@label"/></xsl:when>
@@ -406,7 +413,7 @@
 <!-- generate attribute id and attribute part for a cms:entry element -->
 <xsl:template name="entry-id-attributes">
   <!-- this is a work around to calcualte $parts --> 
-  <xsl:if test="count($parts)&lt;1"><xsl:message>the document contains no parts</xsl:message></xsl:if>
+  <xsl:if test="count($parts)&lt;1"><xsl:message>This is stylesheet diml2cms.xsl speaking. Error: the document contains no parts</xsl:message></xsl:if>
   <xsl:variable name="part" select="ancestor-or-self::*[@id=$parts/@id][1]/@id"/>
   <xsl:if test="$SELECTID!=$part">
       <xsl:attribute name="id">

@@ -65,6 +65,7 @@ IF EXIST "%workdir%config.xml" (
 ) ELSE (
    echo Warning: config.xml does not exist in xml-file directory: %workdir%
 )
+
 IF EXIST "%currentdir%config.xml" (
    echo Using config.xml found in current directory: %currentdir%config.xml
    set CONFIGFILE=%currentdir%config.xml
@@ -92,13 +93,13 @@ if exist "%htmldir%html" goto delHTMLs
 rem for win9x: if exist "%htmldir%html\nul"
 :makeHTMLDir
   echo Directory %htmldir%html does not exist, creating it
-  mkdir %htmldir%html
+  mkdir "%htmldir%html"
   goto checkHACKEDDir
 :delHTMLs
   echo Directory %htmldir%html exists, removing .html files
-  cd %htmldir%html
+  cd "%htmldir%html"
   del *.html >nul
-  cd %currentdir%
+  cd "%currentdir%"
   goto checkHACKEDDir
 
 :checkHACKEDDir
@@ -107,13 +108,13 @@ if exist "%hackeddir%hacked" goto delHACKEDs
 rem for win9x: if exist "%hackeddir%hacked\nul"
 :makeHACKEDDir
   echo Directory %hackeddir%hacked does not exist, creating it
-  mkdir %hackeddir%hacked
+  mkdir "%hackeddir%hacked"
   goto okHome
 :delHACKEDs
   echo Directory %hackeddir%hacked exists, removing .xml files
-  cd %hackeddir%hacked
+  cd "%hackeddir%hacked"
   del *.xml >nul
-  cd %currentdir%
+  cd "%currentdir%"
   goto okHome
 
 :okHome

@@ -689,6 +689,7 @@ or 0 (the empty string)</para>
     <xsl:apply-templates select="tfoot"/>
     <xsl:apply-templates select="tbody"/>
 
+<!--
     <xsl:if test=".//footnote">
       <tbody class="footnotes">
         <tr>
@@ -698,6 +699,7 @@ or 0 (the empty string)</para>
         </tr>
       </tbody>
     </xsl:if>
+-->
   </table>
   
   <!-- <xsl:apply-templates select="../legend"/-->

@@ -2,7 +2,6 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
 <!--== quotation ==-->
-
 <xsl:template match="motto">
   <xsl:for-each select="p">
     <p><i>
@@ -10,9 +9,7 @@
     </i></p>
   </xsl:for-each>
   <!-- TODO: a lot -->
-  
   <xsl:apply-templates select="citation"/>
-  
 </xsl:template>
 
 <xsl:template match="motto/citation" name="element-motto">
@@ -21,5 +18,5 @@
   </p>
 </xsl:template>
 
-
 </xsl:stylesheet>
+

@@ -5,6 +5,6 @@
   <span class="edition">
     <xsl:apply-templates/>
   </span>  
-</xsl:template>  
+</xsl:template>
 
 </xsl:stylesheet>

@@ -3,9 +3,7 @@
 
 <xsl:template match="bibliography" name="element-bibliography">
   <h3>
-    <a name="#{generate-id(.)}">
-      <xsl:apply-templates select="." mode="head"/>
-    </a> 
+    <xsl:apply-templates select="." mode="head"/>
   </h3>
   <xsl:for-each select="*[name()!='head']"> <!-- != head -->
     <xsl:choose>

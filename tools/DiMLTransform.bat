@@ -1,24 +1,45 @@
-@rem
-@rem Get current directory 
-@rem http://home7.inet.tele.dk/batfiles/main/tricktip.htm#46
-@rem 
-@SET cd=
-@SET promp$=%prompt%
-@PROMPT SET cd$Q$P
-@CALL>%temp%.\setdir.bat
-@
-% do not delete this line %
-@ECHO off
-PROMPT %promp$%
-FOR %%c IN (CALL DEL) DO %%c %temp%.\setdir.bat
-set currentdir=%cd%
-
-
 @echo off
+set currentdir=%cd%
+set batfiledir=%~dp0
+
 rem Guess DIMLXSL if not defined
-if not "%DIMLXSL%" == "" goto checkHTMLDir
-echo DIMLXSL not set - using ..
-set DIMLXSL=..
+
+if not "%DIMLXSL%" == "" ( 
+   if exist "%DIMLXSL%\tools\DiMLTransform.bat" (
+      echo Using the DIMLXSL environment variable: %DIMLXSL%
+      goto checkConfigFile
+   ) ELSE (
+      echo Error: The DIMLXSL environment variable is not defined correctly
+      echo This environment variable is needed to run this program
+      goto end
+   )
+)
+
+IF EXIST "..\tools\DiMLTransform.bat" (
+   echo DIMLXSL not set - using ..
+   set DIMLXSL=..
+   goto checkConfigFile
+) ELSE (
+   echo Error: The DIMLXSL environment variable is not defined
+   echo This environment variable is needed to run this program
+   goto end
+)
+
+:checkConfigFile
+
+IF EXIST "%currentdir%\config.xml" (
+   echo Using config.xml found in local directory: %currentdir%\config.xml
+   set CONFIGFILE=%currentdir%\config.xml
+   goto checkHTMLDir
+) 
+IF EXIST "%DIMLXSL%\config.xml" (
+   echo Using config.xml found in DIMLXSL directory: %DIMLXSL%\config.xml
+   set CONFIGFILE=%DIMLXSL%\config.xml
+   goto checkHTMLDir
+) ELSE (
+   echo Error: Can't find config.xml file 
+   echo It is needed to run this program
+)
 
 :checkHTMLDir
 if exist "html" goto delHTMLs
@@ -40,20 +61,13 @@ rem for win9x: if exist "hacked\nul"
 :makeHACKEDDir
   echo Directory hacked does not exist, creating directory hacked
   mkdir hacked
-  goto gotHome
+  goto okHome
 :delHACKEDs
   echo Directory hacked exists, removing .xml files
   cd hacked
   del *.xml >nul
   cd %currentdir%
-  goto gotHome
-
-:gotHome
-
-if exist "%DIMLXSL%\tools\DiMLTransform.bat" goto okHome
-echo The DIMLXSL environment variable is not defined correctly
-echo This environment variable is needed to run this program
-goto end
+  goto okHome
 
 :okHome
 rem Get standard Java environment variables
@@ -85,7 +99,7 @@ goto end
 :okXalan
 set BASEDIR=%DIMLXSL%
 call "%DIMLXSL%\tools\setclasspath.bat"
-set CLASSPATH=%CLASSPATH%;%DIMLXSL%\lib\xml-apis.jar;%DIMLXSL%\xalan.jar;%DIMLXSL%\lib\xercesImpl.jar;%DIMLXSL%\tools
+set LOCALCLASSPATH=%CLASSPATH%;%DIMLXSL%\lib\xml-apis.jar;%DIMLXSL%\xalan.jar;%DIMLXSL%\lib\xercesImpl.jar;%DIMLXSL%\tools
 
 :setProcessor
 set XLSTPROCESSOR=org.apache.xalan.processor.TransformerFactoryImpl
@@ -98,8 +112,8 @@ REM set XLSTPROCESSOR=oracle.xml.jaxp.JXSAXTransformerFactory
 :exec
 set MAINCLASS=DiMLTransform
 set ARGUMENTS=%*
-REM @echo on
-%_RUNJAVA% -Xmx512M -Xms128M -Djavax.xml.transform.TransformerFactory=%XLSTPROCESSOR% -DDIMLXSL=%DIMLXSL% -classpath "%CLASSPATH%" %MAINCLASS% %ARGUMENTS%
+rem @echo on
+%_RUNJAVA% -Xmx512M -Xms128M -Djavax.xml.transform.TransformerFactory=%XLSTPROCESSOR% -DDIMLXSL=%DIMLXSL% -classpath "%LOCALCLASSPATH%" %MAINCLASS% -c"%CONFIGFILE%" %ARGUMENTS%
 
 REM -DTOOLSDir=$TOOLSDir -DRESULTDir=$RESULTDir -classpath $CLASSPATH $MAINCLASS -P$PREPROCESSING $XMLFILE $ARGUMENTS
 

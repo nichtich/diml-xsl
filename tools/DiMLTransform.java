@@ -222,7 +222,6 @@ public class DiMLTransform  {
     DIMLXSL = System.getProperty("DIMLXSL","..");
     
     configFile = new File(System.getProperty("DIMLXSLCONFIG","config.xml"));
-
     diml2cmsFile  = new File(DIMLXSL+File.separator+"tools"+File.separator+"diml2cms.xsl");
     diml2htmlFile = new File(DIMLXSL+File.separator+"diml2html.xsl");
     preprocessFile = new File(DIMLXSL+File.separator+"tools"+File.separator+"preprocess.xsl");    
@@ -366,6 +365,7 @@ public class DiMLTransform  {
    */
   private boolean parseArgs(String [] args) {    
     int n=0; // 0: dimlFile 1:resultDir 2:cssDirectory
+    boolean returnvalue = false;
     
     //defaults
     resultDirHACKEDString="hacked";
@@ -402,6 +402,7 @@ public class DiMLTransform  {
           else if(n==1) resultDir = new File(arg);
           else if(n==2) cssDirectory = new File(arg);
           n++;
+          returnvalue=true;
         } else { // key=value pair
           String k = arg.substring(0,p);
           String v = arg.substring(p+1);
@@ -409,37 +410,37 @@ public class DiMLTransform  {
         }
       } 
     }              
-    return true;
+    return returnvalue;
   }  
 	
 
-	public static void printUsageAndExit() {
-		String s;
+  public static void printUsageAndExit() {
+     String s;
+     s  = "DiMLTransform - generate html output from DiML\n";
+     s += "Usage: java DiMLTransform <dimlFile> [<resultDir> [<cssDir>]] [PARAMS]\n";
+     s += "You can also use the following arguments:\n";
+     s += " -f dimlFile (also test dimlFile_xdiml.xml and dimlFile.xml)\n";
+     s += " -d debug Mode\n";
+     s += " -v n verbose Level n\n";
+     s += " -s cssDirectory (location of xdiml.css)\n";
+     s += " -o resultDir (current directory if omitted)\n";
+     s += " -x resultDir hacked XML (./hacked/ if omitted)\n";
+     s += " -h resultDir HTML (./html/ if omitted)\n";
+     s += " -c configFile (default $DIMLXSLCONFIG or config.xml)\n";
+     s += " -p preprocessFile (preprocess.xsl)\n";
+     s += " -i select one id - only process this part of the document\n";
+     s += " -b Convert endnotes to bibliography\n";
+     s += " -P1 use preprocessor    / -P0 do not preprocess\n";		
+     s += " -C1 generate CMS files  / -C0 do not generate CMS files\n";
+     s += " -H1 generate HTML files / -H0 do not generate CMS files\n";		
+     s += " PARAM=VALUE pairs are passed through to the XSLT scripts\n";
+     s += "\nExamples:\n";
+     s += "  DiMLTransform foo_xdiml.xml html/ ../style/\n";
+     s += "  DiMLTransform -P0 -f _pre.xml -o html/ -c ../style/\n";
+     s += "  DiMLTransform foo -i front -C0\n";
 
-		s  = "DiMLTransform - generate html output from DiML\n";
-		s += "Usage: java DiMLTransform <dimlFile> [<resultDir> [<cssDir>]] [PARAMS]\n";
-		s += "You can also use the following arguments:\n";
-		s += " -f dimlFile (also test dimlFile_xdiml.xml and dimlFile.xml)\n";
-		s += " -d debug Mode\n";
-		s += " -v n verbose Level n\n";
-		s += " -s cssDirectory (location of xdiml.css)\n";
-		s += " -o resultDir (current directory if omitted)\n";
-		s += " -x resultDir hacked XML (./hacked/ if omitted)\n";
-		s += " -h resultDir HTML (./html/ if omitted)\n";
-		s += " -c configFile (default $DIMLXSLCONFIG or config.xml)\n";
-		s += " -p preprocessFile (preprocess.xsl)\n";
-		s += " -i select one id - only process this part of the document\n";
-		s += " -b Convert endnotes to bibliography\n";
-    s += " -P1 use preprocessor    / -P0 do not preprocess\n";		
-		s += " -C1 generate CMS files  / -C0 do not generate CMS files\n";
-    s += " -H1 generate HTML files / -H0 do not generate CMS files\n";		
-    s += " PARAM=VALUE pairs are passed through to the XSLT scripts\n";
-    s += "\nExamples:\n";
-    s += "  DiMLTransform foo_xdiml.xml html/ ../style/\n";
-    s += "  DiMLTransform -P0 -f _pre.xml -o html/ -c ../style/\n";
-    s += "  DiMLTransform foo -i front -C0\n";
+     System.out.println(s);
+     System.exit(0);
+  }
 
-		System.out.println(s);
-		System.exit(0);
-	}
 }

@@ -2,24 +2,30 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:cms="http://edoc.hu-berlin.de/diml/module/cms"
 exclude-result-prefixes="cms">
 
+<!-- Aufgaben von preprocess: 
+*Seitennummerierung, Kapitelnummern vergeben
+*id-Attribute vergeben, wo notwendig
+-->
+
 <xsl:param name="NUMBERING">1</xsl:param>
 
 <xsl:key name="id" match="*" use="@id"/>
 
 <xsl:template name="provide-id">
 	<xsl:param name="suggest"/>
-	<xsl:if test="not(@id) or @id=''">
-		<xsl:attribute name="id">
-			<xsl:choose>
-				<xsl:when test="$suggest!='' and not(key('id',$suggest))">
-					<xsl:value-of select="$suggest"/>
-				</xsl:when>
-				<xsl:otherwise>
-					<xsl:value-of select="generate-id()"/>
-				</xsl:otherwise>
-			</xsl:choose>
-		</xsl:attribute>	
-	</xsl:if>
+	<xsl:attribute name="id">
+		<xsl:choose>
+			<xsl:when test="@id and @id!=''">
+				<xsl:value-of select="@id"/>
+			</xsl:when>
+			<xsl:when test="$suggest!='' and not(key('id',$suggest))">
+				<xsl:value-of select="$suggest"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="generate-id()"/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:attribute>	
 </xsl:template>
 
 <xsl:template name="entity-to-filename">
@@ -100,7 +106,9 @@ exclude-result-prefixes="cms">
 	</xsl:element>
 </xsl:template>
 
+<!-- Numbering Label of chapter, frame, section... -->
 <xsl:template name="numbering">
+	<!--xsl:message>numbering:<xsl:value-of select="name()"/></xsl:message-->
 	<xsl:variable name="name" select="name()"/>
 	<xsl:if test="not(@label)">
 		<xsl:attribute name="label">
@@ -109,8 +117,8 @@ exclude-result-prefixes="cms">
 				<xsl:with-param name="number">
 					<xsl:choose>
 						<xsl:when test="$recent-start">
-							<xsl:value-of select="$recent-start/@start+
-							count(preceding-sibling::*[name()=$name])-count($recent-start/preceding-sibling::*[name()=$name])"/>
+							<xsl:value-of select="$recent-start/@start +
+							count(preceding-sibling::*[name()=$name]) - count($recent-start/preceding-sibling::*[name()=$name])"/>
 						</xsl:when>
 						<xsl:otherwise>
 							<xsl:value-of select="count(preceding-sibling::*[name()=$name])+1"/>
@@ -123,7 +131,19 @@ exclude-result-prefixes="cms">
 	</xsl:if>
 </xsl:template>
 
-<xsl:template match="section|subsection|block|subblock|part">
+
+<xsl:template match="front">
+	<xsl:copy>		
+		<xsl:variable name="name" select="name()"/>
+		<xsl:call-template name="provide-id">
+			<xsl:with-param name="suggest">front</xsl:with-param>
+		</xsl:call-template>
+		<xsl:apply-templates select="@*|node()"/>	
+	</xsl:copy>		
+</xsl:template>
+
+
+<xsl:template match="section | subsection | block | subblock | part">
 	<xsl:copy>
 		<xsl:call-template name="provide-id"/>
 		<xsl:call-template name="numbering"/>
@@ -131,7 +151,7 @@ exclude-result-prefixes="cms">
 	</xsl:copy>
 </xsl:template>
 
-<xsl:template match="chapter|frame">
+<xsl:template match="chapter | frame">
 	<xsl:variable name="name" select="name()"/>
 	<xsl:copy>
 		<xsl:call-template name="provide-id">
@@ -141,11 +161,9 @@ exclude-result-prefixes="cms">
 			</xsl:with-param>
 		</xsl:call-template>
 		<xsl:call-template name="numbering"/>
-		<xsl:message>chapter</xsl:message>
 		<xsl:apply-templates select="@*|node()"/>
 	</xsl:copy>
 </xsl:template>
-
 
 <xsl:template match="table|im|example|frame">
 	<xsl:copy>		
@@ -154,42 +172,11 @@ exclude-result-prefixes="cms">
 	</xsl:copy>
 </xsl:template>
 
-<xsl:template match="front | body/* | back/*">
-	<xsl:copy>		
-		<xsl:variable name="name" select="name()"/>
-		<xsl:call-template name="provide-id">
-			<xsl:with-param name="suggest">
-				<xsl:value-of select="name()"/>
-				<xsl:value-of select="count(preceding-sibling::*[name()=$name]) + 1"/>
-			</xsl:with-param>
-		</xsl:call-template>
-		<xsl:apply-templates select="@*|node()"/>	
-	</xsl:copy>		
-</xsl:template>
-
-<!-- copy the rest -->
-<xsl:template match="*">
+<!--===== copy the rest =====-->
+<xsl:template match="@*|node()">
 	<xsl:copy>		
 		<xsl:apply-templates select="@*|node()"/>
 	</xsl:copy>
 </xsl:template>
-
-<xsl:template match="@*|text()|comment()|processing-instruction()">
-	<xsl:copy-of select="."/>
-</xsl:template>
-
-<!--
- Every element that may have a 'head' should have an id-attribute
- and pagebreaks in the head are moved in front of it.
--->
-<!--
-<xsl:template match="&head-parents;">
-  <xsl:element name="{name()}">
-    <xsl:attribute name="id">
-      <xsl:value-of select="generate-id()"/>
-    </xsl:attribute>
-  </xsl:element>
-</xsl:template>
--->
 
 </xsl:stylesheet>

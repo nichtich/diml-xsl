@@ -139,8 +139,9 @@
 <xsl:template name="createFront">
 	<front>
     		<xsl:copy-of select="@*"/>
-    		
-    		<xsl:copy-of select="front/*"/>
+		<xsl:message>createFrotn</xsl:message>
+		
+		<xsl:apply-templates select="/etd/front/*"/>
     		
     		<xsl:call-template name="TableOfContents"/>
     		<xsl:if test="//table">
@@ -334,4 +335,10 @@
   </xsl:if>
 </xsl:template>
 
+<!--===== copy the rest =====-->
+<xsl:template match="@*|node()">
+	<xsl:copy>		
+		<xsl:apply-templates select="@*|node()"/>
+	</xsl:copy>
+</xsl:template>
 </xsl:stylesheet>

@@ -21,6 +21,9 @@
   <pagenumber before="[page&#xA0;" before2="[pages&#xA0;" between="&#xA0;-&#xA0;" after="&#8595;]" lang="en"/>
   <pagenumber before="[Seite&#xA0;" before2="[Seiten&#xA0;" between="&#xA0;-&#xA0;" after="&#8595;]" lang="de"/>
   
+  <citenumber before="&#9660;&#xA0;" before2="&#9660;&#xA0;" between="&#xA0;-&#xA0;" after="&#xA0;" lang="en"/>
+  <citenumber before="&#9660;&#xA0;" before2="&#9660;&#xA0;" between="&#xA0;-&#xA0;" after="&#xA0;" lang="de"/>
+  
   <pagenumberInTableAdditionalMessage text="innerhalb Tabelle&#xA0;" lang="de"/>
   <pagenumberInTableAdditionalMessage text="inside table&#xA0;" lang="en"/>
   <pagenumberInCitationAdditionalMessage text="innerhalb Literaturhinweis&#xA0;" lang="de"/>
@@ -94,6 +97,10 @@
     <!-- pagenumbers -->
     <page de="Seite" en="Page" />
     <pages de="Seiten" en="Pages" />
+    
+    <!-- citenumbers -->
+    <cite de="Zitatabschnitt" en="Citenumber" />
+    <cites de="Zitatabschnitte" en="Citenumbers" />
 
     <!-- Header -->
     <abstract de="Abstrakt" en="Abstract" />

@@ -2,9 +2,7 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
  xmlns:cms="http://edoc.hu-berlin.de/diml/module/cms">
 
-<xsl:param name="VOCABLES">
-  <xsl:value-of select="document('vocables.xml',.)/vocables" />
-</xsl:param>
+<xsl:param name="VOCABLES" select="document('vocables.xml',.)/vocables" />
 
 <xsl:param name="lang">
 <xsl:choose>

@@ -29,7 +29,6 @@ exclude-result-prefixes="cms">
 <xsl:template match="pagenumber">
 	<pagenumber>
 		<xsl:call-template name="provide-id"/>
-		<xsl:apply-templates select="@*|node()"/>		
 		<xsl:if test="not(@label) and @start">
 			<xsl:attribute name="label">
 				<xsl:choose>
@@ -53,6 +52,7 @@ exclude-result-prefixes="cms">
 					</xsl:otherwise>
 				</xsl:choose>
 			</xsl:attribute>
+			<xsl:apply-templates select="@*|node()"/>					
 		</xsl:if>
 	</pagenumber>
 </xsl:template>

@@ -22,9 +22,23 @@
            	<xsl:with-param name="selected-part" select="$selected-part"/>
            </xsl:call-template>
          </cms:meta>
-       <!-- Copy the selected part into cms:content -->         
+       <!-- Copy the selected part into cms:content -->                
 	  <cms:content>
-	    <xsl:copy-of select="$selected-part"/>
+	    <xsl:choose>
+	    	    <xsl:when test="name($selected-part)='front'">
+	    		<front>
+	    			<xsl:copy-of select="@*"/>
+	    			<xsl:copy-of select="$selected-part/*"/>
+	    			<freehead>Inhaltsverzeichnis</freehead>
+	    			<p>..TODO...</p>
+	    			<freehead>Tabellen...</freehead>
+	    			<freehead>Abbildungen...</freehead>
+	    		</front>	    		
+	    </xsl:when>
+	    	<xsl:otherwise>
+	    		    <xsl:copy-of select="$selected-part"/>
+	    	</xsl:otherwise>
+	    </xsl:choose>	    
         </cms:content>
       </cms:document> 
     </cms:container>
@@ -79,6 +93,10 @@
   <xsl:variable name="part" select="ancestor-or-self::*[@id=$parts/@id][1]/@id"/>
   <cms:entry type="pagenumber" ref="{@id}">
     <xsl:call-template name="entry-id-attributes"/>
+    <xsl:choose>
+    	<xsl:when test="@label"><xsl:value-of select="@label"/></xsl:when>
+    	<xsl:otherwise><xsl:value-of select="@start"/></xsl:otherwise>
+    </xsl:choose>
   </cms:entry>
 </xsl:template>
 

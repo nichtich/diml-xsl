@@ -152,7 +152,6 @@
 		      <xsl:text>#</xsl:text>
 	      <xsl:value-of select="@ref"/>
 		</xsl:attribute>
-		!!!
 		<xsl:value-of select="."/>
 	</option>
 </xsl:template>

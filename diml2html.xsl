@@ -6,7 +6,6 @@
 <xsl:param name="CONVDATE"></xsl:param>
 <xsl:variable name="CONFIG" select="document($CONFIGFILE)/config"/>
 <xsl:variable name="VOCABLES" select="document($CONFIGFILE)/config/vocables"/>
-<xsl:variable name="table.borders.with.css" select="0"/>
 
 <xsl:param name="LANG">
   <xsl:choose>

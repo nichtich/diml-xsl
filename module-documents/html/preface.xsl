@@ -2,7 +2,7 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
 <xsl:template match="preface" mode="head">
-  <xsl:apply-templates select="head/pagenumber" mode="hline"/>
+<!-- (pagenumber is handled in module-documents\html.xsl) -->
   <xsl:choose>
     <xsl:when test="head">
       <xsl:apply-templates select="head"/>

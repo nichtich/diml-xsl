@@ -6,16 +6,7 @@
   <h3 class="bibliography">
     <xsl:apply-templates select="." mode="head"/>
   </h3>
-  <xsl:for-each select="*[name()!='head']">
-    <xsl:choose>
-      <xsl:when test="name(.)='citation'">
-        <p><xsl:apply-templates select="."/></p>
-      </xsl:when>
-      <xsl:otherwise>
-        <xsl:apply-templates select="."/>
-      </xsl:otherwise>
-    </xsl:choose>
-  </xsl:for-each>
+  <xsl:apply-templates select="*[not(self::head)]" />
 </xsl:template>
 
 <xsl:template match="bibliography" mode="head" name="bibliography-head">
@@ -30,3 +21,30 @@
 </xsl:template>
 
 </xsl:stylesheet>
+
+
+<!--                                                        -->
+<!--    Old Version with additional "p" for "citation"      -->
+<!--                                                        -->
+
+<!--
+<xsl:template match="bibliography" name="element-bibliography">
+  <xsl:apply-templates select="head/pagenumber" mode="hline"/>
+  <h3 class="bibliography">
+    <xsl:apply-templates select="." mode="head"/>
+  </h3>
+  <xsl:for-each select="*[name()!='head']">
+    <xsl:choose>
+      <xsl:when test="name(.)='citation'">
+        <xsl:apply-templates select="."/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:apply-templates select="."/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:for-each>
+</xsl:template>
+-->
+<!--                                                        -->
+<!--                                                        -->
+<!--                                                        -->

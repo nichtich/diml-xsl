@@ -6,13 +6,22 @@
 <!--                                                 -->
 
 <xsl:template match="pagenumber" name="pagenumber-simple">
-  <!-- 1. do not create a pagenumbers in tables (but create "a name") -->
+  <!-- 1. do not create a pagenumbers in tables and citations         -->
+  <!--    (but create "a name")                                       -->
   <!--    pagenumbers in tables will be showed in a combined way      -->
   <!--    at the beginning of a table                                 -->
   <!-- 2. create "a name"-Element only if "id" exists                 -->
-  <xsl:choose>
+  <!-- 3. do not create pagenumbers in head here                      -->
+
+ <xsl:choose>
+<!--    <xsl:when test="ancestor::head">
+    </xsl:when>-->
     <xsl:when test="ancestor::table">
       <a name="{@id}"></a>
+    </xsl:when>
+    <xsl:when test="ancestor::citation">
+      <!-- no ID, will be generated with hline-pagenumber -->
+      <!-- at beginning of citation -->
     </xsl:when>
     <xsl:when test="@id">
       <a name="{@id}"><xsl:call-template name="pagenumber-content"/></a>
@@ -22,6 +31,7 @@
     </xsl:otherwise>
   </xsl:choose>
 </xsl:template>
+
 
 <!-- Content of a pagenumber from "span" to "/span"               -->
 <!-- that means "a name" and seperation line are not created here -->
@@ -98,7 +108,10 @@
 
 <!-- ignore pagenumbers in "head" (is called from "module-structure"
      respectivly from all elements that may contain element "head") -->
-<xsl:template match="head/pagenumber"/>
+<xsl:template match="head/pagenumber" />
+
+<!-- will be handled in preceding citation element -->
+<xsl:template match="bibliography/citation//pagenumber" />
 
 <!-- first pagenumber without preceeding text will be called from "p" -->
 <xsl:template match="p/pagenumber[count(preceding-sibling::*)=0][normalize-space(preceding-sibling::text())='']"/>
@@ -153,7 +166,7 @@
 <!-- Achtung: Am Anfang von Listen wird momentan keine Zusammenfassung ausgegeben -->
 
 <xsl:template name="more-pagenumbers-inside">
-  <xsl:variable name="isRange" select="count(descendant::pagenumber) &gt; 1"/>
+<xsl:variable name="isRange" select="count(descendant::pagenumber) &gt; 1"/>
   <xsl:variable name="myConfig" select="$CONFIG/pagenumber[@lang=$LANG]"/>
   <table width="100%" border="0">
     <tr>

@@ -26,7 +26,7 @@
 <a>
  <xsl:call-template name="a-name-attribute" />
  <xsl:choose>
-    <xsl:when test="@caption or @legend">
+    <xsl:when test="caption or legend">
       <xsl:apply-templates select="." mode="mm_with_caption_or_legend" />
     </xsl:when>
     <xsl:otherwise>

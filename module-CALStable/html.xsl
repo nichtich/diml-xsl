@@ -3,8 +3,12 @@
 
 <xsl:include href="html/table.xsl"/>
 
-<!-- TODO: handle 'caption' and 'legend' -->
 <xsl:template match="table">
+
+  <xsl:if test="descendant::pagenumber">
+    <xsl:call-template name="more-pagenumbers-inside"/>
+  </xsl:if>
+
   <p class="tablecaption">
      <a> 
         <xsl:call-template name="a-name-attribute"/>    

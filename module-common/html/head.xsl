@@ -6,7 +6,7 @@
 		<xsl:value-of select="../@label"/>
 		<xsl:text>&#xA0;</xsl:text>
 	</xsl:if>
-	<xsl:apply-templates/>
+	<xsl:apply-templates />
 </xsl:template>
 
 </xsl:stylesheet>

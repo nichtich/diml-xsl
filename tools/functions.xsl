@@ -45,7 +45,6 @@
               <xsl:value-of select="name(parent::node()[1])" />
             </xsl:when>
             <xsl:otherwise>
-              <xsl:value-of />
             </xsl:otherwise>
           </xsl:choose>
         </xsl:when>

@@ -16,36 +16,36 @@ import org.apache.xpath.XPathAPI;
   
 public class DiMLTransform  {
 
-	String DIMLXSL;
+  String DIMLXSL;
 	
-	File dimlFile = null;
-	File cssDirectory = null;
+  File dimlFile = null;
+  File cssDirectory = null;
 	
-	File diml2cmsFile  = null;
-	File diml2htmlFile = null;
-	File preprocessFile = null;
-	File configFile = null;
+  File diml2cmsFile  = null;
+  File diml2htmlFile = null;
+  File preprocessFile = null;
+  File configFile = null;
 
   String selectedId = "";
   int verboseLevel = 0;
-	Templates templates;
-	File resultDir;
-	File resultDirHTML;
-	File resultDirHACKED;
+  Templates templates;
+  File resultDir;
+  File resultDirHTML;
+  File resultDirHACKED;
 
   boolean debugMode = false;
   
-	private boolean generateHTMLFiles = true;
-	private boolean generateCMSFiles  = true;
-	private boolean doPreprocessing   = true;
+  private boolean generateHTMLFiles = true;
+  private boolean generateCMSFiles  = true;
+  private boolean doPreprocessing   = true;
         
-        private String endnotesbib = "false";
+  private String endnotesbib = "false";
   
   Hashtable params = new Hashtable();	
 	
-	TransformerFactory tFactory = TransformerFactory.newInstance(); 
+  TransformerFactory tFactory = TransformerFactory.newInstance(); 
 	
-	public DiMLTransform() {}
+  public DiMLTransform() {}
   	  	  
 
   /**
@@ -54,147 +54,150 @@ public class DiMLTransform  {
    * The method ids are created will lead in errors if there are
    * already ids of the same name in other places! (FIXME)
    */
-  public NodeList selectParts(Node document, String xpath) throws TransformerException { 	  
-	  
-	  // get Nodes
-	  NodeList parts = XPathAPI.selectNodeList(document,xpath);
-	  	
-	  Hashtable names = new Hashtable();
+  public NodeList selectParts(Node document, String xpath) throws TransformerException {
+    // get Nodes
+    NodeList parts = XPathAPI.selectNodeList(document,xpath);
+    Hashtable names = new Hashtable();
 	  		
-  	for(int s=0; s<parts.getLength(); s++) {
-  	  Node node = parts.item(s);  
+    for(int s=0; s<parts.getLength(); s++) {
+      Node node = parts.item(s);  
   	
-  	  // TODO: if nodetype != Element => error in xpath
+      // TODO: if nodetype != Element => error in xpath
   	        
-  	  Integer n = (Integer)names.get(node.getNodeName());
-  	  if (n != null) {
-  	    n = new Integer(n.intValue()+1);        
-  	  } else {
-  	  	n = new Integer(0);
-  	  }
-  	  names.put(node.getNodeName(), n);
+      Integer n = (Integer)names.get(node.getNodeName());
+      if (n != null) {
+        n = new Integer(n.intValue()+1);        
+      } else {
+        n = new Integer(0);
+      }
+    
+      names.put(node.getNodeName(), n);
   	  
-  	  String id = null;
-  	  if(node.hasAttributes())
-  	    if(node.getAttributes().getNamedItem("id") != null)
-  	      id = node.getAttributes().getNamedItem("id").getNodeValue();
+      String id = null;
+      if(node.hasAttributes())
+        if(node.getAttributes().getNamedItem("id") != null)
+          id = node.getAttributes().getNamedItem("id").getNodeValue();
   	      
-  	  if(id==null) {
-  	  	id = node.getNodeName();
-  	  	if(n.intValue() > 0) id+=n.toString();
-  	  	((Element)node).setAttribute("id",id);
-  	  }
-  	}
+      if(id==null) {
+        id = node.getNodeName();
+        if(n.intValue() > 0) id+=n.toString();
+        ((Element)node).setAttribute("id",id);
+      }
+    }
   	  
-	  return parts;  	// TODO: Array of ids and Elemenst
+    return parts;  	// TODO: Array of ids and Elemenst
   }  
   
   /**
    * Parse XSL files and return it as Templates
    */
   public Templates loadXSL(File xslFile) throws TransformerConfigurationException {
-		if(!xslFile.exists()) {
-		  message(xslFile + " not found!");
-		  System.exit(1);
-		}  
-		message("\tparsing "+xslFile);						
-		Templates t = tFactory.newTemplates(new StreamSource(xslFile));
-		return t;
+    if(!xslFile.exists()) {
+      message(xslFile + " not found!");
+      System.exit(1);
+    }  
+    message("\tparsing "+xslFile);						
+    Templates t = tFactory.newTemplates(new StreamSource(xslFile));
+    return t;
   }
     
 	
-	public void run(Node document) throws ParserConfigurationException, TransformerException, IOException {
-		Source input;    
-	  DOMResult output;
+  public void run(Node document) throws ParserConfigurationException, TransformerException, IOException {
+  
+    Source input;    
+    DOMResult output;
 		
-		input = new DOMSource(document); 
-		// TODO: validate
+    input = new DOMSource(document); 
+    // TODO: validate
 		
-		//getDocumentElement();
-		Element e = (Element)XPathAPI.selectSingleNode(document,"/*"); 
-		
-		message("transforming:");
+    //getDocumentElement();
+    Element e = (Element)XPathAPI.selectSingleNode(document,"/*"); 
+
+    message("transforming:");
     params.put("CONVDATE",DateFormat.getDateInstance().format(new Date()));
     if(cssDirectory!=null) params.put("STYLEDIRECTORY",cssDirectory.getCanonicalPath()+File.separator);
-
     
-    if(e.getTagName() == "etd") {				 		 
-		 		  
+    //if(e.getTagName() == "etd") {
+    if(e.getTagName().equals("etd")) {
+
       // load diml2cms.xsl
+
       Templates diml2cms = loadXSL(diml2cmsFile);
-		   		  
+
       // if you do not want do split, just use "/etd";    
       String xpath = "/etd/front|/etd/body/*|/etd/back/*";
-	   
+
       if (!selectedId.equals("")) xpath = "//*[@id='"+selectedId+"']";
-	   
+
       NodeList parts = selectParts(document,xpath);	
 
       message("document split into "+parts.getLength()+" parts:");
-	     
+
       // TODO: if there are no parts...	  	  
       for(int s=0; s<parts.getLength(); s++) {
-      Node node = parts.item(s);  	  
-	  		  	 
-      if(node.getAttributes().getNamedItem("id")==null) {
-        message("@id of element missing");
-        System.exit(0);
-      } 
-	  	 
-      String id = node.getAttributes().getNamedItem("id").getNodeValue();
-      params.put("SELECTID",id);
-	  	 
-      Node cmsd=null;
-	  	 
-     if (generateCMSFiles || generateHTMLFiles) {	 
-             Transformer transformer = diml2cms.newTransformer();
-             input  = new DOMSource(document);
-             output = new DOMResult();
-             setParameters(transformer);
-             transformer.transform(input, output);
-             cmsd = output.getNode();	 
-     } else {
-       message("-i "+id);
-     }              
+      
+        Node node = parts.item(s);  	  
 
-     if(generateCMSFiles) {
+        if(node.getAttributes().getNamedItem("id")==null) {
+          message("@id of element missing");
+          System.exit(0);
+        } 
 
-         File cmsContainerFile = new File(resultDirHACKED.getCanonicalPath()+File.separator+id+".xml");
-         DOMSource domSource = new DOMSource(cmsd);
-         javax.xml.transform.stream.StreamResult streamResult = new          javax.xml.transform.stream.StreamResult(cmsContainerFile);
+        String id = node.getAttributes().getNamedItem("id").getNodeValue();
+        params.put("SELECTID",id);
 
-         message("writing cms:container "+cmsContainerFile);
+        Node cmsd=null;
 
-         Transformer serializer = tFactory.newTransformer();
-         serializer.setOutputProperty(OutputKeys.ENCODING,"ISO-8859-1");
-         //TODO: validate!
-         //serializer.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM,"cms.dtd");
-         //serializer.setOutputProperty(OutputKeys.INDENT,"yes");
-         serializer.transform(domSource, streamResult);
-       }
+        if (generateCMSFiles || generateHTMLFiles) {
+                Transformer transformer = diml2cms.newTransformer();
+                input  = new DOMSource(document);
+                output = new DOMResult();
+                setParameters(transformer);
+                transformer.transform(input, output);
+                cmsd = output.getNode();
+        } else {
+          message("-i "+id);
+        }
 
-       if(generateHTMLFiles) {    
+        if(generateCMSFiles) {
 
-           File resultFile = new File(resultDirHTML.getCanonicalPath()+File.separator+id+".html");
-           message("transforming "+resultFile);      		
-           //message("manually: 'diml2html.xsl SELECTID="+id+"'"+params);
+          File cmsContainerFile = new File(resultDirHACKED.getCanonicalPath()+File.separator+id+".xml");
+          DOMSource domSource = new DOMSource(cmsd);
+          javax.xml.transform.stream.StreamResult streamResult = new          javax.xml.transform.stream.StreamResult(cmsContainerFile);
 
-           Transformer transformer = templates.newTransformer();
-           setParameters(transformer);
+          message("writing cms:container "+cmsContainerFile);
 
-           input  = new DOMSource(cmsd);
+          Transformer serializer = tFactory.newTransformer();
+          serializer.setOutputProperty(OutputKeys.ENCODING,"ISO-8859-1");
+          //TODO: validate!
+          //serializer.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM,"cms.dtd");
+          //serializer.setOutputProperty(OutputKeys.INDENT,"yes");
+          serializer.transform(domSource, streamResult);
+        }
 
-           javax.xml.transform.stream.StreamResult out = new javax.xml.transform.stream.StreamResult(resultFile);
-	   transformer.transform(input, out);
+        if(generateHTMLFiles) {    
+
+              File resultFile = new File(resultDirHTML.getCanonicalPath()+File.separator+id+".html");
+              message("transforming "+resultFile);      		
+              //message("manually: 'diml2html.xsl SELECTID="+id+"'"+params);
+
+              Transformer transformer = templates.newTransformer();
+              setParameters(transformer);
+
+              input  = new DOMSource(cmsd);
+
+              javax.xml.transform.stream.StreamResult out = new javax.xml.transform.stream.StreamResult(resultFile);
+              transformer.transform(input, out);
 
         }
-                } // end for
-          } else {
-            errorMsg("File "+dimlFile+" contains no DiML-Document!");
-        }      	
+      } // end for
+      
+    } else {
+      errorMsg("File "+dimlFile+" contains no DiML-Document!");
+    } // end if     	
 		
-       message("everything done.");
-    }
+    message("everything done.");
+  } //end void run
 	
 	 	 	 	
   public void message(String msg) {

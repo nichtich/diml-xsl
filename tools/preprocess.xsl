@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:cms="http://edoc.hu-berlin.de/diml/module/cms"
-exclude-result-prefixes="cms">
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0" xmlns:cms="http://edoc.hu-berlin.de/diml/module/cms" exclude-result-prefixes="cms">
 
 <xsl:include href="functions.xsl"/>
 
@@ -14,10 +13,10 @@ exclude-result-prefixes="cms">
 <xsl:param name="LANG">
   <xsl:choose>
     <xsl:when test="string(/etd/@lang)!=''">
-      <xsl:value-of select="/etd/@lang"/>
+      <xsl:value-of select="/etd/@lang" />
     </xsl:when>
     <xsl:when test="/cms:container/cms:document/cms:meta/cms:entry[@type=':lang']">
-      <xsl:value-of select="/cms:container/cms:document/cms:meta/cms:entry[@type=':lang']"/>
+      <xsl:value-of select="/cms:container/cms:document/cms:meta/cms:entry[@type=':lang']" />
     </xsl:when>
     <xsl:otherwise>en</xsl:otherwise>
   </xsl:choose>
@@ -31,13 +30,13 @@ exclude-result-prefixes="cms">
 	<xsl:attribute name="id">
 		<xsl:choose>
 			<xsl:when test="@id and @id!=''">
-				<xsl:value-of select="@id"/>
+				<xsl:value-of select="@id" />
 			</xsl:when>
 			<xsl:when test="$suggest!='' and not(key('id',$suggest))">
-				<xsl:value-of select="$suggest"/>
+				<xsl:value-of select="$suggest" />
 			</xsl:when>
 			<xsl:otherwise>
-				<xsl:value-of select="generate-id()"/>
+				<xsl:value-of select="generate-id()" />
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:attribute>	
@@ -46,7 +45,7 @@ exclude-result-prefixes="cms">
 <!--== convert entity references in <mm> into file references ==-->
 
 <xsl:template name="entity-to-filename">
-	<xsl:param name="file" select="unparsed-entity-uri(@entity)"/>
+	<xsl:param name="file" select="unparsed-entity-uri(@entity)" />
 	<xsl:choose>
 		<xsl:when test="contains($file,'/')">
 			<xsl:call-template name="entity-to-filename">
@@ -54,7 +53,7 @@ exclude-result-prefixes="cms">
 			</xsl:call-template>			
 		</xsl:when>
 		<xsl:otherwise>
-			<xsl:value-of select="$file"/>
+			<xsl:value-of select="$file" />
 		</xsl:otherwise>		
 	</xsl:choose>
 </xsl:template>
@@ -68,7 +67,7 @@ exclude-result-prefixes="cms">
 
                   <!-- 1. if exists @label, use it -->
                   <xsl:when test="@label">
-                    <xsl:copy-of select="@label"/>
+                    <xsl:value-of select="@label"/>
                   </xsl:when>
 
                   <!-- 2. create number out of @start formatted with @numbering -->
@@ -96,7 +95,7 @@ exclude-result-prefixes="cms">
 
                   <!-- otherwise: use consecutive number of pagenumber -->
                   <xsl:otherwise>
-                    <xsl:value-of select="count(preceding::pagenumber)+1"/>
+                    <xsl:value-of select="count(preceding::pagenumber)+1" />
                     <xsl:message>preprocess.xsl says: Warning! Pagenumber has no attribute start and label. Count total number of pagenumbers.</xsl:message>
                   </xsl:otherwise>
 
@@ -123,9 +122,9 @@ exclude-result-prefixes="cms">
 	<xsl:variable name="generate" select="$CONFIG/generate[@of=$name][@numbering][1]"/>
 	<xsl:if test="$generate and (not(@label) or $generate/@force='yes')">
 		<xsl:attribute name="label">
-			<xsl:value-of select="$generate/@beforeLabel"/>
+			<xsl:value-of select="$generate/@beforeLabel" />
 			<xsl:apply-templates select="." mode="numberingLabel"/>
-			<xsl:value-of select="$generate/@afterLabel"/>			
+			<xsl:value-of select="$generate/@afterLabel" />
 		</xsl:attribute>
 	</xsl:if>	
 </xsl:template>
@@ -141,7 +140,7 @@ exclude-result-prefixes="cms">
 		<!-- TODO: if there are no chapters etc. this will result in an error (empty list)! -->
 		<!--xsl:if test="$CONFIG/toc[@generate='yes']">
 		  <p>
-		    <freehead id=":contents"><xsl:value-of select="$CONFIG/toc/title[@lang=$LANG]"/></freehead>
+		    <freehead id=":contents"><xsl:value-of select="$CONFIG/toc/title[@lang=$LANG]" /></freehead>
 		    <ul>		    	 
 		      <xsl:apply-templates select="/*" mode="toc"/>
 		    </ul> 
@@ -163,8 +162,8 @@ exclude-result-prefixes="cms">
 	<xsl:copy>
 		<xsl:call-template name="provide-id">
 			<xsl:with-param name="suggest">
-				<xsl:value-of select="name()"/>
-				<xsl:value-of select="count(preceding-sibling::*[name()=$name]) + 1"/>
+				<xsl:value-of select="name()" />
+				<xsl:value-of select="count(preceding-sibling::*[name()=$name]) + 1" />
 			</xsl:with-param>
 		</xsl:call-template>
 		<xsl:call-template name="numbering"/>
@@ -210,8 +209,8 @@ exclude-result-prefixes="cms">
 <xsl:template match="*" mode="toclabel">
   <link ref="{@id}">
     <xsl:if test="@label and not($CONFIG/toc/*[name()=$name and @hidelabel='yes'])">
-	  		<xsl:value-of select="@label"/>
-	  		<xsl:text>&#xA0;</xsl:text>
+      <xsl:value-of select="@label" />
+      <xsl:text>&#xA0;</xsl:text>
     </xsl:if>	
     <xsl:apply-templates select="head" mode="TableOfContents"/>
   </link>
@@ -223,7 +222,7 @@ exclude-result-prefixes="cms">
   <xsl:if test="translate(.,'0123456789ABCDEabcdef','FFFFFFFFFFFFFFFFFFFFF')!='#FFFFFF'">
   	<xsl:message>
   		<xsl:text>Attribute @color (</xsl:text>
-  		<xsl:value-of select="."/>
+  		<xsl:value-of select="." />
   		<xsl:text>) of element em must match "#FFFFFF"</xsl:text>
   	</xsl:message>
   </xsl:if>
@@ -234,7 +233,7 @@ exclude-result-prefixes="cms">
 		<xsl:if test="not(@label)">
 			<xsl:if test="cut">
 				<xsl:attribute name="label">
-					<xsl:value-of select="cut"/>
+					<xsl:value-of select="cut" />
 				</xsl:attribute>
 			</xsl:if>
 		</xsl:if>
@@ -270,7 +269,7 @@ exclude-result-prefixes="cms">
 <!--== helper for add bibliographie for endnotes if missing ==-->
 
 <xsl:template match="endnote" mode="label">
-  <sup class="footnotelabel"><xsl:value-of select="count(preceding::endnote)+1"/></sup>
+  <sup class="footnotelabel"><xsl:value-of select="count(preceding::endnote)+1" /></sup>
 </xsl:template>
 
 <!--== helper for add bibliographie for endnotes if missing ==-->
@@ -321,10 +320,10 @@ exclude-result-prefixes="cms">
 <xsl:template match="dean/text()[1]">
   <xsl:choose>
     <xsl:when test="substring(.,1,6)='Dekan:'">
-      <xsl:value-of select="substring(.,7)"/>    
+      <xsl:value-of select="substring(.,7)" />    
     </xsl:when>
     <xsl:otherwise>
-      <xsl:value-of select="."/>
+      <xsl:value-of select="." />
     </xsl:otherwise>
   </xsl:choose>
 </xsl:template>

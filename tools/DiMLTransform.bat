@@ -88,9 +88,10 @@ call "%DIMLXSL%\tools\setclasspath.bat"
 set CLASSPATH=%CLASSPATH%;%DIMLXSL%\lib\xml-apis.jar;%DIMLXSL%\xalan.jar;%DIMLXSL%\lib\xercesImpl.jar;%DIMLXSL%\tools
 
 :setProcessor
-set XLSTPROCESSOR=org.apache.xalan.processor.TransformerFactoryImpl
+REM set XLSTPROCESSOR=org.apache.xalan.processor.TransformerFactoryImpl
 REM set XLSTPROCESSOR=jd.xml.xslt.trax.TransformerFactoryImpl
-REM set XLSTPROCESSOR=net.sf.saxon.TransformerFactoryImpl
+set XLSTPROCESSOR=net.sf.saxon.TransformerFactoryImpl
+REM set XLSTPROCESSOR=com.icl.saxon.om.DocumentBuilderFactoryImpl # Saxon old
 REM set XLSTPROCESSOR=org.apache.xalan.xsltc.trax.TransformerFactoryImpl
 REM set XLSTPROCESSOR=oracle.xml.jaxp.JXSAXTransformerFactory
 

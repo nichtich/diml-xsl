@@ -91,10 +91,20 @@
 <!-- Metadaten, die einfach nur angezeigt werden sollen -->
 <xsl:template match="front/title" mode="cms">
   <cms:entry type="title">
-    <xsl:value-of select="."/>
+    <xsl:apply-templates select="node()" mode="navtitle" />
   </cms:entry>
   <xsl:apply-templates mode="cms"/>
 </xsl:template>
+
+<!-- helper for copying heads to toc: copy elements, omit some -->
+<xsl:template match="@*|node()" priority="-1" mode="navtitle">
+  <xsl:copy>
+    <xsl:apply-templates select="@*|node()" mode="navtitle"/>
+  </xsl:copy>  
+</xsl:template>
+      
+<!-- helper for copying heads to toc: convert "br" to space -->
+<xsl:template match="br" mode="navtitle"><xsl:text>&#xA0;</xsl:text></xsl:template>
 
 <xsl:template match="front/author" mode="cms">
   <cms:entry type="author">
@@ -182,7 +192,7 @@
 
 <xsl:template name="createFront">
    <front>
-      <xsl:copy-of select="/etd/front/@*"/>      
+      <xsl:copy-of select="/etd/front/@*"/>
       <xsl:apply-templates select="/etd/front/*"/>
       <xsl:call-template name="TableOfContents"/>
       <xsl:if test="//table[caption]">
@@ -238,20 +248,9 @@
 <!--                                                           -->
 
 <xsl:template match="abbreviation|preface|summary|acknowledgement|declaration|glossary|bibliography|vita" mode="TableOfContents">
-  <li>
-    <link ref="{@id}">
-          <!-- if no head, write out terms for element in config.xml -->
-          <xsl:choose>
-            <xsl:when test="head and not(head='')">
-              <xsl:apply-templates select="head" mode="TableOfContents"/>
-            </xsl:when>
-            <xsl:otherwise>
-              <xsl:variable name="name" select="name()"/>
-              <xsl:value-of select="$VOCABLES/node()[name()=$name]/@*[name()=$LANG]"/>
-            </xsl:otherwise>
-          </xsl:choose>
-    </link>
-  </li>  
+  <xsl:call-template name="toc-entry">
+    <xsl:with-param name="subelements" select="part"/>
+  </xsl:call-template>
 </xsl:template>
 
 <xsl:template match="appendix" mode="TableOfContents">
@@ -314,11 +313,20 @@
     <p>
       <xsl:choose>
       <xsl:when test="$has-label">
-        <link ref="{@id}">
-          <xsl:value-of select="@label"/>
-        </link>
-        <xsl:text>&#xA0;</xsl:text>
+        <xsl:choose>
+        <xsl:when test="@label=''">
+          <link ref="{@id}">
             <xsl:apply-templates select="head" mode="TableOfContents"/>
+          </link>
+        </xsl:when>  
+        <xsl:otherwise>
+          <link ref="{@id}">
+            <xsl:value-of select="@label"/>
+          </link>
+          <xsl:text>&#xA0;</xsl:text>
+          <xsl:apply-templates select="head" mode="TableOfContents"/>
+        </xsl:otherwise>
+        </xsl:choose>
       </xsl:when>
       <xsl:otherwise>
         <link ref="{@id}">
@@ -334,7 +342,7 @@
           </xsl:choose>
         </link>
       </xsl:otherwise>
-      </xsl:choose>     
+      </xsl:choose>
         <xsl:if test="$subelements and not($CONFIG/toc/*[name()=$subname and @indent='no'])">
           <ul>
             <xsl:apply-templates select="$subelements" mode="TableOfContents"/>
@@ -363,12 +371,30 @@
 <!-- Do not print footnotes, endnotes, pagenumbers or brs in heading -->
 
 <xsl:template match="head | caption" mode="TableOfContents">
-  <xsl:for-each select="node()[not(name()='footnote') and not(name()='endnote') and not(name()='pagenumber') and not(name()='br')]">
-    <!--<xsl:value-of select="."/>-->
-    <xsl:apply-templates select="."/>
+  <xsl:for-each select="node()[not(name()='footnote') and not(name()='endnote') and not(name()='pagenumber')]">
+
+    <!-- old version: only copy content of head to toc-head -->
+    <!-- <xsl:value-of select="."/> -->
+    
+    <!-- new: copy elements to toc-head, omit "br" and other elements -->
+    <xsl:apply-templates select="." mode="tochead" />
+    
   </xsl:for-each>
 
 </xsl:template>
+
+<!-- helper for copying heads to toc: copy elements, omit some -->
+<xsl:template match="@*|node()" priority="-1" mode="tochead">
+  <xsl:copy>
+    <xsl:apply-templates select="@*|node()"/>
+  </xsl:copy>
+</xsl:template>
+      
+<!-- helper for copying heads to toc: convert "br" to space -->
+<xsl:template match="br" mode="tochead"><xsl:text>&#xA0;</xsl:text></xsl:template>
+
+<!-- helper for copying heads to toc: omit some elements -->
+<xsl:template match="footnote | endnote | pagenumber" />
 
 <xsl:template match="*" mode="TableOfContents"/>
 

@@ -35,6 +35,7 @@ ARGUMENTS=$*
 XLSTPROCESSOR=org.apache.xalan.processor.TransformerFactoryImpl
 #XLSTPROCESSOR=jd.xml.xslt.trax.TransformerFactoryImpl
 #XLSTPROCESSOR=net.sf.saxon.TransformerFactoryImpl
+#XLSTPROCESSOR=com.icl.saxon.om.DocumentBuilderFactoryImpl # Saxon old
 #XLSTPROCESSOR=org.apache.xalan.xsltc.trax.TransformerFactoryImpl
 #XLSTPROCESSOR=oracle.xml.jaxp.JXSAXTransformerFactory
 

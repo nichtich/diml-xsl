@@ -214,6 +214,9 @@ exclude-result-prefixes="cms">
 </xsl:template>
 
 <!--==Strip additional labels==-->
+<!-- don't strip additional labels anymore -->
+<!-- see module-diml/dean.xsl              -->
+<!--
 <xsl:template match="dean/text()[1]">
   <xsl:choose>
     <xsl:when test="substring(.,1,6)='Dekan:'">
@@ -224,6 +227,7 @@ exclude-result-prefixes="cms">
     </xsl:otherwise>
   </xsl:choose>
 </xsl:template>
+-->
 
 <!--===== copy the rest =====-->
 <xsl:template match="@*|node()">

@@ -213,6 +213,22 @@ exclude-result-prefixes="cms">
 	<xsl:apply-templates/>
 </xsl:template>
 
+<!--== add appendix for endnotes if missing ==-->
+
+<xsl:template match="back">
+<xsl:element name="back">
+   <xsl:call-template name="provide-id" />
+
+   <xsl:if test="/etd/body//endnote and not(appendix[@id='endnoteappendix'])">
+      <appendix id="endnoteappendix">
+         <head>Endnotes</head>
+      </appendix>
+   </xsl:if>
+   <xsl:apply-templates select="@*|node()"/>
+</xsl:element>
+</xsl:template>
+
+
 <!--==Strip additional labels==-->
 <!-- don't strip additional labels anymore -->
 <!-- see module-diml/dean.xsl              -->

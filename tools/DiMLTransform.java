@@ -12,7 +12,6 @@ import org.apache.xpath.XPathAPI;
 
 public class DiMLTransform extends XMLReading {
 
-	//Document dimlDocument = null;
 	String cssFile = null;
 	File diml2cmsFile  = null;
 	File diml2htmlFile = null;
@@ -37,7 +36,6 @@ public class DiMLTransform extends XMLReading {
   public NodeList selectParts(Node document, String xpath) throws TransformerException { 	  
 	  
 	  // get Nodes
-	  //NodeList parts = XPathAPI.selectNodeList(dimlDocument.getDocumentElement(),xpath);
 	  NodeList parts = XPathAPI.selectNodeList(document,xpath);
 	  	
 	  Hashtable names = new Hashtable();
@@ -91,8 +89,8 @@ public class DiMLTransform extends XMLReading {
 		
 		input = new DOMSource(document);
 		
-		//NodeList parts = ist(document,xpath);
-		Element e = (Element)XPathAPI.selectSingleNode(document,"/*"); //dimlDocument.getDocumentElement();
+		//getDocumentElement();
+		Element e = (Element)XPathAPI.selectSingleNode(document,"/*"); 
 		
 		message("transforming:");
     
@@ -152,7 +150,7 @@ public class DiMLTransform extends XMLReading {
 	  	   
 	  	   message("transforming "+resultFile);      		
 	       Transformer transformer = templates.newTransformer();
-	       if(cssFile!=null) transformer.setParameter("CSS-STYLESHEET",cssFile);
+	       if(cssFile!=null) transformer.setParameter("STYLEDIRECTORY",cssFile);
 	       input  = new DOMSource(cmsd);
 	       StreamResult out = new StreamResult(resultFile);
 	       transformer.transform(input, out);	       
@@ -197,7 +195,7 @@ public class DiMLTransform extends XMLReading {
 	 throws TransformerConfigurationException, TransformerException {
 	  message("transforming "+resultFile);      		
 	  Transformer transformer = templates.newTransformer();
-	  if(cssFile!=null) transformer.setParameter("CSS-STYLESHEET",cssFile);
+	  if(cssFile!=null) transformer.setParameter("STYLEDIRECTORY",cssFile);
 	  Source input  = new DOMSource(node);
 	  Result output = new StreamResult(resultFile);
 	  transformer.transform(input, output);
@@ -209,10 +207,6 @@ public class DiMLTransform extends XMLReading {
 
 
   public void action(String[] args)  throws Exception {
-      // modi: 
-		  // -split (xml) (mit xsl-Anweisung und DTD?)
-		  // -cms (xml) (mit xsl-Anweisung) <-notwendig wegen ids!
-	  
     
     // Provide Output Directory
     if( !provideOutputDir(args.length>1 ? args[1] : ".") ) {
@@ -233,34 +227,28 @@ public class DiMLTransform extends XMLReading {
     DOMResult output;
     
     // load DiMLFile
-    String dimlFile = args[0];
-	  message("parsing "+dimlFile);
-    Document dimlDocument = parseDocument(dimlFile);
-    message("parsing done.");
-    
+    File dimlFile = new File(args[0]);
+    if(!dimlFile.exists()) dimlFile = new File(args[0]+".xml");
+    if(!dimlFile.exists()) dimlFile = new File(args[0]+"_xdiml.xml");
+    if(!dimlFile.exists()) {
+      message("xdiml file does not exist!");  
+    }  
+	  
     // load preprocess.xsl
 		message("preprocessing");
 		Templates preprocess = loadXSL(preprocessFile);
     Transformer t = preprocess.newTransformer();
-	  input  = new DOMSource(dimlDocument);	  
-	  //DocumentFragment df = dimlDocument.createDocumentFragment();
- 	  output = new DOMResult(); //(df)
+    input = new StreamSource(dimlFile);
+ 	  output = new DOMResult();
+ 	  message("\ttransforming "+dimlFile);
 	  t.transform(input, output);
-    //dimlDocumentNode = output.getNode();
-    message("preprocessing done.");
+	  message("\tdone.");
     
-    /*Document d2 = dimlDocument.getDOMImplementation.createDocument(
-	    getDoctype() 
-	  );*/
-    //??
-    //dimlDocument.replaceChild(df,dimlDocument);
-    
-    //dimlDocument = new Document(output.getNode(), dimlDocument.getSystemId());
-    
-    message("writing preprocessed file");
+    String preFile = resultDir+File.separator+"-pre.xml";
+    message("preprocessing done (writing to "+preFile+")");
+            
     DOMSource domSource = new DOMSource(output.getNode());
-    StreamResult streamResult = new StreamResult(new FileWriter(resultDir+"/-pre.xml"));
-    //message("writing cms:container "+cmsContainerFile);
+    StreamResult streamResult = new StreamResult(new FileWriter(preFile));
     Transformer serializer = tFactory.newTransformer();
     serializer.setOutputProperty(OutputKeys.ENCODING,"ISO-8859-1");
     serializer.transform(domSource, streamResult);     

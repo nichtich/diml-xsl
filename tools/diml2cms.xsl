@@ -39,10 +39,11 @@
     <cms:entry type="{name(.)}" ref="{@id}">
       <xsl:call-template name="entry-id-attributes"/>
       <!-- does the element have a name or something like this? -->
-      <xsl:if test="head">
-        <!-- QUESTION: why not copy-of? -->
-        <xsl:value-of select="head"/>
-      </xsl:if>
+      <xsl:choose>
+	   <xsl:when test="@label"><xsl:value-of select="@label"/></xsl:when>
+	   <xsl:when test="@start"><xsl:value-of select="@start"/></xsl:when>
+	   <xsl:when test="head"><xsl:value-of select="head"/></xsl:when> <!-- TODO: remove footnotes etc. in head -->
+	 </xsl:choose>
     </cms:entry> 
   </xsl:if>
   <xsl:apply-templates mode="cms"/>
@@ -95,11 +96,16 @@
 	<xsl:param name="selected-part"/>
 	<!-- NUR TEST! NICHT ENDGÜLTIG! -->
 	<xsl:if test="$selected-part/preceding-sibling::*[1]/@id">
-		<cms:entry type="rel-prev" part="{$selected-part/preceding-sibling::*[1]/@id}.html"/>
+		<cms:entry type=":prev" part="{$selected-part/preceding-sibling::*[1]/@id}.html"/>
 	</xsl:if>	
 	<xsl:if test="$selected-part/following-sibling::*[1]/@id">
-		<cms:entry type="rel-next" part="{$selected-part/following-sibling::*[1]/@id}.html"/>
-	</xsl:if>		
+		<cms:entry type=":next" part="{$selected-part/following-sibling::*[1]/@id}.html"/>
+	</xsl:if>
+	<cms:entry type=":first" part="{$selected-part/../*[1]/@id}.html"/>
+	<cms:entry type=":last" part="{$selected-part/../*[last()]/@id}.html"/>
+	<xsl:if test="//back">
+		<cms:entry type=":appendix" part="{//back/@id}.html"/>
+	</xsl:if>
 </xsl:template>
 
 <!--== templates that are functions/tools ==-->

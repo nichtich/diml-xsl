@@ -8,7 +8,6 @@ set DIMLXSL=..
 if exist "%DIMLXSL%\tools\DiMLTransform.bat" goto okHome
 echo The DIMLXSL environment variable is not defined correctly
 echo This environment variable is needed to run this program
-echo 
 goto end
 :okHome
 
@@ -18,6 +17,12 @@ echo Cannot find %DIMLXSL%\tools\setclasspath.bat
 echo This file is needed to run this program
 goto end
 :okSetclasspath
+
+REM echo "%_RUNJAVA%"
+REM if exist "%_RUNJAVA%" goto okJava
+REM echo Please set JAVA_HOME to point to your installation of Java
+REM goto end
+:okJava
 
 rem Do you have Xalan?
 if not exist "%DIMLXSL%\lib\xml-apis.jar" goto noXalan

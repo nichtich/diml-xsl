@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:cms="http://edoc.hu-berlin.de/diml/module/cms">
 
+<xsl:param name="NUMBERING">1</xsl:param>
+
 <xsl:template name="provide-id">
 	<xsl:if test="not(@id)">
 		<xsl:attribute name="id">
@@ -42,14 +44,34 @@
 	</xsl:element>
 </xsl:template>
 
-<xsl:template match="citation">
+<!--xsl:template match="citation">
+</xsl:template-->
+
+<!--TODO: numbering -->
+<xsl:template match="chapter|section|subsection|block|subblock|part">
+	<xsl:variable name="name" select="name()"/>
+	<xsl:element name="{$name}">
+		<xsl:if test="not(@label) and not(@start)">
+			<xsl:attribute name="start">
+				<xsl:variable name="recent-start" select="preceding-sibling::*[name()=$name][@start][1]"/>
+				<xsl:choose>
+					<xsl:when test="$recent-start">
+						<xsl:value-of select="$recent-start/@start+
+						count(preceding-sibling::*[name()=$name])-count($recent-start/preceding-sibling::*[name()=$name])"/>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:value-of select="count(preceding-sibling::*[name()=$name])+1"/>
+					</xsl:otherwise>
+				</xsl:choose>
+			</xsl:attribute>
+		</xsl:if>
+		<xsl:apply-templates select="@*|node()"/>
+	</xsl:element>
 </xsl:template>
 
 <xsl:template match="*">
-	<xsl:copy>
-		
+	<xsl:copy>		
 		<!--xsl:call-template name="provide-id"/-->		
-		
 		<xsl:apply-templates select="@*|node()"/>
 	</xsl:copy>
 </xsl:template>
@@ -73,4 +95,3 @@
 -->
 
 </xsl:stylesheet>
-

@@ -135,7 +135,6 @@
       <td class="nav-parts" colspan="2">
          <form action="" name="navForm">
            <xsl:apply-templates select="cms:entry[@type='front']" mode="link"/>
-           <xsl:apply-templates select="cms:entry[@type='dedication']" mode="navbar"/>
            <xsl:apply-templates select="cms:entry[@type='preface']" mode="link"/>
 
            <xsl:choose>
@@ -175,10 +174,8 @@
            </xsl:choose>
            <xsl:text>&#xA0;</xsl:text>
            
-          <!-- bibliography, declaration ... -->
+          <!-- andere teile: bibliography, declaration ... -->
           <xsl:apply-templates select="cms:entry[@type!='pagenumber' and @type!='chapter' and @type!='frame' and @type!='front' and @type!='preface' and @type!='dedication' and substring(@type,1,1)!=':'][@ref]" mode="navbar"/>
-          
-          <!--xsl:apply-templates select="cms:entry" mode="navbar"/-->
           <br/>
           
           <!-- if citenumbers exists, print citenumbers and no pagenumbers -->
@@ -231,7 +228,8 @@
            <xsl:apply-templates select="cms:entry[@type='chapter']" mode="link"/>
          </xsl:if>-->
          
-         <xsl:apply-templates select="cms:entry[@type!='pagenumber' and @type!='chapter' and @type!='front' and @type!='preface'][@ref]" mode="navbar" />
+         <!-- andere teile: bibliography, declaration ... -->
+         <xsl:apply-templates select="cms:entry[@type!='pagenumber' and @type!='chapter' and @type!='front' and @type!='preface' and @type!='dedication'][@ref]" mode="navbar" />
         </p>
       </td>
     </tr>

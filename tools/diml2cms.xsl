@@ -24,8 +24,11 @@
 <!-- parts of the document that may be content of the container --> 
 <!-- change also in DiMLTransform.java when called from there   -->
 <!-- change also in xsl:template name="createFront" below if element from front is included -->
+<!-- change also in module-cms\html.xsl in the following templates: -->
+<!-- xsl:template match="cms:meta" mode="navigation" -->
+<!-- xsl:template match="cms:meta" mode="navbottom" -->
 
-<xsl:variable name="parts" select="/etd/front|/etd/front/dedication|/etd/body/*|/etd/back/*"/>
+<xsl:variable name="parts" select="/etd/front|/etd/body/*|/etd/back/*"/>
 
 <!--               -->
 <!-- ROOT template -->
@@ -218,8 +221,7 @@
 <xsl:template name="createFront">
    <front>
       <xsl:copy-of select="/etd/front/@*"/>
-      <!-- dediction is an extra part -->
-      <xsl:apply-templates select="/etd/front/*[name()!='dedication']"/>
+      <xsl:apply-templates select="/etd/front/*"/>
       <xsl:call-template name="TableOfContents"/>
       <xsl:if test="//table[caption]">
         <xsl:call-template name="TableOfTables"/>

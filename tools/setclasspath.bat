@@ -4,8 +4,8 @@ rem ---------------------------------------------------------------------------
 
 rem Make sure prerequisite environment variables are set
 if not "%JAVA_HOME%" == "" goto gotJavaHome
-echo The JAVA_HOME environment variable is not defined
-echo This environment variable is needed to run this program
+echo Warning: The JAVA_HOME environment variable is not defined
+echo Try setting this variable if DiMLTranform fails
 goto end
 :gotJavaHome
 if not exist "%JAVA_HOME%\bin\java.exe" goto noJavaHome
@@ -14,11 +14,11 @@ if not exist "%JAVA_HOME%\bin\jdb.exe" goto noJavaHome
 if not exist "%JAVA_HOME%\bin\javac.exe" goto noJavaHome
 goto okJavaHome
 :noJavaHome
-echo The JAVA_HOME environment variable is not defined correctly
+echo Error: The JAVA_HOME environment variable is not defined correctly
 echo This environment variable is needed to run this program
 goto end
-:okJavaHome
 
+:okJavaHome
 rem Set standard CLASSPATH
 rem Note that there are no quotes as we do not want to introduce random
 rem quotes into the CLASSPATH

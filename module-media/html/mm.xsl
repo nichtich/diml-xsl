@@ -26,7 +26,7 @@
 <a>
  <xsl:call-template name="a-name-attribute"/>
  <table class="mm" width="100%" border="0" cellspacing="0" cellpadding="0">
- <xsl:apply-templates select="caption" mode="centeredTable"/>
+ <xsl:apply-templates select="caption" mode="mmcaption"/>
  <tr>
  <td width="15%"></td>
  <td width="70%">
@@ -57,7 +57,7 @@
  </td>
  <td width="15%"></td>
  </tr>
- <xsl:apply-templates select="legend" mode="centeredTable"/>
+ <xsl:apply-templates select="legend" mode="mmlegend"/>
  </table>  
 </a>
 </xsl:template>

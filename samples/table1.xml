@@ -1,6 +1,8 @@
 <!-- example from DocBook TDG -->
 <table frame='all'>
   <caption>Sample Table</caption> <!-- 'title' in DocBook -->
+  <legend>Legend for Table - #1</legend>
+  <legend>Legend for Table - #2</legend>
   <tgroup cols='5' align='left' colsep='1' rowsep='1'>
 <colspec colname='c1'/>
 <colspec colname='c2'/>
@@ -44,4 +46,6 @@
 </row>
 </tbody>
 </tgroup>
+  <legend>Legend for Table - #3</legend>
+  <legend>Legend for Table - #4</legend>
 </table>

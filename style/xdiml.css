@@ -31,7 +31,8 @@ p {
   
 span.pagenumber {
          color: red;
-         font-size: x-small;
+         font-size: xx-small;
+         /*font-size: xx-smaller;*/
   }
   
 blockquote {
@@ -299,11 +300,6 @@ td.example {
 
 h3.footnoteheader {
 
-}
-
-p.combinedPagenumbersText {
-         font-size: xx-smaller;
-         color: grey;
 }
 
 

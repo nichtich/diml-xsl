@@ -30,7 +30,7 @@
          <table width="100%" border="0">
           <tr>
             <td width="100%"><hr/></td>
-            <td><xsl:call-template name="pagenumber-simple"/>&#xa0;&#8595;</td>
+            <td><xsl:call-template name="pagenumber-simple"/></td>
           </tr>  
         </table>
      </xsl:when>
@@ -85,7 +85,7 @@
 		  	<xsl:apply-templates select="." mode="number"/>
 		</xsl:otherwise>
 	</xsl:choose>
-  	<xsl:text>]</xsl:text>
+  	<xsl:text>]&#8595;</xsl:text> <!--&#xa0;-->
   </span>
 </xsl:template>
 

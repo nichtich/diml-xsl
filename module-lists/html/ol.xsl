@@ -11,10 +11,10 @@
          <td width="100%"><hr/></td>
          <xsl:choose>
            <xsl:when test="count(descendant::pagenumber) = 1">
-              <td><p class="combinedPagenumbersText"><nobr>[ <xsl:value-of select="$VOCABLES/pages/@*[name()=$LANG]" />: <xsl:apply-templates select="descendant::pagenumber[1]" mode="pagenumber-combined" /> ]</nobr></p></td>
+              <td><span class="pagenumber"><nobr>[ <xsl:value-of select="$VOCABLES/page/@*[name()=$LANG]" />: <xsl:apply-templates select="descendant::pagenumber[1]" mode="pagenumber-combined" /> ]&#8595;</nobr></span></td>
            </xsl:when>
            <xsl:otherwise>
-              <td><p class="combinedPagenumbersText"><nobr>[ <xsl:value-of select="$VOCABLES/pages/@*[name()=$LANG]" />: <xsl:apply-templates select="descendant::pagenumber[1]" mode="pagenumber-combined" /> - <xsl:apply-templates select="descendant::pagenumber[position()=last()]" mode="pagenumber-combined" /> ]</nobr></p></td>
+              <td><span class="pagenumber"><nobr>[ <xsl:value-of select="$VOCABLES/pages/@*[name()=$LANG]" />: <xsl:apply-templates select="descendant::pagenumber[1]" mode="pagenumber-combined" /> - <xsl:apply-templates select="descendant::pagenumber[position()=last()]" mode="pagenumber-combined" /> ]&#8595;</nobr></span></td>
            </xsl:otherwise>
          </xsl:choose>
        </tr>

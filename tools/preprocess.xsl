@@ -231,10 +231,20 @@ exclude-result-prefixes="cms">
 <!--== helper for add bibliographie for endnotes if missing ==-->
 
 <xsl:template match="endnote">
-  <link id="{concat(generate-id(),'link')}"></link>
-    <link ref="{generate-id()}">
-      <xsl:apply-templates select="." mode="label"/>
-    </link>  
+<xsl:choose>
+
+  <xsl:when test="$ENDNOTESBIB='true'">
+     <link id="{concat(generate-id(),'link')}"></link>
+       <link ref="{generate-id()}">
+         <xsl:apply-templates select="." mode="label"/>
+       </link>  
+   </xsl:when>
+
+   <xsl:otherwise>
+   <xsl:copy-of select=".">
+   </xsl:copy-of>
+   </xsl:otherwise>
+</xsl:choose>
 </xsl:template>
 
 <!--== helper for add bibliographie for endnotes if missing ==-->
@@ -268,15 +278,16 @@ exclude-result-prefixes="cms">
 
 <xsl:template match="back">
 <xsl:element name="back">
-<!--<xsl:value-of select="$ENDNOTESBIB"/>-->
-
    <xsl:call-template name="provide-id" />
+
+<xsl:if test="$ENDNOTESBIB='true'">
    <xsl:if test="/etd/body//endnote and not(bibliography[@id='endnotebibliography'])">
       <bibliography id="endnotebibliography">
         <head><xsl:value-of select="$VOCABLES/bibliography/@*[name()=$LANG]" /></head>
         <xsl:apply-templates select="//endnote" mode="foot"/>
       </bibliography>
    </xsl:if>
+</xsl:if>
 
    <!-- other elements in back -->
    <xsl:apply-templates select="@*|node()"/>
@@ -303,7 +314,7 @@ exclude-result-prefixes="cms">
 <!--===== copy the rest =====-->
 <xsl:template match="@*|node()">
 	<xsl:copy>		
-		<xsl:if test="parent::back | parent::body">
+		<xsl:if test="parent::back | parent::body | parent:: appendix">
 			<xsl:call-template name="provide-id">
 				<!--xsl:with-param name=""/>-->
 			</xsl:call-template>
@@ -311,5 +322,18 @@ exclude-result-prefixes="cms">
 		<xsl:apply-templates select="@*|node()"/>
 	</xsl:copy>
 </xsl:template>
+
+<!-- element in "front" that need an id and is not otherwise handled -->
+<xsl:template match="dedication">
+	<xsl:copy>		
+		<xsl:call-template name="provide-id"/>
+		<xsl:apply-templates select="@*|node()"/>
+	</xsl:copy>
+</xsl:template>
+
+<!-- these elements in "front" don't need an id, because there is no   -->
+<!-- link to them. and because creating a "head" in the html-version   -->
+<!-- is not mandatory bringing an id to html would be difficult anyway -->
+<!-- copyright, grant, abstract                                        -->
 
 </xsl:stylesheet>

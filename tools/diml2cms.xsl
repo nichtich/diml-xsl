@@ -303,7 +303,7 @@
       </xsl:otherwise>
       </xsl:choose>     
     <xsl:if test="$subelements and not($CONFIG/toc/*[name()=$subname and @indent='no'])">
-       <ul>        
+       <ul>
         <xsl:apply-templates select="$subelements" mode="TableOfContents"/>
       </ul>
     </xsl:if>

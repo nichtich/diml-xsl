@@ -183,14 +183,31 @@
 <xsl:template match="chapter | frame">
 	<xsl:variable name="name" select="name()"/>
 	<xsl:copy>
-		<xsl:call-template name="provide-id">
-			<xsl:with-param name="suggest">
-				<xsl:value-of select="name()" />
-				<xsl:value-of select="count(preceding-sibling::*[name()=$name]) + 1" />
-			</xsl:with-param>
-		</xsl:call-template>
-		<xsl:call-template name="numbering"/>
-		<xsl:apply-templates select="@*|node()"/>
+          <xsl:choose>
+            <!-- suggest name for ID of chapter or frame       -->
+            <!-- if chapter and frames exists, chapter ID will -->
+            <!-- be prefixed with 'frame' and number of frame  -->
+            <xsl:when test="name(.)='chapter' and //frame"> 
+              <xsl:call-template name="provide-id">
+                    <xsl:with-param name="suggest">
+                            <xsl:text>frame</xsl:text>
+                            <xsl:value-of select="count(ancestor::frame/preceding-sibling::*[name()='frame']) + 1" />
+                            <xsl:value-of select="name()" />
+                            <xsl:value-of select="count(preceding-sibling::*[name()=$name]) + 1" />
+                    </xsl:with-param>
+              </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:call-template name="provide-id">
+                <xsl:with-param name="suggest">
+                        <xsl:value-of select="name()" />
+                        <xsl:value-of select="count(preceding-sibling::*[name()=$name]) + 1" />
+                </xsl:with-param>
+              </xsl:call-template>
+            </xsl:otherwise>
+          </xsl:choose>
+          <xsl:call-template name="numbering"/>
+          <xsl:apply-templates select="@*|node()"/>
 	</xsl:copy>
 </xsl:template>
 

@@ -19,7 +19,7 @@
      </a>
   </p>
   <xsl:if test="tgroup/@cols &lt; 1">
-    <xsl:message terminate="yes">tgroup/@cols &lt; 1!</xsl:message>
+    <xsl:message terminate="yes">This is stylesheet module-CALStable/html.xsl speaking. Error: tgroup/@cols &lt; 1!</xsl:message>
   </xsl:if>
   <xsl:apply-templates select="*[not(self::caption or self::legend)]" />
   <p class="tablelegend">

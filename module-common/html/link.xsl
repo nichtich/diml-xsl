@@ -5,9 +5,10 @@
 
 <!-- TODO: check for multiple ID and stupid link targets : warning! -->
 <xsl:template name="link.target">
-	<xsl:param name="object" select="."/>	
-  <xsl:if test="name($object)='cms:entry'">
+  <xsl:param name="object" select="."/>	
+  <xsl:if test="name($object)='cms:entry'">    
     <xsl:value-of select="$object/@part"/>
+    <xsl:value-of select="$EXT"/>
   </xsl:if>
   <xsl:text>#</xsl:text>
   <xsl:value-of select="$object/@id"/>

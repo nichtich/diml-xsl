@@ -5,6 +5,8 @@
   exclude-result-prefixes="cms"
 >
 
+<xsl:variable name="EXT">.html</xsl:variable>
+
 <xsl:template match="cms:container">
   <xsl:apply-templates select="cms:document[1]"/>
 </xsl:template>
@@ -46,51 +48,51 @@
 </xsl:template>
 
 <xsl:template match="cms:entry[@type=':start']" mode="html-head">
-  <link rel="start" href="{@part}"/>
+  <link rel="start" href="{@part}{$EXT}"/>
 </xsl:template>
 
 <xsl:template match="cms:entry[@type=':contents']" mode="html-head">
-  <link rel="contents" href="{@part}"/>
+  <link rel="contents" href="{@part}{$EXT}"/>
 </xsl:template>
 
 <xsl:template match="cms:entry[@type=':first']" mode="html-head">
-  <link rel="first" href="{@part}"/>
+  <link rel="first" href="{@part}{$EXT}"/>
 </xsl:template>
 
 <xsl:template match="cms:entry[@type=':prev']" mode="html-head">
-  <link rel="prev" href="{@part}"/>
+  <link rel="prev" href="{@part}{$EXT}"/>
 </xsl:template>
 
 <xsl:template match="cms:entry[@type=':next']" mode="html-head">
-  <link rel="next" href="{@part}"/>
+  <link rel="next" href="{@part}{$EXT}"/>
 </xsl:template>
 
 <xsl:template match="cms:entry[@type=':last']" mode="html-head">
-  <link rel="last" href="{@part}"/>
+  <link rel="last" href="{@part}{$EXT}"/>
 </xsl:template>
 
 <xsl:template match="cms:entry[@type=':glossary']" mode="html-head">
-  <link rel="glossary" href="{@part}"/>
+  <link rel="glossary" href="{@part}{$EXT}"/>
 </xsl:template>
 
 <xsl:template match="cms:entry[@type=':appendix']" mode="html-head">
-  <link rel="appendix" href="{@part}"/>
+  <link rel="appendix" href="{@part}{$EXT}"/>
 </xsl:template>
 
 <xsl:template match="cms:entry[@type=':copyright']" mode="html-head">
-  <link rel="copyright" href="{@part}"/>
+  <link rel="copyright" href="{@part}{$EXT}"/>
 </xsl:template>
 
 <xsl:template match="cms:entry[@type=':author']" mode="html-head">
-  <link rel="author" href="{@part}"/>
+  <link rel="author" href="{@part}{$EXT}"/>
 </xsl:template>
 
 <xsl:template match="cms:entry[@type=':help']" mode="html-head">
-  <link rel="help" href="{@part}"/>
+  <link rel="help" href="{@part}{$EXT}"/>
 </xsl:template>
 
 <xsl:template match="cms:entry[@type=':search']" mode="html-head">
-  <link rel="search" href="{@part}"/>
+  <link rel="search" href="{@part}{$EXT}"/>
 </xsl:template>
 
 <xsl:template match="cms:entry" mode="label">
@@ -128,12 +130,14 @@
          <xsl:if test="cms:entry[@type='frame']">
            <xsl:value-of select="$VOCABLES/frame/@*[name()=$LANG]" />: <xsl:apply-templates select="cms:entry[@type='frame']" mode="link"/>
          </xsl:if>                  
-         <xsl:if test="cms:entry[@type='pagenumber']">
-      	 <xsl:call-template name="pagenumbers-nav"/>
-         </xsl:if>         
          <!-- bibliography, declaration ... -->
-        <xsl:apply-templates select="cms:entry[@type!='pagenumber' and @type!='chapter' and @type!='frame' and @type!='front' and @type!='preface'][@ref]" mode="navbar"/>
+        <xsl:apply-templates select="cms:entry[@type!='pagenumber' and @type!='chapter' and @type!='frame' and @type!='front' and @type!='preface' and substring(@type,1,1)!=':'][@ref]" mode="navbar"/>
         <!--xsl:apply-templates select="cms:entry" mode="navbar"/-->
+        <br/>
+        <xsl:if test="cms:entry[@type='pagenumber']">
+      	 <xsl:call-template name="pagenumbers-nav"/>
+      	 <xsl:apply-templates select="cms:entry[@type=':contents']" mode="navbar"/>
+         </xsl:if>                 
          </form>
       </td>
     </tr>
@@ -184,19 +188,19 @@
 
 <!--navbar-->
 <xsl:template match="cms:entry[@type=':next']" mode="navbar">
-<xsl:text>[</xsl:text><a href="{@part}"><xsl:value-of select="$VOCABLES/next/@*[name()=$LANG]" /></a>&#xA0;
+<xsl:text>[</xsl:text><a href="{@part}{$EXT}"><xsl:value-of select="$VOCABLES/next/@*[name()=$LANG]" /></a>&#xA0;
 </xsl:template>
 
 <xsl:template match="cms:entry[@type=':prev']" mode="navbar">
-<xsl:text>[</xsl:text><a href="{@part}"><xsl:value-of select="$VOCABLES/prev/@*[name()=$LANG]" /></a>&#xA0;<xsl:text>]</xsl:text>
+<xsl:text>[</xsl:text><a href="{@part}{$EXT}"><xsl:value-of select="$VOCABLES/prev/@*[name()=$LANG]" /></a>&#xA0;<xsl:text>]</xsl:text>
 </xsl:template>
 
 <xsl:template match="cms:entry[@type=':first']" mode="navbar">
-<xsl:text>[</xsl:text><a href="{@part}"><xsl:value-of select="$VOCABLES/first/@*[name()=$LANG]" /></a>&#xA0;<xsl:text>]</xsl:text>
+<xsl:text>[</xsl:text><a href="{@part}{$EXT}"><xsl:value-of select="$VOCABLES/first/@*[name()=$LANG]" /></a>&#xA0;<xsl:text>]</xsl:text>
 </xsl:template>
 
 <xsl:template match="cms:entry[@type=':last']" mode="navbar">
-<xsl:text>[</xsl:text><a href="{@part}"><xsl:value-of select="$VOCABLES/last/@*[name()=$LANG]" /></a>&#xA0;<xsl:text>]</xsl:text>
+<xsl:text>[</xsl:text><a href="{@part}{$EXT}"><xsl:value-of select="$VOCABLES/last/@*[name()=$LANG]" /></a>&#xA0;<xsl:text>]</xsl:text>
 </xsl:template>
 
 <!--==== Page navigation with Javascript =========================-->
@@ -206,7 +210,8 @@
 		<xsl:attribute name="value">
 			<xsl:if test="@part and name(key('id',@ref))='cms:entry'">        
 				<xsl:value-of select="@part"/>
-		     </xsl:if>    
+				<xsl:value-of select="$EXT"/>
+		     </xsl:if>  
 		      <xsl:text>#</xsl:text>
 	      <xsl:value-of select="@ref"/>
 		</xsl:attribute>
@@ -214,27 +219,19 @@
 	</option>
 </xsl:template>
 
-<!-- there is still a bug (some pages multiple/some missing) -->
 <xsl:template name="pagenumbers-nav">
-	<!--Seiten: <xsl:apply-templates select="cms:entry[@type='pagenumber']" mode="link"/>-->
-	<!--form method="get"
-	 action="javascript:self.location.href=document.pagenumForm.pagenumber.value;void(0);" name="pagenumForm"-->
-		<!--input type="submit" value="Gehe zu Seite:"/-->
-           <xsl:value-of select="$VOCABLES/page/@*[name()=$LANG]" /><xsl:text>:</xsl:text>
-		<select name="pagenumber" onchange="self.location.href=document.navForm.pagenumber.value;void(0);">
-		<!-- 		
-		onChange="document.pagenumForm.submit();">
--->
-			<xsl:apply-templates select="cms:entry[@type='pagenumber']" mode="nav-form"/>			
-		</select>
-	<!--/form-->
+  <xsl:value-of select="$VOCABLES/page/@*[name()=$LANG]" /><xsl:text>:</xsl:text>
+  <select name="pagenumber" onchange="self.location.href=document.navForm.pagenumber.value;void(0);">
+    <xsl:apply-templates select="cms:entry[@type='pagenumber']" mode="nav-form"/>			
+  </select>
 </xsl:template>
 
 <!-- create a link for a cms:entry element.
 The name of the link will be the content of cms:entry or an @type called element in $VOCABLES -->
 <xsl:template match="cms:entry" mode="link">
-	<xsl:param name="before"> [</xsl:param>
-	<xsl:param name="after">] </xsl:param>	
+  <xsl:param name="before"> [</xsl:param>
+  <xsl:param name="after">] </xsl:param>	
+  <xsl:param name="type" select="current()/@type"/>
 	
   <xsl:param name="LABEL">
     <xsl:choose>
@@ -242,7 +239,7 @@ The name of the link will be the content of cms:entry or an @type called element
         <xsl:value-of select="."/>
       </xsl:when>
       <xsl:otherwise>
-        <xsl:value-of select="$VOCABLES/*[name()=current()/@type]/@*[name()=$LANG]" />
+        <xsl:value-of select="$VOCABLES/*[name()=$type]/@*[name()=$LANG]" />
       </xsl:otherwise>
     </xsl:choose>    
   </xsl:param>
@@ -251,6 +248,7 @@ The name of the link will be the content of cms:entry or an @type called element
     <xsl:attribute name="href">
       <xsl:if test="@part and name(key('id',@ref))='cms:entry'">        
         <xsl:value-of select="@part"/>
+        <xsl:value-of select="$EXT"/>
       </xsl:if>    
       <xsl:text>#</xsl:text>
       <xsl:value-of select="@ref"/>
@@ -264,8 +262,10 @@ The name of the link will be the content of cms:entry or an @type called element
   <span class="nav-title"><xsl:value-of select="."/></span>
 </xsl:template>
 
-<xsl:template match="cms:entry[@type='author']">
-  <span class="nav-author"><xsl:value-of select="."/>: </span>
+<xsl:template match="cms:entry[@type=':contents']" mode="navbar">
+  <xsl:apply-templates select="." mode="link">
+    <xsl:with-param name="type" select="_contents"/>
+  </xsl:apply-templates>  
 </xsl:template>
 
 <!-- Create a link in the navigation bar for each of this cms:entry elements -->

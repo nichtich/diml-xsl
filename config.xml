@@ -13,11 +13,11 @@ sie alle möglichen Angaben zur Steuerung der Styles -->
   <!-- before and after label if there is no content -->
   <link to="citation" before="[" after="]"/>
 
-  <pagenumber before="[" between=" - " after="&#8595;]" lang="en"/>
-  <pagenumber before="[" between=" - " after="&#8595;]" lang="de"/>  
+  <pagenumber before="[page&#xA0;" between="&#xA0;-&#xA0;" after="&#8595;]" lang="en"/>
+  <pagenumber before="[Seite&#xA0;" before2="[Seiten " between="&#xA0;-&#xA0;" after="&#8595;]" lang="de"/>  
    
   <!-- Table of contents -->  
-  <toc>
+  <toc generate="yes">
     <title lang="de">Inhaltsverzeichnis</title>
     <title lang="de">Table of contents</title>        
     <chapter hidelabel="no" indent="yes"/>
@@ -91,7 +91,10 @@ sie alle möglichen Angaben zur Steuerung der Styles -->
     <subblock de="" en="" />
     <part de="" en="" />
 
-    <!-- Navigation in module-cms -->
+	<!-- TOC -->
+	<_contents de="Inhaltsverzeichnis" en="contents"/>
+	
+	<!-- Navigation in module-cms -->
     <next de="Nächster Teil" en="Next" />
     <prev de="Vorheriger Teil" en="Previous" />
     <first de="Erster Teil" en="First" />

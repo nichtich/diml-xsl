@@ -11,6 +11,7 @@ exclude-result-prefixes="cms">
 
 <xsl:key name="id" match="*" use="@id"/>
 
+<!--== add id attribute if missing ==-->
 <xsl:template name="provide-id">
 	<xsl:param name="suggest"/>
 	<xsl:attribute name="id">
@@ -28,6 +29,7 @@ exclude-result-prefixes="cms">
 	</xsl:attribute>	
 </xsl:template>
 
+<!--== convert entity references in <mm> into file references ==-->
 <xsl:template name="entity-to-filename">
 	<xsl:param name="file" select="unparsed-entity-uri(@entity)"/>
 	<xsl:choose>
@@ -42,7 +44,7 @@ exclude-result-prefixes="cms">
 	</xsl:choose>
 </xsl:template>
 
-
+<!--== add missing pagenumber labels ==-->
 <xsl:template match="pagenumber">
 	<pagenumber>
 		<xsl:call-template name="provide-id"/>
@@ -102,9 +104,17 @@ exclude-result-prefixes="cms">
 			<xsl:with-param name="suggest">front</xsl:with-param>
 		</xsl:call-template>
 		<xsl:apply-templates select="@*|node()"/>	
+		<!-- TODO: if there are no chapters etc. this will result in an error (empty list)! -->
+		<!--xsl:if test="$CONFIG/toc[@generate='yes']">
+		  <p>
+		    <freehead id=":contents"><xsl:value-of select="$CONFIG/toc/title[@lang=$LANG]"/></freehead>
+		    <ul>		    	 
+		      <xsl:apply-templates select="/*" mode="toc"/>
+		    </ul> 
+		  </p>
+		</xsl:if-->
 	</xsl:copy>		
 </xsl:template>
-
 
 <xsl:template match="section | subsection | block | subblock | part">
 	<xsl:copy>
@@ -135,6 +145,45 @@ exclude-result-prefixes="cms">
 	</xsl:copy>
 </xsl:template>
 
+<!--== Table of contents ==-->
+<!--xsl:template match="etd" mode="toc">
+  <xsl:apply-templates select="body/*" mode="toc"/>
+  <xsl:apply-templates select="back/*" mode="toc"/>
+</xsl:template>
+
+<xsl:template match="*" mode="toc">
+  <xsl:variable name="myConfig" select="$CONFIG/toc/*[name()=current()/name()]"/>
+  <xsl:if test="$myConfig">
+    <li>
+    </li>
+    <xsl:choose>
+      <xsl:when test="$myConfig/@indent='yes'">
+      </xsl:when>
+    </xsl:choose>
+  </xsl:if>
+</xsl:template>
+
+<xsl:template match="section" mode="toclabel">
+  <xsl:variable name="myConfig" select="$CONFIG/toc/*[name()=current()/name()]"/>
+
+</xsl:template>
+
+    <chapter hidelabel="no" indent="yes"/>
+    <section hidelabel="no" indent="yes"/>
+
+<xsl:template match="*" mode="toc"/>
+
+<xsl:template match="*" mode="toclabel">
+  <link ref="{@id}">
+    <xsl:if test="@label and not($CONFIG/toc/*[name()=$name and @hidelabel='yes'])">
+	  		<xsl:value-of select="@label"/>
+	  		<xsl:text>&#xA0;</xsl:text>
+    </xsl:if>	
+    <xsl:apply-templates select="head" mode="TableOfContents"/>
+  </link>
+</xsl:template-->
+
+<!--== Test color names ==-->
 <xsl:template match="em/@color">
   <xsl:copy/>
   <xsl:if test="translate(.,'0123456789ABCDEabcdef','FFFFFFFFFFFFFFFFFFFFF')!='#FFFFFF'">
@@ -162,6 +211,18 @@ exclude-result-prefixes="cms">
 <!-- no p around single citations in bibliography -->
 <xsl:template match="bibliography/p[citation and count(*)=1 and normalize-space(text())='']">
 	<xsl:apply-templates/>
+</xsl:template>
+
+<!--==Strip additional labels==-->
+<xsl:template match="dean/text()[1]">
+  <xsl:choose>
+    <xsl:when test="substring(.,1,6)='Dekan:'">
+      <xsl:value-of select="substring(.,7)"/>    
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:value-of select="."/>
+    </xsl:otherwise>
+  </xsl:choose>
 </xsl:template>
 
 <!--===== copy the rest =====-->

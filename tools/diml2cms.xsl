@@ -11,6 +11,8 @@
 
 <xsl:output method="xml" indent="yes"/>
 
+<xsl:key name="id" match="*" use="@id"/>
+
 <!-- id of the element we want to see -->
 <xsl:param name="SELECTID"/>
 
@@ -32,6 +34,11 @@
     	No SELECTID or element of SELECTID=<xsl:value-of select="$SELECTID"/> not found!
     </xsl:message>
   </xsl:if>
+  <xsl:if test="key('id',':toc') or key('id',':toc-media') or key('id',':toc-tables') or key('id',':toc-examples')">
+  	<xsl:message terminate="yes">
+  	 id value :toc, :toc-media, :toc-tables or :toc-examples already set!
+  	</xsl:message>
+  </xsl:if>  
     
   <cms:container xmlns:cms="http://edoc.hu-berlin.de/diml/module/cms">
     <cms:document>
@@ -137,6 +144,16 @@
 		<cms:entry type=":appendix" part="{//back/@id}.html"/>
 	</xsl:if-->
 	<cms:entry type=":lang"><xsl:value-of select="$LANG"/></cms:entry>
+     <!--cms:entry type=":toc" part="" ref=":toc"/-->
+	
+	<cms:entry type=":contents" ref=":contents">
+		<xsl:if test="$SELECTID != /etd/front/@id">
+		  <xsl:attribute name="id">:contents</xsl:attribute>
+		  <xsl:attribute name="part"><xsl:value-of select="/etd/front/@id"/></xsl:attribute>
+		</xsl:if>		
+		<xsl:value-of select="$CONFIG/toc/title[@lang=$LANG]"/>
+	</cms:entry>
+	
 </xsl:template>
 
 <!--===============================================================-->
@@ -145,51 +162,45 @@
     		<xsl:copy-of select="/etd/front/@*"/>		
 		<xsl:apply-templates select="/etd/front/*"/>
     		<xsl:call-template name="TableOfContents"/>
-    		<xsl:if test="//table">
+    		<xsl:if test="//table[caption]">
 			<xsl:call-template name="TableOfTables"/>
 		</xsl:if>
-		<xsl:if test="//im | //mm">
+		<xsl:if test="//im[caption] | //mm[caption]">
 			<xsl:call-template name="TableOfMedias"/>
 		</xsl:if>	
-		<xsl:if test="//example">
+		<xsl:if test="//example[caption]">
 			<xsl:call-template name="TableOfExamples"/>
 		</xsl:if>	
     	</front>	    		
 </xsl:template>
 
 <!--== Create Tables ==-->
-<xsl:variable name="TOC_DEPTH">99</xsl:variable>
-
 <!-- TODO: bibliography mit mehreren parts -->
   
 <xsl:template name="TableOfContents">
-	<freehead><xsl:value-of select="$CONFIG/toc/title[@lang=$LANG]"/></freehead>
+	<freehead id=":contents"><xsl:value-of select="$CONFIG/toc/title[@lang=$LANG]"/></freehead>
     	<ul>
-     	<xsl:apply-templates select="/etd/body/*" mode="TableOfContents">
-    			<xsl:with-param name="toc-depth" select="$TOC_DEPTH"/>
-		</xsl:apply-templates>
-      	<xsl:apply-templates select="/etd/back/*" mode="TableOfContents">
-    			<xsl:with-param name="toc-depth" select="$TOC_DEPTH"/>
-		</xsl:apply-templates>
+     	<xsl:apply-templates select="/etd/body/*" mode="TableOfContents"/>
+      	<xsl:apply-templates select="/etd/back/*" mode="TableOfContents"/>
 	</ul>	
 </xsl:template>
 
 <xsl:template name="TableOfTables">
-	<freehead><xsl:value-of select="$VOCABLES/toc-tables/@*[name()=$LANG]"/></freehead>
+	<freehead id=":toc-tables"><xsl:value-of select="$VOCABLES/toc-tables/@*[name()=$LANG]"/></freehead>
 	<ul>
       	<xsl:apply-templates select="//table" mode="TableOfContents"/>
 	</ul>
 </xsl:template>
 
 <xsl:template name="TableOfMedias">
-	<freehead><xsl:value-of select="$VOCABLES/toc-media/@*[name()=$LANG]"/></freehead>
+	<freehead id=":toc-media"><xsl:value-of select="$VOCABLES/toc-media/@*[name()=$LANG]"/></freehead>
 	<ul>
       	<xsl:apply-templates select="//mm" mode="TableOfContents"/>
 	</ul>
 </xsl:template>
 
 <xsl:template name="TableOfExamples">
-	<freehead><xsl:value-of select="$VOCABLES/toc-examples/@*[name()=$LANG]"/></freehead>
+	<freehead id=":toc-examples"><xsl:value-of select="$VOCABLES/toc-examples/@*[name()=$LANG]"/></freehead>
 	<ul>
       	<xsl:apply-templates select="//example" mode="TableOfContents"/>
 	</ul>
@@ -204,102 +215,85 @@
 </xsl:template>
 
 <xsl:template match="resources" mode="TableOfContents">
-  <xsl:param name="toc-depth">0</xsl:param>
   <xsl:call-template name="toc-entry">
-    <xsl:with-param name="toc-depth" select="$toc-depth"/>
     <xsl:with-param name="subelements" select="part"/>
   </xsl:call-template>
 </xsl:template>
 
 <xsl:template match="appendix" mode="TableOfContents">
-  <xsl:param name="toc-depth">0</xsl:param>
   <xsl:call-template name="toc-entry">
-    <xsl:with-param name="toc-depth" select="$toc-depth"/>
     <xsl:with-param name="subelements" select="bibliography|resources|glossary|appendix|abbreviation|part"/>
   </xsl:call-template>
 </xsl:template>
 
 <xsl:template match="frame" mode="TableOfContents">
-  <xsl:param name="toc-depth">0</xsl:param>
   <xsl:call-template name="toc-entry">
-    <xsl:with-param name="toc-depth" select="$toc-depth"/>
     <xsl:with-param name="subelements" select="part|chapter"/>
   </xsl:call-template>
 </xsl:template>
 
 <xsl:template match="chapter" mode="TableOfContents">
-  <xsl:param name="toc-depth">0</xsl:param>
   <xsl:call-template name="toc-entry">
-    <xsl:with-param name="toc-depth" select="$toc-depth"/>
     <xsl:with-param name="subelements" select="section"/>
   </xsl:call-template>
 </xsl:template>
 
 <xsl:template match="section" mode="TableOfContents">
-  <xsl:param name="toc-depth">0</xsl:param>
   <xsl:call-template name="toc-entry">
-    <xsl:with-param name="toc-depth" select="$toc-depth"/>
     <xsl:with-param name="subelements" select="subsection"/>
   </xsl:call-template>
 </xsl:template>
 
 <xsl:template match="subsection" mode="TableOfContents">
-  <xsl:param name="toc-depth">0</xsl:param>
   <xsl:call-template name="toc-entry">
-    <xsl:with-param name="toc-depth" select="$toc-depth"/>
     <xsl:with-param name="subelements" select="block"/>
   </xsl:call-template>
 </xsl:template>
 
 <xsl:template match="block" mode="TableOfContents">
-  <xsl:param name="toc-depth">0</xsl:param>
   <xsl:call-template name="toc-entry">
-    <xsl:with-param name="toc-depth" select="$toc-depth"/>
     <xsl:with-param name="subelements" select="subblock"/>
   </xsl:call-template>
 </xsl:template>
 
 <xsl:template match="subblock|part|resources" mode="TableOfContents">
-  <xsl:param name="toc-depth">0</xsl:param>
   <xsl:call-template name="toc-entry">
-    <xsl:with-param name="toc-depth" select="$toc-depth"/>
     <xsl:with-param name="subelements" select="part"/>
   </xsl:call-template>
 </xsl:template>
 
 <xsl:template name="toc-entry">
-  <xsl:param name="toc-depth">0</xsl:param>
   <xsl:param name="subelements"/>
   
   <xsl:variable name="name" select="name()"/>  
   <xsl:variable name="subname" select="name($subelements[1])"/>
+  <xsl:variable name="has-label" select="@label and not($CONFIG/toc/*[name()=$name and @hidelabel='yes'])"/>
   
   <li>
-  	<p>
-  	<link ref="{@id}">
-  		<xsl:if test="@label and not($CONFIG/toc/*[name()=$name and @hidelabel='yes'])">
-	  		<xsl:value-of select="@label"/>
-	  		<xsl:text>&#xA0;</xsl:text>
-	  	</xsl:if>	
-  		<xsl:apply-templates select="head" mode="TableOfContents"/>
-  	</link>
-    <xsl:if test="$toc-depth>0 and $subelements and not($CONFIG/toc/*[name()=$subname and @indent='no'])">
+    <p>
+      <xsl:choose>
+	   <xsl:when test="$has-label">
+	     <link ref="{@id}">
+	       <xsl:value-of select="@label"/>	  	
+	     </link>
+     	<xsl:text>&#xA0;</xsl:text>
+     	<xsl:apply-templates select="head" mode="TableOfContents"/>
+	   </xsl:when>
+	   <xsl:otherwise>
+    	     <link ref="{@id}">
+  		  <xsl:apply-templates select="head" mode="TableOfContents"/>
+    	     </link>
+	   </xsl:otherwise>
+      </xsl:choose>	  
+    <xsl:if test="$subelements and not($CONFIG/toc/*[name()=$subname and @indent='no'])">
     	<ul>        
-        <xsl:apply-templates select="$subelements" mode="TableOfContents">
-          <xsl:with-param name="toc-depth">
-            <xsl:value-of select="$toc-depth - 1"/>
-          </xsl:with-param>
-        </xsl:apply-templates>
+        <xsl:apply-templates select="$subelements" mode="TableOfContents"/>
       </ul>
     </xsl:if>
     </p>
   </li>  
-    <xsl:if test="$toc-depth>0 and $subelements and $CONFIG/toc/*[name()=$subname and @indent='no']">
-        <xsl:apply-templates select="$subelements" mode="TableOfContents">
-          <xsl:with-param name="toc-depth">
-            <xsl:value-of select="$toc-depth - 1"/>
-          </xsl:with-param>
-        </xsl:apply-templates>
+    <xsl:if test="$subelements and $CONFIG/toc/*[name()=$subname and @indent='no']">
+        <xsl:apply-templates select="$subelements" mode="TableOfContents"/>
     </xsl:if>  
 </xsl:template>
 
@@ -315,11 +309,7 @@
 	</xsl:if>
 </xsl:template>
 
-<xsl:template match="head" mode="TableOfContents">
-	<xsl:value-of select="."/>
-</xsl:template>
-
-<xsl:template match="caption" mode="TableOfContents">
+<xsl:template match="head | caption" mode="TableOfContents">
 	<xsl:value-of select="."/>
 </xsl:template>
 
@@ -337,8 +327,7 @@
         <xsl:value-of select="@id"/>
       </xsl:attribute>
       <xsl:attribute name="part">
-      	  <!-- FIXME: this will only work if we want to create html-files! -->
-        <xsl:value-of select="concat($part,'.html')"/>
+        <xsl:value-of select="$part"/>
       </xsl:attribute>                  
   </xsl:if>
 </xsl:template>
@@ -352,6 +341,15 @@
     </xsl:message>
   </xsl:if>
 </xsl:template>
+
+<!--===============================================================-->
+<xsl:template match="*" mode="strip-ids">
+	<xsl:copy>		
+		<xsl:apply-templates select="@*|node()" mode="strip-id"/>
+	</xsl:copy>
+</xsl:template>
+
+<xsl:template match="@id" mode="strip-id"/>
 
 <!--===== copy the rest =====-->
 <xsl:template match="@*|node()">

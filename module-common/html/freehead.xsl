@@ -3,6 +3,7 @@
 
 <xsl:template match="freehead">
 	<p class="freehead">
+		<xsl:if test="@id"><a name="{@id}"/></xsl:if>
 		<xsl:apply-templates/>
 	</p>	
 </xsl:template>

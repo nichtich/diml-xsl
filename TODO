@@ -1,9 +1,12 @@
-- Elements not handled yet:
-  - module citation: bible, court, cut
-  - ...
+==TODO list==
 
-- thumbnails for images
+===Important===
+* create thumbnails for images (show whole size in popup)
+* validate after each step!
+* Elements not handled yet (?):
+** module citation: bible, court, cut
+** ...?
+* more testing and debugging
 
-- strip IDs inside of cms:content
-- validate
-                                      
+==Additional==
+* citations will be shown in popup window => create a single 'citation-only' file to link to

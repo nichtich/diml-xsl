@@ -23,29 +23,37 @@
 <!-- this will print pagenumbers included in a table or list etc.  -->
 <!-- in a combined way at the begin of this table, list etc.       -->
 <xsl:template name="more-pagenumbers-inside">
-     <table width="100%" border="0">
-       <tr>
-         <td width="100%"><hr/></td>
-         <td class="pagenumber">
-	    	<nobr>
-          	<xsl:value-of select="$CONFIG/pagenumber[@lang=$LANG]/@before"/>
-
-           <xsl:choose>
-           <xsl:when test="count(descendant::pagenumber) = 1">              	 	
- 				<xsl:value-of select="$VOCABLES/page/@*[name()=$LANG]" />: 				
- 				<xsl:apply-templates select="descendant::pagenumber[1]" mode="pagenumber-combined" />
-           </xsl:when>
-           <xsl:otherwise>
-               <xsl:value-of select="$VOCABLES/pages/@*[name()=$LANG]" />:               
+  <xsl:variable name="isRange" select="count(descendant::pagenumber) &gt; 1"/>
+  <xsl:variable name="myConfig" select="$CONFIG/pagenumber[@lang=$LANG]"/>
+  
+  <table width="100%" border="0">
+    <tr>
+      <td width="100%"><hr/></td>
+      <td class="pagenumber">
+        <nobr>
+	     <xsl:choose>
+		  <xsl:when test="$isRange and $myConfig/@before2">
+		    <xsl:value-of select="$myConfig/@before2"/>
+		  </xsl:when>
+		  <xsl:otherwise>
+		    <xsl:value-of select="$myConfig/@before"/>
+		  </xsl:otherwise>
+          </xsl:choose>
+          <xsl:choose>
+            <xsl:when test="$isRange">              	 	
               <xsl:apply-templates select="descendant::pagenumber[1]" mode="pagenumber-combined" />
-			<xsl:value-of select="$CONFIG/pagenumber[name()=$LANG]/@between"/> 
-			<xsl:apply-templates select="descendant::pagenumber[position()=last()]" mode="pagenumber-combined" />
-           </xsl:otherwise>
-         </xsl:choose> 				
-				<xsl:value-of select="$CONFIG/pagenumber[@lang=$LANG]/@after"/>
-			</nobr></td>         
-       </tr>
-     </table>
+		    <xsl:value-of select="$myConfig/@between"/> 
+		    <xsl:apply-templates select="descendant::pagenumber[position()=last()]" mode="pagenumber-combined" />
+            </xsl:when>
+            <xsl:otherwise>
+ 		    <xsl:apply-templates select="descendant::pagenumber[1]" mode="pagenumber-combined" />
+            </xsl:otherwise>
+          </xsl:choose> 				
+		<xsl:value-of select="$myConfig/@after"/>
+        </nobr>
+      </td>         
+    </tr>
+  </table>
 </xsl:template>
 
 

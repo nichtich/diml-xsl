@@ -29,10 +29,10 @@ p,td {
          text-align: left;
 }
   
-span.pagenumber {
+.pagenumber {
          color: red;
          font-size: xx-small;
-  }
+}
   
 sup.footnotelabel {
   color:green;

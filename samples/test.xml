@@ -190,6 +190,17 @@ There are no museum specimens of the dodo still extant today, but from artists' 
 			<pagenumber start="20" id="p20"/>
 		</chapter>
 
+		<chapter>
+			<head>Kapitel mit Ku-Bildern</head>
+
+                  <p><mm file="bilder/doener.jpg"><caption>Abbildung 1: Kuh, die Doener isst Er lebte von Früchten und nistete auf dem Boden. Der zutrauliche und flugunfähige Vogel war zwar nicht sehr wohlschmeckend, aber als Frischfleisch für lange Seefahrten dennoch beliebt. Ebenso wie der Vogel selbst wurden seine Eier von Seeleuten in Massen gegessen. Der letzte Dodo wurde 1681 getötet.</caption><legend>Legend in your Spare Time! Er lebte von Früchten und nistete auf dem Boden. Der zutrauliche und flugunfähige Vogel war zwar nicht sehr wohlschmeckend, aber als Frischfleisch für lange Seefahrten dennoch beliebt. Ebenso wie der Vogel selbst wurden seine Eier von Seeleuten in Massen gegessen. Der letzte Dodo wurde 1681 getötet.</legend></mm></p>
+                  <p><mm file="bilder/verwandte1.jpg"><caption>Abbildung 2: Kuh bei den Verwandten</caption><legend>Links: Kuh, Rechts: Verwandte</legend></mm></p>
+                  <p><dmath><caption>Formel 1: Einfache Gleichung</caption><legend>Zugegeben: *Sehr* einfache Gleichung</legend><imath><alt>a=a</alt></imath></dmath></p>
+                  <p><dmath><imath><alt>a=a</alt></imath></dmath></p>
+                  <p>Nochmal eine Formel dmath mitten <dmath><imath><alt>a=a</alt></imath></dmath> im Text.</p>
+                  <p>Nochmal eine Formel imath mitten <imath><alt>a=a</alt></imath> im Text.</p>
+                  <p>Folgende Formel imath nicht ausgeben <imath><alt notation="LaTeX">a=a</alt></imath> !. Aber diese <imath><alt notation="plaintext">a=a</alt><alt notation="LaTeX">a=a</alt></imath></p>
+		</chapter>
 
 		<chapter>
 			<head>

@@ -23,13 +23,25 @@
 </xsl:template>
 
 <xsl:template match="mm" name="mm">
- <p class="mmcaption">
+ <table class="mm" width="100%" border="0" cellspacing="0" cellpadding="0">
+ <tr>
+ <td width="15%"></td>
+ <td width="70%">
+  <!-- Caption of mm starts here -->
+  <p class="mmcaption">
     <a>
       <xsl:call-template name="a-name-attribute"/>
       <xsl:apply-templates select="caption"/>
     </a>
   </p>  
-  <p>
+ </td>
+ <td width="15%"></td>
+ </tr>
+ <tr>
+ <td width="15%"></td>
+ <td width="70%">
+  <!-- Image of mm starts here -->
+  <p class="mmimg">
     <img>
       <xsl:attribute name="src">
         <xsl:choose>
@@ -52,6 +64,23 @@
       </xsl:if>
     </img>
   </p>
+ </td>
+ <td width="15%"></td>
+ </tr>
+ <tr>
+ <td width="15%"></td>
+ <td width="70%">
+  <!-- Legend of mm starts here -->
+  <p class="mmlegend">
+    <a>
+      <xsl:call-template name="a-name-attribute"/>
+      <xsl:apply-templates select="legend"/>
+    </a>
+  </p>  
+ </td>
+ <td width="15%"></td>
+ </tr>
+ </table>
 </xsl:template>
 
 <xsl:template match="mm" name="mm-inline" mode="inline">

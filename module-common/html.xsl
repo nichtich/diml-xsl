@@ -10,6 +10,8 @@
 <xsl:include href="html/head.xsl"/>
 <xsl:include href="html/freehead.xsl"/>
 <xsl:include href="html/caption.xsl"/>
+<xsl:include href="html/legend.xsl"/>
+<xsl:include href="html/alt.xsl"/>
 <xsl:include href="html/organization.xsl"/>
 
 </xsl:stylesheet>

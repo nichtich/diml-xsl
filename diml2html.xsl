@@ -35,7 +35,7 @@
 <xsl:include href="module-structure/html.xsl"/>
 <xsl:include href="module-citation/html.xsl"/>
 <xsl:include href="module-common/html.xsl"/>
-<!--xsl:include href="module-mathematics/html.xsl"/-->
+<xsl:include href="module-mathematics/html.xsl"/>
 <xsl:include href="module-documents/html.xsl"/>
 <!--xsl:include href="module-verse/html.xsl"/-->
 <xsl:include href="module-CALStable/html.xsl"/>

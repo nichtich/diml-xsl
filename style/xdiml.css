@@ -223,7 +223,71 @@ p.examplehead {
   }
 
 p.mmcaption  {
-  }
+         background-color:#E0E0E0;
+         padding:6px;
+         border:0px;
+         margin-top:6px;
+         margin-bottom:0px;
+         margin-left:0px;
+         margin-right:0px;
+}
+p.mmimg  {
+         background-color:#F3F3F3;
+         padding:6px;
+         border:none;
+         margin:0px;
+         text-align: center;
+}
+p.mmlegend  {
+         background-color:#E0E0E0;
+         padding:6px;
+         border:0px;
+         margin-top:0px;
+         margin-bottom:6px;
+         margin-left:0px;
+         margin-right:0px;
+}
+
+table.mm {
+         border-spacing:0px;
+         padding:0px;
+         border:none;
+         margin:0px;
+}
+
+  
+p.dmathcaption  {
+         background-color:#E0E0E0;
+         padding:6px;
+         border:0px;
+         margin-top:6px;
+         margin-bottom:0px;
+         margin-left:0px;
+         margin-right:0px;
+}
+p.dmathimath  {
+         background-color:#F3F3F3;
+         padding:6px;
+         border:none;
+         margin:0px;
+         text-align: center;
+}
+p.dmathlegend  {
+         background-color:#E0E0E0;
+         padding:6px;
+         border:0px;
+         margin-top:0px;
+         margin-bottom:6px;
+         margin-left:0px;
+         margin-right:0px;
+}
+
+table.dmath {
+         border-spacing:0px;
+         padding:0px;
+         border:none;
+         margin:0px;
+}
   
   
 

@@ -10,17 +10,8 @@
               <xsl:apply-templates select="head"/>
          </xsl:when>
          <xsl:otherwise>
-            <xsl:choose>
-              <xsl:when test="@language='de'">
-                 Abstrakt
-              </xsl:when>
-              <xsl:when test="@language='en'">
-                 Abstract
-              </xsl:when>
-              <xsl:otherwise>
-                 <xsl:value-of select="$VOCABLES/abstract/@*[name()=$LANG]" /><xsl:text>: </xsl:text>
-              </xsl:otherwise>
-            </xsl:choose>
+              <xsl:variable name="abstractlang" select="@lang"/>
+              <xsl:value-of select="$VOCABLES/abstract/@*[name()=$abstractlang]" /><xsl:text>: </xsl:text>
          </xsl:otherwise>
        </xsl:choose>
   </p>

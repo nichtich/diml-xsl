@@ -4,17 +4,8 @@
 <xsl:template match="keywords">
   <p class="keywords">
      <span class="keywordsText">
-       <xsl:choose>
-         <xsl:when test="@language='de'">
-            Eigene Schlagworte:
-         </xsl:when>
-         <xsl:when test="@language='en'">
-            Keywords:
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:value-of select="$VOCABLES/keywords/@*[name()=$LANG]" /><xsl:text>: </xsl:text>
-         </xsl:otherwise>
-       </xsl:choose>
+       <xsl:variable name="keywordslang" select="@lang"/>
+       <xsl:value-of select="$VOCABLES/keywords/@*[name()=$keywordslang]" /><xsl:text>: </xsl:text>
      </span>
      <xsl:text> </xsl:text>
      <xsl:apply-templates/>

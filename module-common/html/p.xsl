@@ -3,7 +3,7 @@
 
 <xsl:template match="p">
 
-  <!-- als Parameter kann eine Wert fr das class-Attribut mitgegebnen werden -->
+  <!-- als Parameter kann eine Wert für das class-Attribut mitgegeben werden -->
   <xsl:param name="cssTemplate"/>
   
   <!-- wenn erste Seitenzahl im Absatz ohne vorhergehenden Textknoten: -->

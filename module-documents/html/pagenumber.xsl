@@ -100,7 +100,18 @@
 <xsl:template match="head/pagenumber"/>
 
 <!-- first pagenumber without preceeding text will be called from "p" -->
-<xsl:template match="p/pagenumber[count(preceding-sibling::*)=0][normalize-space(preceding-sibling::text())='']"/> 
+<xsl:template match="p/pagenumber[count(preceding-sibling::*)=0][normalize-space(preceding-sibling::text())='']"/>
+
+<!-- first pagenumber without preceeding text will be called -->
+<!-- from "li" element preceeding the actual "li" element    -->
+<xsl:template match="li/pagenumber[count(preceding-sibling::*)=0][normalize-space(preceding-sibling::text())='']"/> 
+
+<!-- first pagenumber without preceeding text in "li" can be -->
+<!-- forced to output, e.g. when called from preceding "li"  -->
+<xsl:template match="li//pagenumber[count(preceding-sibling::*)=0][normalize-space(preceding-sibling::text())='']" mode="forceOutput"> 
+  <xsl:call-template name="pagenumber-simple"/>
+</xsl:template>
+
 
 <!-- special elements with separation line -->
 <xsl:template match="front/pagenumber|submission/pagenumber|

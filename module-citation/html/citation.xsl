@@ -24,12 +24,12 @@
   <xsl:text>]&#xA0;</xsl:text>
 </xsl:template>
 
-<xsl:template match="bibliography/citation">
+<xsl:template match="bibliography//citation">
   <xsl:if test="descendant::pagenumber">
     <xsl:call-template name="more-pagenumbers-inside"/>
   </xsl:if>
   <p>  
-  	<xsl:apply-templates select="." mode="labeled"/>
+    <xsl:apply-templates select="." mode="labeled"/>
   </p>  
 </xsl:template>
 

@@ -326,8 +326,13 @@
 	</xsl:if>
 </xsl:template>
 
+<!-- Content of Head for Table of Contents       -->
+<!-- Do not print footnote or endnote in heading -->
 <xsl:template match="head | caption" mode="TableOfContents">
-	<xsl:value-of select="."/>
+<xsl:for-each select="node()[not(name()='footnote') and not(name()='endnote')]">
+  <xsl:value-of select="."/>
+</xsl:for-each>
+  
 </xsl:template>
 
 <xsl:template match="*" mode="TableOfContents"/>

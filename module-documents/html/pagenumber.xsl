@@ -49,7 +49,12 @@
 <xsl:template match="pagenumber" mode="number" name="pnumber">
   <xsl:choose>
 
-      <!-- 1. create number out of @start formatted with @numbering -->
+      <!-- 1. create simply out of @label (should be provided by preprocess.xsl)-->
+      <xsl:when test="@label">
+        <xsl:value-of select="@label"/>
+      </xsl:when>
+
+      <!-- 2. create number out of @start formatted with @numbering -->
       <xsl:when test="@start">
       
         <!-- use template "number" in tools/functions.xsl -->
@@ -58,11 +63,6 @@
           <xsl:with-param name="numbering" select="@numbering"/>
         </xsl:call-template>
         
-      </xsl:when>
-
-      <!-- 2. create simply out of @label -->
-      <xsl:when test="@label">
-        <xsl:value-of select="@label"/>
       </xsl:when>
 
       <!-- 3rd: count from previous pagenumber with @start, use @numbering -->

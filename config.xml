@@ -4,15 +4,19 @@
 <config>
 
   <!--== numbering ==-->
-<!--  <generate of="chapter" numbering="ualpha" after="."/>  -->
-  <generate of="chapter" numbering="arabic" after="."/>
-  <generate of="section" numbering="arabic" after="-" elementBefore="chapter"/>
-  <generate of="subsection" numbering="arabic" after="." elementBefore="section"/> 
-  <generate numbering="lroman" of="block" before="" after=")" force="yes"/>
+
+  <generate of="chapter" numbering="arabic" before="" after="." />
+  <generate of="section" numbering="arabic" before="" after="." elementBefore="chapter" />
+  <generate of="subsection" numbering="arabic" before="" after="." elementBefore="section" />
+  <generate of="block" numbering="arabic" before="" after="." elementBefore="subsection" />
+  <generate of="subblock" numbering="arabic" before="" after="." elementBefore="block" />
+  <!-- part may have different elmentBefore, e.g. subblock, part -->
+  <!-- will handled dynamically with numbering in preprocess.xsl -->
+  <generate of="part" numbering="arabic" before="" after="."  />
 
   <!--== Layout of links ==-->
   <!-- before and after label if there is no content -->
-  <link to="citation" before="[" after="]"/>
+  <link to="citation" before="[" after="]" />
 
   <pagenumber before="[page&#xA0;" before2="[pages&#xA0;" between="&#xA0;-&#xA0;" after="&#8595;]" lang="en"/>
   <pagenumber before="[Seite&#xA0;" before2="[Seiten&#xA0;" between="&#xA0;-&#xA0;" after="&#8595;]" lang="de"/>

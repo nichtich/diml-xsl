@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<xsl:stylesheet version="1.0"
-    xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-   xmlns:cms="http://edoc.hu-berlin.de/diml/module/cms">
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:cms="http://edoc.hu-berlin.de/diml/module/cms">
 
 <xsl:include href="functions.xsl"/>
 
@@ -10,7 +8,6 @@
 <xsl:variable name="VOCABLES" select="document($CONFIGFILE)/config/vocables"/>
 
 <xsl:output method="xml" indent="yes"/>
-
 <xsl:key name="id" match="*" use="@id"/>
 
 <!-- id of the element we want to see -->
@@ -24,7 +21,8 @@
 </xsl:param>
 
 <!-- parts of the document that may be content of the container --> 
-<xsl:variable name="parts" select="/etd/front|/etd/body/*|/etd/back/*"/>
+<!-- change also in DiMLTransform.java when called from there   -->
+<xsl:variable name="parts" select="/etd/front|/etd/front/dedication|/etd/body/*|/etd/back/*"/>
 
 <!--               -->
 <!-- ROOT template -->
@@ -193,7 +191,8 @@
 <xsl:template name="createFront">
    <front>
       <xsl:copy-of select="/etd/front/@*"/>
-      <xsl:apply-templates select="/etd/front/*"/>
+      <!-- dediction is an extra part -->
+      <xsl:apply-templates select="/etd/front/*[name()!='dedication']"/>
       <xsl:call-template name="TableOfContents"/>
       <xsl:if test="//table[caption]">
         <xsl:call-template name="TableOfTables"/>
@@ -401,8 +400,8 @@
 
 <!-- generate attribute id and attribute part for a cms:entry element -->
 <xsl:template name="entry-id-attributes">
-    <!-- this is a work around to calcualte $parts --> 
-   <xsl:if test="count($parts)&lt;1"><xsl:message>the document contains no parts</xsl:message></xsl:if>
+  <!-- this is a work around to calcualte $parts --> 
+  <xsl:if test="count($parts)&lt;1"><xsl:message>the document contains no parts</xsl:message></xsl:if>
   <xsl:variable name="part" select="ancestor-or-self::*[@id=$parts/@id][1]/@id"/>
   <xsl:if test="$SELECTID!=$part">
       <xsl:attribute name="id">

@@ -129,7 +129,8 @@ public class DiMLTransform  {
       Templates diml2cms = loadXSL(diml2cmsFile);
 
       // if you do not want do split, just use "/etd";    
-      String xpath = "/etd/front|/etd/body/*|/etd/back/*";
+      // change also in diml2cms.xsl
+      String xpath = "/etd/front|/etd/front/dedication|/etd/body/*|/etd/back/*";
 
       if (!selectedId.equals("")) xpath = "//*[@id='"+selectedId+"']";
 

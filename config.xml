@@ -4,7 +4,8 @@ sie alle möglichen Angaben zur Steuerung der Styles -->
 <config>
 
   <!--== numbering ==-->
-  <generate of="chapter" numbering="ualpha" after="."/>
+<!--  <generate of="chapter" numbering="ualpha" after="."/>  -->
+  <generate of="chapter" numbering="arabic" after="."/>
   <generate of="section" numbering="arabic" after="-" elementBefore="chapter"/>
   <generate of="subsection" numbering="arabic" after="." elementBefore="section"/> 
   <generate numbering="lroman" of="block" before="" after=")" force="yes"/>
@@ -54,6 +55,8 @@ sie alle möglichen Angaben zur Steuerung der Styles -->
   <infoLeft lang="de"><![CDATA[<a href="http://edoc.hu-berlin.de/diml/">DiML DTD</a> Version 3.0]]></infoLeft>
   <infoLeft lang="en"><![CDATA[<a href="http://edoc.hu-berlin.de/diml/">DiML DTD</a> Version 3.0]]></infoLeft>
 
+  <vorgelegtbeiText lang="de">vorgelegt bei:</vorgelegtbeiText>
+  <vorgelegtbeiText lang="en">vorgelegt bei:</vorgelegtbeiText>
 
   <!--== Vocables (words in different languages ==-->
   <vocables>

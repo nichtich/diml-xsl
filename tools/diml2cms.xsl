@@ -22,6 +22,7 @@
 
 <!-- parts of the document that may be content of the container --> 
 <!-- change also in DiMLTransform.java when called from there   -->
+<!-- change also in xsl:template name="createFront" below       -->
 <xsl:variable name="parts" select="/etd/front|/etd/front/dedication|/etd/body/*|/etd/back/*"/>
 
 <!--               -->
@@ -366,7 +367,8 @@
 </xsl:template>
 
 <!-- Content of Head for Table of Contents       -->
-<!-- Do not print footnotes, endnotes, pagenumbers or brs in heading -->
+<!-- Do not print footnotes, endnotes, pagenumbers in heading -->
+<!-- convert brs and links -->
 
 <xsl:template match="head | caption" mode="TableOfContents">
   <xsl:for-each select="node()[not(name()='footnote') and not(name()='endnote') and not(name()='pagenumber')]">
@@ -390,6 +392,9 @@
       
 <!-- helper for copying heads to toc: convert "br" to space -->
 <xsl:template match="br" mode="tochead"><xsl:text>&#xA0;</xsl:text></xsl:template>
+
+<!-- helper for copying heads to toc: convert "link" to content of link -->
+<xsl:template match="link" mode="tochead"><xsl:value-of select="." /></xsl:template>
 
 <!-- helper for copying heads to toc: omit some elements -->
 <xsl:template match="footnote | endnote | pagenumber" />

@@ -20,11 +20,12 @@ sie alle möglichen Angaben zur Steuerung der Styles -->
   <!-- Table of contents -->  
   <toc generate="yes">
     <title lang="de">Inhaltsverzeichnis</title>
-    <title lang="de">Table of contents</title>        
+    <title lang="en">Table of contents</title>        
     <chapter hidelabel="no" indent="yes"/>
     <section hidelabel="no" indent="yes"/>
     <!-- ... -->
   </toc>
+      
       
   <!--== css-file ==-->
   <!--css-stylesheet>xdiml.css</css-stylesheet-->
@@ -55,6 +56,12 @@ sie alle möglichen Angaben zur Steuerung der Styles -->
   <infoLeft lang="de"><![CDATA[<a href="http://edoc.hu-berlin.de/diml/">DiML DTD</a> Version 3.0]]></infoLeft>
   <infoLeft lang="en"><![CDATA[<a href="http://edoc.hu-berlin.de/diml/">DiML DTD</a> Version 3.0]]></infoLeft>
 
+  <helpLink lang="de" href="http://...">Hilfe</helpLink>
+  <helpLink lang="en" href="http://...">Help</helpLink>
+
+  <!--searchURL href=""/-->
+  <!--copyrightLink lang="en" href="">Copyright</copyrightLink-->
+
   <vorgelegtbeiText lang="de">vorgelegt bei:</vorgelegtbeiText>
   <vorgelegtbeiText lang="en">vorgelegt bei:</vorgelegtbeiText>
 
@@ -67,8 +74,8 @@ sie alle möglichen Angaben zur Steuerung der Styles -->
 
     <!-- Navigation in module-cms -->
     <chapter de="Kapitel" en="Chapter" />
-    <front de="Titelseite" en="Title page" />
-    <preface de="Vorwort" en="Preface" />
+    <front de="Titelseite" en="Front page"/>
+    <preface de="Vorwort" en="Preface"/>
     <page de="Seite" en="Page" />
 
     <!-- Header -->
@@ -77,7 +84,7 @@ sie alle möglichen Angaben zur Steuerung der Styles -->
     <declaration de="Eidesstattliche Erklärung" en="Declaration" /> <!-- ? -->
     <acknowledgement de="Danksagung" en="Acknowledgement" />
     <dedication de="Widmung" en="Dedication" />
-    <abbreviation de="Abkürzungsverzeichnis" en="Abbreviation" />
+    <abbreviation de="Abkürzungsverzeichnis" en="List of Abbreviations" />
     <appendix de="Anhang" en="Appendix" />
     <glossary de="Glossar" en="Glossary" />
     <preface de="Vorwort" en="Preface" />

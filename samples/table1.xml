@@ -51,7 +51,7 @@
 </table-->
 
 
-<table>
+<!--table>
  <tgroup cols="5">
   <colspec colname="3" colnum="3"/>  
   <colspec colname="5" colnum="5"/>  
@@ -70,4 +70,83 @@
    </row>
   </tbody> 
  </tgroup>
-</table>
+</table-->
+<table orient="port" frame="all">
+            <tgroup cols="5">
+               <colspec colname="1" colwidth="1.3cm" colnum="1"/>
+               <colspec colname="2" colwidth="4.5cm" colnum="2"/>
+               <colspec colname="3" colwidth="3.3cm" colnum="3"/>
+               <colspec colname="4" colwidth="2.9cm" colnum="4"/>
+               <colspec colname="5" colwidth="3.3cm" colnum="5"/>
+               
+               <tbody>
+                  <row>
+                     <entry valign="top">
+                        <p>A1</p>
+                     </entry>
+                     <entry namest="2" nameend="3" valign="top">
+                        <p>B1</p>
+                     </entry>
+                     <entry valign="top">
+                        <p>D1</p>
+                     </entry>
+                     <entry valign="top">
+                        <p>E1</p>
+                     </entry>
+                  </row>
+                  <row>
+                     <entry valign="top">
+                        <p>A2</p>
+                     </entry>
+                     <entry valign="top">
+                        <p>B2</p>
+                     </entry>
+                     <entry morerows="2" valign="top">
+                        <p>C2</p>
+                     </entry>
+                     <entry valign="top">
+                        <p>D2</p>
+                     </entry>
+                     <entry valign="top">
+                        <p>E2</p>
+                     </entry>
+                  </row>
+                  <row>
+                     <entry valign="top">
+                        <p>A3</p>
+                     </entry>
+                     <entry valign="top">
+                        <p>B3</p>
+                     </entry>
+                     <entry valign="top">
+                        <p>D3</p>
+                     </entry>
+                     <entry valign="top">
+                        <p>E3</p>
+                     </entry>
+                  </row>
+                  <row>
+                     <entry valign="top">
+                        <p>A4</p>
+                     </entry>
+                     <entry valign="top">
+                        <p>B4</p>
+                     </entry>
+                     <entry namest="4" nameend="5" valign="top">
+                        <p>D4</p>
+                     </entry>
+                  </row>
+                  <row>
+                     <entry valign="top">
+                        <p>A5</p>
+                     </entry>
+                     <entry valign="top">
+                        <p>B5</p>
+                     </entry>
+                     <entry namest="3" nameend="5" valign="top">
+                        <p>C5</p>
+                     </entry>
+                  </row>
+               </tbody>
+            </tgroup>
+         </table>

@@ -144,7 +144,6 @@
 		<cms:entry type=":appendix" part="{//back/@id}.html"/>
 	</xsl:if-->
 	<cms:entry type=":lang"><xsl:value-of select="$LANG"/></cms:entry>
-     <!--cms:entry type=":toc" part="" ref=":toc"/-->
 	
 	<cms:entry type=":contents" ref=":contents">
 		<xsl:if test="$SELECTID != /etd/front/@id">
@@ -153,6 +152,22 @@
 		</xsl:if>		
 		<xsl:value-of select="$CONFIG/toc/title[@lang=$LANG]"/>
 	</cms:entry>
+	
+	<xsl:if test="$CONFIG/helpLink[@lang=$LANG]">
+	  <cms:entry type=":help">
+	  	<url href="{$CONFIG/helpLink[@lang=$LANG]/@href}">
+	  	  <xsl:value-of select="$CONFIG/helpLink[@lang=$LANG]"/>
+	  	</url>
+	  </cms:entry>
+	</xsl:if>
+
+	<xsl:if test="$CONFIG/searchLink[@lang=$LANG]">
+	  <cms:entry type=":search">
+	  	<url href="{$CONFIG/searchLink[@lang=$LANG]/@href}">
+	  	  <xsl:value-of select="$CONFIG/searchLink[@lang=$LANG]"/>
+	  	</url>
+	  </cms:entry>
+	</xsl:if>	
 	
 </xsl:template>
 

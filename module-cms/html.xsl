@@ -52,7 +52,16 @@
 </xsl:template>
 
 <xsl:template match="cms:entry[@type=':contents']" mode="html-head">
-  <link rel="contents" href="{@part}{$EXT}"/>
+  <link rel="contents">
+    <xsl:attribute name="href">
+      <xsl:if test="@part and name(key('id',@ref))='cms:entry'">        
+        <xsl:value-of select="@part"/>
+        <xsl:value-of select="$EXT"/>
+      </xsl:if>    
+      <xsl:text>#</xsl:text>
+      <xsl:value-of select="@ref"/>
+    </xsl:attribute>
+  </link>
 </xsl:template>
 
 <xsl:template match="cms:entry[@type=':first']" mode="html-head">
@@ -79,24 +88,24 @@
   <link rel="appendix" href="{@part}{$EXT}"/>
 </xsl:template>
 
-<xsl:template match="cms:entry[@type=':copyright']" mode="html-head">
-  <link rel="copyright" href="{@part}{$EXT}"/>
-</xsl:template>
-
 <xsl:template match="cms:entry[@type=':author']" mode="html-head">
   <link rel="author" href="{@part}{$EXT}"/>
 </xsl:template>
 
+<xsl:template match="cms:entry[@type=':copyright']" mode="html-head">
+  <link rel="copyright" href="{url/@href}"/>
+</xsl:template>
+
 <xsl:template match="cms:entry[@type=':help']" mode="html-head">
-  <link rel="help" href="{@part}{$EXT}"/>
+  <link rel="help" href="{url/@href}"/>
 </xsl:template>
 
 <xsl:template match="cms:entry[@type=':search']" mode="html-head">
-  <link rel="search" href="{@part}{$EXT}"/>
+  <link rel="search" href="{url/@href}"/>
 </xsl:template>
 
 <xsl:template match="cms:entry" mode="label">
-	<xsl:value-of select="."/>	
+  <xsl:value-of select="."/>	
 </xsl:template>
 
 <xsl:template match="cms:entry" mode="html-head"/>

@@ -4,17 +4,19 @@
 <xsl:include href="html/table.xsl"/>
 
 <xsl:template match="table">
+  <xsl:if test="@id">
+    <a name="{@id}"/>     
+  </xsl:if>
  
   <!-- this will print pagenumbers included in a table or list etc.  -->
   <!-- in a combined way at the begin of this table, list etc.       -->
   <xsl:if test="descendant::pagenumber">
     <xsl:call-template name="more-pagenumbers-inside"/>
   </xsl:if>
-
- <div align="center">
+ <div class="table">
  <table class="calstable" border="0" cellspacing="0" cellpadding="0">
    <xsl:apply-templates select="caption" mode="tablecaption"/>
-   <tr>
+   <tr class="tablecontent">
      <td>
         <xsl:if test="tgroup/@cols &lt; 1">
           <xsl:message terminate="yes">tgroup/@cols &lt; 1!</xsl:message>
@@ -24,8 +26,7 @@
    </tr>
    <xsl:apply-templates select="legend" mode="tablelegend"/>
  </table>
- </div>
-
+</div>
 </xsl:template>
 
 <xsl:param name="table.cell.border.color" select="''"/>

@@ -3,10 +3,14 @@
 ===Important===
 * create thumbnails for images (show whole size in popup)
 * validate after each step!
+* add a 'head' element if missing (default titles 'bibliography','appendix'...)
 * Elements not handled yet (?):
 ** module citation: bible, court, cut
+** module verse: all?
 ** ...?
 * more testing and debugging
 
 ==Additional==
+* enhance navigation bar (see HTML link types)
 * citations will be shown in popup window => create a single 'citation-only' file to link to
+* rewrite the generation of tables of contents

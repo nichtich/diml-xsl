@@ -4,7 +4,7 @@ exclude-result-prefixes="cms">
 
 <xsl:include href="functions.xsl"/>
 
-<!-- TODO: citation nummerieren (label vergeben) -->
+<!-- TODO: number citation if desired (set @label) -->
 
 <xsl:param name="CONFIGFILE">config.xml</xsl:param>
 <xsl:variable name="CONFIG" select="document($CONFIGFILE)/config"/>
@@ -138,7 +138,7 @@ exclude-result-prefixes="cms">
 	</xsl:copy>
 </xsl:template>
 
-<xsl:template match="table|im|example|frame">
+<xsl:template match="table | example">
 	<xsl:copy>		
 		<xsl:call-template name="provide-id"/>		
 		<xsl:apply-templates select="@*|node()"/>

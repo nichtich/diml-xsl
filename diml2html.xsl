@@ -41,7 +41,7 @@
 <xsl:include href="module-lists/html.xsl"/>
 <xsl:include href="module-text/html.xsl"/>
 <xsl:include href="module-cms/html.xsl"/>
-<!--xsl:include href="module-verse/html.xsl"/-->
+<xsl:include href="module-verse/html.xsl"/>
 
 <xsl:key name="term" match="term" use="@id"/>
 <xsl:key name="id" match="*[@id]" use="@id"/>

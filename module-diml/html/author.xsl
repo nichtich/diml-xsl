@@ -7,7 +7,7 @@
 <xsl:template match="author">
   <p class="author">
   <xsl:if test="(node()[1][self::text()] and normalize-space(node()[1])='') or not(node()[1][self::text()])">
-    <span class="vorgelegtText">vorgelegt von</span>
+    <span class="vorgelegtText"><xsl:value-of select="$vorgelegtbeiText"/></span>
   </xsl:if>
   <xsl:for-each select="node()">
     <xsl:choose>

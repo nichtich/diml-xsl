@@ -3,18 +3,18 @@
   <!--ENTITY content SYSTEM "test.xml"-->
 ]>
 <?xml-stylesheet type="text/xsl" href="../diml2html.xsl"?>
-<cms:container xmlns:cms="DiMLCMS">
+<cms:container xmlns:cms="http://edoc.hu-berlin.de/diml/module/cms">
   <cms:document>
     <cms:meta>
       <cms:entry type="author">Fritz Fröhlich</cms:entry>
       <cms:entry type="title">Meine kleine Dissertation</cms:entry>
-      <cms:entry type="front" objid="cms-front.xml" linkid="front">Titelseite</cms:entry>
-      <cms:entry type="page" objid="cms-front.xml" linkid="p1">1</cms:entry>
-      <cms:entry type="page" objid="cms-test.xml" linkid="p2" id="p2">2</cms:entry>
-      <cms:entry type="page" objid="cms-test.xml" linkid="p3" id="p3">3</cms:entry>
-      <cms:entry type="page" objid="cms-test.xml" linkid="p4" id="p4">4</cms:entry>
-      <cms:entry type="page" objid="cms-test.xml" linkid="p5" id="p5">5</cms:entry>
-      <cms:entry type="page" objid="cms-test.xml" linkid="p5" id="p6">6</cms:entry>      
+      <cms:entry type="front" part="cms-front.xml" ref="front">Titelseite</cms:entry>
+      <cms:entry type="page" part="cms-front.xml" ref="p1">1</cms:entry>
+      <cms:entry type="page" part="cms-test.xml" ref="p2" id="p2">2</cms:entry>
+      <cms:entry type="page" part="cms-test.xml" ref="p3" id="p3">3</cms:entry>
+      <cms:entry type="page" part="cms-test.xml" ref="p4" id="p4">4</cms:entry>
+      <cms:entry type="page" part="cms-test.xml" ref="p5" id="p5">5</cms:entry>
+      <cms:entry type="page" part="cms-test.xml" ref="p5" id="p6">6</cms:entry>      
     </cms:meta>
     <cms:content>
       <front>

@@ -13,7 +13,12 @@
 
 <xsl:template match="bibliography/citation">
   <p>
-    <a name="{generate-id(.)}">
+    <a>
+      <xsl:if test="@id">
+        <xsl:attribute name="id">
+          <xsl:value-of select="@id"/>
+        </xsl:attribute>
+      </xsl:if>
       <xsl:apply-templates select="." mode="label"/>
     </a>
     <xsl:text>&#xA0;</xsl:text>    

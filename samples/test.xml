@@ -1,162 +1,177 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <!DOCTYPE etd SYSTEM "../../dtd/xdiml.dtd" [
-  <!ENTITY table1 SYSTEM "table1.xml">
+	<!ENTITY table1 SYSTEM "table1.xml">
 ]>
 <?xml-stylesheet type="text/xsl" href="../diml2html.xsl"?>
 <?css-stylesheet ../style/did.css?>
 <etd>
-  <front>
-    <title>
+	<front id="front">
+		<title>
 			Entwurf eines Doppel-Moppel<sup>2</sup>-Integrators zur Vernuppelung
 			flachbräsiger Hoppel-Dodos
 		</title>
-    <author>
+		<author>
 			vorgelegt von 
 			<given>Fritz</given>
-      <surname>Fröhlich</surname>
-      <suffix>aus Mustermannshausen</suffix>
-    </author>
-    <school>
-      <em>Au&szlig;ergewöhnliche</em> Spezial-Hochschule von
+			<surname>Fröhlich</surname>
+			<suffix>aus Mustermannshausen</suffix>
+		</author>
+		<school>
+			<em>Au&szlig;ergewöhnliche</em> Spezial-Hochschule von
 			Lummerland<br/>
 			Fakultät für Phänomene und aller Art<br/>
 			(Leiter: Prof. Dr. Hin-Kunz Dutzenbrökel)
 		</school>
-    <degree>Zur Erlangung des phonetischen Grades eines Oberdoktors</degree>
-    <date type="present">1. Mai 2043</date>
-    <date type="defense">17. April 2043</date>
-    <major>Fakultät für Phänomene und aller Art an der Spezial-Hochschule</major>
-    <dean>Dean Dodo</dean>
-    <approvals>
-      <name>Prof. Dr. rer. nat. Prokul Praktikus</name>
-      <name>Prof. Dr. phil. Tobias Theoretikus</name>
-      <name>Prof. Dr. med. A. U. Anton</name>
-    </approvals>
-    <submission>Inaugural-Dissertation</submission>
-    <abstract lang="de">
-      <head>Zusammenfassung</head>
-      <p>
-Der <name>Dodo</name> oder auch die <name>Dronte</name> (<em>Raphus cucullatus</em>) war ein etwa 1 m hoher Vogel, der ausschließlich auf der Insel Mauritius im Indischen Ozean vorkam. Er war entfernt mit der Taube verwandt.</p><p>
-Der Dodo wird meist als extrem fetter, truthahnähnlicher Vogel mit hängenden Stummelflügeln dargestellt. Dabei handelt es sich aber wahrscheinlich um falsch gefütterte Tiere, die als Proviant auf Schiffen nach Europa kamen.</p><p>
+		<degree>Zur Erlangung des phonetischen Grades eines Oberdoktors</degree>
+		<date type="present">1. Mai 2043</date>
+		<date type="defense">17. April 2043</date>
+		<major>Fakultät für Phänomene und aller Art an der Spezial-Hochschule</major>
+		<dean>Dean Dodo</dean>
+		<approvals>
+			<name>Prof. Dr. rer. nat. Prokul Praktikus</name>
+			<name>Prof. Dr. phil. Tobias Theoretikus</name>
+			<name>Prof. Dr. med. A. U. Anton</name>
+		</approvals>
+		<submission>Inaugural-Dissertation</submission>
+		<abstract lang="de">
+			<head>Zusammenfassung</head>
+			<p>
+Der <name>Dodo</name> oder auch die <name>Dronte</name> (<em>Raphus cucullatus</em>) war ein etwa 1 m hoher Vogel, der ausschließlich auf der Insel Mauritius im Indischen Ozean vorkam. Er war entfernt mit der Taube verwandt.</p>
+			<p>
+Der Dodo wird meist als extrem fetter, truthahnähnlicher Vogel mit hängenden Stummelflügeln dargestellt. Dabei handelt es sich aber wahrscheinlich um falsch gefütterte Tiere, die als Proviant auf Schiffen nach Europa kamen.</p>
+			<p>
 Er lebte von Früchten und nistete auf dem Boden.
 Der zutrauliche und flugunfähige Vogel war zwar nicht sehr wohlschmeckend, aber als Frischfleisch für lange Seefahrten dennoch beliebt. Ebenso wie der Vogel selbst wurden seine Eier von Seeleuten in Massen gegessen. Der letzte Dodo wurde 1681 getötet.      
       </p>
-    </abstract>
-    <keywords lang="de">
-      <keyword>Dodo</keyword>
-      <keyword>Vogel</keyword>
-      <keyword>Ozean</keyword>
-      <keyword>Einsiedler</keyword>
-    </keywords>
-    <abstract lang="en">
-      <head>Summary</head>
-      <p>
+		</abstract>
+		<keywords lang="de">
+			<keyword>Dodo</keyword>
+			<keyword>Vogel</keyword>
+			<keyword>Ozean</keyword>
+			<keyword>Einsiedler</keyword>
+		</keywords>
+		<abstract lang="en">
+			<head>Summary</head>
+			<p>
 The <name>Dodo</name> (<em>Raphus cucullatus</em>) was a meter-high (yard-high) flightless bird of the island of Mauritius. It lived on fruit and nested on the ground. 
-</p><p>
+</p>
+			<p>
 There are no museum specimens of the dodo still extant today, but from artists' renditions we know that the dodo had blue-grey plumage, a 23-centimetre (9-inch) blackish hooked bill with reddish point, very small useless wings, stout yellow legs, and a tuft of curly feathers high on its rear end. Dodos were very large birds, weighing about 23 kg (50 pounds). The breast structure was insufficient to have ever supported flight and it is believed these ground-bound birds evolved to take advantage of an island ecology with no enemies. The traditional image of the dodo is of a fat, clumsy bird, but this view has been challenged by Andrew Kitchener, a biologist at the Royal Museum of Scotland (reported in National Geographic News, February 2002), who believes that the old drawings showed overfed captive specimens.       
       </p>
-    </abstract>
-    <keywords lang="en">
-      <keyword>Dodo</keyword>
-      <keyword>flightless bird</keyword>
-      <keyword>National Geographic</keyword>
-      <keyword>Mauritius</keyword>
-    </keywords>
-    <pagenumber start="1"/>
-    <grant>
-      <p/>
-    </grant>
-    <dedication>
-      <p>Dieses Werk widme ich dem inzwischen ausgestorbenen Dodo.</p>
-    </dedication>
-    <copyright>
-      <p/>
-    </copyright>
-    <motto>
-      <p>Ein Dodo macht noch keinen Frühling</p>
-      <citation>Altes Dodo-Sprichwort</citation>
-    </motto>
-    <p/>
-  </front>
-  <body>
-    <abbreviation>
-      <head>Abkürzungsverzeichnis</head>
-      <p>Abk. - Abkürzung</p>
-      <p>Verz. - Verzeichnis</p>
-    </abbreviation>
-    <preface>
-      <head>Vorwort</head>
-      <p>Ein kleines Vorwort gefällig?</p>
-    </preface>
-    <chapter>
-      <head>First Chapter</head>
-      <p>Im ersten Kapitel geht es um Frösche.<footnote><p>diese grünen Dinger</p></footnote>
-      </p>
-      <p>Es besteht auch nur aus zwei Absätzen.</p>
-      <section>
-        <head>First Section</head>
-        <subsection>
-          <head>First Subsection</head>
-          <block>
-            <head>First Block</head>
-            <subblock>
-              <head>First Subblock</head>
-              <part>
-                <head>First Part</head>
-              </part>
-            </subblock>
-          </block>
-        </subsection>
-      </section>
-    </chapter>
-    <chapter>
-      <head>Second Chapter: Examples</head>
-      <section>
-        <head>Tables</head>
-        <p>&table1;</p>
-      </section>
-    </chapter>
-    <chapter>
-      <head>
-        <pagenumber system="18"/>Third Chapter
+		</abstract>
+		<keywords lang="en">
+			<keyword>Dodo</keyword>
+			<keyword>flightless bird</keyword>
+			<keyword>National Geographic</keyword>
+			<keyword>Mauritius</keyword>
+		</keywords>
+		<pagenumber start="1" id="p1"/>
+		<grant>
+			<p/>
+		</grant>
+		<dedication>
+			<p>Dieses Werk widme ich dem inzwischen ausgestorbenen Dodo.</p>
+		</dedication>
+		<copyright>
+			<p/>
+		</copyright>
+		<motto>
+			<p>Ein Dodo macht noch keinen Frühling</p>
+			<citation>Altes Dodo-Sprichwort</citation>
+		</motto>
+		<p/>
+	</front>
+	<body>
+		<abbreviation>
+			<head>Abkürzungsverzeichnis</head>
+			<p>Abk. - Abkürzung</p>
+			<p>Verz. - Verzeichnis</p>
+		</abbreviation>
+		<preface>
+			<head>Vorwort</head>
+			<p>Ein kleines Vorwort gefällig?</p>
+		</preface>
+		<chapter id="ch1">
+			<head>
+				<pagenumber start="17" id="p17"/>First Chapter</head>
+			<motto>
+				<p>Ein Motto stell ich hier voran - weil ich sowas eben kann!</p>
+			</motto>
+			<p>Im ersten Kapitel geht es um Frösche.<footnote>
+					<p>diese grünen Dinger</p>
+				</footnote>
+			      Ich verweise jetzt mal auf Seite <link ref="p20">20</link>.
+			</p>
+			<p>Es besteht auch nur aus zwei Absätzen.</p>
+			<section>
+				<head>First Section</head>
+				<subsection>
+					<head>First Subsection</head>
+					<block>
+						<head>First Block</head>
+						<subblock>
+							<head>First Subblock</head>
+							<part>
+								<head>First Part</head>
+							</part>
+						</subblock>
+					</block>
+				</subsection>
+			</section>
+		</chapter>
+		<chapter>
+			<head>Second Chapter: Examples</head>
+			<section>
+				<head>Tables</head>
+				<p>&table1;</p>
+			</section>
+		</chapter>
+		<chapter id="chapter3">
+			<head>
+				<pagenumber start="18" id="p18"/>Third Chapter
       </head>
-      <p>Hier mal ein Beispiel</p>
-      <example>
-        <head>Ein tolles Beispiel</head>
-        <p>So kann man's machen!</p>
-      </example>
-    </chapter>
-    <chapter>
-      <head>
-        <pagenumber system="19"/>Kapitel mit Endnoten
+			<p>Hier mal ein Beispiel</p>
+			<example>
+				<head>Ein tolles Beispiel</head>
+				<p>So kann man's machen!</p>
+			</example>
+		</chapter>
+		<chapter>
+			<head>
+				<pagenumber start="19" id="p19"/>Kapitel mit Endnoten
       </head>
-      <p>
+			<p>
         Diese Kapitel enthält Endnoten
-        <endnote><p>Endnoten stehen am Ende</p></endnote>.
+        <endnote>
+					<p>Endnoten stehen am Ende</p>
+				</endnote>.
         Im Gegensatz zu Fussnoten stehen Endnoten am
         Ende eines Kapitels
-        <endnote><p>oder des gesamten Textes</p></endnote>
-      </p>
-      <pagenumber start="20"/>
-    </chapter>
-  </body>
-  <back>
-    <bibliography>
-      <head><pagenumber start="100"/>Bibliographie</head>
-      <p>Viel zitiert - wenig gelesen!</p>
-      <freehead>Fremde Werke</freehead>
-      <citation id="FT1997">
-        <workauthor>Joachim Funke und Thomas Krueger</workauthor>:
+        <endnote>
+					<p>oder des gesamten Textes</p>
+				</endnote>
+			</p>
+			<pagenumber start="20" id="p20"/>
+		</chapter>
+	</body>
+	<back>
+		<bibliography id="bibliography1">
+			<head>
+				<pagenumber start="100" id="p100"/>Bibliographie</head>
+			<p>Viel zitiert - wenig gelesen!</p>
+			<freehead>Fremde Werke</freehead>
+			<citation id="FT1997">
+				<workauthor>Joachim Funke und Thomas Krueger</workauthor>:
         <articletitle>Psychologie im Internet. Teil 10: Lernen im Netz: Hypertext und Hyperlernen</articletitle>
          In: <worktitle>Psychologie heute</worktitle>,
          <pubdate>1997</pubdate>,
          <number>24 (8)</number>,
          <pages>68-69</pages>
-      </citation>
-      <freehead>Eigene Werke</freehead>
-      <p>ich habe noch nicht so viel geschrieben, sorry</p>
-    </bibliography>
-    <!--glossary>
+			</citation>
+			<freehead>Eigene Werke</freehead>
+			<p>ich habe noch nicht so viel geschrieben, sorry</p>
+		</bibliography>
+		<!--glossary>
       <dl>
         <def>
           <term>African Swallow</term>
@@ -178,16 +193,16 @@ There are no museum specimens of the dodo still extant today, but from artists' 
         </def>
       </dl>
     </glossary-->
-    <appendix>
-      <p>Dies ist ein Angang</p>
-    </appendix>
-    <vita>
-      <head>Lebenslauf</head>
-      <p>Geboren - noch nicht gestorben - was für ein Glück!</p>
-    </vita>
-    <acknowledgement>
-      <head>Danksagung</head>
-      <p>Danke und auf Wiedersehen!</p>
-    </acknowledgement>
-  </back>
+		<appendix id="app">
+			<p>Dies ist ein Angang</p>
+		</appendix>
+		<vita>
+			<head>Lebenslauf</head>
+			<p>Geboren - noch nicht gestorben - was für ein Glück!</p>
+		</vita>
+		<acknowledgement>
+			<head>Danksagung</head>
+			<p>Danke und auf Wiedersehen!</p>
+		</acknowledgement>
+	</back>
 </etd>

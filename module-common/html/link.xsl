@@ -6,7 +6,7 @@
 <xsl:template name="link.target">
 	<xsl:param name="object" select="."/>	
   <xsl:if test="name($object)='cms:entry'">
-    <xsl:value-of select="$object/@objid"/>
+    <xsl:value-of select="$object/@part"/>
   </xsl:if>
   <xsl:text>#</xsl:text>
   <xsl:value-of select="$object/@id"/>
@@ -34,12 +34,12 @@
     </xsl:attribute>
 
     <!-- FIXME: is there a better way to tell what elements have a title? -->
+    <!-- or local-name($target) = 'bibliography' -->
     <xsl:if test="local-name($target) = 'book'
                   or local-name($target) = 'set'
                   or local-name($target) = 'chapter'
                   or local-name($target) = 'preface'
-                  or local-name($target) = 'appendix'
-                  or local-name($target) = 'bibliography'
+                  or local-name($target) = 'appendix'                  
                   or local-name($target) = 'glossary'
                   or local-name($target) = 'index'
                   or local-name($target) = 'part'
@@ -62,6 +62,9 @@
       <xsl:when test="count(child::node()) &gt; 0">
         <!-- If it has content, use it -->
         <xsl:apply-templates/>
+      </xsl:when>
+      <xsl:when test="name($target)='citation'">
+        <xsl:apply-templates select="$target" mode="label"/>
       </xsl:when>
       <xsl:otherwise>
             <xsl:message>

@@ -267,6 +267,10 @@ The name of the link will be the content of cms:entry or an @type called element
   <xsl:value-of select="$after"/>
 </xsl:template>
 
+<xsl:template match="cms:entry[@type='author']">
+  <span class="nav-author"><xsl:value-of select="."/>: </span>
+</xsl:template>
+
 <xsl:template match="cms:entry[@type='title']">
   <span class="nav-title"><xsl:value-of select="."/></span>
 </xsl:template>

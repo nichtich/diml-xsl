@@ -418,7 +418,7 @@ td.nav-parts {
 }
 
 .nav-author { font-weight: bold; }
-.nav-title { font-weight: bold; }
+.nav-title { font-weight: bold; font-style: italic;}
 
 p.navbottom {  
               font-size: x-small;

@@ -31,25 +31,25 @@
       <td width="100%"><hr/></td>
       <td class="pagenumber">
         <nobr>
-	     <xsl:choose>
-		  <xsl:when test="$isRange and $myConfig/@before2">
-		    <xsl:value-of select="$myConfig/@before2"/>
-		  </xsl:when>
-		  <xsl:otherwise>
-		    <xsl:value-of select="$myConfig/@before"/>
-		  </xsl:otherwise>
+	        <xsl:choose>
+		        <xsl:when test="$isRange and $myConfig/@before2">
+		          <xsl:value-of select="$myConfig/@before2"/>
+		        </xsl:when>
+		        <xsl:otherwise>
+		          <xsl:value-of select="$myConfig/@before"/>
+		        </xsl:otherwise>
           </xsl:choose>
           <xsl:choose>
             <xsl:when test="$isRange">              	 	
-              <xsl:apply-templates select="descendant::pagenumber[1]" mode="pagenumber-combined" />
-		    <xsl:value-of select="$myConfig/@between"/> 
-		    <xsl:apply-templates select="descendant::pagenumber[position()=last()]" mode="pagenumber-combined" />
+              <xsl:apply-templates select="descendant::pagenumber[1]" mode="number" />
+		          <xsl:value-of select="$myConfig/@between"/> 
+		          <xsl:apply-templates select="descendant::pagenumber[position()=last()]" mode="number" />
             </xsl:when>
             <xsl:otherwise>
- 		    <xsl:apply-templates select="descendant::pagenumber[1]" mode="pagenumber-combined" />
+ 		          <xsl:apply-templates select="descendant::pagenumber[1]" mode="number" />
             </xsl:otherwise>
           </xsl:choose> 				
-		<xsl:value-of select="$myConfig/@after"/>
+		      <xsl:value-of select="$myConfig/@after"/>
         </nobr>
       </td>         
     </tr>
@@ -75,7 +75,7 @@
 
 <xsl:template match="pagenumber" name="number-formated" mode="number">
 	<xsl:param name="numbering" select="@numbering"/>
-	<xsl:param name="value" select="@start"/>
+	<xsl:param name="value" select="@label"/>	
 	<xsl:choose>
 		<xsl:when test="$numbering='arabic'">
 			<xsl:number value="$value" format="1"/>
@@ -93,7 +93,7 @@
 			<xsl:number value="$value" format="I"/>
 		</xsl:when>
 		<xsl:otherwise>
-			<xsl:value-of select="."/>
+			<xsl:value-of select="$value"/>
 		</xsl:otherwise>
 	</xsl:choose>
 </xsl:template>
@@ -131,10 +131,6 @@
       <xsl:call-template name="pagenumber-content"/>
     </xsl:otherwise>
   </xsl:choose>
-</xsl:template>
-
-<xsl:template match="pagenumber" mode="pagenumber-combined">
-   <xsl:apply-templates select="." mode="number"/>
 </xsl:template>
 
 </xsl:stylesheet>

@@ -3,6 +3,7 @@
 
 <xsl:key name="id" match="*" use="@id"/>
 
+<!-- TODO: check for multiple ID and stupid link targets : warning! -->
 <xsl:template name="link.target">
 	<xsl:param name="object" select="."/>	
   <xsl:if test="name($object)='cms:entry'">

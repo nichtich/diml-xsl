@@ -56,9 +56,12 @@
 <xsl:template name="a-name-attribute">
 	<xsl:param name="object" select="."/>
 	<xsl:attribute name="name">
-		<xsl:call-template name="object.id">
-			<xsl:with-param name="object" select="$object"/>
-		</xsl:call-template>
+	  <xsl:choose>
+	    <xsl:when test="$object/@id"><xsl:value-of select="$object/@id"/></xsl:when>	  
+	    <xsl:otherwise>
+	      <xsl:value-of select="generate-id($object)"/>
+	    </xsl:otherwise>
+	  </xsl:choose>  
 	</xsl:attribute>
 </xsl:template>
 
@@ -66,9 +69,12 @@
 	<xsl:param name="object" select="."/>
 	<xsl:attribute name="href">
 		<xsl:text>#</xsl:text>
-		<xsl:call-template name="object.id">
-			<xsl:with-param name="object" select="$object"/>
-		</xsl:call-template>
+    <xsl:choose>
+	    <xsl:when test="$object/@id"><xsl:value-of select="$object/@id"/></xsl:when>	  
+	    <xsl:otherwise>
+	      <xsl:value-of select="generate-id($object)"/>
+	    </xsl:otherwise>
+	  </xsl:choose>
 	</xsl:attribute>
 </xsl:template>
 

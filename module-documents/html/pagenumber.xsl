@@ -75,7 +75,7 @@
  	</xsl:if>
   <span class="pagenumber">
   	<xsl:text>[</xsl:text>
-  	<xsl:value-of select="$PAGENUMBER-LABEL"/>
+  	<!--xsl:value-of select="$PAGENUMBER-LABEL"/-->
   	<xsl:value-of select="@system"/>
   	<xsl:choose>
 		<xsl:when test="@label">

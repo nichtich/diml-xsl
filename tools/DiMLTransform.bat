@@ -1,10 +1,11 @@
 @echo off
 
-REM --- Please set the following two environment variables according ---
-REM --- to your system                                               ---
-REM --- First:  directory where your Java is                         ---
+REM --- You may set the following two environment variables          ---
+REM --- according to your system                                     ---
+REM --- (but maybe the system works without setting them)            ---
+REM --- First:  directory where your Java is, without trailing \     ---                         ---
 REM --- (e.g. c:\Programme\Java\j2re1.4.2 )                          ---
-REM --- Second: directory where your diml-xsl is                     ---
+REM --- Second: directory where your diml-xsl is, without trailing \ ---
 REM --- (e.g. c:\thema\diml-xsl )                                    ---
 
 rem set JAVA_HOME=
@@ -13,10 +14,25 @@ rem set DIMLXSL=
 REM ---                                                              ---
 
 set currentdir=%cd%
+set currentdir=%currentdir%\
 set batfiledir=%~dp0
+set xmlfiledir=%~dp1
 
-rem Guess DIMLXSL if not defined
+REM * Warning, if not started from directory of xml-file (works anyway) *
+REM * Set working directory as directory of xml-file or current directory *
+if not "%xmlfiledir%" == "" (
+  if not "%xmlfiledir%" == "%currentdir%" (
+    echo Warnung: DiMLTransform is supposed to be started from the directory of xml-file!
+  )
+  set workdir=%xmlfiledir%
+) ELSE (  
+  set workdir=%currentdir%
+)
 
+set htmldir=%workdir%..\
+set hackeddir=%workdir%..\
+
+REM * if DIMLXSL is defined and okay, use it *
 if not "%DIMLXSL%" == "" ( 
    if exist "%DIMLXSL%\tools\DiMLTransform.bat" (
       echo Using the DIMLXSL environment variable: %DIMLXSL%
@@ -28,9 +44,10 @@ if not "%DIMLXSL%" == "" (
    )
 )
 
-IF EXIST "..\tools\DiMLTransform.bat" (
-   echo DIMLXSL not set - using ..
-   set DIMLXSL=..
+REM * Guess DIMLXSL from location of bat-File if not defined *
+IF EXIST "%batfiledir%DiMLTransform.bat" (
+   echo DIMLXSL not set - using %batfiledir%..
+   set DIMLXSL=%batfiledir%..
    goto checkConfigFile
 ) ELSE (
    echo Error: The DIMLXSL environment variable is not defined
@@ -40,44 +57,61 @@ IF EXIST "..\tools\DiMLTransform.bat" (
 
 :checkConfigFile
 
-IF EXIST "%currentdir%\config.xml" (
-   echo Using config.xml found in local directory: %currentdir%\config.xml
-   set CONFIGFILE=%currentdir%\config.xml
-   goto checkHTMLDir
-) 
-IF EXIST "%DIMLXSL%\config.xml" (
-   echo Using config.xml found in DIMLXSL directory: %DIMLXSL%\config.xml
-   set CONFIGFILE=%DIMLXSL%\config.xml
+REM * search Configfile in Workdirectory or in current directory *
+IF EXIST "%workdir%config.xml" (
+   echo Using config.xml found in xml-file directory: %workdir%config.xml
+   set CONFIGFILE=%workdir%config.xml
    goto checkHTMLDir
 ) ELSE (
-   echo Error: Can't find config.xml file 
-   echo It is needed to run this program
+   echo Warning: config.xml does not exist in xml-file directory: %workdir%
+)
+IF EXIST "%currentdir%config.xml" (
+   echo Using config.xml found in current directory: %currentdir%config.xml
+   set CONFIGFILE=%currentdir%config.xml
+   goto checkHTMLDir
+) ELSE (
+    echo Error: Can't find config.xml file in current directory %currentdir%
+    echo It is needed to run this program
+    goto end
 )
 
+REM rem do not use diml-xsl directory any more
+REM IF EXIST "%DIMLXSL%\config.xml" (
+REM    echo Using config.xml found in DIMLXSL directory: %DIMLXSL%\config.xml
+REM   set CONFIGFILE=%DIMLXSL%\config.xml
+REM   goto checkHTMLDir
+REM ) ELSE (
+REM    echo Error: Can't find config.xml file 
+REM    echo It is needed to run this program
+REM    goto end
+REM )
+
 :checkHTMLDir
-if exist "html" goto delHTMLs
-rem for win9x: if exist "html\nul"
+REM *Create htmldir or delete files in htmldir *
+if exist "%htmldir%html" goto delHTMLs
+rem for win9x: if exist "%htmldir%html\nul"
 :makeHTMLDir
-  echo Directory html does not exist, creating directory html
-  mkdir html
+  echo Directory %htmldir%html does not exist, creating it
+  mkdir %htmldir%html
   goto checkHACKEDDir
 :delHTMLs
-  echo Directory html exists, removing .html files
-  cd html
-  del *.html
+  echo Directory %htmldir%html exists, removing .html files
+  cd %htmldir%html
+  del *.html >nul
   cd %currentdir%
   goto checkHACKEDDir
 
 :checkHACKEDDir
-if exist "hacked" goto delHACKEDs
-rem for win9x: if exist "hacked\nul"
+REM *Create hackeddir or delete files in hackeddir *
+if exist "%hackeddir%hacked" goto delHACKEDs
+rem for win9x: if exist "%hackeddir%hacked\nul"
 :makeHACKEDDir
-  echo Directory hacked does not exist, creating directory hacked
-  mkdir hacked
+  echo Directory %hackeddir%hacked does not exist, creating it
+  mkdir %hackeddir%hacked
   goto okHome
 :delHACKEDs
-  echo Directory hacked exists, removing .xml files
-  cd hacked
+  echo Directory %hackeddir%hacked exists, removing .xml files
+  cd %hackeddir%hacked
   del *.xml >nul
   cd %currentdir%
   goto okHome
@@ -110,7 +144,6 @@ echo into the directory %DIMLXSL%\lib
 goto end
 
 :okXalan
-set BASEDIR=%DIMLXSL%
 call "%DIMLXSL%\tools\setclasspath.bat"
 set LOCALCLASSPATH=%CLASSPATH%;%DIMLXSL%\lib\xml-apis.jar;%DIMLXSL%\xalan.jar;%DIMLXSL%\lib\xercesImpl.jar;%DIMLXSL%\tools
 
@@ -125,7 +158,7 @@ REM set XLSTPROCESSOR=oracle.xml.jaxp.JXSAXTransformerFactory
 :exec
 set MAINCLASS=DiMLTransform
 set ARGUMENTS=%*
-rem @echo on
+REM @echo on
 %_RUNJAVA% -Xmx512M -Xms128M -Djavax.xml.transform.TransformerFactory=%XLSTPROCESSOR% -DDIMLXSL="%DIMLXSL%" -classpath "%LOCALCLASSPATH%" %MAINCLASS% -c"%CONFIGFILE%" %ARGUMENTS%
 
 REM -DTOOLSDir=$TOOLSDir -DRESULTDir=$RESULTDir -classpath $CLASSPATH $MAINCLASS -P$PREPROCESSING $XMLFILE $ARGUMENTS

@@ -295,7 +295,8 @@ or 0 (the empty string)</para>
       <xsl:variable name="colspec"
                     select="$tgroup/colspec[@colname=$namest]"/>
 
-      <xsl:variable name="namest.value">
+<!-- changed namest.value to namest.value1 -->
+      <xsl:variable name="namest.value1">
         <xsl:call-template name="get-attribute">
           <xsl:with-param name="element" select="$colspec"/>
           <xsl:with-param name="attribute" select="$attribute"/>
@@ -303,8 +304,10 @@ or 0 (the empty string)</para>
       </xsl:variable>
 
       <xsl:choose>
-        <xsl:when test="$namest.value">
-          <xsl:value-of select="$namest.value"/>
+
+<!-- changed namest.value to namest.value1 -->
+        <xsl:when test="$namest.value1">
+          <xsl:value-of select="$namest.value1"/>
         </xsl:when>
         <xsl:otherwise></xsl:otherwise>
       </xsl:choose>

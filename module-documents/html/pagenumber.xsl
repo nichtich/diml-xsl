@@ -119,7 +119,8 @@
   </span>
 </xsl:template>
 
-<xsl:template match="pagenumber" name="pagenumber-simple">
+<!--<xsl:template match="pagenumber" name="pagenumber-simple">-->
+<xsl:template name="pagenumber-simple">
   <xsl:choose>
     <xsl:when test="ancestor::table or ancestor::li or ancestor::ol or ancestor::ul or ancestor::dl">
       <a name="{@id}"></a>

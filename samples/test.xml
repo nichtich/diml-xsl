@@ -118,6 +118,24 @@ There are no museum specimens of the dodo still extant today, but from artists' 
 							<part>
 								<head>First Part</head>
 							</part>
+							<part>
+								<head>Second Part</head>
+							</part>
+							<part>
+								<head>Third Part</head>
+                                                                <part>
+                                                                        <head>Third Part Sub 1</head>
+                                                                </part>
+                                                                <part>
+                                                                        <head>Third Part Sub 2</head>
+                                                                </part>
+                                                                <part>
+                                                                        <head>Third Part Sub 3</head>
+                                                                </part>
+							</part>
+							<part>
+								<head>Fourth Part</head>
+							</part>
 						</subblock>
 					</block>
 				</subsection>

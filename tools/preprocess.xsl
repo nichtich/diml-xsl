@@ -21,7 +21,7 @@
 
 <xsl:variable name="CONFIG" select="document($CONFIGFILE)/config"/>
 <xsl:variable name="VOCABLES" select="document($CONFIGFILE)/config/vocables"/>
-<xsl:variable name="filterPagenumbers" ><xsl:if test="//citenumber">true</xsl:if></xsl:variable>
+<xsl:variable name="citenumbersExists" ><xsl:if test="//citenumber">true</xsl:if></xsl:variable>
 
 <xsl:key name="id" match="*" use="@id"/>
 
@@ -61,7 +61,7 @@
 
 <!--== add missing pagenumber labels ==-->
 <xsl:template match="pagenumber">
-  <xsl:if test="not($filterPagenumbers='true')">
+  <xsl:if test="not($citenumbersExists='true')">
 	<pagenumber>
 		<xsl:call-template name="provide-id"/>
 		<xsl:attribute name="label">
@@ -142,12 +142,24 @@
 
 
 <xsl:template match="front">
+
+    <!-- give info about citenumber mode -->
+    <xsl:choose>
+    <xsl:when test="$citenumbersExists='true'">
+      <xsl:message>This is stylesheet preprocess.xsl speaking. Info: Citenumbers detected. No pagenumbers will be displayed later.</xsl:message>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:message>This is stylesheet preprocess.xsl speaking. Info: No citenumbers detected. Pagenumbers will be displayed later.</xsl:message>
+    </xsl:otherwise>
+    </xsl:choose>
+
 	<xsl:copy>		
 		<xsl:variable name="name" select="name()"/>
 		<xsl:call-template name="provide-id">
 			<xsl:with-param name="suggest">front</xsl:with-param>
 		</xsl:call-template>
 		<xsl:apply-templates select="@*|node()"/>
+		
 		<!-- TODO: if there are no chapters etc. this will result in an error (empty list)! -->
 		<!--xsl:if test="$CONFIG/toc[@generate='yes']">
 		  <p>
@@ -377,26 +389,69 @@
 </xsl:template>
 -->
 
-<!-- do citenumber adding after chapter/frame begins -->
-<!-- match first paragraph in frame or chapter -->
+<!-- do citenumber adding after frame begins -->
+<!-- match first paragraph in frame          -->
 
-<xsl:template match="p[generate-id(.)=generate-id(ancestor::chapter/descendant::p[1]) or generate-id(.)=generate-id(ancestor::frame/descendant::p[1])]">
+<xsl:template match="p[generate-id(.)=generate-id(ancestor::frame/descendant::p[1])]">
   <xsl:copy>
     <xsl:apply-templates select="@*"/>
-    <xsl:if test="preceding::p[citenumber][1]/citenumber/@start + 1 != following::p[citenumber][1]/citenumber/@start">
-      <xsl:message>This is stylesheet preprocess.xsl speaking. Warning: Citenumber <xsl:value-of select="preceding::p[citenumber][1]/citenumber/@start"/> is not predecessor of <xsl:value-of select="following::p[citenumber][1]/citenumber/@start"/>.</xsl:message>
-    </xsl:if>
+    
+    <!-- add citenumber, if citenumbers exists in document -->
+    <!-- maybe other condition would be better,            -->
+    <!-- eg if in previous chapter citenumber exists       -->
+    <xsl:if test="$citenumbersExists='true'">
+    
+      <xsl:if test="preceding::p[citenumber][1]/citenumber/@start + 1 != following::p[citenumber][1]/citenumber/@start">
+        <xsl:message>This is stylesheet preprocess.xsl speaking. Warning: Citenumber <xsl:value-of select="preceding::p[citenumber][1]/citenumber/@start"/> is not predecessor of <xsl:value-of select="following::p[citenumber][1]/citenumber/@start"/>.</xsl:message>
+      </xsl:if>
 
-    <xsl:if test="not(citenumber)">
-      <xsl:element name="citenumber">
-        <xsl:call-template name="provide-id"/>
-        <xsl:attribute name="start"><xsl:value-of select="preceding::p[citenumber][1]/citenumber/@start" /></xsl:attribute>
-      </xsl:element>
+      <xsl:if test="not(citenumber) and preceding::p[citenumber]">
+        <xsl:element name="citenumber">
+          <xsl:call-template name="provide-id"/>
+          <xsl:attribute name="helper">true</xsl:attribute>
+          <xsl:attribute name="start"><xsl:value-of select="preceding::p[citenumber][1]/citenumber/@start" /></xsl:attribute>
+        </xsl:element>
+      </xsl:if>
+      
     </xsl:if>
     
     <xsl:apply-templates select="node()"/>
   </xsl:copy>
 </xsl:template>
+
+
+<!-- do citenumber adding after chapter begins       -->
+<!-- match first paragraph in chapter                -->
+<!-- only, if chapter is a direct descendant of body -->
+<!-- that means that chapter is not inside a frame   -->
+
+<xsl:template match="p[generate-id(.)=generate-id(ancestor::chapter/descendant::p[1])][name(ancestor::chapter/..)='body']">
+  <xsl:copy>
+    <xsl:apply-templates select="@*"/>
+    
+    <!-- add citenumber, if citenumbers exists in document -->
+    <!-- maybe other condition would be better,            -->
+    <!-- eg if in previous chapter citenumber exists       -->
+    <xsl:if test="$citenumbersExists='true'">
+    
+      <xsl:if test="preceding::p[citenumber][1]/citenumber/@start + 1 != following::p[citenumber][1]/citenumber/@start">
+        <xsl:message>This is stylesheet preprocess.xsl speaking. Warning: Citenumber <xsl:value-of select="preceding::p[citenumber][1]/citenumber/@start"/> is not predecessor of <xsl:value-of select="following::p[citenumber][1]/citenumber/@start"/>.</xsl:message>
+      </xsl:if>
+
+      <xsl:if test="not(citenumber) and preceding::p[citenumber]">
+        <xsl:element name="citenumber">
+          <xsl:call-template name="provide-id"/>
+          <xsl:attribute name="helper">true</xsl:attribute>
+          <xsl:attribute name="start"><xsl:value-of select="preceding::p[citenumber][1]/citenumber/@start" /></xsl:attribute>
+        </xsl:element>
+      </xsl:if>
+      
+    </xsl:if>
+    
+    <xsl:apply-templates select="node()"/>
+  </xsl:copy>
+</xsl:template>
+
 
 
 <!--===== copy the rest =====-->

@@ -1,6 +1,7 @@
 import java.io.*;
 import java.text.DateFormat;
 import java.util.*;
+import java.net.*;
 import org.w3c.dom.*;
 import javax.xml.parsers.*;
 import javax.xml.transform.*;
@@ -11,8 +12,10 @@ import javax.xml.transform.dom.*;
 import javax.xml.transform.stream.*;
 import org.apache.xpath.XPathAPI;
 
-public class DiMLTransform extends XMLReading {
-	
+// public class DiMLTransform extends XMLReading {
+  
+public class DiMLTransform  {
+
 	String DIMLXSL;
 	
 	File dimlFile = null;
@@ -112,53 +115,53 @@ public class DiMLTransform extends XMLReading {
 		
 		message("transforming:");
     params.put("CONVDATE",DateFormat.getDateInstance().format(new Date()));
-    if(cssDirectory!=null) params.put("STYLEDIRECTORY",cssDirectory.toString()+File.separator);
+    if(cssDirectory!=null) params.put("STYLEDIRECTORY",cssDirectory.getCanonicalPath()+File.separator);
 
     
     if(e.getTagName() == "etd") {				 		 
 		 		  
-		 // load diml2cms.xsl
-	   Templates diml2cms = loadXSL(diml2cmsFile);
+      // load diml2cms.xsl
+      Templates diml2cms = loadXSL(diml2cmsFile);
 		   		  
-     // if you do not want do split, just use "/etd";    
-     String xpath = "/etd/front|/etd/body/*|/etd/back/*";
+      // if you do not want do split, just use "/etd";    
+      String xpath = "/etd/front|/etd/body/*|/etd/back/*";
 	   
-	   if (!selectedId.equals("")) xpath = "//*[@id='"+selectedId+"']";
+      if (!selectedId.equals("")) xpath = "//*[@id='"+selectedId+"']";
 	   
-	   NodeList parts = selectParts(document,xpath);	
+      NodeList parts = selectParts(document,xpath);	
 
-	   message("document split into "+parts.getLength()+" parts:");
+      message("document split into "+parts.getLength()+" parts:");
 	     
-	   // TODO: if there are no parts...	  	  
-	   for(int s=0; s<parts.getLength(); s++) {
-  	   Node node = parts.item(s);  	  
+      // TODO: if there are no parts...	  	  
+      for(int s=0; s<parts.getLength(); s++) {
+      Node node = parts.item(s);  	  
 	  		  	 
-	  	 if(node.getAttributes().getNamedItem("id")==null) {
-	  	   message("@id of element missing");
-	  	   System.exit(0);
-	  	 } 
+      if(node.getAttributes().getNamedItem("id")==null) {
+        message("@id of element missing");
+        System.exit(0);
+      } 
 	  	 
-	  	 String id = node.getAttributes().getNamedItem("id").getNodeValue();
-	  	 params.put("SELECTID",id);
+      String id = node.getAttributes().getNamedItem("id").getNodeValue();
+      params.put("SELECTID",id);
 	  	 
-	  	 Node cmsd=null;
+      Node cmsd=null;
 	  	 
-       if (generateCMSFiles || generateHTMLFiles) {	 
-	       Transformer transformer = diml2cms.newTransformer();
-	       input  = new DOMSource(document);
-	       output = new DOMResult();
-	       setParameters(transformer);
-	       transformer.transform(input, output);
-	       cmsd = output.getNode();	 
-       } else {
-         message("-i "+id);
-       }              
+     if (generateCMSFiles || generateHTMLFiles) {	 
+             Transformer transformer = diml2cms.newTransformer();
+             input  = new DOMSource(document);
+             output = new DOMResult();
+             setParameters(transformer);
+             transformer.transform(input, output);
+             cmsd = output.getNode();	 
+     } else {
+       message("-i "+id);
+     }              
 
-     if(generateCMSFiles) { 
-         String cmsContainerFile = resultDirHACKED+"/"+id+".xml";  
+     if(generateCMSFiles) {
 
+         File cmsContainerFile = new File(resultDirHACKED.getCanonicalPath()+File.separator+id+".xml");
          DOMSource domSource = new DOMSource(cmsd);
-         StreamResult streamResult = new StreamResult(new FileWriter(cmsContainerFile));
+         javax.xml.transform.stream.StreamResult streamResult = new          javax.xml.transform.stream.StreamResult(cmsContainerFile);
 
          message("writing cms:container "+cmsContainerFile);
 
@@ -167,39 +170,41 @@ public class DiMLTransform extends XMLReading {
          //TODO: validate!
          //serializer.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM,"cms.dtd");
          //serializer.setOutputProperty(OutputKeys.INDENT,"yes");
-         serializer.transform(domSource, streamResult); 
+         serializer.transform(domSource, streamResult);
        }
 
        if(generateHTMLFiles) {    
-  	   String resultFile = resultDirHTML+"/"+id+".html"; 
 
-  	   message("transforming "+resultFile);      		
-  	   //message("manually: 'diml2html.xsl SELECTID="+id+"'"+params);
+           File resultFile = new File(resultDirHTML.getCanonicalPath()+File.separator+id+".html");
+           message("transforming "+resultFile);      		
+           //message("manually: 'diml2html.xsl SELECTID="+id+"'"+params);
 
            Transformer transformer = templates.newTransformer();
            setParameters(transformer);
 
            input  = new DOMSource(cmsd);
-           StreamResult out = new StreamResult(resultFile);
-           transformer.transform(input, out);	       
+
+           javax.xml.transform.stream.StreamResult out = new javax.xml.transform.stream.StreamResult(resultFile);
+	   transformer.transform(input, out);
+
         }
-		} // end for
-	  } else {
-	    errorMsg("File "+dimlFile+" contains no DiML-Document!");
-   	}      	
+                } // end for
+          } else {
+            errorMsg("File "+dimlFile+" contains no DiML-Document!");
+        }      	
 		
-            message("everything done.");
-	}
+       message("everything done.");
+    }
 	
 	 	 	 	
   public void message(String msg) {
     System.out.println(msg);
-	}  	
+  }  	
 
   public void errorMsg(String msg) {
     System.err.println(msg);
     System.exit(1);
-	}
+  }
 
   public void action(String[] args) throws Exception {
     try {
@@ -208,11 +213,12 @@ public class DiMLTransform extends XMLReading {
     resultDirHACKED = new File("hacked");
 
     DIMLXSL = System.getProperty("DIMLXSL","..");
+    
     configFile = new File(System.getProperty("DIMLXSLCONFIG","config.xml"));
 
-    diml2cmsFile  = new File(DIMLXSL+"/tools/diml2cms.xsl");
-    diml2htmlFile = new File(DIMLXSL+"/diml2html.xsl");
-    preprocessFile = new File(DIMLXSL+"/tools/preprocess.xsl");    
+    diml2cmsFile  = new File(DIMLXSL+File.separator+"tools"+File.separator+"diml2cms.xsl");
+    diml2htmlFile = new File(DIMLXSL+File.separator+"diml2html.xsl");
+    preprocessFile = new File(DIMLXSL+File.separator+"tools"+File.separator+"preprocess.xsl");    
 
     Source input;
     DOMResult output;
@@ -236,13 +242,21 @@ public class DiMLTransform extends XMLReading {
         return;
       }  
 
-      if (!configFile.exists()) {
+     if (!configFile.exists()) {
         configFile = new File(DIMLXSL+File.separator+"config.xml");
         if (!configFile.exists())
           errorMsg("Config file "+configFile+" does not exist!");
-      } 
-      params.put("CONFIGFILE",configFile.getAbsolutePath());
+     } 
+      String configFileString="file:///"+configFile.getCanonicalPath();
+      configFileString=configFileString.replace('\\','/');
+      message("Using configfile: " + configFileString);
 
+      params.put("CONFIGFILE",configFileString);
+
+      //params.put("CONFIGFILE",configFile.getName());
+      //params.put("CONFIGFILE",configFile.getPath());
+      //params.put("CONFIGFILE","config.xml");
+      
       Node doc=null;
 	  	  
 	  
@@ -298,31 +312,31 @@ public class DiMLTransform extends XMLReading {
     }
   }  
   
-	public static void main(String[] args) throws Exception {
-		if(args.length<1) {
-			printUsageAndExit();
-		}
+  public static void main(String[] args) throws Exception {
+          if(args.length<1) {
+                  printUsageAndExit();
+          }
 		
-		try {
-		  DiMLTransform tr = new DiMLTransform();  
-		  tr.action(args);
-		} catch(org.apache.xml.dtm.DTMException e) {
-		  System.err.println("DTDException! Propably there is not enough memory or an old version of Xalan\n" +
-		  "You may specify java to use more memory with -Xms and -Xmx\n"+
-		  "On some Linux JVMs there is a build in Jaxp xalan-implementatation."+
-		  "In this case you have to put xalan.jar into java/lib/endorsed/ to override it!\n"+
-		  e.getMessage()
-		  );
-		  //System.err.println("File not found!"+e.getMessage());
-		}  /*catch(Exception e) {
-		  System.out.println("HEY!");
-		  System.out.println(e.getClass().getName());
-		} */ 	 		 
-	}
+          try {
+            DiMLTransform tr = new DiMLTransform();  
+            tr.action(args);
+          } catch(org.apache.xml.dtm.DTMException e) {
+            System.err.println("DTDException! Propably there is not enough memory or an old version of Xalan\n" +
+            "You may specify java to use more memory with -Xms and -Xmx\n"+
+            "On some Linux JVMs there is a build in Jaxp xalan-implementatation."+
+            "In this case you have to put xalan.jar into java/lib/endorsed/ to override it!\n"+
+            e.getMessage()
+            );
+            //System.err.println("File not found!"+e.getMessage());
+          }  /*catch(Exception e) {
+            System.out.println("HEY!");
+            System.out.println(e.getClass().getName());
+          } */ 	 		 
+  }
 	
-	private void setDiMLFile(String name) {
-	  dimlFile = new File(name);
-	  if(!dimlFile.exists()) dimlFile = new File(name+".xml");
+  private void setDiMLFile(String name) {
+    dimlFile = new File(name);
+    if(!dimlFile.exists()) dimlFile = new File(name+".xml");
     if(!dimlFile.exists()) dimlFile = new File(name+"_xdiml.xml");
     if(!dimlFile.exists())
       errorMsg("XDiML file "+name+" does not exist!");  

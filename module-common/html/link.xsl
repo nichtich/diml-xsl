@@ -84,19 +84,23 @@
                      or starts-with(local-name($target),'sect')
                      or starts-with(local-name($target),'refsect')">
             <xsl:attribute name="title">
-              <!--xsl:apply-templates select="$target"
-                                 mode="object.title.markup.textonly"/-->
+              <!-- xsl:apply-templates select="$target"
+                                 mode="object.title.markup.textonly"/ -->
             </xsl:attribute>
           </xsl:if>
         </xsl:otherwise>
       </xsl:choose>
 
+      <!--        -->
       <!-- Inhalt -->
+      <!--        -->
+
           <xsl:choose>
             <xsl:when test="count(child::node()) &gt; 0">
               <!-- If it has content, use it -->
               <xsl:apply-templates/>
             </xsl:when>
+            
             <xsl:when test="$CONFIG/link[@to=$targetname]">
               <xsl:value-of select="$CONFIG/link[@to=$targetname]/@before"/>
               <xsl:apply-templates select="$target" mode="label"/>

@@ -82,7 +82,14 @@
     <chapter de="Kapitel" en="Chapter" />
     <front de="Titelseite" en="Front page"/>
     <preface de="Vorwort" en="Preface"/>
+    <next de="Nächster Teil" en="Next" />
+    <prev de="Vorheriger Teil" en="Previous" />
+    <first de="Erster Teil" en="First" />
+    <last de="Letzter Teil" en="Last" />
+    
+    <!-- pagenumbers -->
     <page de="Seite" en="Page" />
+    <pages de="Seiten" en="Pages" />
 
     <!-- Header -->
     <abstract de="Abstrakt" en="Abstract" />
@@ -111,16 +118,6 @@
 
     <!-- TOC -->
     <_contents de="Inhaltsverzeichnis" en="contents"/>
-	
-    <!-- Navigation in module-cms -->
-    <next de="Nächster Teil" en="Next" />
-    <prev de="Vorheriger Teil" en="Previous" />
-    <first de="Erster Teil" en="First" />
-    <last de="Letzter Teil" en="Last" />
-
-    <!-- pagenumbers -->
-    <page de="Seite" en="Page" />
-    <pages de="Seiten" en="Pages" />
 
   </vocables>
 

@@ -5,8 +5,6 @@
   exclude-result-prefixes="cms"
 >
 
-<xsl:variable name="EXT">.html</xsl:variable>
-
 <xsl:template match="cms:container">
   <xsl:apply-templates select="cms:document[1]"/>
 </xsl:template>
@@ -41,7 +39,9 @@
   <xsl:apply-templates select="cms:document[1]/cms:meta/*" mode="html-head"/>
 </xsl:template>
 
+<!--==================================================================-->
 <!--==== Tags in the HTML HEAD element ===============================-->
+<!--==================================================================-->
 
 <xsl:template match="cms:entry[@type='title']" mode="html-head">
   <title>
@@ -113,7 +113,10 @@
 
 <xsl:template match="cms:entry" mode="html-head"/>
 
+
+<!--==================================================================-->
 <!--==== Navigation Bar ==============================================-->
+<!--==================================================================-->
 
 <xsl:template match="cms:meta" mode="navigation">
   <table width="100%" border="0" class="navigation">
@@ -128,21 +131,46 @@
          <form action="" name="navForm">
          <xsl:apply-templates select="cms:entry[@type='front']" mode="link"/>
          <xsl:apply-templates select="cms:entry[@type='preface']" mode="link"/>
-         <xsl:if test="cms:entry[@type='chapter']">
-           <xsl:value-of select="$VOCABLES/chapter/@*[name()=$LANG]" />
-           <xsl:text>:&#xA0;</xsl:text>
-           <xsl:for-each select="cms:entry[@type='chapter']">
-	           <xsl:apply-templates select="." mode="link">
-	           	<xsl:with-param name="before"/>
-	           	<xsl:with-param name="after"/>
-	           </xsl:apply-templates>
-			<xsl:if test="following-sibling::cms:entry[@type='chapter']"> | </xsl:if>
-           </xsl:for-each>           
-         </xsl:if>         
-         <xsl:if test="cms:entry[@type='frame']">
-           <xsl:value-of select="$VOCABLES/frame/@*[name()=$LANG]" />: <xsl:apply-templates select="cms:entry[@type='frame']" mode="link"/>
-         </xsl:if>                  
-         <!-- bibliography, declaration ... -->
+
+         <xsl:choose>
+         
+           <!-- show frames instead of chapters if frames exist -->         
+           <xsl:when test="cms:entry[@type='frame']">
+             <xsl:value-of select="$VOCABLES/frame/@*[name()=$LANG]" />
+             <xsl:text>:&#xA0;</xsl:text>
+             <xsl:for-each select="cms:entry[@type='frame']">
+                     <xsl:apply-templates select="." mode="link">
+                          <xsl:with-param name="before"/>
+                          <xsl:with-param name="after"/>
+                     </xsl:apply-templates>
+                     <xsl:if test="following-sibling::cms:entry[@type='frame']"> | </xsl:if>
+             </xsl:for-each>           
+           </xsl:when>
+           
+           <!-- normal case: show chapters -->
+           <xsl:otherwise>
+             <xsl:if test="cms:entry[@type='chapter']">
+               <xsl:value-of select="$VOCABLES/chapter/@*[name()=$LANG]" />
+               <xsl:text>:&#xA0;</xsl:text>
+               <xsl:for-each select="cms:entry[@type='chapter']">
+                       <xsl:apply-templates select="." mode="link">
+                            <xsl:with-param name="before"/>
+                            <xsl:with-param name="after"/>
+                       </xsl:apply-templates>
+                       <xsl:if test="following-sibling::cms:entry[@type='chapter']"> | </xsl:if>
+               </xsl:for-each>           
+             </xsl:if>
+           </xsl:otherwise>
+           
+         </xsl:choose>
+         
+         <!-- Used before -->
+         <!--<xsl:if test="cms:entry[@type='frame']">
+               <xsl:value-of select="$VOCABLES/frame/@*[name()=$LANG]" />: <xsl:apply-templates select="cms:entry[@type='frame']" mode="link"/>
+             </xsl:if>-->
+             
+         <xsl:text>&#xA0;</xsl:text>
+        <!-- bibliography, declaration ... -->
         <xsl:apply-templates select="cms:entry[@type!='pagenumber' and @type!='chapter' and @type!='frame' and @type!='front' and @type!='preface' and substring(@type,1,1)!=':'][@ref]" mode="navbar"/>
         <!--xsl:apply-templates select="cms:entry" mode="navbar"/-->
         <br/>
@@ -163,10 +191,28 @@
         <p class="navbottom">
          <xsl:apply-templates select="cms:entry[@type='front']" mode="link"/>
          <xsl:apply-templates select="cms:entry[@type='preface']" mode="link"/>
-         <xsl:if test="cms:entry[@type='chapter']">
+
+         <xsl:choose>
+           <!-- show frames instead of chapters if frames exist -->         
+           <xsl:when test="cms:entry[@type='frame']">
+             <xsl:apply-templates select="cms:entry[@type='frame']" mode="link">
+             </xsl:apply-templates>
+           </xsl:when>
+           
+           <!-- normal case: show chapters -->
+           <xsl:otherwise>
+             <xsl:if test="cms:entry[@type='chapter']">
+               <xsl:apply-templates select="cms:entry[@type='chapter']" mode="link">
+               </xsl:apply-templates>
+             </xsl:if>
+           </xsl:otherwise>
+         </xsl:choose>
+         
+         <!-- old version: -->
+         <!--<xsl:if test="cms:entry[@type='chapter']">
            <xsl:apply-templates select="cms:entry[@type='chapter']" mode="link"/>
-         </xsl:if>         
-         <!-- TODO: frame -->
+         </xsl:if>-->
+         
          <xsl:apply-templates select="cms:entry[@type!='pagenumber' and @type!='chapter' and @type!='front' and @type!='preface'][@ref]" mode="navbar"/>
         </p>
       </td>
@@ -215,7 +261,11 @@
 <xsl:text>[</xsl:text><a href="{@part}{$EXT}"><xsl:value-of select="$VOCABLES/last/@*[name()=$LANG]" /></a>&#xA0;<xsl:text>]</xsl:text>
 </xsl:template>
 
+
+
+<!--==================================================================-->
 <!--==== Page navigation with Javascript =========================-->
+<!--==================================================================-->
 
 <xsl:template match="cms:entry[@type='pagenumber']" mode="nav-form">
 	<option>
@@ -232,7 +282,8 @@
 </xsl:template>
 
 <xsl:template name="pagenumbers-nav">
-  <xsl:value-of select="$VOCABLES/page/@*[name()=$LANG]" /><xsl:text>:</xsl:text>
+  <xsl:value-of select="$VOCABLES/page/@*[name()=$LANG]" /><xsl:text>:&#xA0;</xsl:text>
+
   <select name="pagenumber" onchange="self.location.href=document.navForm.pagenumber.value;void(0);">
     <xsl:apply-templates select="cms:entry[@type='pagenumber']" mode="nav-form"/>			
   </select>

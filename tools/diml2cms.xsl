@@ -176,11 +176,11 @@
 <!--===============================================================-->
 <xsl:template name="createFront">
    <front>
-          <xsl:copy-of select="/etd/front/@*"/>      
+      <xsl:copy-of select="/etd/front/@*"/>      
       <xsl:apply-templates select="/etd/front/*"/>
-          <xsl:call-template name="TableOfContents"/>
-          <xsl:if test="//table[caption]">
-         <xsl:call-template name="TableOfTables"/>
+      <xsl:call-template name="TableOfContents"/>
+      <xsl:if test="//table[caption]">
+      <xsl:call-template name="TableOfTables"/>
       </xsl:if>
       <xsl:if test="//im[caption] | //mm[caption]">
          <xsl:call-template name="TableOfMedias"/>
@@ -196,30 +196,30 @@
   
 <xsl:template name="TableOfContents">
    <freehead id=":contents"><xsl:value-of select="$CONFIG/toc/title[@lang=$LANG]"/></freehead>
-       <ul>
-        <xsl:apply-templates select="/etd/body/*" mode="TableOfContents"/>
-         <xsl:apply-templates select="/etd/back/*" mode="TableOfContents"/>
+   <ul>
+     <xsl:apply-templates select="/etd/body/*" mode="TableOfContents"/>
+     <xsl:apply-templates select="/etd/back/*" mode="TableOfContents"/>
    </ul>   
 </xsl:template>
 
 <xsl:template name="TableOfTables">
    <freehead id=":toc-tables"><xsl:value-of select="$VOCABLES/toc-tables/@*[name()=$LANG]"/></freehead>
    <ul>
-         <xsl:apply-templates select="//table" mode="TableOfContents"/>
+      <xsl:apply-templates select="//table" mode="TableOfContents"/>
    </ul>
 </xsl:template>
 
 <xsl:template name="TableOfMedias">
    <freehead id=":toc-media"><xsl:value-of select="$VOCABLES/toc-media/@*[name()=$LANG]"/></freehead>
    <ul>
-         <xsl:apply-templates select="//mm" mode="TableOfContents"/>
+      <xsl:apply-templates select="//mm" mode="TableOfContents"/>
    </ul>
 </xsl:template>
 
 <xsl:template name="TableOfExamples">
    <freehead id=":toc-examples"><xsl:value-of select="$VOCABLES/toc-examples/@*[name()=$LANG]"/></freehead>
    <ul>
-         <xsl:apply-templates select="//example" mode="TableOfContents"/>
+      <xsl:apply-templates select="//example" mode="TableOfContents"/>
    </ul>
 </xsl:template>
 
@@ -229,12 +229,6 @@
       <xsl:apply-templates select="head" mode="TableOfContents"/>
     </link>
   </li>  
-</xsl:template>
-
-<xsl:template match="resources" mode="TableOfContents">
-  <xsl:call-template name="toc-entry">
-    <xsl:with-param name="subelements" select="part"/>
-  </xsl:call-template>
 </xsl:template>
 
 <xsl:template match="appendix" mode="TableOfContents">
@@ -317,22 +311,24 @@
 <xsl:template match="mm|table|example" mode="TableOfContents">
    <xsl:if test="string(caption)">
       <li>
-            <p>
-               <link ref="{@id}">
-                 <xsl:apply-templates select="caption" mode="TableOfContents" />
-              </link>
-           </p>
+        <p>
+          <link ref="{@id}">
+            <xsl:apply-templates select="caption" mode="TableOfContents" />
+          </link>
+        </p>
       </li>
    </xsl:if>
 </xsl:template>
 
 <!-- Content of Head for Table of Contents       -->
 <!-- Do not print footnote or endnote in heading -->
+
 <xsl:template match="head | caption" mode="TableOfContents">
 <xsl:for-each select="node()[not(name()='footnote') and not(name()='endnote')]">
   <xsl:value-of select="."/>
 </xsl:for-each>
   
+
 </xsl:template>
 
 <xsl:template match="*" mode="TableOfContents"/>

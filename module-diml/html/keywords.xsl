@@ -12,7 +12,7 @@
             Keywords:
          </xsl:when>
          <xsl:otherwise>
-            Keywords:
+            <xsl:value-of select="$VOCABLES/keywords/@*[name()=$lang]" /><xsl:text>: </xsl:text>
          </xsl:otherwise>
        </xsl:choose>
      </span>

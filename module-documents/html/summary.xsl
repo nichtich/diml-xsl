@@ -7,7 +7,7 @@
       <xsl:apply-templates select="head"/>
     </xsl:when>
     <xsl:otherwise>
-      <xsl:text>Zusammenfassung</xsl:text>
+      <xsl:value-of select="$VOCABLES/summary/@*[name()=$lang]" />
     </xsl:otherwise>
   </xsl:choose>
 </xsl:template>

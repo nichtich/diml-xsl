@@ -7,7 +7,7 @@
       <xsl:apply-templates select="head"/>
     </xsl:when>
     <xsl:otherwise>
-      <xsl:text>Vorwort</xsl:text>
+      <xsl:value-of select="$VOCABLES/preface/@*[name()=$lang]" />
     </xsl:otherwise>
   </xsl:choose>
 </xsl:template>

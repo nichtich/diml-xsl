@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
-<!--== Glossary ==-->
-<xsl:variable name="GLOSSARY_HEAD">Glossar</xsl:variable>
-
 <!-- Vorraussetzung: jeder term hat 'ne id -->
 <xsl:template match="glossary">
   <h2>
@@ -21,7 +18,7 @@
         <xsl:apply-templates select="head/*"/>
       </xsl:when>
       <xsl:otherwise>
-        <xsl:value-of select="$GLOSSARY_HEAD"/>
+      <xsl:value-of select="$VOCABLES/glossary/@*[name()=$lang]" />
       </xsl:otherwise>
     </xsl:choose>
 </xsl:template>

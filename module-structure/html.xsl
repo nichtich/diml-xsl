@@ -31,13 +31,13 @@
 
 <xsl:template match="chapter|section|subsection|block|subblock|part|frame" mode="default-head">
   <xsl:choose>
-      <xsl:when test="name()='frame'">Teil</xsl:when>
-      <xsl:when test="name()='chapter'">Kapitel</xsl:when>
-      <xsl:when test="name()='section'">Abschnitt</xsl:when>
-      <xsl:when test="name()='subsection'">Unterabschnitt</xsl:when>
-      <xsl:when test="name()='block'"></xsl:when>
-      <xsl:when test="name()='subblock'"></xsl:when>
-      <xsl:when test="name()='part'"></xsl:when>
+      <xsl:when test="name()='frame'"><xsl:value-of select="$VOCABLES/frame/@*[name()=$lang]" /></xsl:when>
+      <xsl:when test="name()='chapter'"><xsl:value-of select="$VOCABLES/chapter/@*[name()=$lang]" /></xsl:when>
+      <xsl:when test="name()='section'"><xsl:value-of select="$VOCABLES/section/@*[name()=$lang]" /></xsl:when>
+      <xsl:when test="name()='subsection'"><xsl:value-of select="$VOCABLES/subsection/@*[name()=$lang]" /></xsl:when>
+      <xsl:when test="name()='block'"><xsl:value-of select="$VOCABLES/block/@*[name()=$lang]" /></xsl:when>
+      <xsl:when test="name()='subblock'"><xsl:value-of select="$VOCABLES/subblock/@*[name()=$lang]" /></xsl:when>
+      <xsl:when test="name()='part'"><xsl:value-of select="$VOCABLES/part/@*[name()=$lang]" /></xsl:when>
     </xsl:choose>	
 </xsl:template>
 

@@ -18,7 +18,7 @@
                  Abstract
               </xsl:when>
               <xsl:otherwise>
-                 Abstract
+                 <xsl:value-of select="$VOCABLES/abstract/@*[name()=$lang]" /><xsl:text>: </xsl:text>
               </xsl:otherwise>
             </xsl:choose>
          </xsl:otherwise>

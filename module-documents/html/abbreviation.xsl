@@ -7,7 +7,7 @@
       <xsl:apply-templates select="head"/>
     </xsl:when>
     <xsl:otherwise>
-      <xsl:text>Abkürzungsverzeichnis</xsl:text>
+       <xsl:value-of select="$VOCABLES/abbreviation/@*[name()=$lang]" />
     </xsl:otherwise>
   </xsl:choose>
 </xsl:template>

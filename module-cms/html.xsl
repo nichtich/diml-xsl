@@ -122,19 +122,19 @@
 
 <!--navbar-->
 <xsl:template match="cms:entry[@type=':next']" mode="navbar">
-  <a href="{@part}">next</a>&#xA0;
+  <a href="{@part}"><xsl:value-of select="$VOCABLES/next/@*[name()=$lang]" /></a>&#xA0;
 </xsl:template>
 
 <xsl:template match="cms:entry[@type=':prev']" mode="navbar">
-  <a href="{@part}">prev</a>&#xA0;
+  <a href="{@part}"><xsl:value-of select="$VOCABLES/prev/@*[name()=$lang]" /></a>&#xA0;
 </xsl:template>
 
 <xsl:template match="cms:entry[@type=':first']" mode="navbar">
-  <a href="{@part}">first</a>&#xA0;
+  <a href="{@part}"><xsl:value-of select="$VOCABLES/first/@*[name()=$lang]" /></a>&#xA0;
 </xsl:template>
 
 <xsl:template match="cms:entry[@type=':last']" mode="navbar">
-  <a href="{@part}">last</a>&#xA0;
+  <a href="{@part}"><xsl:value-of select="$VOCABLES/last/@*[name()=$lang]" /></a>&#xA0;
 </xsl:template>
 
 <!--==== Page navigation with Javascript =========================-->

@@ -1,7 +1,37 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
 <vocables>
+
+<!-- Navigation in module-cms -->
 <chapter de="Kapitel" en="Chapter" />
 <front de="Titelseite" en="Title page" />
 <preface de="Vorwort" en="Preface" />
 <page de="Seite" en="Page" />
-<pages de="Seiten" en="Pages" />
+
+<!-- Header -->
+<abstract de="Abstrakt" en="Abstract" />
+<keywords de="Eigene Schlagworte" en="Keywords" />
+<declaration de="Eidesstattliche Erklärung" en="Declaration" /> <!-- ? -->
+<acknowledgement de="Danksagung" en="Acknowledgement" />
+<dedication de="Widmung" en="Dedication" />
+<abbreviation de="Abkürzungsverzeichnis" en="Abbreviation" />
+<appendix de="Anhang" en="Appendix" />
+<glossary de="Glossar" en="Glossary" />
+<preface de="Vorwort" en="Preface" />
+<summary de="Zusammenfassung" en="Summary" />
+<vita de="Lebenslauf" en="Vita" />
+<footnotes de="Fußnoten" en="Footnotes" />
+<frame de="Teil" en="Frame" />
+<chapter de="Kapitel" en="Chapter" />
+<section de="Abschnitt" en="Section" />
+<subsection de="Unterabschnitt" en="Subsection" />
+<block de="" en="" />
+<subblock de="" en="" />
+<part de="" en="" />
+
+<!-- Navigation in module-cms -->
+<next de="Nächster" en="Next" />
+<prev de="Vorheriger" en="Previous" />
+<first de="Erster" en="First" />
+<last de="Letzter" en="Last" />
+
 </vocables>

@@ -7,7 +7,7 @@
       <xsl:apply-templates select="head"/>
     </xsl:when>
     <xsl:otherwise>
-      <xsl:text>Lebenslauf</xsl:text>
+      <xsl:value-of select="$VOCABLES/vita/@*[name()=$lang]" />
     </xsl:otherwise>
   </xsl:choose>
 </xsl:template>

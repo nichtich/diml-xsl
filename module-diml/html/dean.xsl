@@ -2,7 +2,7 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
 <xsl:template match="dean">
-  <p class="dean"><span class="deanText">Dekan:</span><xsl:text> </xsl:text><xsl:apply-templates/></p>
+  <p class="dean"><span class="deanText">Dekan: </span><xsl:text> </xsl:text><xsl:apply-templates/></p>
 </xsl:template>
 
 </xsl:stylesheet>

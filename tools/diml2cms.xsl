@@ -308,7 +308,6 @@
   <xsl:variable name="name" select="name()"/>  
   <xsl:variable name="subname" select="name($subelements[1])"/>
   <xsl:variable name="has-label" select="@label and not($CONFIG/toc/*[name()=$name and @hidelabel='yes'])"/>
-  
   <li>
     <p>
       <xsl:choose>
@@ -332,7 +331,7 @@
         <link ref="{@id}">
           <!-- if no head, write out terms for element in config.xml -->
           <xsl:choose>
-            <xsl:when test="head and not(head='')">
+            <xsl:when test="head and not(normalize-space(head)='')">
               <xsl:apply-templates select="head" mode="TableOfContents"/>
             </xsl:when>
             <xsl:otherwise>

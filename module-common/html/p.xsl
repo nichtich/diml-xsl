@@ -11,6 +11,10 @@
   <xsl:apply-templates
   	select="pagenumber[1][count(preceding-sibling::*)=0][normalize-space(preceding-sibling::text())='']" mode="hline"/>
 
+  <!-- das gleiche für Citenumbers -->
+  <xsl:apply-templates
+  	select="citenumber[1][count(preceding-sibling::*)=0][normalize-space(preceding-sibling::text())='']" mode="hline"/>
+
   <xsl:element name="p">
      <xsl:if test="$cssTemplate!=''">
         <xsl:attribute name="class">

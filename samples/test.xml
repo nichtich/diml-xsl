@@ -65,7 +65,7 @@ There are no museum specimens of the dodo still extant today, but from artists' 
 			<keyword>National Geographic</keyword>
 			<keyword>Mauritius</keyword>
 		</keywords>
-		<pagenumber numbering="lroman" label="1" start="1" id="p1"/>
+		<pagenumber numbering="arabic" label="1" start="1" id="p1"/>
 		<grant>
 			<p/>
 		</grant>
@@ -93,7 +93,7 @@ There are no museum specimens of the dodo still extant today, but from artists' 
 		</preface>
 		<chapter id="ch1">
 			<head>
-				<pagenumber numbering="lroman" label="17" start="17" id="p17"/>First Chapter</head>
+				<pagenumber numbering="arabic" label="17" start="17" id="p17"/>First Chapter</head>
 			<motto>
 				<p>Ein Motto stell ich hier voran - weil ich sowas eben kann!</p>
 			</motto>
@@ -144,14 +144,14 @@ There are no museum specimens of the dodo still extant today, but from artists' 
                                         <dd><p>So ein Vogel</p></dd>
                                       </def>
                                       <def>
-                                        <term>Didi <pagenumber numbering="lroman" label="301" start="301" id="p301"/> Projekt</term>
+                                        <term>Didi <pagenumber numbering="arabic" label="301" start="301" id="p301"/> Projekt</term>
                                         <term>Dada</term>
                                         <dd><p>Beide keine Vögel</p></dd>
                                       </def>
                                       <def>
                                         <foreign>bird</foreign>
                                         <dd><p>Auch ein Vogel</p>
-                                        <pagenumber numbering="lroman" label="302"/>
+                                        <pagenumber numbering="arabic" label="302" start="302"/>
                                         <p></p></dd>
                                       </def>
                                    </dl>
@@ -160,24 +160,32 @@ There are no museum specimens of the dodo still extant today, but from artists' 
                                 <p>
                                    <ul>
                                       <li><p>Punkt eins</p></li>
-                                      <li><p>Punkt <pagenumber numbering="lroman" label="106" start="106" id="p106"/> zwei</p></li>
+                                      <li><p>Punkt <pagenumber numbering="arabic" label="106" start="106" id="p106"/> zwei</p></li>
                                       <li><p>Punkt drei</p></li>
-                                      <li><p>Punkt <pagenumber numbering="lroman" label="107" start="107" id="p107"/>vier</p></li>
-                                      <li><p>Punkt <pagenumber numbering="lroman" label="108" start="108" id="p108"/>fünf</p></li>
-                                      <li><p>Punkt <pagenumber numbering="lroman" label="109" start="109" id="p109"/>sechs</p></li>
+                                      <li><p>Punkt <pagenumber numbering="arabic" label="107" start="107" id="p107"/>vier</p></li>
+                                      <li><p>Punkt <pagenumber numbering="arabic" label="108" start="108" id="p108"/>fünf</p></li>
+                                      <li><p>Punkt <pagenumber numbering="arabic" label="109" start="109" id="p109"/>sechs</p></li>
                                       <li><p>Punkt sieben</p></li>
                                       <li><p>Punkt acht</p></li>
+                                   </ul>
+                                </p>
+                                <p>Eine UL-Liste mit nur einer Seitenzahl:</p>
+                                <p>
+                                   <ul>
+                                      <li><p>Punkt eins</p></li>
+                                      <li><p>Punkt <pagenumber numbering="arabic" label="106" start="106" id="p106"/> zwei</p></li>
+                                      <li><p>Punkt drei</p></li>
                                    </ul>
                                 </p>
                                 <p>Eine OL-Liste:</p>
                                 <p>
                                    <ol>
                                       <li><p>Punkt eins</p></li>
-                                      <li><p>Punkt <pagenumber numbering="lroman" label="206" start="206" id="p206"/> zwei</p></li>
+                                      <li><p>Punkt <pagenumber numbering="arabic" label="206" start="206" id="p206"/> zwei</p></li>
                                       <li><p>Punkt drei</p></li>
-                                      <li><p>Punkt <pagenumber numbering="lroman" label="207" start="207" id="p207"/>vier</p></li>
-                                      <li><p>Punkt <pagenumber numbering="lroman" label="208" start="208" id="p208"/>fünf</p></li>
-                                      <li><p>Punkt <pagenumber numbering="lroman" label="209" start="209" id="p209"/>sechs</p></li>
+                                      <li><p>Punkt <pagenumber numbering="arabic" label="207" start="207" id="p207"/>vier</p></li>
+                                      <li><p>Punkt <pagenumber numbering="arabic" label="208" start="208" id="p208"/>fünf</p></li>
+                                      <li><p>Punkt <pagenumber numbering="arabic" label="209" start="209" id="p209"/>sechs</p></li>
                                       <li><p>Punkt sieben</p></li>
                                       <li><p>Punkt acht</p></li>
                                    </ol>
@@ -201,7 +209,7 @@ There are no museum specimens of the dodo still extant today, but from artists' 
 		</chapter>
 		<chapter id="chapter3">
 			<head>
-				<pagenumber numbering="lroman" label="18" start="18" id="p18"/>Third Chapter
+				<pagenumber numbering="arabic" label="18" start="18" id="p18"/>Third Chapter
       </head>
 			<p>Hier mal ein Beispiel:</p>
 			<example>
@@ -211,7 +219,7 @@ There are no museum specimens of the dodo still extant today, but from artists' 
 		</chapter>
 		<chapter>
 			<head>
-				<pagenumber numbering="lroman" label="19" start="19" id="p19"/>Kapitel mit Endnoten
+				<pagenumber numbering="arabic" label="19" start="19" id="p19"/>Kapitel mit Endnoten
       </head>
 			<p>
         Diese Kapitel enthält Endnoten
@@ -223,7 +231,7 @@ There are no museum specimens of the dodo still extant today, but from artists' 
         <endnote><p>oder des gesamten Textes (3. Endnote)</p></endnote>
 
 			</p>
-			<pagenumber numbering="lroman" label="20" start="20" id="p20"/>
+			<pagenumber numbering="arabic" label="20" start="20" id="p20"/>
 		</chapter>
 
 		<chapter>
@@ -244,7 +252,7 @@ There are no museum specimens of the dodo still extant today, but from artists' 
 
 		<chapter>
 			<head>
-				<pagenumber numbering="lroman" label="21" start="21" id="p21"/>Letztes Kapitel</head>
+				<pagenumber numbering="arabic" label="21" start="21" id="p21"/>Letztes Kapitel</head>
 <p>Hier steht nicht mehr viel.</p>
 <p>Ein interner Link mit "link" auf die <link ref="p21">Seite 21</link>.</p>
 <p>Ein externer Link mit "url" auf die offizielle <url href="http://www.dodo.de">Dodo-Homepage</url>.</p>
@@ -265,7 +273,7 @@ There are no museum specimens of the dodo still extant today, but from artists' 
 	<back>
 		<bibliography id="bibliography1">
 			<head>
-				<pagenumber numbering="lroman" label="100" start="100" id="p100"/>Bibliographie</head>
+				<pagenumber numbering="arabic" label="100" start="100" id="p100"/>Bibliographie</head>
 			<p>Viel zitiert - wenig gelesen!</p>
 			<freehead>Fremde Werke</freehead>
 			<citation id="FT1997">

@@ -31,7 +31,7 @@
          <table width="100%" border="0">
           <tr>
             <td width="100%"><hr/></td>
-            <td><xsl:call-template name="pagenumber-simple"/></td>
+            <td><xsl:call-template name="pagenumber-simple"/>&#xa0;&#8595;</td>
           </tr>  
         </table>
      </xsl:when>
@@ -105,7 +105,7 @@
 </xsl:template>
 
 <xsl:template match="pagenumber" mode="pagenumber-combined">
-   <xsl:call-template name="pagenumber-content"/>
+   <xsl:apply-templates select="." mode="number"/>
 </xsl:template>
 
 </xsl:stylesheet>

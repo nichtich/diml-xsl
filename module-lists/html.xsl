@@ -5,4 +5,6 @@
 <xsl:include href="html/ul.xsl"/>
 <xsl:include href="html/li.xsl"/>
 
+<!-- see also module-documents\html\glossary.xsl for dl (list of definitions) -->
+
 </xsl:stylesheet>

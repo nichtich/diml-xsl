@@ -185,7 +185,7 @@ acknowledgement: Danksagung
     </xsl:attribute>
     <xsl:choose>
       <xsl:when test="@type='front'">
-      <xsl:value-of select="document('vocabularies.xml',.)/vocabularies/front/@*[name()='de']" />
+      <xsl:value-of select="document('vocables.xml',.)/vocables/front/@*[name()='de']" />
       </xsl:when>
       <xsl:otherwise><xsl:value-of select="."/></xsl:otherwise>
     </xsl:choose>

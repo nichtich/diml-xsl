@@ -6,7 +6,7 @@
   <xsl:if test="//footnote">
     <hr/>
     <h3>Fu&#xDF;noten</h3>
-    <xsl:apply-templates select="//footnote" mode="foot"/>
+    <xsl:apply-templates select="//footnote|//endnote" mode="foot"/>
   </xsl:if>  
   <hr/>
   <xsl:apply-templates/>

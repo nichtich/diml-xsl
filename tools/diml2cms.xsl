@@ -3,6 +3,12 @@
  	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	xmlns:cms="http://edoc.hu-berlin.de/diml/module/cms">
 
+<xsl:include href="functions.xsl"/>
+
+<xsl:param name="CONFIGFILE">vocables.xml</xsl:param>
+<xsl:variable name="CONFIG" select="document($CONFIGFILE)/config"/>
+<xsl:variable name="VOCABLES" select="document($CONFIGFILE)/config/vocables"/>
+
 <xsl:output method="xml" indent="yes"/>
 
 <!-- id of the element we want to see -->
@@ -14,8 +20,6 @@
 		<xsl:otherwise>de</xsl:otherwise>
 	</xsl:choose>
 </xsl:param>
-<xsl:param name="VOCFILE">vocables.xml</xsl:param>
-<xsl:variable name="VOCABLES" select="document($VOCFILE)/vocables"/>
 
 <!-- parts of the document that may be content of the container --> 
 <xsl:variable name="parts" select="/etd/front|/etd/body/*|/etd/back/*"/>
@@ -138,7 +142,7 @@
 <!--===============================================================-->
 <xsl:template name="createFront">
 	<front>
-    		<xsl:copy-of select="@*"/>		
+    		<xsl:copy-of select="/etd/front/@*"/>		
 		<xsl:apply-templates select="/etd/front/*"/>
     		<xsl:call-template name="TableOfContents"/>
     		<xsl:if test="//table">
@@ -271,6 +275,7 @@
   	<link ref="{@id}">
   		<xsl:if test="@label">
 	  		<xsl:value-of select="@label"/>
+	  		<xsl:text>&#xA0;</xsl:text>
 	  	</xsl:if>	
   		<xsl:apply-templates select="head" mode="TableOfContents"/>
   	</link>
@@ -314,10 +319,8 @@
 
 <!-- generate attribute id and attribute part for a cms:entry element -->
 <xsl:template name="entry-id-attributes">
-  <!--xsl:message>entry-id-attributes</xsl:message-->
-	<!-- HIER UNTERSCHIEDE ZWISCHEN CITRIX3 und LOKAL -->
-	  <!--xsl:variable name="part" select="ancestor-or-self::*[@id=$parts/@id][1]/@id"/-->
-
+	 <!-- this is a work around to calcualte $parts --> 
+	<xsl:if test="count($parts)&lt;1"><xsl:message>the document contains no parts</xsl:message></xsl:if>
   <xsl:variable name="part" select="ancestor-or-self::*[@id=$parts/@id][1]/@id"/>
   <xsl:if test="$SELECTID!=$part">
       <xsl:attribute name="id">

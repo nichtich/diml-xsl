@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- Diese Datei war ursprünglich für Bezeichnungen gedacht - nun enthält sich alle möglichen
+Angaben zur Steuerung der Styles -->
+<config>
+
+	<!-- generate numbering of chapter, sections... (during preprocessing) -->
+	<generate numbering="uroman" of="frame" before="" after=""/>
+	<generate numbering="uroman" of="chapter" before="" after="."/>
+	<generate numbering="arabic" of="section" before="" after="." full="yes"/>
+	<generate numbering="ualpha" of="subsection" before="" after="." full="yes"/>
+	<generate numbering="lroman" of="block" before="" after=")" full="no"/>
+	
 <vocables>
+
 
 <!-- Navigation in module-cms -->
 <chapter de="Kapitel" en="Chapter" />
@@ -46,5 +58,6 @@
 
 <dimldtd de="DiML DTD Version 3.0" en="DiML DTD Version 3.0" />
 
-
 </vocables>
+
+</config>

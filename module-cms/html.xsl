@@ -112,13 +112,24 @@
          <xsl:apply-templates select="cms:entry[@type='front']" mode="link"/>
          <xsl:apply-templates select="cms:entry[@type='preface']" mode="link"/>
          <xsl:if test="cms:entry[@type='chapter']">
-           <xsl:value-of select="$VOCABLES/chapter/@*[name()=$LANG]" />: <xsl:apply-templates select="cms:entry[@type='chapter']" mode="link"/>
+           <xsl:value-of select="$VOCABLES/chapter/@*[name()=$LANG]" />
+           <xsl:text>:&#xA0;</xsl:text>
+           <xsl:for-each select="cms:entry[@type='chapter']">
+	           <xsl:apply-templates select="." mode="link">
+	           	<xsl:with-param name="before"/>
+	           	<xsl:with-param name="after"/>
+	           </xsl:apply-templates>
+			<xsl:if test="following-sibling::cms:entry[@type='chapter']"> | </xsl:if>
+           </xsl:for-each>           
          </xsl:if>         
+         <xsl:if test="cms:entry[@type='frame']">
+           <xsl:value-of select="$VOCABLES/frame/@*[name()=$LANG]" />: <xsl:apply-templates select="cms:entry[@type='frame']" mode="link"/>
+         </xsl:if>                  
          <xsl:if test="cms:entry[@type='pagenumber']">
       	 <xsl:call-template name="pagenumbers-nav"/>
          </xsl:if>         
          <!-- bibliography, declaration ... -->
-        <xsl:apply-templates select="cms:entry[@type!='pagenumber' and @type!='chapter' and @type!='front' and @type!='preface'][@ref]" mode="navbar"/>
+        <xsl:apply-templates select="cms:entry[@type!='pagenumber' and @type!='chapter' and @type!='frame' and @type!='front' and @type!='preface'][@ref]" mode="navbar"/>
         <!--xsl:apply-templates select="cms:entry" mode="navbar"/-->
          </form>
       </td>
@@ -136,6 +147,7 @@
          <xsl:if test="cms:entry[@type='chapter']">
            <xsl:apply-templates select="cms:entry[@type='chapter']" mode="link"/>
          </xsl:if>         
+         <!-- TODO: frame -->
          <xsl:apply-templates select="cms:entry[@type!='pagenumber' and @type!='chapter' and @type!='front' and @type!='preface'][@ref]" mode="navbar"/>
         </p>
       </td>
@@ -221,6 +233,9 @@
 <!-- create a link for a cms:entry element.
 The name of the link will be the content of cms:entry or an @type called element in $VOCABLES -->
 <xsl:template match="cms:entry" mode="link">
+	<xsl:param name="before"> [</xsl:param>
+	<xsl:param name="after">] </xsl:param>	
+	
   <xsl:param name="LABEL">
     <xsl:choose>
       <xsl:when test="string(.)!=''">
@@ -231,8 +246,8 @@ The name of the link will be the content of cms:entry or an @type called element
       </xsl:otherwise>
     </xsl:choose>    
   </xsl:param>
- <xsl:text> [</xsl:text>
-  <a>
+ <xsl:value-of select="$before"/>
+ <a>
     <xsl:attribute name="href">
       <xsl:if test="@part and name(key('id',@ref))='cms:entry'">        
         <xsl:value-of select="@part"/>
@@ -242,7 +257,7 @@ The name of the link will be the content of cms:entry or an @type called element
     </xsl:attribute>
 	<xsl:value-of select="normalize-space($LABEL)"/>
   </a>
- <xsl:text>] </xsl:text>
+  <xsl:value-of select="$after"/>
 </xsl:template>
 
 <xsl:template match="cms:entry[@type='title']">

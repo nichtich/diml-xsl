@@ -2,10 +2,17 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:cms="http://edoc.hu-berlin.de/diml/module/cms"
 exclude-result-prefixes="cms">
 
-<!-- Aufgaben von preprocess: 
+<xsl:include href="functions.xsl"/>
+
+<!--
+Aufgaben von preprocess: 
 *Seitennummerierung, Kapitelnummern vergeben
 *id-Attribute vergeben, wo notwendig
+*entities in files
 -->
+
+<xsl:param name="CONFIGFILE">vocables.xml</xsl:param>
+<xsl:variable name="CONFIG" select="document($CONFIGFILE)/config"/>
 
 <xsl:param name="NUMBERING">1</xsl:param>
 
@@ -107,12 +114,16 @@ exclude-result-prefixes="cms">
 </xsl:template>
 
 <!-- Numbering Label of chapter, frame, section... -->
-<xsl:template name="numbering">
-	<!--xsl:message>numbering:<xsl:value-of select="name()"/></xsl:message-->
+<xsl:template match="frame | chapter | section | subsection | block | subblock | part" mode="numberingValue">
 	<xsl:variable name="name" select="name()"/>
-	<xsl:if test="not(@label)">
-		<xsl:attribute name="label">
+	<xsl:variable name="generate" select="$CONFIG/generate[@of=$name][@numbering][1]"/>
+	
+	<xsl:if test="not(@label) and $generate">			
+			<xsl:if test="$generate[@full='yes']">
+				<xsl:apply-templates select="parent::*[1]" mode="numberingValue"/>
+			</xsl:if>
 			<xsl:variable name="recent-start" select="preceding-sibling::*[name()=$name][@start][1]"/>		
+			<xsl:value-of select="$generate/@before"/>
 			<xsl:call-template name="number">
 				<xsl:with-param name="number">
 					<xsl:choose>
@@ -125,10 +136,22 @@ exclude-result-prefixes="cms">
 						</xsl:otherwise>
 					</xsl:choose>			
 				</xsl:with-param>
-				<xsl:with-param name="numbering">arabic</xsl:with-param>
+				<xsl:with-param name="numbering">
+					<xsl:value-of select="$generate/@numbering"/>
+				</xsl:with-param>
 			</xsl:call-template>
-		</xsl:attribute>
+			<xsl:value-of select="$generate/@after"/>
 	</xsl:if>
+</xsl:template>
+
+<xsl:template name="numbering">
+	<xsl:variable name="name" select="name()"/>
+	<xsl:variable name="generate" select="$CONFIG/generate[@of=$name][@numbering][1]"/>
+	<xsl:if test="not(@label) and $generate">
+		<xsl:attribute name="label">
+			<xsl:apply-templates select="." mode="numberingValue"/>
+		</xsl:attribute>
+	</xsl:if>	
 </xsl:template>
 
 

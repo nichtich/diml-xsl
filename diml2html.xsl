@@ -2,9 +2,9 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
  xmlns:cms="http://edoc.hu-berlin.de/diml/module/cms">
 
-<xsl:param name="VOCFILE">vocables.xml</xsl:param>
-<xsl:variable name="VOCABLES" select="document($VOCFILE)/vocables"/>
+<xsl:param name="CONFIGFILE">vocables.xml</xsl:param>
 <xsl:param name="CONVDATE"></xsl:param>
+<xsl:variable name="VOCABLES" select="document($CONFIGFILE)/config/vocables"/>
 
 <xsl:param name="LANG">
   <xsl:choose>
@@ -38,11 +38,11 @@
 <xsl:include href="module-common/html.xsl"/>
 <xsl:include href="module-mathematics/html.xsl"/>
 <xsl:include href="module-documents/html.xsl"/>
-<!--xsl:include href="module-verse/html.xsl"/-->
 <xsl:include href="module-CALStable/html.xsl"/>
 <xsl:include href="module-lists/html.xsl"/>
 <xsl:include href="module-text/html.xsl"/>
 <xsl:include href="module-cms/html.xsl"/>
+<!--xsl:include href="module-verse/html.xsl"/-->
 
 <xsl:key name="term" match="term" use="@id"/>
 <xsl:key name="id" match="*[@id]" use="@id"/>

@@ -11,7 +11,7 @@
 <xsl:include href="../common/table.xsl"/>
 
 <!-- ********************************************************************
-     $Id: table.xsl,v 1.2 2003-02-20 18:39:41 archibaldsmith Exp $
+     $Id: table.xsl,v 1.3 2003-03-12 09:34:28 archibaldsmith Exp $
      ********************************************************************
 
      This file is part of the XSL DocBook Stylesheet distribution.
@@ -372,8 +372,8 @@
       </xsl:attribute>
     </xsl:if>
 
-    <!-- Caption -->
-    <xsl:apply-templates select="../caption" mode="tablecaption"/>
+    <!-- Done before when matching "table" in "module-CALStable\html.xsl" -->
+    <!--<xsl:apply-templates select="../caption" mode="tablecaption"/>-->
 
     <xsl:choose>
       <xsl:when test="$use.extensions != 0
@@ -416,8 +416,8 @@
     </xsl:if>
   </table>
   
-  <!-- Legend -->
-  <xsl:apply-templates select="../legend" mode="tablelegend"/>
+  <!-- Done before when matching "table" in "module-CALStable\html.xsl" -->
+  <!-- <xsl:apply-templates select="../legend" mode="tablelegend"/>-->
 
   
 </xsl:template>

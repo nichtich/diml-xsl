@@ -5,10 +5,23 @@
 
 <!-- TODO: handle 'caption' and 'legend' -->
 <xsl:template match="table">
+  <p class="tablecaption">
+     <a name="{generate-id(.)}">     
+        <xsl:apply-templates select="caption" />
+     </a>
+  </p>
   <xsl:if test="tgroup/@cols &lt; 1">
     <xsl:message terminate="yes">tgroup/@cols &lt; 1!</xsl:message>
   </xsl:if>
-  <xsl:apply-templates select="*[not(self::caption or self::legend)]" />  
+  <xsl:apply-templates select="*[not(self::caption or self::legend)]" />
+  <p class="tablelegend">
+     <xsl:apply-templates select="legend" mode="tablelegend" />
+  </p>
+</xsl:template>
+
+<!-- Tabellenverzeichnis -->
+<xsl:template match="table" mode="table-of-tables">
+   <li><a href="#{generate-id(.)}"><xsl:apply-templates select="caption" mode="table-of-tables" /></a></li>
 </xsl:template>
 
 

@@ -37,9 +37,7 @@
         </a>
       </xsl:when>
       <xsl:when test="@ref">        
-        <xsl:message terminate="yes">
- term/@ref to unknown term/@id (value="<xsl:value-of select="@ref"/>)
-        </xsl:message>
+        <xsl:message terminate="yes">This is stylesheet module-common/term.xsl speaking. Error: term/@ref to unknown term/@id (value="<xsl:value-of select="@ref"/>)</xsl:message>
       </xsl:when>
       <xsl:otherwise>
         <xsl:apply-templates/>

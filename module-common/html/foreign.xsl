@@ -6,7 +6,7 @@
     <xsl:param name="destinationLanguage" select="'en'"/>
     <xsl:variable name="long" select="$LANGUAGES[@id=$lang]/long[@xml:lang=$destinationLanguage]"/>
     <xsl:if test="not($long)">
-      <xsl:message terminate="yes">language <xsl:value-of select="@lang"/> not available in language <xsl:value-of select="$destinationLanguage"/>!</xsl:message>
+      <xsl:message terminate="yes">This is stylesheet module-common/foreign.xsl speaking. Error: language <xsl:value-of select="@lang"/> not available in language <xsl:value-of select="$destinationLanguage"/>!</xsl:message>
     </xsl:if>
     <xsl:value-of select="$long"/>
   </xsl:template>
@@ -16,7 +16,7 @@
     <xsl:variable name="abbrev" select="$LANGUAGES[@id=$lang]/abbrev[@xml:lang=$destinationLanguage]"/>
     <!--xsl:message terminate="no">     LANGUAGES=<xsl:value-of select="count($LANGUAGES)"/>     und zwar <xsl:value-of select="$lang"/>:     <xsl:value-of select="$LANGUAGES[@id=$lang]/@id"/>     (<xsl:for-each select="$LANGUAGES">       <xsl:value-of select="name(.)"/>[@id=<xsl:value-of select="@id"/>]     </xsl:for-each>)   </xsl:message-->
     <xsl:if test="not($abbrev)">
-      <xsl:message terminate="yes">       language <xsl:value-of select="@lang"/> not available in       language <xsl:value-of select="$destinationLanguage"/>!     </xsl:message>
+      <xsl:message terminate="yes">This is stylesheet module-common/foreign.xsl speaking. Error: language <xsl:value-of select="@lang"/> not available in       language <xsl:value-of select="$destinationLanguage"/>!</xsl:message>
     </xsl:if>
     <xsl:value-of select="$abbrev"/>
   </xsl:template>

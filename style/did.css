@@ -1,3 +1,12 @@
+/*----------------------------------------------------------------------------*/
+/*----                                                                     ---*/
+/*---                                                                       --*/
+/*--                                Common                                   -*/
+/*---                                                                       --*/
+/*----                                                                     ---*/
+/*----------------------------------------------------------------------------*/
+
+
 body {  
          font-family: HELVETICA, ARIAL;
          text-align: left;
@@ -16,20 +25,19 @@ p {
   }
   
 span.pagenumber {
-         text-align: right;
          color: red;
   }
   
   
-<!----------------------------------------------------------------------------->
-<!----                                                                     ---->
-<!---                                                                       --->
-<!--                         Front of Document                               -->
-<!---                                                                       --->
-<!----                                                                     ---->
-<!----------------------------------------------------------------------------->
+/*----------------------------------------------------------------------------*/
+/*----                                                                     ---*/
+/*---                                                                       --*/
+/*--                         Front of Document                               -*/
+/*---                                                                       --*/
+/*----                                                                     ---*/
+/*----------------------------------------------------------------------------*/
 
-<!-- Headline -->
+/*-- Headline --*/
 table.headline {
          font-family: Times;
          font-size: 11pt;
@@ -54,7 +62,7 @@ span.headline-author {
 span.headline-title {
                     }
 
-<!-- Titel der Dissertation -->
+/*-- Titel der Dissertation --*/
 p.title {
          font-family: Helvetica, Arial;
          font-style: normal;
@@ -65,60 +73,60 @@ p.title {
          line-height: 22pt;
         } 
 
-<!-- Autor der Dissertation -->
+/*-- Autor der Dissertation --*/
 p.author {
          text-align: center;
          font-size:  14pt;
          font-weight: demi-bold;
          }
          
-<!-- Text "vorgelegt von:" -->
+/*-- Text "vorgelegt von:" --*/
 span.vorgelegtText {
                    }
 
-<!-- Vorname innerhalb des Autors der Dissertation -->
-<!-- (Selbständigkeitserlärung)                    -->
+/*-- Vorname innerhalb des Autors der Dissertation --*/
+/*-- (Selbständigkeitserlärung)                    --*/
 span.given {
            }
            
-<!-- Nachname innerhalb des Autors der Dissertation -->
-<!-- (Selbständigkeitserlärung)                     -->
+/*-- Nachname innerhalb des Autors der Dissertation --*/
+/*-- (Selbständigkeitserlärung)                     --*/
 span.surname {
              }
 
-<!-- Zusatz innerhalb des Autors der Dissertation -->
-<!-- (Selbständigkeitserlärung)                   -->
+/*-- Zusatz innerhalb des Autors der Dissertation --*/
+/*-- (Selbständigkeitserlärung)                   --*/
 span.suffix {
             }
 
-<!-- Institution von der ein akademischer Grad vergeben wurde  -->
+/*-- Institution von der ein akademischer Grad vergeben wurde  --*/
 p.school {
          margin-top: 20pt;
          text-align: center;
          }
 
-<!-- akademischer Grad -->
+/*-- akademischer Grad --*/
 p.degree {
          text-align: center;
          }
 
-<!-- Erstellungsdatum des Objektes der Dissertation                 -->
-<!-- type="1" = Abgabe und type="2" = Verteidigung der Dissertation -->
+/*-- Erstellungsdatum des Objektes der Dissertation                 --*/
+/*-- type="1" = Abgabe und type="2" = Verteidigung der Dissertation --*/
 
 p.date {
      }
 
-<!-- Text "Datum:" -->     
+/*-- Text "Datum:" --*/     
 span.dateText {
               }
      
 
-<!-- Fakultät -->
+/*-- Fakultät --*/
 p.major {
          text-align: center;
       }
 
-<!-- Dekan -->
+/*-- Dekan --*/
 p.dean {
          text-align: left;
      }
@@ -128,18 +136,18 @@ span.deanText {
      
      
 
-<!-- Gutachter -->     
+/*-- Gutachter --*/     
 p.approvals {
          text-align: left;
           }
           
-<!-- Text "Gutachter:" -->
+/*-- Text "Gutachter:" --*/
 span.gutachterText {
          font-weight: bold;
                    }
 
 
-<!-- Dokumenttyp, z.B. Dissertation, Magisterarbeit, Diplomarbeit -->
+/*-- Dokumenttyp, z.B. Dissertation, Magisterarbeit, Diplomarbeit --*/
 p.submission {
          font-family: Verdana, Lucida, Arial;
          margin-top: 60;
@@ -149,23 +157,23 @@ p.submission {
          color: blue;
            }
 
-<!-- gefördert durch eine Stiftung -->
+/*-- gefördert durch eine Stiftung --*/
 p.grant {
       }
 
-<!-- Widmung -->
+/*-- Widmung --*/
 p.dedication {
            }
 
-<!-- Urheberrechtsvermerk -->
+/*-- Urheberrechtsvermerk --*/
 p.copyright {
           }
 
-<!-- Motto -->
+/*-- Motto --*/
 p.motto {
       }
 
-<!-- eigene Schlagworte -->
+/*-- eigene Schlagworte --*/
 p.keywords {
          }
 
@@ -173,11 +181,11 @@ span.keywordsText {
          font-weight: bold;
          }
 
-<!-- eigene Schlagworte -->
+/*-- eigene Schlagworte --*/
 p.keyword {
          }
          
-<!-- Abstract -->
+/*-- Abstract --*/
 p.abstracthead {
          font-weight: bold;
          }
@@ -185,21 +193,48 @@ p.abstracthead {
 p.abstract {
          }
 
-<!-- Danksagung -->
+/*-- Danksagung --*/
 p.acknowledgments {
                 }
 
-<!-- Selbständigkeitserklärung -->
+/*-- Selbständigkeitserklärung --*/
 p.declaration {
             }
 
-<!-- Anhang -->
+/*-- Anhang --*/
 p.appendix {
          }
+         
+         
+/*----------------------------------------------------------------------------*/
+/*----                                                                     ---*/
+/*---                                                                       --*/
+/*--                         Front of Document                               -*/
+/*---                                                                       --*/
+/*----                                                                     ---*/
+/*----------------------------------------------------------------------------*/
+
+/*-- Beispiel --*/
+
+p.example {
+  }
+         
+p.examplehead {
+         font-weight: bold;
+  }
+
+p.mmcaption  {
+  }
 
 /*----------------------------------------------------------------------------*/
-/* Bibliographie                                                              */
+/*----                                                                     ---*/
+/*---                                                                       --*/
+/*--                           Bibliographie                                 -*/
+/*---                                                                       --*/
+/*----                                                                     ---*/
 /*----------------------------------------------------------------------------*/
+
+
 
 span.name { font-variant:small-caps; }
 span.worktitle, span.articletitle, span.serialtitle {
@@ -208,6 +243,7 @@ span.worktitle, span.articletitle, span.serialtitle {
 span.pages { font-weight: bold; }
 span.note { font-size: smaller; }
 span.editor { }
+span.adress { }
 span.edition { }
 span.volume { }
 span.version { }
@@ -215,7 +251,7 @@ span.number { }
 span.pubdate { }
 
 
-<!-- Tabellen -->
+/*-- Tabellen --*/
 p.tablelegend {
          }
 caption.tablecaption {

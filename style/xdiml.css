@@ -32,7 +32,6 @@ p {
 span.pagenumber {
          color: red;
          font-size: xx-small;
-         /*font-size: xx-smaller;*/
   }
   
 blockquote {
@@ -229,7 +228,7 @@ p.examplehead {
   }
 
 p.mmimg  {
-         background-color:#F3F3F3;
+         background-color:#F9F9F9;
          padding:6px;
          border:none;
          margin:0px;
@@ -263,10 +262,20 @@ table.mm {
          padding:0px;
          border:none;
          margin:0px;
+         align:middle;
+}
+
+table.calstable {
+         border-spacing:0px;
+         padding:0px;
+         border:none;
+         margin:0px;
+         align:center;
+         background-color:#F9F9F9;
 }
 
 p.dmathimath  {
-         background-color:#F3F3F3;
+         background-color:#F9F9F9;
          padding:6px;
          border:none;
          margin:0px;

@@ -10,28 +10,25 @@
   </xsl:template>
 
 
-  <xsl:template match="legend" mode="mmlegend">
-    <xsl:apply-templates select="." mode="centeredTable" />
+  <xsl:template match="caption" mode="mmcaption">
+    <tr>
+      <td width="15%"></td>
+      <td width="70%" class="caption">
+         <xsl:apply-templates/>
+      </td>
+    <td width="15%"></td>
+    </tr>
   </xsl:template>
 
-  <xsl:template match="legend" mode="tablelegend">
-    <xsl:apply-templates select="." mode="centeredTable" />
+  <xsl:template match="caption" mode="tablecaption">
+    <tr>
+      <td class="caption">
+         <xsl:apply-templates/>
+      </td>
+    </tr>
   </xsl:template>
 
 
-<xsl:template match="caption" mode="centeredTable">
- <tr>
- <td width="15%"></td>
- <td width="70%" class="caption">
-    <!--a>
-      <xsl:call-template name="a-name-attribute"/>
-      <xsl:apply-templates/>
-    </a-->
-    <xsl:apply-templates/>
- </td>
- <td width="15%"></td>
- </tr>
-</xsl:template>
 
 </xsl:stylesheet>
 

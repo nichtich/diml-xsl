@@ -3,12 +3,10 @@
 
 <xsl:include href="html/table.xsl"/>
 
-<!-- TODO: handle 'caption' and 'legend' -->
 <xsl:template match="table">
 
-<!-- this will print pagenumbers included in a table or list etc.  -->
-<!-- in a combined way at the begin of this table, list etc.       -->
-
+  <!-- this will print pagenumbers included in a table or list etc.  -->
+  <!-- in a combined way at the begin of this table, list etc.       -->
   <xsl:if test="descendant::pagenumber">
      <table width="100%" border="0">
        <tr>
@@ -25,17 +23,22 @@
      </table>
   </xsl:if>
 
-  <p class="tablecaption">
-     <a> 
-        <xsl:call-template name="a-name-attribute"/>    
-        <xsl:apply-templates select="caption" />
-     </a>
-  </p>
-  <xsl:if test="tgroup/@cols &lt; 1">
-    <xsl:message terminate="yes">tgroup/@cols &lt; 1!</xsl:message>
-  </xsl:if>
-  <xsl:apply-templates select="*[not(self::caption or self::legend)]" />
-   <xsl:apply-templates select="legend"/>
+
+ <div align="center">
+ <table class="calstable" border="0" cellspacing="0" cellpadding="0">
+   <xsl:apply-templates select="caption" mode="tablecaption"/>
+   <tr>
+     <td>
+        <xsl:if test="tgroup/@cols &lt; 1">
+          <xsl:message terminate="yes">tgroup/@cols &lt; 1!</xsl:message>
+        </xsl:if>
+        <xsl:apply-templates select="*[not(self::caption or self::legend)]" />
+     </td>
+   </tr>
+   <xsl:apply-templates select="legend" mode="tablelegend"/>
+ </table>
+ </div>
+
 </xsl:template>
 
 <xsl:param name="table.cell.border.color" select="''"/>

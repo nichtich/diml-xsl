@@ -26,7 +26,7 @@
 <a>
  <xsl:call-template name="a-name-attribute"/>
  <table class="mm" width="100%" border="0" cellspacing="0" cellpadding="0">
- <xsl:apply-templates select="caption" mode="mmcaption"/>
+    <xsl:apply-templates select="caption" mode="mmcaption"/>
  <tr>
  <td width="15%"></td>
  <td width="70%">
@@ -49,7 +49,10 @@
       </xsl:attribute>
       <xsl:if test="alt">
         <xsl:attribute name="alt">
-            <xsl:value-of select="alt"/>
+            <xsl:value-of select="alt[1]"/>
+        </xsl:attribute>
+        <xsl:attribute name="title">
+            <xsl:value-of select="caption[1]"/>
         </xsl:attribute>
       </xsl:if>
     </img>

@@ -205,10 +205,16 @@ There are no museum specimens of the dodo still extant today, but from artists' 
 			<section>
 				<head>Images</head>
 				<p>
-					Ein Bild
-					<mm file="bild.gif">
-						<caption>Bildüberschrift</caption>
-						<legend>Die Erklärung zu Bild</legend>
+					Ein Bild:
+					<mm file="bilder/handy4.jpg">
+						<legend>Die Erklärung 1 zum Bild</legend>
+						<legend>Die Erklärung 2 zum Bild</legend>
+						<caption>Bildüberschrift 1</caption>
+						<alt>Das sieht ziemlich alt (1) aus!</alt>
+						<legend>Die Erklärung 3 zum Bild</legend>
+						<caption>Bildüberschrift 2</caption>
+						<legend>Die Erklärung 4 zum Bild</legend>
+						<alt>Das sieht ziemlich alt (2) aus!</alt>
 					</mm>
 				</p>
 			</section>

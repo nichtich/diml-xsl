@@ -146,7 +146,7 @@ exclude-result-prefixes="cms">
   </xsl:if>
 </xsl:template>
 
-<xsl:template match="citation">
+<!--xsl:template match="citation">
 	<xsl:copy>		
 		<xsl:if test="not(@label)">
 			<xsl:if test="cut">
@@ -157,7 +157,7 @@ exclude-result-prefixes="cms">
 		</xsl:if>
 		<xsl:apply-templates select="@*|node()"/>
 	</xsl:copy>
-</xsl:template>
+</xsl:template-->
 
 <!-- no p around single citations in bibliography -->
 <xsl:template match="bibliography/p[citation and count(*)=1 and normalize-space(text())='']">

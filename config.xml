@@ -15,7 +15,16 @@ sie alle möglichen Angaben zur Steuerung der Styles -->
 
   <pagenumber before="[" between=" - " after="&#8595;]" lang="en"/>
   <pagenumber before="[" between=" - " after="&#8595;]" lang="de"/>  
-  
+   
+  <!-- Table of contents -->  
+  <toc>
+    <title lang="de">Inhaltsverzeichnis</title>
+    <title lang="de">Table of contents</title>        
+    <chapter hidelabel="no" indent="yes"/>
+    <section hidelabel="no" indent="yes"/>
+    <!-- ... -->
+  </toc>
+      
   <!--== css-file ==-->
   <!--css-stylesheet>xdiml.css</css-stylesheet-->
   		
@@ -48,6 +57,11 @@ sie alle möglichen Angaben zur Steuerung der Styles -->
 
   <!--== Vocables (words in different languages ==-->
   <vocables>
+    <!-- table of contents -->
+    <toc-tables de="Tabellen" en="Tables"/>
+    <toc-examples de="Beispiele" en="Examples"/>
+    <toc-media de="Bilder" en="Images"/>
+
     <!-- Navigation in module-cms -->
     <chapter de="Kapitel" en="Chapter" />
     <front de="Titelseite" en="Title page" />
@@ -76,12 +90,6 @@ sie alle möglichen Angaben zur Steuerung der Styles -->
     <block de="" en="" />
     <subblock de="" en="" />
     <part de="" en="" />
-
-    <!-- table of contents -->
-    <toc de="Inhaltsverzeichnis" en="Table of contents"/>
-    <toc-tables de="Tabellen" en="Tables"/>
-    <toc-examples de="Beispiele" en="Examples"/>
-    <toc-media de="Bilder" en="Images"/>
 
     <!-- Navigation in module-cms -->
     <next de="Nächster Teil" en="Next" />

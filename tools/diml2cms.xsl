@@ -163,7 +163,7 @@
 <!-- TODO: bibliography mit mehreren parts -->
   
 <xsl:template name="TableOfContents">
-	<freehead><xsl:value-of select="$VOCABLES/toc/@*[name()=$LANG]"/></freehead>
+	<freehead><xsl:value-of select="$CONFIG/toc/title[@lang=$LANG]"/></freehead>
     	<ul>
      	<xsl:apply-templates select="/etd/body/*" mode="TableOfContents">
     			<xsl:with-param name="toc-depth" select="$TOC_DEPTH"/>
@@ -270,16 +270,20 @@
 <xsl:template name="toc-entry">
   <xsl:param name="toc-depth">0</xsl:param>
   <xsl:param name="subelements"/>
+  
+  <xsl:variable name="name" select="name()"/>  
+  <xsl:variable name="subname" select="name($subelements[1])"/>
+  
   <li>
   	<p>
   	<link ref="{@id}">
-  		<xsl:if test="@label">
+  		<xsl:if test="@label and not($CONFIG/toc/*[name()=$name and @hidelabel='yes'])">
 	  		<xsl:value-of select="@label"/>
 	  		<xsl:text>&#xA0;</xsl:text>
 	  	</xsl:if>	
   		<xsl:apply-templates select="head" mode="TableOfContents"/>
   	</link>
-    <xsl:if test="$toc-depth>0 and $subelements">
+    <xsl:if test="$toc-depth>0 and $subelements and not($CONFIG/toc/*[name()=$subname and @indent='no'])">
     	<ul>        
         <xsl:apply-templates select="$subelements" mode="TableOfContents">
           <xsl:with-param name="toc-depth">
@@ -290,11 +294,17 @@
     </xsl:if>
     </p>
   </li>  
+    <xsl:if test="$toc-depth>0 and $subelements and $CONFIG/toc/*[name()=$subname and @indent='no']">
+        <xsl:apply-templates select="$subelements" mode="TableOfContents">
+          <xsl:with-param name="toc-depth">
+            <xsl:value-of select="$toc-depth - 1"/>
+          </xsl:with-param>
+        </xsl:apply-templates>
+    </xsl:if>  
 </xsl:template>
 
 <xsl:template match="mm|table|example" mode="TableOfContents">
-	<!-- TODO: if caption mit Abb. etc. anfängt -->
-	<xsl:if test="caption">
+	<xsl:if test="string(caption)">
 		<li>
    			<p>
    				<link ref="{@id}">

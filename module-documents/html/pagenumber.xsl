@@ -26,36 +26,29 @@
      <table width="100%" border="0">
        <tr>
          <td width="100%"><hr/></td>
-         <xsl:choose>
-           <xsl:when test="count(descendant::pagenumber) = 1">
-              <td><span class="pagenumber">
-              	<nobr>
-              	 	<xsl:value-of select="$CONFIG/pagenumber[@lang=$LANG]/@before"/>
- 				
- 				<xsl:value-of select="$VOCABLES/page/@*[name()=$LANG]" />:
- 				
+         <td class="pagenumber">
+	    	<nobr>
+          	<xsl:value-of select="$CONFIG/pagenumber[@lang=$LANG]/@before"/>
+
+           <xsl:choose>
+           <xsl:when test="count(descendant::pagenumber) = 1">              	 	
+ 				<xsl:value-of select="$VOCABLES/page/@*[name()=$LANG]" />: 				
  				<xsl:apply-templates select="descendant::pagenumber[1]" mode="pagenumber-combined" />
-			  	<xsl:value-of select="$CONFIG/pagenumber[@lang=$LANG]/@after"/>
-			</nobr></span></td>
            </xsl:when>
            <xsl:otherwise>
-              <td><span class="pagenumber"><nobr>
-              	<xsl:value-of select="$CONFIG/pagenumber[@lang=$LANG]/@before"/>
-
-              [ <xsl:value-of select="$VOCABLES/pages/@*[name()=$LANG]" />: 
-              
+               <xsl:value-of select="$VOCABLES/pages/@*[name()=$LANG]" />:               
               <xsl:apply-templates select="descendant::pagenumber[1]" mode="pagenumber-combined" />
- 				<xsl:value-of select="$CONFIG/pagenumber[name()=$LANG]/@between"/> 
- 				<xsl:apply-templates select="descendant::pagenumber[position()=last()]" mode="pagenumber-combined" />
-				<xsl:value-of select="$CONFIG/pagenumber[@lang=$LANG]/@after"/>
-			</nobr></span></td>
+			<xsl:value-of select="$CONFIG/pagenumber[name()=$LANG]/@between"/> 
+			<xsl:apply-templates select="descendant::pagenumber[position()=last()]" mode="pagenumber-combined" />
            </xsl:otherwise>
-         </xsl:choose>
+         </xsl:choose> 				
+				<xsl:value-of select="$CONFIG/pagenumber[@lang=$LANG]/@after"/>
+			</nobr></td>         
        </tr>
      </table>
 </xsl:template>
 
-	
+
 <xsl:template name="pagenumber-hline">
    <xsl:choose>
      <xsl:when test="not(ancestor::table or ancestor::li or ancestor::ol or ancestor::ul or ancestor::dl)">

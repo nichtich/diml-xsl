@@ -3,19 +3,22 @@
 	
 <xsl:template match="dedication">
   <xsl:apply-templates select="head/pagenumber" mode="hline"/>
-  <xsl:apply-templates select="." mode="head"/>
-  <!--<p class="dedication">-->
+  <h3 class="{name()}">
+    <a>
+      <xsl:call-template name="a-name-attribute"/>
+      <xsl:apply-templates select="." mode="head"/>
+    </a>
+  </h3>
   <xsl:apply-templates select="*[not(self::head)]" />
-  <!--</p>-->
 </xsl:template>
 
 <xsl:template match="dedication" mode="head">
   <xsl:choose>
     <xsl:when test="head">
-      <H3><xsl:apply-templates select="head"/></H3>
+      <xsl:apply-templates select="head"/>
     </xsl:when>
     <xsl:otherwise>
-      <H3><xsl:value-of select="$VOCABLES/dedication/@*[name()=$LANG]" /><xsl:text>: </xsl:text></H3>
+      <xsl:value-of select="$VOCABLES/dedication/@*[name()=$LANG]" /><xsl:text>: </xsl:text>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:template>

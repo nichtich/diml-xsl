@@ -4,9 +4,13 @@
 <xsl:template match="bibliography" name="element-bibliography">
   <xsl:apply-templates select="head/pagenumber" mode="hline"/>
   <h3 class="bibliography">
-    <xsl:apply-templates select="." mode="head"/>
+    <a>
+      <xsl:call-template name="a-name-attribute"/>
+      <xsl:apply-templates select="." mode="head"/>
+    </a>
   </h3>
   <xsl:apply-templates select="*[not(self::head)]" />
+
 </xsl:template>
 
 <xsl:template match="bibliography" mode="head" name="bibliography-head">
@@ -21,7 +25,6 @@
 </xsl:template>
 
 </xsl:stylesheet>
-
 
 <!--                                                        -->
 <!--    Old Version with additional "p" for "citation"      -->

@@ -131,8 +131,8 @@
 	<cms:entry type=":last" part="{$selected-part/../*[last()]/@id}.html"/>
 	<xsl:if test="//back/@id">
 		<cms:entry type=":appendix" part="{//back/@id}.html"/>
-	</xsl:if>
-	<cms:entry type=":lang"><xsl:value-of select="$LANG"/></cms:entry-->
+	</xsl:if-->
+	<cms:entry type=":lang"><xsl:value-of select="$LANG"/></cms:entry>
 </xsl:template>
 
 <!--===============================================================-->
@@ -171,21 +171,21 @@
 </xsl:template>
 
 <xsl:template name="TableOfTables">
-	<freehead>Tabellen</freehead>
+	<freehead><xsl:value-of select="$VOCABLES/toc-tables/@*[name()=$LANG]"/></freehead>
 	<ul>
       	<xsl:apply-templates select="//table" mode="TableOfContents"/>
 	</ul>
 </xsl:template>
 
 <xsl:template name="TableOfMedias">
-	<freehead>Bilder und andere Medien</freehead>
+	<freehead><xsl:value-of select="$VOCABLES/toc-media/@*[name()=$LANG]"/></freehead>
 	<ul>
       	<xsl:apply-templates select="//mm" mode="TableOfContents"/>
 	</ul>
 </xsl:template>
 
 <xsl:template name="TableOfExamples">
-	<freehead>Beispiele</freehead>
+	<freehead><xsl:value-of select="$VOCABLES/toc-examples/@*[name()=$LANG]"/></freehead>
 	<ul>
       	<xsl:apply-templates select="//example" mode="TableOfContents"/>
 	</ul>
@@ -269,6 +269,9 @@
   <li>
   	<p>
   	<link ref="{@id}">
+  		<xsl:if test="@label">
+	  		<xsl:value-of select="@label"/>
+	  	</xsl:if>	
   		<xsl:apply-templates select="head" mode="TableOfContents"/>
   	</link>
     <xsl:if test="$toc-depth>0 and $subelements">
@@ -285,15 +288,16 @@
 </xsl:template>
 
 <xsl:template match="mm|table|example" mode="TableOfContents">
-	<li>
-   		<p>
-   			<link ref="{@id}">
-   				<xsl:value-of select="name()"/>
-   				<xsl:text>: </xsl:text>
-     			<xsl:apply-templates select="caption" mode="TableOfContents" />
-     		</link>
-     	</p>
-	</li>
+	<!-- TODO: if caption mit Abb. etc. anfängt -->
+	<xsl:if test="caption">
+		<li>
+   			<p>
+   				<link ref="{@id}">
+     				<xsl:apply-templates select="caption" mode="TableOfContents" />
+	     		</link>
+     		</p>
+		</li>
+	</xsl:if>
 </xsl:template>
 
 <xsl:template match="head" mode="TableOfContents">

@@ -380,20 +380,23 @@ p.navbottom {
               font-size: 10pt;
 }
 
-p.copyrightbottom {
+/*-- Server Information --*/
+
+td.copyrightInfo {
               font-size: 10pt;
 }
-
-
-p.dimldtdbottom {
+td.serverInfo {
+    background-color: #E0E0E0;
               font-size: 10pt;
               text-align:center;
 }
-p.docservbottom {
+
+td.dtdInfo {
               font-size: 10pt;
               text-align:center;
 }
-p.datebottom {
+
+td.generatedInfo {
               font-size: 10pt;
               text-align:center;
 }

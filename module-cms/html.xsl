@@ -28,6 +28,11 @@
   
   <!-- Navigationsleiste -->
   <xsl:apply-templates select="cms:meta" mode="navbottom"/>
+
+	<!-- Copyright etc. -->
+   <hr/>
+  <xsl:call-template name="InfoTable"/>
+
 </xsl:template>
 
 <xsl:template match="cms:container" mode="html-head">
@@ -136,31 +141,33 @@
       </td>
     </tr>
   </table>
-  <hr/>
+</xsl:template>
 
-  <p class="copyrightbottom">
-     <xsl:text disable-output-escaping="yes">&amp;copy;</xsl:text> Die inhaltliche Zusammenstellung und Aufmachung dieser Publikation sowie die elektronische 
+<xsl:template name="InfoTable">
+	<table width="100%" border="0" class="InfoTable">
+  		<tr>
+  			<td colspan="3" class="copyrightInfo">
+     <xsl:text disable-output-escaping="yes">&amp;copy;</xsl:text>
+      Die inhaltliche Zusammenstellung und Aufmachung dieser Publikation sowie die elektronische 
      Verarbeitung sind urheberrechtlich geschützt. Jede Verwertung, die nicht ausdrücklich 
      vom Urheberrechtsgesetz zugelassen ist, bedarf der vorherigen Zustimmung. Das gilt insbesondere für 
      die Vervielfältigung, die Bearbeitung und Einspeicherung und Verarbeitung in elektronische Systeme.
-  </p>
-     <center>
-     <table valign="top" cellpadding="6" width="100%" border="0">
-      <tr>
-        <td align="center"><p class="dimldtdbottom"><xsl:value-of select="$VOCABLES/dimldtd/@*[name()=$LANG]" /></p></td>
-        <td align="center" bgcolor="#96B6EB">
-           <p class="docservbottom"><a href="http://edoc.hu-berlin.de">Zertifizierter Dokumentenserver<br/> der Humboldt-Universität zu Berlin</a></p>
-        </td>
-        <td align="center">
-           <p class="datebottom">
-             HTML - Version erstellt am:<br/>
-             <xsl:value-of select="$CONVDATE" />
-           </p>
-        </td>
-      </tr>
-     </table>
-     </center>
-
+  			</td>
+	  	</tr>
+		<tr>
+			<td class="dtdInfo">
+				DiML-DTD Version 3.0
+				<xsl:value-of select="$VOCABLES/dimldtd/@*[name()=$LANG]" />
+			</td>
+     	  	<td class="serverInfo">
+				<a href="http://edoc.hu-berlin.de">Zertifizierter Dokumentenserver<br/> der Humboldt-Universität zu Berlin</a>
+	      	</td>
+     	   	<td class="generatedInfo">
+           		HTML-Version erstellt am:<br/>
+	          	<xsl:value-of select="$CONVDATE" />
+        		</td>
+     	</tr>
+	</table>
 </xsl:template>
 
 <!--navbar-->

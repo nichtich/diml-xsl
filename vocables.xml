@@ -30,6 +30,12 @@
 <subblock de="" en="" />
 <part de="" en="" />
 
+<!-- table of contents -->
+<toc de="Inhaltsverzeichnis" en="Table of contents"/>
+<toc-tables de="Tabellen" en="Tables"/>
+<toc-examples de="Beispiele" en="Examples"/>
+<toc-media de="Bilder" en="Images"/>
+
 <!-- Navigation in module-cms -->
 <next de="Nächster Teil" en="Next" />
 <prev de="Vorheriger Teil" en="Previous" />
@@ -38,7 +44,7 @@
 
 <!-- Copyright and stuff -->
 
-<dimldtd de="DiML DTD Version 2.0" en="DiML DTD Version 2.0" />
+<dimldtd de="DiML DTD Version 3.0" en="DiML DTD Version 3.0" />
 
 
 </vocables>

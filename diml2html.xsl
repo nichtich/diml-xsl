@@ -4,6 +4,7 @@
 
 <xsl:param name="CONFIGFILE">vocables.xml</xsl:param>
 <xsl:param name="CONVDATE"></xsl:param>
+<xsl:variable name="CONFIG" select="document($CONFIGFILE)/config"/>
 <xsl:variable name="VOCABLES" select="document($CONFIGFILE)/config/vocables"/>
 
 <xsl:param name="LANG">
@@ -49,7 +50,7 @@
 
 <!-- Ueberschrift eines Kapitels/Unterkapitels/... -->
 <xsl:template match="frame|chapter|section|subsection|block|subblock|part" mode="head">
-  <xsl:apply-templates select="head"/>
+  <xsl:apply-templates select="head"/>  
 </xsl:template>
 
 <xsl:template name="a-name-attribute">

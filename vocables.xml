@@ -6,10 +6,15 @@ Angaben zur Steuerung der Styles -->
 	<!-- generate numbering of chapter, sections... (during preprocessing) -->
 	<generate numbering="uroman" of="frame" before="" after=""/>
 	<generate numbering="uroman" of="chapter" before="" after="."/>
-	<generate numbering="arabic" of="section" before="" after="." full="yes"/>
-	<generate numbering="ualpha" of="subsection" before="" after="." full="yes"/>
-	<generate numbering="lroman" of="block" before="" after=")" full="no"/>
+	<generate numbering="arabic" elementBefore="chapter" of="section" before="" after="."/>
+	<generate numbering="ualpha" elementBefore="section" of="subsection" before="" after="."/>
+	<generate numbering="lroman" of="block" before="" after=")"/>
 	
+	<copyright>&#169; Die inhaltliche Zusammenstellung und Aufmachung dieser Publikation sowie die elektronische 
+     Verarbeitung sind urheberrechtlich geschützt. Jede Verwertung, die nicht ausdrücklich 
+     vom Urheberrechtsgesetz zugelassen ist, bedarf der vorherigen Zustimmung. Das gilt insbesondere für 
+     die Vervielfältigung, die Bearbeitung und Einspeicherung und Verarbeitung in elektronische Systeme.
+	</copyright>
 <vocables>
 
 

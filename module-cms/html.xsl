@@ -157,18 +157,15 @@
 
 <xsl:template name="InfoTable">
 	<table width="100%" border="0" class="InfoTable">
-  		<tr>
-  			<td colspan="3" class="copyrightInfo">
-     <xsl:text disable-output-escaping="yes">&amp;copy;</xsl:text>
-      Die inhaltliche Zusammenstellung und Aufmachung dieser Publikation sowie die elektronische 
-     Verarbeitung sind urheberrechtlich geschützt. Jede Verwertung, die nicht ausdrücklich 
-     vom Urheberrechtsgesetz zugelassen ist, bedarf der vorherigen Zustimmung. Das gilt insbesondere für 
-     die Vervielfältigung, die Bearbeitung und Einspeicherung und Verarbeitung in elektronische Systeme.
-  			</td>
-	  	</tr>
+		<xsl:if test="$CONFIG/copyright">
+	  		<tr>
+  				<td colspan="3" class="copyrightInfo">
+  					<xsl:value-of select="$CONFIG/copyright"/>
+  				</td>
+		  	</tr>
+		</xsl:if> 	
 		<tr>
 			<td class="dtdInfo">
-				DiML-DTD Version 3.0
 				<xsl:value-of select="$VOCABLES/dimldtd/@*[name()=$LANG]" />
 			</td>
      	  	<td class="serverInfo">

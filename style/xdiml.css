@@ -214,7 +214,9 @@ h3.summary {}
 /*----------------------------------------------------------------------------*/
 
 em { font-style: italic; }
+em.roman { font-style: normal; }
 em.small-caps { font-variant: small-caps; font-style: normal; }
+em.ismall-caps { font-variant: small-caps; font-style: italic; }
 
 /*-- Beispiel --*/
 
@@ -225,15 +227,6 @@ p.examplehead {
          font-weight: bold;
   }
 
-p.mmcaption  {
-         background-color:#E0E0E0;
-         padding:6px;
-         border:0px;
-         margin-top:6px;
-         margin-bottom:0px;
-         margin-left:0px;
-         margin-right:0px;
-}
 p.mmimg  {
          background-color:#F3F3F3;
          padding:6px;
@@ -241,7 +234,19 @@ p.mmimg  {
          margin:0px;
          text-align: center;
 }
-p.mmlegend  {
+
+td.caption  {
+         background-color:#E0E0E0;
+         padding:6px;
+         border:0px;
+         margin-top:6px;
+         margin-bottom:0px;
+         margin-left:0px;
+         margin-right:0px;
+         font-weight: bold;
+}
+
+td.legend  {
          background-color:#E0E0E0;
          padding:6px;
          border:0px;
@@ -249,6 +254,7 @@ p.mmlegend  {
          margin-bottom:6px;
          margin-left:0px;
          margin-right:0px;
+         font-size: smaller;
 }
 
 table.mm {
@@ -258,31 +264,12 @@ table.mm {
          margin:0px;
 }
 
-  
-p.dmathcaption  {
-         background-color:#E0E0E0;
-         padding:6px;
-         border:0px;
-         margin-top:6px;
-         margin-bottom:0px;
-         margin-left:0px;
-         margin-right:0px;
-}
 p.dmathimath  {
          background-color:#F3F3F3;
          padding:6px;
          border:none;
          margin:0px;
          text-align: center;
-}
-p.dmathlegend  {
-         background-color:#E0E0E0;
-         padding:6px;
-         border:0px;
-         margin-top:0px;
-         margin-bottom:6px;
-         margin-left:0px;
-         margin-right:0px;
 }
 
 table.dmath {

@@ -9,5 +9,19 @@
   <xsl:apply-templates/>
 </xsl:template>
 
+<xsl:template match="caption" mode="centeredTable">
+ <tr>
+ <td width="15%"></td>
+ <td width="70%" class="caption">
+    <!--a>
+      <xsl:call-template name="a-name-attribute"/>
+      <xsl:apply-templates/>
+    </a-->
+    <xsl:apply-templates/>
+ </td>
+ <td width="15%"></td>
+ </tr>
+</xsl:template>
+
 </xsl:stylesheet>
 

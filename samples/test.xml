@@ -129,7 +129,7 @@ There are no museum specimens of the dodo still extant today, but from artists' 
 				<head>Inline Markup</head>
 				<p>
 					Mit <em>em</em> und <strong>strong</strong> auszeichnen!
-					em: <em slant="ksmall-caps">ksmall-caps</em>,
+					em: <em slant="ismall-caps">ismall-caps</em>,
 					<em slant="roman">roman</em>, <em slant="small-caps">small-caps</em>,
 					em.color: <em color="#FF00FF">FF00FF</em>
 				</p>

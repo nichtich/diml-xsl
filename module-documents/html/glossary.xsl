@@ -2,16 +2,8 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
 <!-- Vorraussetzung: jeder term hat 'ne id -->
-<xsl:template match="glossary">
-  <xsl:apply-templates select="head/pagenumber" mode="hline"/>
-  <h2>
-    <a>
-      <xsl:call-template name="a-name-attribute"/>
-      <xsl:apply-templates select="." mode="head"/>
-    </a>  
-  </h2>
-  <xsl:apply-templates/>
-</xsl:template>
+
+<!-- see module-documents/html.xsl for matching this element --> 
 
 <xsl:template match="glossary" mode="head">
     <xsl:choose>

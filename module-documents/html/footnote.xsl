@@ -17,7 +17,6 @@
   <sup class="footnotelabel"><xsl:value-of select="count(preceding::footnote | preceding::endnote)+1"/></sup>
 </xsl:template>
 
-<!-- TODO: Endnote -->
 <xsl:template match="footnote|endnote" mode="foot">
   <p>
     <a name="{generate-id()}">

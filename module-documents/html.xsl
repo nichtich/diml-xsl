@@ -17,7 +17,7 @@
 <xsl:include href="html/vita.xsl"/>
 <xsl:include href="html/resources.xsl"/>
 
-<xsl:template match="abbreviation|preface|summary|vita|appendix">
+<xsl:template match="abbreviation|preface|summary|vita|appendix|glossary|resources">
   <xsl:apply-templates select="head/pagenumber" mode="hline"/>
   <h3 class="{name()}">
     <a>

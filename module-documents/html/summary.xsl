@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
-<!-- (pagenumber is handled in module-documents\html.xsl) -->
+<!-- see module-documents/html.xsl for matching this element --> 
 
+<!-- (pagenumber is handled in module-documents\html.xsl) -->
 <xsl:template match="summary" mode="head">
   <xsl:choose>
     <xsl:when test="head">

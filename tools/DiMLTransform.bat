@@ -1,8 +1,35 @@
 @echo off
 rem Guess DIMLXSL if not defined
-if not "%DIMLXSL%" == "" goto gotHome
+if not "%DIMLXSL%" == "" goto checkHTMLDir
 echo DIMLXSL not set - using ..
 set DIMLXSL=..
+
+:checkHTMLDir
+if exist "html" goto delHTMLs
+:makeHTMLDir
+  echo Directory html does not exist, creating directory html
+  mkdir html
+  goto checkHACKEDDir
+:delHTMLs
+  echo Directory html exists, removing .html files
+  cd html
+  del *.html
+  cd ..
+  goto checkHACKEDDir
+
+:checkHACKEDDir
+if exist "hacked" goto delHACKEDs
+:makeHACKEDDir
+  echo Directory hacked does not exist, creating directory hacked
+  mkdir hacked
+  goto checkHome
+:delHACKEDs
+  echo Directory hacked exists, removing .xml files
+  cd hacked
+  del *.xml
+  cd ..
+  goto checkHome
+
 
 :gotHome
 if exist "%DIMLXSL%\tools\DiMLTransform.bat" goto okHome

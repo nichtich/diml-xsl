@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
-<!-- Citation mitten im Text -->
+<!-- citation in normal text -->
+<!-- square brackets will not be generated -->
 <xsl:template match="citation">
-  <xsl:text> [</xsl:text>
+  <!--<xsl:text> [</xsl:text>-->
   <xsl:apply-templates/>
-   <xsl:text>] </xsl:text> 
+   <!--<xsl:text>] </xsl:text>-->
 </xsl:template>
 
 <xsl:template match="citation" mode="blockquotecitation">

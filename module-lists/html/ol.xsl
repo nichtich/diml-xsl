@@ -24,7 +24,7 @@
       </xsl:choose>        
     </xsl:attribute>       
     <xsl:if test="@start">
-      <xsl:attribute name="start" select="@start" />
+      <xsl:attribute name="start"><xsl:value-of select="@start" /></xsl:attribute>
     </xsl:if>
     <xsl:apply-templates select="li"/>
   </ol>

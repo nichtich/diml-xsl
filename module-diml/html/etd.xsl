@@ -7,8 +7,8 @@
  <html>
     <head>
       <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>      
-      <xsl:if test="$CSS-STYLESHEET">      
-        <link rel="stylesheet" type="text/css" href="{$CSS-STYLESHEET}"/>
+      <xsl:if test="$STYLEDIRECTORY">      
+        <link rel="stylesheet" type="text/css" href="{$STYLEDIRECTORY}/xdiml.css"/>
       </xsl:if>
       <xsl:apply-templates mode="html-head"/>     
     </head>

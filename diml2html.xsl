@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
-<xsl:param name="CSS-STYLESHEET">
+<xsl:param name="STYLEDIRECTORY">
   <xsl:choose>
     <xsl:when test="/processing-instruction('css-stylesheet')">
       <xsl:value-of select="/processing-instruction('css-stylesheet')"/>
     </xsl:when>
-    <xsl:otherwise>../style/did.css</xsl:otherwise>
+    <xsl:otherwise>/dissertationen/style/</xsl:otherwise>
   </xsl:choose>
 </xsl:param>
 

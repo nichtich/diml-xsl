@@ -2,6 +2,7 @@
 <xsl:stylesheet version="1.0"
   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
   xmlns:cms="http://edoc.hu-berlin.de/diml/module/cms"
+  exclude-result-prefixes="cms"
 >
 
 <xsl:template match="cms:container">
@@ -11,6 +12,7 @@
 <xsl:template match="cms:document">
   <xsl:apply-templates select="cms:meta" mode="navigation"/>
   <xsl:apply-templates select="cms:content/*"/>
+  <xsl:apply-templates select="cms:meta" mode="navbottom"/>
 </xsl:template>
 
 <xsl:template match="cms:container" mode="html-head">
@@ -90,15 +92,59 @@
            Seiten: <xsl:apply-templates select="cms:entry[@type='pagenumber']" mode="link"/>
            <br/>
          </xsl:if>
+         <xsl:apply-templates select="cms:entry[@type='front']" mode="link"/>
          <xsl:if test="cms:entry[@type='chapter']">
            Kapitel: <xsl:apply-templates select="cms:entry[@type='chapter']" mode="link"/>
            <br/>
          </xsl:if>         
-        <xsl:apply-templates select="cms:entry[@type!='pagenumber' and @type!='chapter'][@ref]" mode="link"/>
+         <!-- bibliography, declaration ... -->
+        <xsl:apply-templates select="cms:entry[@type!='pagenumber' and @type!='chapter' and @type!='front'][@ref]" mode="link"/>
+        <xsl:apply-templates select="cms:entry" mode="navbar"/>
       </td>
     </tr>
   </table>
 </xsl:template>
+
+<xsl:template match="cms:meta" mode="navbottom">
+  <table width="100%" border="0" class="headline">
+    <tr>
+    	 <td>
+    	 	<xsl:apply-templates select="cms:entry" mode="navbar"/>
+    	 </td>
+    </tr>
+  </table>
+</xsl:template>
+
+<!--navbar-->
+<xsl:template match="cms:entry[@type=':next']" mode="navbar">
+  <a href="{@part}">next</a>&#xA0;
+</xsl:template>
+
+<xsl:template match="cms:entry[@type=':prev']" mode="navbar">
+  <a href="{@part}">prev</a>&#xA0;
+</xsl:template>
+
+<xsl:template match="cms:entry[@type=':first']" mode="navbar">
+  <a href="{@part}">first</a>&#xA0;
+</xsl:template>
+
+<xsl:template match="cms:entry[@type=':last']" mode="navbar">
+  <a href="{@part}">last</a>&#xA0;
+</xsl:template>
+
+
+<xsl:template match="cms:entry" mode="navbar"/>
+
+
+<!--xsl:template name="pages">
+	<script type="JavaScript">
+	</script>
+	<form action="">
+		<option>
+			<select>x</select>
+		</option>
+	</form>
+</xsl:template-->
 
 <!--
 front: titelseite

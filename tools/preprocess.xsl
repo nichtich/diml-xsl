@@ -8,14 +8,14 @@ exclude-result-prefixes="cms">
 
 <xsl:template name="provide-id">
 	<xsl:param name="suggest"/>
-	<xsl:if test="not(@id)">
+	<xsl:if test="not(@id) or @id=''">
 		<xsl:attribute name="id">
 			<xsl:choose>
-				<xsl:when test="$suggest!='' and key('id',$suggest)">
-					<xsl:value-of select="generate-id()"/>
+				<xsl:when test="$suggest!='' and not(key('id',$suggest))">
+					<xsl:value-of select="$suggest"/>
 				</xsl:when>
 				<xsl:otherwise>
-					<xsl:value-of select="$suggest"/>
+					<xsl:value-of select="generate-id()"/>
 				</xsl:otherwise>
 			</xsl:choose>
 		</xsl:attribute>	
@@ -100,21 +100,25 @@ exclude-result-prefixes="cms">
 	</xsl:element>
 </xsl:template>
 
-<!--TODO: numbering types -->
 <xsl:template name="numbering">
 	<xsl:variable name="name" select="name()"/>
 	<xsl:if test="not(@label)">
 		<xsl:attribute name="label">
-			<xsl:variable name="recent-start" select="preceding-sibling::*[name()=$name][@start][1]"/>
-			<xsl:choose>
-				<xsl:when test="$recent-start">
-					<xsl:value-of select="$recent-start/@start+
-					count(preceding-sibling::*[name()=$name])-count($recent-start/preceding-sibling::*[name()=$name])"/>
-				</xsl:when>
-				<xsl:otherwise>
-					<xsl:value-of select="count(preceding-sibling::*[name()=$name])+1"/>
-				</xsl:otherwise>
-			</xsl:choose>
+			<xsl:variable name="recent-start" select="preceding-sibling::*[name()=$name][@start][1]"/>		
+			<xsl:call-template name="number">
+				<xsl:with-param name="number">
+					<xsl:choose>
+						<xsl:when test="$recent-start">
+							<xsl:value-of select="$recent-start/@start+
+							count(preceding-sibling::*[name()=$name])-count($recent-start/preceding-sibling::*[name()=$name])"/>
+						</xsl:when>
+						<xsl:otherwise>
+							<xsl:value-of select="count(preceding-sibling::*[name()=$name])+1"/>
+						</xsl:otherwise>
+					</xsl:choose>			
+				</xsl:with-param>
+				<xsl:with-param name="numbering">arabic</xsl:with-param>
+			</xsl:call-template>
 		</xsl:attribute>
 	</xsl:if>
 </xsl:template>
@@ -137,6 +141,7 @@ exclude-result-prefixes="cms">
 			</xsl:with-param>
 		</xsl:call-template>
 		<xsl:call-template name="numbering"/>
+		<xsl:message>chapter</xsl:message>
 		<xsl:apply-templates select="@*|node()"/>
 	</xsl:copy>
 </xsl:template>

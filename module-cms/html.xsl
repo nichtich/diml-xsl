@@ -206,7 +206,7 @@ The name of the link will be the content of cms:entry or an @type called element
       <xsl:text>#</xsl:text>
       <xsl:value-of select="@ref"/>
     </xsl:attribute>
-	<xsl:value-of select="$LABEL"/>
+	<xsl:value-of select="normalize-space($LABEL)"/>
   </a>
  <xsl:text>] </xsl:text>
 </xsl:template>

@@ -64,7 +64,8 @@
       <xsl:choose>
 	   <xsl:when test="@label"><xsl:value-of select="@label"/></xsl:when>
 	   <xsl:when test="@start"><xsl:value-of select="@start"/></xsl:when>
-	   <xsl:when test="head"><xsl:value-of select="head"/></xsl:when> <!-- TODO: remove footnotes etc. in head -->
+        <!-- TODO: remove footnotes etc. in head -->
+	   <xsl:when test="head"><xsl:value-of select="head"/></xsl:when>
 	 </xsl:choose>
     </cms:entry> 
   <!--/xsl:if-->
@@ -138,7 +139,9 @@
 <xsl:template name="createFront">
 	<front>
     		<xsl:copy-of select="@*"/>
+    		
     		<xsl:copy-of select="front/*"/>
+    		
     		<xsl:call-template name="TableOfContents"/>
     		<xsl:if test="//table">
 			<xsl:call-template name="TableOfTables"/>

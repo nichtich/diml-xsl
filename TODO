@@ -2,14 +2,6 @@
   - module citation: blockquote, bible, court, cut
   - ...
 
-- configuration
-
-- roman numbering (for instance pagenumbers)
 - thumbnails for images
-- endnotes, footnotes
-
-Questions:
--pagenumber in table entries and lists?
-
 
                                       

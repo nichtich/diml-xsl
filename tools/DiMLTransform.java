@@ -174,7 +174,6 @@ public class DiMLTransform extends XMLReading {
 	  	   //message("manually: 'diml2html.xsl SELECTID="+id+"'");
 	  	   
 	       Transformer transformer = templates.newTransformer();
-	       transformer.setParameter("VOCFILE",DIMLXSL+"/config.xml");
 	       transformer.setParameter("CONVDATE",DateFormat.getDateInstance().format(new Date()));
 	       transformer.setParameter("CONFIGFILE",configFile.getAbsolutePath());
 
@@ -207,10 +206,11 @@ public class DiMLTransform extends XMLReading {
     resultDir = new File(".");        
     
     DIMLXSL = System.getProperty("DIMLXSL","..");
+    configFile = new File(System.getProperty("DIMLXSLCONFIG","config.xml"));
+    
     diml2cmsFile  = new File(DIMLXSL+"/tools/diml2cms.xsl");
 	  diml2htmlFile = new File(DIMLXSL+"/diml2html.xsl");
 	  preprocessFile = new File(DIMLXSL+"/tools/preprocess.xsl");    
-    configFile = new File("config.xml");
         
     Source input;
     DOMResult output;

@@ -17,6 +17,9 @@ sie alle möglichen Angaben zur Steuerung der Styles -->
      die Vervielfältigung, die Bearbeitung und Einspeicherung und Verarbeitung in elektronische Systeme.
   </copyright>
 
+  <!-- css-file -->
+  <!--css-stylesheet>xdiml.css</css-stylesheet-->
+
   <vocables>
     <!-- Navigation in module-cms -->
     <chapter de="Kapitel" en="Chapter" />

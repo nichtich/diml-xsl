@@ -1,66 +1,68 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<!-- Diese Datei war ursprünglich für Bezeichnungen gedacht - nun enthält sich alle möglichen
-Angaben zur Steuerung der Styles -->
+<!-- Diese Datei war ursprünglich für Bezeichnungen gedacht - nun enthält 
+sie alle möglichen Angaben zur Steuerung der Styles -->
 <config>
 
-	<generate of="chapter" numbering="ualpha" after="."/>
-	<generate of="section" numbering="arabic" after="-" elementBefore="chapter"/>
-	<generate of="subsection" numbering="arabic" after="." elementBefore="section"/> 
-	<generate numbering="lroman" of="block" before="" after=")" force="yes"/>
+  <generate of="chapter" numbering="ualpha" after="."/>
+  <generate of="section" numbering="arabic" after="-" elementBefore="chapter"/>
+  <generate of="subsection" numbering="arabic" after="." elementBefore="section"/> 
+  <generate numbering="lroman" of="block" before="" after=")" force="yes"/>
 		
-	<copyright>&#169; Die inhaltliche Zusammenstellung und Aufmachung dieser Publikation sowie die elektronische 
+  <copyright>&#169; Die inhaltliche Zusammenstellung und Aufmachung dieser Publikation sowie die elektronische 
      Verarbeitung sind urheberrechtlich geschützt. Jede Verwertung, die nicht ausdrücklich 
      vom Urheberrechtsgesetz zugelassen ist, bedarf der vorherigen Zustimmung. Das gilt insbesondere für 
      die Vervielfältigung, die Bearbeitung und Einspeicherung und Verarbeitung in elektronische Systeme.
-	</copyright>
-<vocables>
+  </copyright>
 
+  <vocables>
+    <!-- Navigation in module-cms -->
+    <chapter de="Kapitel" en="Chapter" />
+    <front de="Titelseite" en="Title page" />
+    <preface de="Vorwort" en="Preface" />
+    <page de="Seite" en="Page" />
 
-<!-- Navigation in module-cms -->
-<chapter de="Kapitel" en="Chapter" />
-<front de="Titelseite" en="Title page" />
-<preface de="Vorwort" en="Preface" />
-<page de="Seite" en="Page" />
+    <!-- Header -->
+    <abstract de="Abstrakt" en="Abstract" />
+    <keywords de="Eigene Schlagworte" en="Keywords" />
+    <declaration de="Eidesstattliche Erklärung" en="Declaration" /> <!-- ? -->
+    <acknowledgement de="Danksagung" en="Acknowledgement" />
+    <dedication de="Widmung" en="Dedication" />
+    <abbreviation de="Abkürzungsverzeichnis" en="Abbreviation" />
+    <appendix de="Anhang" en="Appendix" />
+    <glossary de="Glossar" en="Glossary" />
+    <preface de="Vorwort" en="Preface" />
+    <summary de="Zusammenfassung" en="Summary" />
+    <vita de="Lebenslauf" en="Vita" />
+    <footnotes de="Fußnoten" en="Footnotes" />
+    <endnotes de="Endnoten" en="Endnotes" />
+    <footnotesandendnotes de="Fußnoten und Endnoten" en="Footnotes and Endnotes" />
+    <frame de="Teil" en="Frame" />
+    <chapter de="Kapitel" en="Chapter" />
+    <section de="Abschnitt" en="Section" />
+    <subsection de="Unterabschnitt" en="Subsection" />
+    <block de="" en="" />
+    <subblock de="" en="" />
+    <part de="" en="" />
 
-<!-- Header -->
-<abstract de="Abstrakt" en="Abstract" />
-<keywords de="Eigene Schlagworte" en="Keywords" />
-<declaration de="Eidesstattliche Erklärung" en="Declaration" /> <!-- ? -->
-<acknowledgement de="Danksagung" en="Acknowledgement" />
-<dedication de="Widmung" en="Dedication" />
-<abbreviation de="Abkürzungsverzeichnis" en="Abbreviation" />
-<appendix de="Anhang" en="Appendix" />
-<glossary de="Glossar" en="Glossary" />
-<preface de="Vorwort" en="Preface" />
-<summary de="Zusammenfassung" en="Summary" />
-<vita de="Lebenslauf" en="Vita" />
-<footnotes de="Fußnoten" en="Footnotes" />
-<endnotes de="Endnoten" en="Endnotes" />
-<footnotesandendnotes de="Fußnoten und Endnoten" en="Footnotes and Endnotes" />
-<frame de="Teil" en="Frame" />
-<chapter de="Kapitel" en="Chapter" />
-<section de="Abschnitt" en="Section" />
-<subsection de="Unterabschnitt" en="Subsection" />
-<block de="" en="" />
-<subblock de="" en="" />
-<part de="" en="" />
+    <!-- table of contents -->
+    <toc de="Inhaltsverzeichnis" en="Table of contents"/>
+    <toc-tables de="Tabellen" en="Tables"/>
+    <toc-examples de="Beispiele" en="Examples"/>
+    <toc-media de="Bilder" en="Images"/>
 
-<!-- table of contents -->
-<toc de="Inhaltsverzeichnis" en="Table of contents"/>
-<toc-tables de="Tabellen" en="Tables"/>
-<toc-examples de="Beispiele" en="Examples"/>
-<toc-media de="Bilder" en="Images"/>
+    <!-- Navigation in module-cms -->
+    <next de="Nächster Teil" en="Next" />
+    <prev de="Vorheriger Teil" en="Previous" />
+    <first de="Erster Teil" en="First" />
+    <last de="Letzter Teil" en="Last" />
 
-<!-- Navigation in module-cms -->
-<next de="Nächster Teil" en="Next" />
-<prev de="Vorheriger Teil" en="Previous" />
-<first de="Erster Teil" en="First" />
-<last de="Letzter Teil" en="Last" />
+    <!-- pagenumbers -->
+    <page de="Seite" en="Page" />
+    <pages de="Seiten" en="Pages" />
 
-<!-- Copyright and stuff -->
+    <!-- stuff -->
+    <dimldtd de="DiML DTD Version 3.0" en="DiML DTD Version 3.0" />
 
-<dimldtd de="DiML DTD Version 3.0" en="DiML DTD Version 3.0" />
-
-</vocables>
+  </vocables>
 
 </config>

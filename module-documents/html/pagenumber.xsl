@@ -8,7 +8,7 @@
 <xsl:template match="pagenumber" name="pagenumber-simple">
   <!-- 1. do not create a pagenumbers in tables and citations         -->
   <!--    (but create "a name")                                       -->
-  <!--    pagenumbers in tables will be showed in a combined way      -->
+  <!--    pagenumbers in tables will be shown in a combined way       -->
   <!--    at the beginning of a table                                 -->
   <!-- 2. create "a name"-Element only if "id" exists                 -->
   <!-- 3. do not create pagenumbers in head here                      -->
@@ -166,6 +166,7 @@
 <!-- Achtung: Am Anfang von Listen wird momentan keine Zusammenfassung ausgegeben -->
 
 <xsl:template name="more-pagenumbers-inside">
+<xsl:param name="additionalMessage"/>
 <xsl:variable name="isRange" select="count(descendant::pagenumber) &gt; 1"/>
   <xsl:variable name="myConfig" select="$CONFIG/pagenumber[@lang=$LANG]"/>
   <table width="100%" border="0">
@@ -184,6 +185,9 @@
               <xsl:value-of select="$myConfig/@before"/>
             </xsl:otherwise>
           </xsl:choose>
+          
+          <xsl:value-of select="$additionalMessage"/>
+              
           <xsl:choose>
             <xsl:when test="$isRange">              	 	
               <xsl:apply-templates select="descendant::pagenumber[1]" mode="number" />

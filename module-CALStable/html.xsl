@@ -4,9 +4,12 @@
 <xsl:include href="html/table.xsl"/>
 
 <xsl:template match="table">
-
   <xsl:if test="descendant::pagenumber">
-    <xsl:call-template name="more-pagenumbers-inside"/>
+    <xsl:call-template name="more-pagenumbers-inside">
+       <xsl:with-param name="additionalMessage">
+         <xsl:value-of select="$CONFIG/pagenumberInTableAdditionalMessage[@lang=$LANG]/@text" />
+       </xsl:with-param>
+    </xsl:call-template>
   </xsl:if>
 
   <p class="tablecaption">

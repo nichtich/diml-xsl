@@ -26,7 +26,11 @@
 
 <xsl:template match="bibliography//citation">
   <xsl:if test="descendant::pagenumber">
-    <xsl:call-template name="more-pagenumbers-inside"/>
+    <xsl:call-template name="more-pagenumbers-inside">
+       <xsl:with-param name="additionalMessage">
+         <xsl:value-of select="$CONFIG/pagenumberInCitationAdditionalMessage[@lang=$LANG]/@text" />
+       </xsl:with-param>
+    </xsl:call-template>
   </xsl:if>
   <p>
     <xsl:apply-templates select="." mode="labeled"/>

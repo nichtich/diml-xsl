@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <!-- Diese Datei war ursprünglich für Bezeichnungen gedacht - nun enthält 
-sie alle möglichen Angaben zur Steuerung der Styles -->
+     sie alle möglichen Angaben zur Steuerung der Styles -->
 <config>
 
   <!--== numbering ==-->
@@ -14,8 +14,14 @@ sie alle möglichen Angaben zur Steuerung der Styles -->
   <!-- before and after label if there is no content -->
   <link to="citation" before="[" after="]"/>
 
-  <pagenumber before="[page&#xA0;" between="&#xA0;-&#xA0;" after="&#8595;]" lang="en"/>
-  <pagenumber before="[Seite&#xA0;" before2="[Seiten " between="&#xA0;-&#xA0;" after="&#8595;]" lang="de"/>  
+  <pagenumber before="[page&#xA0;" before2="[pages&#xA0;" between="&#xA0;-&#xA0;" after="&#8595;]" lang="en"/>
+  <pagenumber before="[Seite&#xA0;" before2="[Seiten&#xA0;" between="&#xA0;-&#xA0;" after="&#8595;]" lang="de"/>
+  
+  <pagenumberInTableAdditionalMessage text="innerhalb Tabelle&#xA0;" lang="de"/>
+  <pagenumberInTableAdditionalMessage text="inside table&#xA0;" lang="en"/>
+  <pagenumberInCitationAdditionalMessage text="innerhalb Literaturhinweis&#xA0;" lang="de"/>
+  <pagenumberInCitationAdditionalMessage text="inside citation&#xA0;" lang="en"/>
+  
    
   <!-- Table of contents -->  
   <toc generate="yes">
@@ -101,10 +107,10 @@ sie alle möglichen Angaben zur Steuerung der Styles -->
     <subblock de="" en="" />
     <part de="" en="" />
 
-	<!-- TOC -->
-	<_contents de="Inhaltsverzeichnis" en="contents"/>
+    <!-- TOC -->
+    <_contents de="Inhaltsverzeichnis" en="contents"/>
 	
-	<!-- Navigation in module-cms -->
+    <!-- Navigation in module-cms -->
     <next de="Nächster Teil" en="Next" />
     <prev de="Vorheriger Teil" en="Previous" />
     <first de="Erster Teil" en="First" />

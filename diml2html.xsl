@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+ xmlns:cms="http://edoc.hu-berlin.de/diml/module/cms">
 
 <xsl:param name="lang">
 <xsl:choose>
   <xsl:when test="/etd/@lang"><xsl:value-of select="/etd/@lang" />
   </xsl:when>
   <xsl:when test="/cms:meta...">
-  </csl:when>
+  </xsl:when>
   <xsl:otherwise>de</xsl:otherwise>
 </xsl:choose>
+</xsl:param>
 
 <xsl:param name="STYLEDIRECTORY">
   <xsl:choose>

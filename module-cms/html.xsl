@@ -100,7 +100,7 @@
            <br/>
          </xsl:if>         
          <xsl:if test="cms:entry[@type='pagenumber']">
-           Seite:
+           <xsl:text>Seite:</xsl:text>
       	 <xsl:call-template name="pagenumbers-nav"/>
          </xsl:if>         
          <!-- bibliography, declaration ... -->

@@ -159,7 +159,7 @@
                             <xsl:with-param name="before"/>
                             <xsl:with-param name="after"/>
                        </xsl:apply-templates>
-                       <xsl:if test="following-sibling::cms:entry[@type='chapter']"> | </xsl:if>
+                       <xsl:if test="following-sibling::cms:entry[@type='chapter'] | following-sibling::cms:entry[@type='part'][@id=@part] | following-sibling::cms:entry[@type='part'][@id=@part]"> | </xsl:if>
                </xsl:for-each>           
              </xsl:if>
            </xsl:otherwise>
@@ -291,14 +291,14 @@
   </select>
 </xsl:template>
 
-<!-- create a link for a cms:entry element.
-The name of the link will be the content of cms:entry or an @type called element in $VOCABLES -->
+<!-- create a link for a cms:entry element. The name of the link will be -->
+<!-- the content of cms:entry or an @type called element in $VOCABLES    -->
 <xsl:template match="cms:entry" mode="link">
   <xsl:param name="before"> [</xsl:param>
   <xsl:param name="after">] </xsl:param>	
   <xsl:param name="type" select="current()/@type"/>
-	
   <xsl:param name="LABEL">
+  
     <xsl:choose>
       <xsl:when test="string(.)!=''">
         <xsl:value-of select="."/>
@@ -311,10 +311,18 @@ The name of the link will be the content of cms:entry or an @type called element
  <xsl:value-of select="$before"/>
  <a>
     <xsl:attribute name="href">
+      <!-- normal case: link to another part -->
       <xsl:if test="@part and name(key('id',@ref))='cms:entry'">
         <xsl:value-of select="@part"/>
         <xsl:value-of select="$EXT"/>
       </xsl:if>
+      
+      <!-- link to same part -->
+      <xsl:if test="@ref and @type and not(@part) and not(@id)">
+        <xsl:value-of select="@ref"/>
+        <xsl:value-of select="$EXT"/>
+      </xsl:if>
+
       <!-- jump to navigation bar instead to head of chapter -->
       <!-- except toc and toc-media. other exceptions may be necessary -->
       <xsl:if test="@ref=':contents' or @ref=':toc-media'">        

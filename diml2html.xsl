@@ -125,6 +125,28 @@
   </xsl:apply-templates>
 </xsl:template>
 
+<!--== Table of tables ==-->
+<xsl:variable name="TOT_HEAD">Tabellenverzeichnis</xsl:variable>
+
+<xsl:template name="table-of-tables">
+    <h1>
+      <xsl:value-of select="$TOT_HEAD"/>
+    </h1>
+    <ul>
+      <xsl:apply-templates select="body" mode="table-of-tables"/>
+      <xsl:apply-templates select="back" mode="table-of-tables"/>
+    </ul>
+</xsl:template>
+
+<xsl:template match="body" mode="table-of-tables">
+  <xsl:apply-templates select="/etd/body//table" mode="table-of-tables">
+  </xsl:apply-templates>
+</xsl:template>
+
+<xsl:template match="back" mode="table-of-tables">
+  <xsl:apply-templates select="/etd/back//table" mode="table-of-tables">
+  </xsl:apply-templates>
+</xsl:template>
 
 <!-- TODO: bibliography mit mehreren parts -->
 

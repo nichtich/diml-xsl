@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <xsl:stylesheet version="1.0"
- 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-	xmlns:cms="http://edoc.hu-berlin.de/diml/module/cms">
+    xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+   xmlns:cms="http://edoc.hu-berlin.de/diml/module/cms">
 
 <xsl:include href="functions.xsl"/>
 
@@ -17,10 +17,10 @@
 <xsl:param name="SELECTID"/>
 
 <xsl:param name="LANG">
-	<xsl:choose>
-		<xsl:when test="/etd/@lang"><xsl:value-of select="/etd/@lang"/></xsl:when>
-		<xsl:otherwise>de</xsl:otherwise>
-	</xsl:choose>
+   <xsl:choose>
+      <xsl:when test="/etd/@lang"><xsl:value-of select="/etd/@lang"/></xsl:when>
+      <xsl:otherwise>de</xsl:otherwise>
+   </xsl:choose>
 </xsl:param>
 
 <!-- parts of the document that may be content of the container --> 
@@ -31,13 +31,13 @@
   <xsl:variable name="selected-part" select="//*[@id=$SELECTID]"/>  
   <xsl:if test="not($selected-part)">
     <xsl:message terminate="yes">
-    	No SELECTID or element of SELECTID=<xsl:value-of select="$SELECTID"/> not found!
+       No SELECTID or element of SELECTID=<xsl:value-of select="$SELECTID"/> not found!
     </xsl:message>
   </xsl:if>
   <xsl:if test="key('id',':toc') or key('id',':toc-media') or key('id',':toc-tables') or key('id',':toc-examples')">
-  	<xsl:message terminate="yes">
-  	 id value :toc, :toc-media, :toc-tables or :toc-examples already set!
-  	</xsl:message>
+     <xsl:message terminate="yes">
+      id value :toc, :toc-media, :toc-tables or :toc-examples already set!
+     </xsl:message>
   </xsl:if>  
     
   <cms:container xmlns:cms="http://edoc.hu-berlin.de/diml/module/cms">
@@ -45,19 +45,19 @@
       <cms:meta>
          <xsl:apply-templates select="*" mode="cms"/>
          <xsl:call-template name="navigation">
-         	<xsl:with-param name="selected-part" select="$selected-part"/>
+            <xsl:with-param name="selected-part" select="$selected-part"/>
          </xsl:call-template>
        </cms:meta>
      <!-- Copy the selected part into cms:content -->                
-	  <cms:content>
-    		<xsl:choose>
-    	    		<xsl:when test="name($selected-part)='front'">
-		  	    	<xsl:call-template name="createFront"/>
-	    </xsl:when>
-    		<xsl:otherwise>
-    		    <xsl:copy-of select="$selected-part"/>
-	    	</xsl:otherwise>
-    		</xsl:choose>	    
+     <cms:content>
+          <xsl:choose>
+                 <xsl:when test="name($selected-part)='front'">
+                  <xsl:call-template name="createFront"/>
+       </xsl:when>
+          <xsl:otherwise>
+              <xsl:copy-of select="$selected-part"/>
+          </xsl:otherwise>
+          </xsl:choose>       
       </cms:content>
     </cms:document> 
   </cms:container>
@@ -73,11 +73,11 @@
       <xsl:call-template name="entry-id-attributes"/>
       <!-- does the element have a name or something like this? -->
       <xsl:choose>
-	   <xsl:when test="@label"><xsl:value-of select="@label"/></xsl:when>
-	   <xsl:when test="@start"><xsl:value-of select="@start"/></xsl:when>
+      <xsl:when test="@label"><xsl:value-of select="@label"/></xsl:when>
+      <xsl:when test="@start"><xsl:value-of select="@start"/></xsl:when>
         <!-- TODO: remove footnotes etc. in head -->
-	   <xsl:when test="head"><xsl:value-of select="head"/></xsl:when>
-	 </xsl:choose>
+      <xsl:when test="head"><xsl:value-of select="head"/></xsl:when>
+    </xsl:choose>
     </cms:entry> 
   <!--/xsl:if-->
   <xsl:apply-templates mode="cms"/>
@@ -96,16 +96,16 @@
 
 <xsl:template match="front/author" mode="cms">
   <cms:entry type="author">
-  	<xsl:choose>
-  	  <xsl:when test="given|surname">
-    	    <xsl:value-of select="given"/>
-    	    <xsl:text> </xsl:text>
-    	    <xsl:value-of select="surname"/>
-  	  </xsl:when>
-  	  <xsl:otherwise>
+     <xsl:choose>
+       <xsl:when test="given|surname">
+           <xsl:value-of select="given"/>
+           <xsl:text> </xsl:text>
+           <xsl:value-of select="surname"/>
+       </xsl:when>
+       <xsl:otherwise>
            <xsl:value-of select="."/>
-  	  </xsl:otherwise>
-  	</xsl:choose>
+       </xsl:otherwise>
+     </xsl:choose>
   </cms:entry>
   <xsl:apply-templates mode="cms"/>  
 </xsl:template>
@@ -116,8 +116,8 @@
   <cms:entry type="pagenumber" ref="{@id}">
     <xsl:call-template name="entry-id-attributes"/>
     <xsl:choose>
-    	<xsl:when test="@label"><xsl:value-of select="@label"/></xsl:when>
-    	<xsl:otherwise><xsl:value-of select="@start"/></xsl:otherwise>
+       <xsl:when test="@label"><xsl:value-of select="@label"/></xsl:when>
+       <xsl:otherwise><xsl:value-of select="@start"/></xsl:otherwise>
     </xsl:choose>
   </cms:entry>
 </xsl:template>
@@ -132,95 +132,95 @@
 
 <!-- Diese Angaben können zur Navigation ausgewertet werden (siehe HTML-Element link) -->
 <xsl:template name="navigation">
-	<xsl:param name="selected-part"/>
-	<!-- NUR TEST! NICHT ENDGÜLTIG! -->
-	<!--xsl:if test="$selected-part/preceding-sibling::*[1]/@id">
-		<cms:entry type=":prev" part="{$selected-part/preceding-sibling::*[1]/@id}.html"/>
-	</xsl:if>	
-	<xsl:if test="$selected-part/following-sibling::*[1]/@id">
-		<cms:entry type=":next" part="{$selected-part/following-sibling::*[1]/@id}.html"/>
-	</xsl:if>
-	<cms:entry type=":first" part="{$selected-part/../*[1]/@id}.html"/>
-	<cms:entry type=":last" part="{$selected-part/../*[last()]/@id}.html"/>
-	<xsl:if test="//back/@id">
-		<cms:entry type=":appendix" part="{//back/@id}.html"/>
-	</xsl:if-->
-	<cms:entry type=":lang"><xsl:value-of select="$LANG"/></cms:entry>
-	
-	<cms:entry type=":contents" ref=":contents">
-		<xsl:if test="$SELECTID != /etd/front/@id">
-		  <xsl:attribute name="id">:contents</xsl:attribute>
-		  <xsl:attribute name="part"><xsl:value-of select="/etd/front/@id"/></xsl:attribute>
-		</xsl:if>		
-		<xsl:value-of select="$CONFIG/toc/title[@lang=$LANG]"/>
-	</cms:entry>
-	
-	<xsl:if test="$CONFIG/helpLink[@lang=$LANG]">
-	  <cms:entry type=":help">
-	  	<url href="{$CONFIG/helpLink[@lang=$LANG]/@href}">
-	  	  <xsl:value-of select="$CONFIG/helpLink[@lang=$LANG]"/>
-	  	</url>
-	  </cms:entry>
-	</xsl:if>
+   <xsl:param name="selected-part"/>
+   <!-- NUR TEST! NICHT ENDGÜLTIG! -->
+   <!--xsl:if test="$selected-part/preceding-sibling::*[1]/@id">
+      <cms:entry type=":prev" part="{$selected-part/preceding-sibling::*[1]/@id}.html"/>
+   </xsl:if>   
+   <xsl:if test="$selected-part/following-sibling::*[1]/@id">
+      <cms:entry type=":next" part="{$selected-part/following-sibling::*[1]/@id}.html"/>
+   </xsl:if>
+   <cms:entry type=":first" part="{$selected-part/../*[1]/@id}.html"/>
+   <cms:entry type=":last" part="{$selected-part/../*[last()]/@id}.html"/>
+   <xsl:if test="//back/@id">
+      <cms:entry type=":appendix" part="{//back/@id}.html"/>
+   </xsl:if-->
+   <cms:entry type=":lang"><xsl:value-of select="$LANG"/></cms:entry>
+   
+   <cms:entry type=":contents" ref=":contents">
+      <xsl:if test="$SELECTID != /etd/front/@id">
+        <xsl:attribute name="id">:contents</xsl:attribute>
+        <xsl:attribute name="part"><xsl:value-of select="/etd/front/@id"/></xsl:attribute>
+      </xsl:if>      
+      <xsl:value-of select="$CONFIG/toc/title[@lang=$LANG]"/>
+   </cms:entry>
+   
+   <xsl:if test="$CONFIG/helpLink[@lang=$LANG]">
+     <cms:entry type=":help">
+        <url href="{$CONFIG/helpLink[@lang=$LANG]/@href}">
+          <xsl:value-of select="$CONFIG/helpLink[@lang=$LANG]"/>
+        </url>
+     </cms:entry>
+   </xsl:if>
 
-	<xsl:if test="$CONFIG/searchLink[@lang=$LANG]">
-	  <cms:entry type=":search">
-	  	<url href="{$CONFIG/searchLink[@lang=$LANG]/@href}">
-	  	  <xsl:value-of select="$CONFIG/searchLink[@lang=$LANG]"/>
-	  	</url>
-	  </cms:entry>
-	</xsl:if>	
-	
+   <xsl:if test="$CONFIG/searchLink[@lang=$LANG]">
+     <cms:entry type=":search">
+        <url href="{$CONFIG/searchLink[@lang=$LANG]/@href}">
+          <xsl:value-of select="$CONFIG/searchLink[@lang=$LANG]"/>
+        </url>
+     </cms:entry>
+   </xsl:if>   
+   
 </xsl:template>
 
 <!--===============================================================-->
 <xsl:template name="createFront">
-	<front>
-    		<xsl:copy-of select="/etd/front/@*"/>		
-		<xsl:apply-templates select="/etd/front/*"/>
-    		<xsl:call-template name="TableOfContents"/>
-    		<xsl:if test="//table[caption]">
-			<xsl:call-template name="TableOfTables"/>
-		</xsl:if>
-		<xsl:if test="//im[caption] | //mm[caption]">
-			<xsl:call-template name="TableOfMedias"/>
-		</xsl:if>	
-		<xsl:if test="//example[caption]">
-			<xsl:call-template name="TableOfExamples"/>
-		</xsl:if>	
-    	</front>	    		
+   <front>
+          <xsl:copy-of select="/etd/front/@*"/>      
+      <xsl:apply-templates select="/etd/front/*"/>
+          <xsl:call-template name="TableOfContents"/>
+          <xsl:if test="//table[caption]">
+         <xsl:call-template name="TableOfTables"/>
+      </xsl:if>
+      <xsl:if test="//im[caption] | //mm[caption]">
+         <xsl:call-template name="TableOfMedias"/>
+      </xsl:if>   
+      <xsl:if test="//example[caption]">
+         <xsl:call-template name="TableOfExamples"/>
+      </xsl:if>   
+       </front>             
 </xsl:template>
 
 <!--== Create Tables ==-->
 <!-- TODO: bibliography mit mehreren parts -->
   
 <xsl:template name="TableOfContents">
-	<freehead id=":contents"><xsl:value-of select="$CONFIG/toc/title[@lang=$LANG]"/></freehead>
-    	<ul>
-     	<xsl:apply-templates select="/etd/body/*" mode="TableOfContents"/>
-      	<xsl:apply-templates select="/etd/back/*" mode="TableOfContents"/>
-	</ul>	
+   <freehead id=":contents"><xsl:value-of select="$CONFIG/toc/title[@lang=$LANG]"/></freehead>
+       <ul>
+        <xsl:apply-templates select="/etd/body/*" mode="TableOfContents"/>
+         <xsl:apply-templates select="/etd/back/*" mode="TableOfContents"/>
+   </ul>   
 </xsl:template>
 
 <xsl:template name="TableOfTables">
-	<freehead id=":toc-tables"><xsl:value-of select="$VOCABLES/toc-tables/@*[name()=$LANG]"/></freehead>
-	<ul>
-      	<xsl:apply-templates select="//table" mode="TableOfContents"/>
-	</ul>
+   <freehead id=":toc-tables"><xsl:value-of select="$VOCABLES/toc-tables/@*[name()=$LANG]"/></freehead>
+   <ul>
+         <xsl:apply-templates select="//table" mode="TableOfContents"/>
+   </ul>
 </xsl:template>
 
 <xsl:template name="TableOfMedias">
-	<freehead id=":toc-media"><xsl:value-of select="$VOCABLES/toc-media/@*[name()=$LANG]"/></freehead>
-	<ul>
-      	<xsl:apply-templates select="//mm" mode="TableOfContents"/>
-	</ul>
+   <freehead id=":toc-media"><xsl:value-of select="$VOCABLES/toc-media/@*[name()=$LANG]"/></freehead>
+   <ul>
+         <xsl:apply-templates select="//mm" mode="TableOfContents"/>
+   </ul>
 </xsl:template>
 
 <xsl:template name="TableOfExamples">
-	<freehead id=":toc-examples"><xsl:value-of select="$VOCABLES/toc-examples/@*[name()=$LANG]"/></freehead>
-	<ul>
-      	<xsl:apply-templates select="//example" mode="TableOfContents"/>
-	</ul>
+   <freehead id=":toc-examples"><xsl:value-of select="$VOCABLES/toc-examples/@*[name()=$LANG]"/></freehead>
+   <ul>
+         <xsl:apply-templates select="//example" mode="TableOfContents"/>
+   </ul>
 </xsl:template>
 
 <xsl:template match="abbreviation|preface|summary|acknowledgement|declaration|glossary|bibliography|vita" mode="TableOfContents">
@@ -289,21 +289,21 @@
   <li>
     <p>
       <xsl:choose>
-	   <xsl:when test="$has-label">
-	     <link ref="{@id}">
-	       <xsl:value-of select="@label"/>	  	
-	     </link>
-     	<xsl:text>&#xA0;</xsl:text>
-     	<xsl:apply-templates select="head" mode="TableOfContents"/>
-	   </xsl:when>
-	   <xsl:otherwise>
-    	     <link ref="{@id}">
-  		  <xsl:apply-templates select="head" mode="TableOfContents"/>
-    	     </link>
-	   </xsl:otherwise>
-      </xsl:choose>	  
+      <xsl:when test="$has-label">
+        <link ref="{@id}">
+          <xsl:value-of select="@label"/>
+        </link>
+        <xsl:text>&#xA0;</xsl:text>
+        <xsl:apply-templates select="head" mode="TableOfContents"/>
+      </xsl:when>
+      <xsl:otherwise>
+            <link ref="{@id}">
+          <xsl:apply-templates select="head" mode="TableOfContents"/>
+            </link>
+      </xsl:otherwise>
+      </xsl:choose>     
     <xsl:if test="$subelements and not($CONFIG/toc/*[name()=$subname and @indent='no'])">
-    	<ul>        
+       <ul>        
         <xsl:apply-templates select="$subelements" mode="TableOfContents"/>
       </ul>
     </xsl:if>
@@ -315,15 +315,15 @@
 </xsl:template>
 
 <xsl:template match="mm|table|example" mode="TableOfContents">
-	<xsl:if test="string(caption)">
-		<li>
-   			<p>
-   				<link ref="{@id}">
-     				<xsl:apply-templates select="caption" mode="TableOfContents" />
-	     		</link>
-     		</p>
-		</li>
-	</xsl:if>
+   <xsl:if test="string(caption)">
+      <li>
+            <p>
+               <link ref="{@id}">
+                 <xsl:apply-templates select="caption" mode="TableOfContents" />
+              </link>
+           </p>
+      </li>
+   </xsl:if>
 </xsl:template>
 
 <!-- Content of Head for Table of Contents       -->
@@ -341,8 +341,8 @@
 
 <!-- generate attribute id and attribute part for a cms:entry element -->
 <xsl:template name="entry-id-attributes">
-	 <!-- this is a work around to calcualte $parts --> 
-	<xsl:if test="count($parts)&lt;1"><xsl:message>the document contains no parts</xsl:message></xsl:if>
+    <!-- this is a work around to calcualte $parts --> 
+   <xsl:if test="count($parts)&lt;1"><xsl:message>the document contains no parts</xsl:message></xsl:if>
   <xsl:variable name="part" select="ancestor-or-self::*[@id=$parts/@id][1]/@id"/>
   <xsl:if test="$SELECTID!=$part">
       <xsl:attribute name="id">
@@ -358,26 +358,26 @@
 <xsl:template name="check-id">
   <xsl:if test="not(@id)">
     <xsl:message terminate="yes">
-    	<xsl:text>id attribute is missing for element </xsl:text>
-    	<xsl:value-of select="name(.)"/>
+       <xsl:text>id attribute is missing for element </xsl:text>
+       <xsl:value-of select="name(.)"/>
     </xsl:message>
   </xsl:if>
 </xsl:template>
 
 <!--===============================================================-->
 <xsl:template match="*" mode="strip-ids">
-	<xsl:copy>		
-		<xsl:apply-templates select="@*|node()" mode="strip-id"/>
-	</xsl:copy>
+   <xsl:copy>      
+      <xsl:apply-templates select="@*|node()" mode="strip-id"/>
+   </xsl:copy>
 </xsl:template>
 
 <xsl:template match="@id" mode="strip-id"/>
 
 <!--===== copy the rest =====-->
 <xsl:template match="@*|node()">
-	<xsl:copy>		
-		<xsl:apply-templates select="@*|node()"/>
-	</xsl:copy>
+   <xsl:copy>      
+      <xsl:apply-templates select="@*|node()"/>
+   </xsl:copy>
 </xsl:template>
 
 </xsl:stylesheet>

@@ -258,12 +258,15 @@ The name of the link will be the content of cms:entry or an @type called element
  <xsl:value-of select="$before"/>
  <a>
     <xsl:attribute name="href">
-      <xsl:if test="@part and name(key('id',@ref))='cms:entry'">        
+      <xsl:if test="@part and name(key('id',@ref))='cms:entry'">
         <xsl:value-of select="@part"/>
         <xsl:value-of select="$EXT"/>
-      </xsl:if>    
-      <xsl:text>#</xsl:text>
-      <xsl:value-of select="@ref"/>
+      </xsl:if>
+      <!-- jump to navigation bar instead to head of chapter -->
+      <!-- except toc and toc-media. other exceptions may be necessary -->
+      <xsl:if test="@ref=':contents' or @ref=':toc-media'">        
+        <xsl:text>#</xsl:text><xsl:value-of select="@ref"/>
+      </xsl:if>
     </xsl:attribute>
 	<xsl:value-of select="normalize-space($LABEL)"/>
   </a>

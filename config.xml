@@ -10,15 +10,35 @@ sie alle möglichen Angaben zur Steuerung der Styles -->
 
   <!-- before and after label if there is no content -->
   <link to="citation" before="[" after="]"/>
+
+  <!--== css-file ==-->
+  <!--css-stylesheet>xdiml.css</css-stylesheet-->
   		
-  <copyright>&#169; Die inhaltliche Zusammenstellung und Aufmachung dieser Publikation sowie die elektronische 
+  <!--== additional information at the bottom ==-->		
+  <infoBottom lang="de">&#169; Die inhaltliche Zusammenstellung und Aufmachung dieser Publikation sowie die 
+    elektronische 
      Verarbeitung sind urheberrechtlich geschützt. Jede Verwertung, die nicht ausdrücklich 
      vom Urheberrechtsgesetz zugelassen ist, bedarf der vorherigen Zustimmung. Das gilt insbesondere für 
      die Vervielfältigung, die Bearbeitung und Einspeicherung und Verarbeitung in elektronische Systeme.
-  </copyright>
+  </infoBottom>
+  <infoBottom lang="en">&#169; Die inhaltliche Zusammenstellung und Aufmachung dieser Publikation sowie die
+     elektronische 
+     Verarbeitung sind urheberrechtlich geschützt. Jede Verwertung, die nicht ausdrücklich 
+     vom Urheberrechtsgesetz zugelassen ist, bedarf der vorherigen Zustimmung. Das gilt insbesondere für 
+     die Vervielfältigung, die Bearbeitung und Einspeicherung und Verarbeitung in elektronische Systeme.
+  </infoBottom>
 
-  <!-- css-file -->
-  <!--css-stylesheet>xdiml.css</css-stylesheet-->
+  <infoMiddle lang="de"><![CDATA[<a href="http://edoc.hu-berlin.de">Zertifizierter Dokumentenserver<br/> der Humboldt-Universität zu Berlin</a>]]>
+  </infoMiddle>
+
+  <infoMiddle lang="en"><![CDATA[<a href="http://edoc.hu-berlin.de">Zertifizierter Dokumentenserver<br/> der Humboldt-Universität zu Berlin</a>]]>
+  </infoMiddle>
+  
+  <infoRight lang="de">HTML-Version erstellt am: &lt;br/&gt;</infoRight>
+  <infoRight lang="en">HTML generated: &lt;br/&gt;</infoRight>
+
+  <infoLeft lang="de"><![CDATA[<a href="http://edoc.hu-berlin.de/diml/">DiML DTD</a> Version 3.0]]></infoLeft>
+  <infoLeft lang="en"><![CDATA[<a href="http://edoc.hu-berlin.de/diml/">DiML DTD</a> Version 3.0]]></infoLeft>
 
   <vocables>
     <!-- Navigation in module-cms -->
@@ -65,9 +85,6 @@ sie alle möglichen Angaben zur Steuerung der Styles -->
     <!-- pagenumbers -->
     <page de="Seite" en="Page" />
     <pages de="Seiten" en="Pages" />
-
-    <!-- stuff -->
-    <dimldtd de="DiML DTD Version 3.0" en="DiML DTD Version 3.0" />
 
   </vocables>
 

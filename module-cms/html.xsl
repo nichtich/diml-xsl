@@ -159,23 +159,23 @@
 </xsl:template>
 
 <xsl:template name="InfoTable">
-	<table width="100%" border="0" class="InfoTable">
-		<xsl:if test="$CONFIG/copyright">
+	<table width="100%" border="0" class="infoTable">
+		<xsl:if test="$CONFIG/infoBottom[@lang=$LANG]">
 	  		<tr>
-  				<td colspan="3" class="copyrightInfo">
-  					<xsl:value-of select="$CONFIG/copyright"/>
+  				<td colspan="3" class="infoBottom">
+  					<xsl:value-of select="$CONFIG/infoBottom[@lang=$LANG]" disable-output-escaping="yes"/>
   				</td>
 		  	</tr>
 		</xsl:if> 	
 		<tr>
-			<td class="dtdInfo">
-				<xsl:value-of select="$VOCABLES/dimldtd/@*[name()=$LANG]" />
+			<td class="infoLeft">
+				<xsl:value-of select="$CONFIG/infoLeft[@lang=$LANG]" disable-output-escaping="yes"/>
 			</td>
-     	  	<td class="serverInfo">
-				<a href="http://edoc.hu-berlin.de">Zertifizierter Dokumentenserver<br/> der Humboldt-Universität zu Berlin</a>
+     	  	<td class="infoMiddle">
+     	   		<xsl:value-of select="$CONFIG/infoMiddle[@lang=$LANG]" disable-output-escaping="yes"/>
 	      	</td>
-     	   	<td class="generatedInfo">
-           		HTML-Version erstellt am:<br/>
+     	   	<td class="infoRight">
+     	   		<xsl:value-of select="$CONFIG/infoRight[@lang=$LANG]" disable-output-escaping="yes"/>
 	          	<xsl:value-of select="$CONVDATE" />
         		</td>
      	</tr>

@@ -417,23 +417,22 @@ p.navbottom {
               font-size: x-small;
 }
 
-/*-- Server Information --*/
+/*-- information at the bottom --*/
+table.infoTable { }
 
-td.copyrightInfo {
+td.infoBottom {
               font-size: x-small;
 }
-td.serverInfo {
+td.infoMiddle {
     background-color: #E0E0E0;
               font-size: x-small;
               text-align:center;
 }
-
-td.dtdInfo {
+td.infoLeft {
               font-size: x-small;
               text-align:center;
 }
-
-td.generatedInfo {
+td.infoRight {
               font-size: x-small;
               text-align:center;
 }

@@ -34,8 +34,7 @@ public class DiMLTransform extends XMLReading {
 	private boolean generateCMSFiles  = true;
 	private boolean doPreprocessing   = true;
   
-  Hashtable params = new Hashtable();
-	
+  Hashtable params = new Hashtable();	
 	
 	TransformerFactory tFactory = TransformerFactory.newInstance(); 
 	
@@ -93,7 +92,6 @@ public class DiMLTransform extends XMLReading {
 		}  
 		message("\tparsing "+xslFile);						
 		Templates t = tFactory.newTemplates(new StreamSource(xslFile));
-		message("\tparsing done.");
 		return t;
   }
     
@@ -102,12 +100,16 @@ public class DiMLTransform extends XMLReading {
 		Source input;    
 	  DOMResult output;
 		
-		input = new DOMSource(document);
+		input = new DOMSource(document); 
+		// TODO: validate
 		
 		//getDocumentElement();
 		Element e = (Element)XPathAPI.selectSingleNode(document,"/*"); 
 		
 		message("transforming:");
+    params.put("CONVDATE",DateFormat.getDateInstance().format(new Date()));
+    if(cssDirectory!=null) params.put("STYLEDIRECTORY",cssDirectory.toString()+File.separator);
+
     
     if(e.getTagName() == "etd") {				 		 
 		 		  
@@ -122,9 +124,7 @@ public class DiMLTransform extends XMLReading {
 	   NodeList parts = selectParts(document,xpath);	
 
 	   message("document split into "+parts.getLength()+" parts:");
-	   
-	   //CMSContainer cmsContainer = new CMSContainer();
-  
+	     
 	   // TODO: if there are no parts...	  	  
 	   for(int s=0; s<parts.getLength(); s++) {
   	   Node node = parts.item(s);  	  
@@ -135,17 +135,15 @@ public class DiMLTransform extends XMLReading {
 	  	 } 
 	  	 
 	  	 String id = node.getAttributes().getNamedItem("id").getNodeValue();	  	 	  	 
+	  	 params.put("SELECTID",id);
 	  	 
 	  	 Node cmsd=null;
 	  	 
-       if (generateCMSFiles || generateHTMLFiles) {	  	
-	  	 //Document cmsd = cmsContainer.getDocument(node);    
-	 
+       if (generateCMSFiles || generateHTMLFiles) {	 
 	       Transformer transformer = diml2cms.newTransformer();
 	       input  = new DOMSource(document);
 	       output = new DOMResult();
-	       transformer.setParameter("SELECTID",id);	     
-	       transformer.setParameter("CONFIGFILE",configFile.getAbsolutePath());
+	       setParameters(transformer);
 	       transformer.transform(input, output);
 	       cmsd = output.getNode();	 
        } else {
@@ -162,6 +160,7 @@ public class DiMLTransform extends XMLReading {
          
          Transformer serializer = tFactory.newTransformer();
          serializer.setOutputProperty(OutputKeys.ENCODING,"ISO-8859-1");
+         //TODO: validate!
          //serializer.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM,"cms.dtd");
          //serializer.setOutputProperty(OutputKeys.INDENT,"yes");
          serializer.transform(domSource, streamResult); 
@@ -171,13 +170,10 @@ public class DiMLTransform extends XMLReading {
 	  	   String resultFile = resultDir+"/"+id+".html"; 
 	  	   
 	  	   message("transforming "+resultFile);      		
-	  	   //message("manually: 'diml2html.xsl SELECTID="+id+"'");
+	  	   //message("manually: 'diml2html.xsl SELECTID="+id+"'"+params);
 	  	   
 	       Transformer transformer = templates.newTransformer();
-	       transformer.setParameter("CONVDATE",DateFormat.getDateInstance().format(new Date()));
-	       transformer.setParameter("CONFIGFILE",configFile.getAbsolutePath());
-
-	       if(cssDirectory!=null) transformer.setParameter("STYLEDIRECTORY",cssDirectory.toString()+File.separator);
+	       setParameters(transformer);
 	       
 	       input  = new DOMSource(cmsd);
 	       StreamResult out = new StreamResult(resultFile);
@@ -227,24 +223,25 @@ public class DiMLTransform extends XMLReading {
       configFile = new File(DIMLXSL+File.separator+"config.xml");
       if (!configFile.exists())
         errorMsg("Config file "+configFile+" does not exist!");
-    }  
+    } 
+    params.put("CONFIGFILE",configFile.getAbsolutePath());
 
 	  Node doc=null;
+	  	  
 	  
 	  if(doPreprocessing) {
       // load preprocess.xsl
 		  message("preprocessing");
 		  Templates preprocess = loadXSL(preprocessFile);
       Transformer transformer = preprocess.newTransformer();
-      transformer.setParameter("CONFIGFILE",configFile.getAbsolutePath());
+      setParameters(transformer);            
       input = new StreamSource(dimlFile);
  	    output = new DOMResult();
  	    message("\ttransforming "+dimlFile);
 	    transformer.transform(input, output);
-	    message("\tdone.");
     
       String preFile = resultDir+File.separator+"_pre.xml";
-      message("preprocessing done (writing to "+preFile+")");
+      message("preprocessing done - writing "+preFile);
             
       DOMSource domSource = new DOMSource(output.getNode());
       StreamResult streamResult = new StreamResult(new FileWriter(preFile));
@@ -272,6 +269,16 @@ public class DiMLTransform extends XMLReading {
 		}
   }
 
+  private void setParameters(Transformer transformer) {
+    Enumeration keys = params.keys();
+    String name,value;
+    
+    while(keys.hasMoreElements()) {
+      name = (String)keys.nextElement();
+      value = (String)params.get(name);
+      transformer.setParameter(name,value);
+    }
+  }  
   
 	public static void main(String[] args) throws Exception {
 		if(args.length<1) {
@@ -361,22 +368,24 @@ public class DiMLTransform extends XMLReading {
 		String s;
 
 		s  = "DiMLTransform - generate html output from DiML\n";
-		s += "Usage: java DiMLTransform [<dimlFile> [<resultDir> [<cssDir>]] [<options>]\n";
-		s += " -f dimlFile\n";
-		s += " -d : Debug Mode\n";
-		s += " -v : verbose Level\n";
+		s += "Usage: java DiMLTransform <dimlFile> [<resultDir> [<cssDir>]] [PARAMS]\n";
+		s += "You can also use the following arguments:\n";
+		s += " -f dimlFile (also test dimlFile_xdiml.xml and dimlFile.xml)\n";
+		s += " -d debug Mode\n";
+		s += " -v n verbose Level n\n";
 		s += " -s cssDirectory (location of xdiml.css)\n";
-		s += " -o resultDir\n";
-		s += " -c configFile\n";
+		s += " -o resultDir (current directory if omitted)\n";
+		s += " -c configFile (default $DIMLXSLCONFIG or config.xml)\n";
 		s += " -p preprocessFile (preprocess.xsl)\n";
 		s += " -i select one id - only process this part of the document\n";
-    s += " -P1 use preprocessor    / -C0 do not preprocess\n";		
+    s += " -P1 use preprocessor    / -P0 do not preprocess\n";		
 		s += " -C1 generate CMS files  / -C0 do not generate CMS files\n";
     s += " -H1 generate HTML files / -H0 do not generate CMS files\n";		
-    s += "Examples:\n";
-    s += "DiMLTransform foo_xdiml.xml html/ ../style/\n";
-    s += "DiMLTransform -P0 -f _pre.xml -o html/ -c ../style/\n";
-    s += "DiMLTransform foo -i front -C0\n";
+    s += " PARAM=VALUE pairs are passed through to the XSLT scripts\n";
+    s += "\nExamples:\n";
+    s += "  DiMLTransform foo_xdiml.xml html/ ../style/\n";
+    s += "  DiMLTransform -P0 -f _pre.xml -o html/ -c ../style/\n";
+    s += "  DiMLTransform foo -i front -C0\n";
 
 		System.out.println(s);
 		System.exit(0);

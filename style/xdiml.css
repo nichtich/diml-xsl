@@ -100,6 +100,7 @@ p.degree {
 /*-- type="1" = Abgabe und type="2" = Verteidigung der Dissertation --*/
 
 p.date {
+         text-align: center;
      }
 
 /*-- Text "Datum:" --*/     

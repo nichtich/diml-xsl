@@ -184,7 +184,9 @@ acknowledgement: Danksagung
       <xsl:value-of select="@ref"/>
     </xsl:attribute>
     <xsl:choose>
-      <xsl:when test="@type='front'">Titelseite</xsl:when>
+      <xsl:when test="@type='front'">
+      <xsl:value-of select="document('vocabularies.xml',.)/vocabularies/front/@*[name()='de']" />
+      </xsl:when>
       <xsl:otherwise><xsl:value-of select="."/></xsl:otherwise>
     </xsl:choose>
   </a>

@@ -97,9 +97,13 @@ There are no museum specimens of the dodo still extant today, but from artists' 
 			<motto>
 				<p>Ein Motto stell ich hier voran - weil ich sowas eben kann!</p>
 			</motto>
-			<p>Im ersten Kapitel geht es um Frösche.<footnote>
-					<p>diese grünen Dinger</p>
-				</footnote>
+			<p>Im ersten Kapitel geht es um Frösche
+                        <footnote><p>diese grünen Dinger (Fußnote 1)</p></footnote>
+                        , um Drachen
+                        <footnote><p>diese feuerspuckenden Dinger (Fußnote 2)</p></footnote>
+                        und um Wurzelzwerge
+                        <footnote><p>diese kleinen Dinger, über die man immer stolpert (Fußnote 3)</p></footnote>
+                        .
 			      Ich verweise jetzt mal auf Seite <link ref="p20">20</link>.
 			</p>
 			<p>Es besteht auch nur aus zwei Absätzen.</p>
@@ -142,17 +146,37 @@ There are no museum specimens of the dodo still extant today, but from artists' 
       </head>
 			<p>
         Diese Kapitel enthält Endnoten
-        <endnote>
-					<p>Endnoten stehen am Ende</p>
-				</endnote>.
+        <endnote><p>Endnoten stehen am Ende (1. Endnote)</p></endnote>.
         Im Gegensatz zu Fussnoten stehen Endnoten am
         Ende eines Kapitels
-        <endnote>
-					<p>oder des gesamten Textes</p>
-				</endnote>
+        <endnote><p>oder des gesamten Textes (2. Endnote)</p></endnote>
+        oder ähnlich
+        <endnote><p>oder des gesamten Textes (3. Endnote)</p></endnote>
+
 			</p>
 			<pagenumber start="20" id="p20"/>
 		</chapter>
+
+
+		<chapter>
+			<head>
+				<pagenumber start="21" id="p21"/>Letztes Kapitel</head>
+<p>Hier steht nicht mehr viel.</p>
+<p>Ein interner Link mit "link" auf die <link ref="p21">Seite 21</link>.</p>
+<p>Ein externer Link mit "url" auf die offizielle <url href="http://www.dodo.de">Dodo-Homepage</url>.</p>
+<p>&nbsp;</p>
+<p>Ein externer Link mit "url" und type="URL" auf die offizielle <url href="http://www.dodo.de" type="URL">Dodo-Homepage</url>.</p>
+<p>Ein externer Link mit "url" und type="DOI" <url href="5-232-5435-3144" type="DOI">5-232-5435-3144</url>.</p>
+<p>Ein externer Link mit "url" und type="URN" <url href="5-232-5435-3144" type="URN">5-232-5435-3144</url>.</p>
+<p>Ein externer Link mit "url" und type="ISBN" <url href="5-232-5435-3144" type="ISBN">5-232-5435-3144</url>.</p>
+<p>Ein externer Link mit "url" und type="ISSN" <url href="5-232-5435-3144" type="ISSN">5-232-5435-3144</url>.</p>
+<p>Ein externer Link mit "url" und type="ISO" <url href="5-232-5435-3144" type="ISO">5-232-5435-3144</url>.</p>
+<p>Ein externer Link mit "url" und type="RFC" <url href="5-232-5435-3144" type="RFC">5-232-5435-3144</url>.</p>
+
+
+		</chapter>
+
+
 	</body>
 	<back>
 		<bibliography id="bibliography1">

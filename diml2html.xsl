@@ -4,9 +4,11 @@
 
 <xsl:param name="lang">
 <xsl:choose>
-  <xsl:when test="/etd/@lang"><xsl:value-of select="/etd/@lang" />
+  <xsl:when test="/etd/@lang and /etd/@lang != ''">
+     <xsl:value-of select="/etd/@lang" />
   </xsl:when>
-  <xsl:when test="/cms:meta...">
+  <xsl:when test="/cms:container/cms:document/cms:meta/cms:entry/@type and /cms:container/cms:document/cms:meta/cms:entry/@type!=''">
+     <xsl:value-of select="/etd/@lang" />
   </xsl:when>
   <xsl:otherwise>de</xsl:otherwise>
 </xsl:choose>

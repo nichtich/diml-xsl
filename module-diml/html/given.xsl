@@ -6,5 +6,3 @@
 </xsl:template>
 
 </xsl:stylesheet>
-
-

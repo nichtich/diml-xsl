@@ -12,14 +12,20 @@ For more information on DiML-styles, see http://thema.sourceforge.net/
 Manifest
 --------
 
-README             this file
-TODO               planned features not yet implemented
-module-text/       styles for elements of module text
-module-common/     styles for elements of module common
-module-lists/      styles for elements of module lists
-module-citation/   styles for elements of module citation
-module-documents/  styles for elements of module documents
-diml2html.xsl      style file to produce HTML
+README               this file
+TODO                 planned features not yet implemented
+module-CALStable/    styles for elements of module CALStable
+module-citation/     styles for elements of module citation
+module-common/       styles for elements of module common
+module-diml/         styles for elements of module diml
+module-documents/    styles for elements of module documents
+module-lists/        styles for elements of module lists
+module-mathematics/  styles for elements of module mathematics
+module-media/        styles for elements of module media
+module-structure/    styles for elements of module structure
+module-text/         styles for elements of module text
+module-verse/        styles for elements of module verse
+diml2html.xsl        style file to produce HTML
 
 Changes
 -------
@@ -29,9 +35,15 @@ We just started using CVS
 Installation
 ------------
 
-Unpack the distribution somewhere. Open the file
-  examples/test.xml
-in Mozilla, Internet Explorer or another Browser with an XSLT engine.
+1. Choose a directory 
+2. Unpack the distribution in a subdirectory (for instance 'diml-xsl')
+2. Get the DiML-DTD and unpack it in another subdirectory called 'dtd'
+3. Open the file
+     diml-xsl/examples/test.xml
+   in Mozilla, Internet Explorer or another Browser with an XSLT engine.
+   If you get no error message but a HTML view, everything works fine.
+   If you get an error message like "can not find '../../dtd/xdiml.dtd'"
+   then you have to change the path of the DiML-DTD.
 
 
 Use
@@ -92,4 +104,5 @@ OTHER DEALINGS IN THE SOFTWARE.
 Contacting the Author
 ---------------------
 
-These stylesheets are maintained by Jakob Voß, <diml-xsl@nichtich.de>.
+These stylesheets are maintained by Jakob Voß, <diml-xsl@nichtich.de>
+and Burghard Güther, <burghard@guether.de>

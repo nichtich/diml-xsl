@@ -383,3 +383,18 @@ p.navbottom {
 p.copyrightbottom {
               font-size: 10pt;
 }
+
+
+p.dimldtdbottom {
+              font-size: 10pt;
+              text-align:center;
+}
+p.docservbottom {
+              font-size: 10pt;
+              text-align:center;
+}
+p.datebottom {
+              font-size: 10pt;
+              text-align:center;
+}
+

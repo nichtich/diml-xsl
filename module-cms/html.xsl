@@ -139,20 +139,23 @@
   <hr/>
 
   <p class="copyrightbottom">
-     &amp;copy;  Die inhaltliche Zusammenstellung und Aufmachung dieser Publikation sowie die elektronische 
+     <xsl:text disable-output-escaping="yes">&amp;copy;</xsl:text> Die inhaltliche Zusammenstellung und Aufmachung dieser Publikation sowie die elektronische 
      Verarbeitung sind urheberrechtlich geschützt. Jede Verwertung, die nicht ausdrücklich 
      vom Urheberrechtsgesetz zugelassen ist, bedarf der vorherigen Zustimmung. Das gilt insbesondere für 
      die Vervielfältigung, die Bearbeitung und Einspeicherung und Verarbeitung in elektronische Systeme.
   </p>
      <center>
-     <table valign="top" cellpadding="6">
+     <table valign="top" cellpadding="6" width="100%" border="0">
       <tr>
-        <td>Archiviert in DiML DTD<br/>a subset from ETD-ML Version 1.1<br/></td>
+        <td align="center"><p class="dimldtdbottom"><xsl:value-of select="$VOCABLES/dimldtd/@*[name()=$LANG]" /></p></td>
         <td align="center" bgcolor="#96B6EB">
-           <a href="http://edoc.hu-berlin.de">Zertifizierter Dokumentenserver<br/> der Humboldt-Universität zu Berlin</a>
+           <p class="docservbottom"><a href="http://edoc.hu-berlin.de">Zertifizierter Dokumentenserver<br/> der Humboldt-Universität zu Berlin</a></p>
         </td>
-        <td align="center">HTML - Version erstellt am:<br/>
-           <xsl:value-of select="$KONVDATE" />
+        <td align="center">
+           <p class="datebottom">
+             HTML - Version erstellt am:<br/>
+             <xsl:value-of select="$CONVDATE" />
+           </p>
         </td>
       </tr>
      </table>

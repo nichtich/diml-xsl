@@ -4,7 +4,7 @@
 
 <xsl:param name="VOCFILE">vocables.xml</xsl:param>
 <xsl:variable name="VOCABLES" select="document($VOCFILE)/vocables"/>
-<xsl:param name="KONVDATE"></xsl:param>
+<xsl:param name="CONVDATE"></xsl:param>
 
 <xsl:param name="LANG">
   <xsl:choose>

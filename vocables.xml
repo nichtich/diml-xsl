@@ -36,4 +36,9 @@
 <first de="Erster Teil" en="First" />
 <last de="Letzter Teil" en="Last" />
 
+<!-- Copyright and stuff -->
+
+<dimldtd de="DiML DTD Version 2.0" en="DiML DTD Version 2.0" />
+
+
 </vocables>

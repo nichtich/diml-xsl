@@ -46,34 +46,10 @@ blockquote {
 /*----                                                                     ---*/
 /*----------------------------------------------------------------------------*/
 
-/*-- Headline --*/
-table.headline {
-         font-family: Times;
-         font-size: 11pt;
-         margin-bottom: 1px;
-         background-color:#E0E0E0;
-         padding:6px;
-         margin:0px; 
-         border:none;
-           }
-td.headline1 {
-         text-align: left;
-            }
-            
-td.headline2 {
-         text-align: center;
-            }
-
-span.headline-author {
-         font-weight: bold;
-                     }
-
-span.headline-title {
-                    }
 
 /*-- Titel der Dissertation --*/
 p.title {
-         font-family: Helvetica, Arial;
+         font-family: Helvetica, Arial, Verdana;
          font-style: normal;
          font-size: 18pt;
          text-align: center;
@@ -158,7 +134,7 @@ span.gutachterText {
 
 /*-- Dokumenttyp, z.B. Dissertation, Magisterarbeit, Diplomarbeit --*/
 p.submission {
-         font-family: Verdana, Lucida, Arial;
+         font-family: Verdana, Lucida, Arial, Helvetica;
          margin-top: 60;
          font-weight: demi-bold;
          font-size:  18pt;
@@ -282,4 +258,31 @@ p.tablelegend {
 p.tablecaption  {
   }
 
-         
+
+/*----------------------------------------------------------------------------*/
+/*-                              Navigation                                  -*/
+/*----------------------------------------------------------------------------*/
+
+
+table.navigation {
+  font-family: Verdana, Lucida, Arial, Helvetica;
+  font-size: 11pt;
+  margin-bottom: 1px;
+  background-color:#E0E0E0;
+  padding:6px;
+  margin:0px; 
+  border:none;
+}         
+
+td.nav-about {
+  text-align: center;
+  font-size: 10pt;  
+}
+            
+td.nav-parts {
+  text-align: center;
+  font-size: 10pt;  
+}
+
+.nav-author { font-weight: bold; }
+.nav-author {  }

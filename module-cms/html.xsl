@@ -85,22 +85,23 @@
 <!--==== Navigation Bar ==============================================-->
 
 <xsl:template match="cms:meta" mode="navigation">
-  <table width="100%" border="0" class="headline">
+  <table width="100%" border="0" class="navigation">
     <tr>
-      <td class="headline1" valign="top">
+      <td class="nav-about" valign="top">
          <xsl:apply-templates select="cms:entry[@type='author']"/>
          <xsl:apply-templates select="cms:entry[@type='title']"/>
       </td>   
     </tr>
     <tr>
-      <td class="headline2" colspan="2">
-      <xsl:if test="cms:entry[@type='pagenumber']">
-      	<xsl:call-template name="pagenumbers-nav"/>
-         </xsl:if>
+      <td class="nav-parts" colspan="2">
          <xsl:apply-templates select="cms:entry[@type='front']" mode="link"/>
          <xsl:if test="cms:entry[@type='chapter']">
            Kapitel: <xsl:apply-templates select="cms:entry[@type='chapter']" mode="link"/>
            <br/>
+         </xsl:if>         
+         <xsl:if test="cms:entry[@type='pagenumber']">
+           Seite:
+      	 <xsl:call-template name="pagenumbers-nav"/>
          </xsl:if>         
          <!-- bibliography, declaration ... -->
         <xsl:apply-templates select="cms:entry[@type!='pagenumber' and @type!='chapter' and @type!='front'][@ref]" mode="link"/>
@@ -162,7 +163,7 @@
      <br/>-->
 	<form method="get"
 	 action="javascript:self.location.href=document.pagenumForm.pagenumber.value;void(0);" name="pagenumForm">
-		<input type="submit" value="Gehe zu Seite:"/>
+		<!--input type="submit" value="Gehe zu Seite:"/-->
 		<select name="pagenumber" onChange="document.pagenumForm.submit();">
 			<xsl:apply-templates select="cms:entry[@type='pagenumber']" mode="nav-form"/>			
 		</select>
@@ -196,11 +197,11 @@ acknowledgement: Danksagung
 </xsl:template>
 
 <xsl:template match="cms:entry[@type='title']">
-  <xsl:value-of select="."/>
+  <span class="nav-title"><xsl:value-of select="."/></span>
 </xsl:template>
 
 <xsl:template match="cms:entry[@type='author']">
-  <xsl:value-of select="."/>:
+  <span class="nav-author"><xsl:value-of select="."/>: </span>
 </xsl:template>
 
 <xsl:template match="cms:entry"/>

@@ -34,17 +34,45 @@
 </xsl:template>
 
 <xsl:template match="pagenumber/@start">
-  <!--xsl:choose>
-	<xsl:when test=""></xsl:when>
-  </xsl:choose>-->
-  <xsl:value-of select="."/>
-  <!-- TODO: test numbering=lroman etc.!!! -->
+	<xsl:choose>
+		<xsl:when test="@numerbing='arabic'">
+			<xsl:number value="." format="1"/>
+		</xsl:when>
+		<xsl:when test="@numerbing='lalpha'">
+			<xsl:number value="." format="a"/>
+		</xsl:when>
+		<xsl:when test="@numerbing='ualpha'">
+			<xsl:number value="." format="A"/>
+		</xsl:when>
+		<xsl:when test="@numerbing='lroman'">
+			<xsl:number value="." format="i"/>
+		</xsl:when>
+		<xsl:when test="@numerbing='uroman'">
+			<xsl:number value="." format="I"/>
+		</xsl:when>
+		<xsl:otherwise>
+			<xsl:value-of select="."/>
+		</xsl:otherwise>
+	</xsl:choose>
 </xsl:template>
 
 <!--xsl:template match="pagenumber" name="pagenumber-content"-->
+<!-- Use the start attribute or the label attribute! -->
 <xsl:template match="pagenumber" name="pagenumber-content">
-  <span class="pagenumber">[<xsl:value-of select="$PAGENUMBER-LABEL"/><xsl:value-of select="@system"/> 
-  <xsl:apply-templates select="@start"/>]</span>
+  <span class="pagenumber">
+  	<xsl:text>[</xsl:text>
+  	<xsl:value-of select="$PAGENUMBER-LABEL"/>
+  	<xsl:value-of select="@system"/>
+  	<xsl:choose>
+		<xsl:when test="@label">
+			<xsl:value-of select="@label"/>
+		</xsl:when>
+		<xsl:otherwise>
+		  	<xsl:apply-templates select="@start"/>
+		</xsl:otherwise>
+	</xsl:choose>
+  	<xsl:text>]</xsl:text>
+  </span>
 </xsl:template>
 
 <xsl:template match="pagenumber" name="pagenumber-simple">

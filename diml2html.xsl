@@ -63,20 +63,6 @@
 	</xsl:attribute>
 </xsl:template>
 
-<xsl:template name="a-href-attribute">
-	<xsl:param name="object" select="."/>
-	<xsl:attribute name="href">
-		<xsl:text>#</xsl:text>
-    <xsl:choose>
-	    <xsl:when test="$object/@id"><xsl:value-of select="$object/@id"/></xsl:when>	  
-	    <xsl:otherwise>
-	      <xsl:value-of select="generate-id($object)"/>
-	    </xsl:otherwise>
-	  </xsl:choose>
-	</xsl:attribute>
-</xsl:template>
-
-<!-- Taucht genauso bei module-common\html\head.xsl auf -->
 
 <!-- <head> -->
 <xsl:template match="*" mode="html-head"/>

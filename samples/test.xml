@@ -310,6 +310,7 @@ In: <worktitle>Psychologie heute</worktitle>,
 			<freehead>Fremde Werke</freehead>
 			<citation id="FT1997">
 				<workauthor>Joachim Funke und Thomas Krueger</workauthor>:
+				<pagenumber label="102"/>
         <articletitle>Psychologie im Internet. Teil 10: Lernen im Netz: Hypertext und Hyperlernen</articletitle>
          In: <worktitle>Psychologie heute</worktitle>,
          <pubdate>1997</pubdate>,
@@ -319,7 +320,7 @@ In: <worktitle>Psychologie heute</worktitle>,
 			<freehead>Eigene Werke</freehead>
 			<p>ich habe noch nicht so viel geschrieben, sorry</p>
 		</bibliography>
-		<!--glossary>
+		<glossary>
       <dl>
         <def>
           <term>African Swallow</term>
@@ -340,7 +341,7 @@ In: <worktitle>Psychologie heute</worktitle>,
           </dd>
         </def>
       </dl>
-    </glossary-->
+    </glossary>
     		<bibliography>
     			<head>Noch eine Bibliography</head>
     			<p>

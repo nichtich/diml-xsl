@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+  
   <xsl:key name="term" match="term" use="@id"/>
   
 <!--  terms koennen per @id und @ref verbunden werden   fuer <term ref="foo"/> wird der Inhalt von      <term id="foo">...</term> angezeigt. -->
@@ -19,26 +20,25 @@
   </xsl:template>
 
   <xsl:template name="term-content">
-    <xsl:variable name="ref">
-    	<xsl:if test="@ref">
-	<xsl:value-of select="key('term',@ref)"/>
-	</xsl:if>
-    </xsl:variable>
     <xsl:choose>
-      <xsl:when test="@ref">      
-        <a>
-          <xsl:call-template name="a-href-attribute">
-            <xsl:with-param name="object" select="$ref"/>
-          </xsl:call-template>
+      <xsl:when test="@ref and key('term',@ref)">
+        <a href="#{@ref}"> <!-- TODO: term on other page! -->
           <xsl:choose>
             <xsl:when test="node()">
               <xsl:apply-templates/>
             </xsl:when>
             <xsl:otherwise>
-              <xsl:apply-templates select="$ref/node()"/>
+              <xsl:for-each select="key('term',@ref)">
+                <xsl:call-template name="term-content"/>
+              </xsl:for-each>
             </xsl:otherwise>
           </xsl:choose>
         </a>
+      </xsl:when>
+      <xsl:when test="@ref">        
+        <xsl:message terminate="yes">
+ term/@ref to unknown term/@id (value="<xsl:value-of select="@ref"/>)
+        </xsl:message>
       </xsl:when>
       <xsl:otherwise>
         <xsl:apply-templates/>

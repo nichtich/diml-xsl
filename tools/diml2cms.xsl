@@ -97,7 +97,9 @@
 <xsl:template match="front/author" mode="cms">
   <cms:entry type="author">
   	<xsl:choose>
-  	  <xsl:when test="surname">
+  	  <xsl:when test="given|surname">
+    	    <xsl:value-of select="given"/>
+    	    <xsl:text> </xsl:text>
     	    <xsl:value-of select="surname"/>
   	  </xsl:when>
   	  <xsl:otherwise>
